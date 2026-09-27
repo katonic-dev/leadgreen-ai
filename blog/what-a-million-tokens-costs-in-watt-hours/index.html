@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>What a million tokens costs in watt-hours</title>
+<meta name="description" content="The public baseline for GPU energy per million output tokens: where the numbers come from, what the lowest, reference and highest rows say, and why the busy server beats the idle one seven times over.">
+<link rel="canonical" href="https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="What a million tokens costs in watt-hours">
+<meta property="og:description" content="The public baseline for GPU energy per million output tokens: where the numbers come from, what the lowest, reference and highest rows say, and why the busy server beats the idle one seven times over.">
+<meta property="og:url" content="https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BlogPosting",
+ "headline": "What a million tokens costs in watt-hours",
+ "description": "The public baseline for GPU energy per million output tokens: where the numbers come from, what the lowest, reference and highest rows say, and why the busy server beats the idle one seven times over.",
+ "datePublished": "2026-09-26",
+ "dateModified": "2026-09-26",
+ "author": {
+  "@type": "Person",
+  "name": "Prem Naraindas",
+  "url": "https://www.linkedin.com/in/premnaraindas/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "Lead Green",
+  "url": "https://leadgreen.ai/",
+  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+  "parentOrganization": {
+   "@type": "Organization",
+   "name": "Katonic",
+   "url": "https://www.katonic.ai"
+  }
+ },
+ "mainEntityOfPage": "https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/",
+ "url": "https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/",
+ "inLanguage": "en",
+ "license": "https://creativecommons.org/licenses/by/4.0/",
+ "isAccessibleForFree": true
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog" aria-current="page">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<article class="post">
+<div class="title">
+<p class="eyebrow">Blog</p>
+<h1>What a million tokens costs in watt-hours</h1>
+<p class="byline">By Prem Naraindas · <time datetime="2026-09-26">26 September 2026</time> · Lead Green, a Katonic project</p>
+</div>
+<div class="body">
+<p>Look, everybody in this industry now buys tokens. Per million, on an invoice, from a cloud or from their own GPUs. And nobody gets told what a million of them costs in electricity. I have sat in enough capacity meetings to know the question is coming, so this is the baseline: what the public measurements say a million output tokens takes in watt-hours, and what moves the number.</p>
+
+<h2>The unit</h2>
+<p>Watt-hours per million output tokens, Wh/M. It is GPU energy only, divided by the tokens the model produced. Prompt processing is inside the figure, because the measurement divides total GPU energy by output tokens. Host, network, cooling and idle time are not inside it. So every number here is a floor.</p>
+<p>For scale: a million output tokens is roughly three quarters of a million words of English. And the reference row below, 63.5 Wh, is a 2 kW kettle running for 1.9 minutes. The kettle is my assumption, not a source; the tokens are.</p>
+
+<h2>Where the numbers come from</h2>
+<p>The ML.ENERGY Leaderboard, run by the ML.ENERGY Initiative at the University of Michigan, serves open-weight models with vLLM on real H100 and B200 servers, measures GPU energy at steady state with its Zeus library, and publishes every configuration it ran as raw data under Apache 2.0. Version 3.0 was updated on 23 September 2026. I took its Text Conversation task, kept the 328 configurations it published, and for each model and GPU picked the one with the least energy per token that still keeps median inter-token latency under 400 ms. That gives 32 rows for 18 models. My recomputation matches the leaderboard's own displayed table, row for row.</p>
+
+<h2>Three numbers</h2>
+<ul>
+  <li><b>Lowest: 13.0 Wh/M.</b> Llama 3.1 8B Instruct on 1 × B200. A small model on the newest card, kept busy.</li>
+  <li><b>Reference: 63.5 Wh/M.</b> Qwen 3 32B on 2 × H100, at 256 requests in flight and 44 ms median inter-token latency, the two cards drawing 1,178 W between them. I use this row for every carbon calculation on the site, because a 32B dense model on two H100s is what a serious enterprise deployment looks like today.</li>
+  <li><b>Highest: 572.9 Wh/M.</b> Llama 3.1 405B Instruct FP8 on 8 × H100. Eight cards to hold the weights, and every token pays for all eight.</li>
+</ul>
+<p>The span from lowest to highest is 44×. That is model size and hardware generation, and it is what people expect the story to be. It is not the interesting part.</p>
+
+<h2>The interesting part</h2>
+<p>Take the reference model and change nothing except how many requests the server holds at once.</p>
+<div class="table-scroll">
+  <table>
+    <caption>Qwen 3 32B, BF16, 2 × H100. ML.ENERGY Leaderboard v3.0, Text Conversation.</caption>
+    <thead><tr><th scope="col" class="num">Requests in flight</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead>
+    <tbody>
+<tr><th scope="row" class="num">8</th><td class="num key">452.0</td><td class="num">15</td><td class="num">522</td><td class="num">850</td></tr>
+<tr><th scope="row" class="num">16</th><td class="num key">252.8</td><td class="num">16</td><td class="num">970</td><td class="num">883</td></tr>
+<tr><th scope="row" class="num">32</th><td class="num key">153.8</td><td class="num">18</td><td class="num">1,706</td><td class="num">944</td></tr>
+<tr><th scope="row" class="num">64</th><td class="num key">102.0</td><td class="num">22</td><td class="num">2,654</td><td class="num">974</td></tr>
+<tr><th scope="row" class="num">128</th><td class="num key">76.4</td><td class="num">30</td><td class="num">3,905</td><td class="num">1,074</td></tr>
+<tr><th scope="row" class="num">256</th><td class="num key">63.5</td><td class="num">44</td><td class="num">5,155</td><td class="num">1,178</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>From 452 to 63 Wh/M. 7.1× on the same model, the same two cards, the same prompts. The power draw barely moves: 850 W at the top of the table, 1,178 W at the bottom. What moves is how many tokens that power produces, from 522 a second to 5,155. Median latency goes from 15 ms to 44 ms, which no user will notice.</p>
+<p>See, this is the part the invoice hides. A GPU is a bus. The diesel per trip is about the same whether it carries eight people or two hundred and fifty; the diesel per passenger is not. An enterprise assistant that serves a handful of people at a time is the bus with eight people on it, and it is by far the most common deployment I see.</p>
+<p>The same ladder for a small model on one card: Llama 3.1 8B Instruct on 1 × H100 goes from 126 Wh/M at 8 requests in flight to 19.5 at 511, a 6.5× drop.</p>
+
+<h2>What that does to the bill, and to the carbon</h2>
+<p>Electricity first, because people always ask and the answer is small. 63.5 Wh per million tokens is 63.5 kWh per billion. At USD 0.10 per kWh, my assumption and not a source figure, a billion tokens is USD 6.35 of electricity, or 0.6 cents per million. Nobody will change a decision over that. The number matters because it tracks GPU-hours, and GPU-hours are where the money actually goes. Halve the watt-hours per token and you have halved the GPU time per token, on the same kit.</p>
+<p>Carbon depends on where the socket is. Multiply Wh/M by the grid's grams of CO2e per kWh and divide by a thousand, and you get kilograms per billion tokens. On Ember's 2024 annual averages the reference row is 43.9 kg per billion tokens in Saudi Arabia (692 g/kWh), 42.4 kg in Serbia (668), and 1.9 kg in Norway (30). Same tokens, same cards, 23× apart. Location moves the carbon and does nothing to the energy, which is why the two should never be reported as one number.</p>
+
+<h2>What I am not telling you</h2>
+<p>Closed-weight models served over an API. The leaderboard cannot measure them, and neither can anyone outside those companies, so I say nothing about them. Sliced GPUs: NVIDIA does not publish power per MIG slice and no public benchmark has measured one, which is the first gap we will fill with a measurement of our own, on our own rig, with the protocol and the logs published. And the lightly loaded reality: every row on the index is the best case under a latency limit. Your deployment sits above it. The concurrency table tells you how far.</p>
+<p>I wish I could tell you the platform we build already measures this for every tenant. It does not, yet. When it does, you will read the number here first, labelled as ours, beside the public ones.</p>
+
+<h2>What to do with it</h2>
+<p>Ask your vendor for Wh per million output tokens at your concurrency, not theirs. Measure your own with DCGM; it is an afternoon's work. And put the number in the RFP. The clause is on the <a href="../../why/#monday">why page</a>. If two bidders give you the same figure at the same load, you have learned something. If neither can, you have learned more.</p>
+
+<div class="refs">
+  <p class="eyebrow">References</p>
+  <ol>
+    <li>ML.ENERGY Leaderboard v3.0, The ML.ENERGY Initiative, University of Michigan, last updated 23 September 2026, retrieved 26 September 2026. <a href="https://ml.energy/leaderboard/">ml.energy/leaderboard</a>. Raw task data in the leaderboard's public repository, Apache 2.0.</li>
+    <li>Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, 2024, CC BY 4.0, retrieved 26 September 2026. <a href="https://ember-energy.org/data/yearly-electricity-data/">ember-energy.org</a>.</li>
+    <li>OpenAI, What are tokens and how to count them, retrieved 26 September 2026, for the words-per-token rule of thumb.</li>
+    <li>Full tables, method and sources: <a href="../../index/">the index</a>. Data: <a href="../../api/">the API</a>.</li>
+  </ol>
+</div>
+
+</div>
+</article>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 26 September 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

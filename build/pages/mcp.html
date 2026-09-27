@@ -1,0 +1,84 @@
+<!--meta
+title: MCP server | Lead Green
+description: An MCP server that gives Claude, Cursor and other AI assistants the {{INDEX_NAME}} index as tools: energy per million tokens by model and GPU, estimates with carbon by country, concurrency curves, GPU hardware and sources.
+-->
+<div class="title">
+  <p class="eyebrow">MCP server</p>
+  <h1>Ask your assistant, get a sourced number</h1>
+  <p class="stand">The Model Context Protocol (MCP) is an open standard that lets an AI assistant call tools a server exposes. Lead Green ships a small MCP server so that Claude, Cursor or any MCP-capable client can answer questions about the index with the row, the source and the caveat attached, instead of guessing.</p>
+  <p class="unit"><b>Package</b> leadgreen-mcp {{MCP_VERSION}} · <b>Transport</b> stdio · <b>Data</b> the live API, with a bundled snapshot as fallback · <b>Licence</b> Apache 2.0</p>
+</div>
+
+<section class="first" id="install">
+  <p class="eyebrow">Install</p>
+  <h2>One line</h2>
+<pre><code>{{REPO_INSTALL}}</code></pre>
+  <div class="prose"><p>Or run it without installing, with <a href="https://docs.astral.sh/uv/">uv</a>:</p></div>
+<pre><code>{{REPO_UVX}}</code></pre>
+  <p class="note">Python 3.10 or later. The server works with the <code>mcp</code> Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline.</p>
+</section>
+
+<section id="configure">
+  <p class="eyebrow">Configure</p>
+  <h2>Three clients</h2>
+  <h3>Claude Desktop</h3>
+  <div class="prose"><p>Add to <code>claude_desktop_config.json</code> (Settings, Developer, Edit Config):</p></div>
+<pre><code>{
+  "mcpServers": {
+    "leadgreen": { "command": "leadgreen-mcp" }
+  }
+}</code></pre>
+  <h3>Claude Code</h3>
+<pre><code>claude mcp add leadgreen -- leadgreen-mcp</code></pre>
+  <h3>Cursor</h3>
+  <div class="prose"><p>Add the same block to <code>.cursor/mcp.json</code> in the project, or to the global file from Cursor Settings, MCP.</p>
+  <p>If you run it with uv rather than installing it, use <code>"command": "uvx", "args": ["--from", "{{WHEEL_URL}}", "leadgreen-mcp"]</code> instead.</p></div>
+</section>
+
+<section id="tools">
+  <p class="eyebrow">Tools</p>
+  <h2>Eight tools, one resource</h2>
+  <div class="table-scroll">
+    <table class="spec">
+      <caption>What the server exposes, and a prompt that would call it</caption>
+      <thead><tr><th scope="col">Tool</th><th scope="col">Answers</th><th scope="col">Try asking</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">list_models</th><td>Every model on the index, with slugs, ids, parameter counts and measured GPUs</td><td>"Which models does Lead Green have energy figures for?"</td></tr>
+        <tr><th scope="row">energy_per_million_tokens</th><td>The index rows for one model, optionally one GPU</td><td>"What is the energy per million tokens for Llama 3.1 70B on H100?"</td></tr>
+        <tr><th scope="row">estimate</th><td>Wh and kWh for a token count, with kg CO2e for a country, optionally at a given concurrency</td><td>"How much energy would 50 million tokens of Qwen 3 32B use on H100s, and what is the carbon in Serbia?"</td></tr>
+        <tr><th scope="row">compare_gpus</th><td>H100 against B200 for a model, with the ratio</td><td>"How much does B200 save over H100 for DeepSeek V3.1?"</td></tr>
+        <tr><th scope="row">concurrency_curve</th><td>Energy per token at every measured concurrency</td><td>"Show me how energy per token changes with load for Qwen 3 8B on B200"</td></tr>
+        <tr><th scope="row">grid_intensity</th><td>Annual average gCO2e per kWh for a country or World</td><td>"What is the grid carbon intensity of the Philippines?"</td></tr>
+        <tr><th scope="row">gpu_hardware</th><td>Max TDP, memory and MIG profiles</td><td>"What MIG slices can an H200 be split into?"</td></tr>
+        <tr><th scope="row">sources</th><td>Every source, version, retrieval date, licence and endpoint</td><td>"Where do these numbers come from?"</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">The resource <code>leadgreen://manifest</code> returns the same manifest as a document. Every tool response carries a <code>caveat</code> field; a well-behaved assistant repeats it.</p>
+</section>
+
+<section id="example">
+  <p class="eyebrow">Worked example</p>
+  <h2>Fifty million tokens in Serbia</h2>
+  <div class="prose">
+    <p>The estimate tool for {{REF_MODEL}} on H100, 50,000,000 output tokens, country Serbia, uses the index's best H100 row ({{REF_WH_2}} Wh/M, the API's two-decimal value) and Ember's {{EMBER_YEAR}} figure for Serbia ({{SRB_G}} gCO2e per kWh):</p>
+    <ul>
+      <li>Energy: {{REF_WH_2}} Wh/M × 50 M = <b>{{EST_50M_WH}} Wh</b>, or {{EST_50M_KWH}} kWh.</li>
+      <li>Carbon: {{EST_50M_KWH}} kWh × {{SRB_G}} g ÷ 1,000 = <b>{{EST_50M_KG_SRB}} kg CO2e</b>.</li>
+    </ul>
+    <p>Pass <code>requests_in_flight</code> and the tool switches from the best row to the measured configuration nearest that concurrency, which for a lightly loaded server can multiply the answer several times. That is the honest number for most enterprise deployments.</p>
+  </div>
+</section>
+
+<section id="env">
+  <p class="eyebrow">Settings</p>
+  <h2>Environment</h2>
+  <div class="table-scroll"><table class="spec">
+    <thead><tr><th scope="col">Variable</th><th scope="col">Effect</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">LEADGREEN_API_BASE</th><td>Another base URL, or a local folder holding the API files. Default {{SITE}}/api/v1.</td></tr>
+      <tr><th scope="row">LEADGREEN_TIMEOUT</th><td>Seconds to wait for the site before falling back to the bundled snapshot. Default 10.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in {{REPO_LINK}}.</p>
+</section>

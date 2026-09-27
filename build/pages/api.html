@@ -1,0 +1,80 @@
+<!--meta
+title: Data API | Lead Green
+description: The {{INDEX_NAME}} index as read-only JSON: index rows, per-model configurations, grid carbon intensity for {{GRID_COUNT}} countries, GPU hardware and per-query scores. Static files, CORS open, versioned, CC BY 4.0.
+-->
+<div class="title">
+  <p class="eyebrow">Data API</p>
+  <h1>Every table, as JSON</h1>
+  <p class="stand">The index is published as static JSON files under <code>/api/v1/</code>. No key, no tracking, no rate limit beyond what a static host imposes. Fetch them from a browser, a spreadsheet, a notebook or a build pipeline. Version 1 only ever adds fields; it never renames or removes them.</p>
+  <p class="unit"><b>Base URL</b> {{SITE}}/api/v1/ · <b>Updated</b> {{UPDATED_LONG}} · <b>Licence</b> CC BY 4.0 for the compilation; sources keep theirs</p>
+</div>
+
+<section class="first" id="endpoints">
+  <p class="eyebrow">Endpoints</p>
+  <h2>Eight files</h2>
+  <div class="endpoints">
+{{ENDPOINT_LIST}}
+  </div>
+  <p class="note">Model slugs are lower-case with hyphens: {{MODEL_SLUGS}}. The list, with Hugging Face ids, is in <code>models.json</code>.</p>
+</section>
+
+<section id="example">
+  <p class="eyebrow">Example</p>
+  <h2>Fetch the index and price it on your grid</h2>
+  <div class="prose"><p>Two requests, one multiplication. Energy per million tokens times the grid's grams per kWh, divided by 1,000, is kilograms of CO2e per billion tokens.</p></div>
+<pre><code>curl -s {{SITE}}/api/v1/index.json | jq '.rows[] | select(.slug == "{{REF_SLUG}}")'
+curl -s {{SITE}}/api/v1/grid.json  | jq '.areas[] | select(.iso3 == "SRB")'</code></pre>
+  <div class="prose"><p>The first returns the reference model's rows (one per GPU); the second returns Serbia at {{SRB_G}} gCO2e per kWh. {{REF_WH_1}} × {{SRB_G}} ÷ 1,000 = {{REF_KG_SRB}} kg CO2e per billion output tokens on the H100 row.</p></div>
+  <h3>index.json, trimmed</h3>
+<pre><code>{{API_EXAMPLE_INDEX}}</code></pre>
+  <h3>models/{{REF_SLUG}}.json, trimmed</h3>
+<pre><code>{{API_EXAMPLE_MODEL}}</code></pre>
+  <h3>grid.json, trimmed</h3>
+<pre><code>{{API_EXAMPLE_GRID}}</code></pre>
+  <p class="note">The examples above are generated from the live files at build time, so they match what the endpoints return.</p>
+</section>
+
+<section id="browser">
+  <p class="eyebrow">From a browser</p>
+  <h2>CORS is open</h2>
+  <div class="prose">
+    <p>The files are served by GitHub Pages, which sends <code>access-control-allow-origin: *</code>, so a page on any origin can fetch them directly.</p>
+  </div>
+<pre><code>const r = await fetch("{{SITE}}/api/v1/index.json");
+const { rows } = await r.json();
+const best = rows[0];   // sorted ascending by Wh per million output tokens
+console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pre>
+</section>
+
+<section id="fields">
+  <p class="eyebrow">Fields</p>
+  <h2>What the columns mean</h2>
+  <div class="table-scroll">
+    <table class="spec">
+      <caption>index.json rows and models/&lt;slug&gt;.json configurations</caption>
+      <thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours. joules_per_output_token × 1,000,000 ÷ 3,600.</td></tr>
+        <tr><th scope="row">joules_per_output_token</th><td>The source's figure: steady-state GPU energy per request divided by output tokens per request. Prompt processing is included.</td></tr>
+        <tr><th scope="row">median_itl_ms</th><td>Median inter-token latency in milliseconds at that configuration. Index rows are the best under {{ITL}} ms.</td></tr>
+        <tr><th scope="row">avg_requests_in_flight</th><td>Average batch the server was holding during the measurement. max_num_seqs is the configured cap.</td></tr>
+        <tr><th scope="row">gpu_power_watts_total</th><td>Average power drawn, summed across every GPU in the configuration.</td></tr>
+        <tr><th scope="row">tokens_per_second</th><td>Output throughput of the whole configuration.</td></tr>
+        <tr><th scope="row">num_gpus, tensor_parallel, data_parallel, expert_parallel</th><td>How many cards and how the model is split across them.</td></tr>
+        <tr><th scope="row">params_b, active_params_b, precision</th><td>Total and activated parameters in billions (they differ for mixture-of-experts models) and the weight precision.</td></tr>
+        <tr><th scope="row">g_co2e_per_kwh</th><td>Grid emissions intensity of total generation, annual average, from Ember. The year is in the document.</td></tr>
+        <tr><th scope="row">caveat</th><td>Carried on every document that has index rows. Please carry it into whatever you build.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="versioning">
+  <p class="eyebrow">Versioning and licence</p>
+  <h2>Additive only</h2>
+  <div class="prose">
+    <p><b>Version 1.</b> Fields are added, never renamed or removed. A new source or a re-measurement changes values and the <code>updated</code> date, and the change is recorded on <a href="{{ROOT}}index/#changes">the index's change list</a>. A breaking change would ship as <code>/api/v2/</code> with v1 left in place.</p>
+    <p><b>Licence.</b> The compilation, the derived figures and the site text are offered under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: use them, credit Lead Green and the underlying source. Each source keeps its own licence, stated per source in <code>manifest.json</code>: ML.ENERGY's data is Apache 2.0, Ember's is CC BY 4.0, the AI Energy Score space is Apache 2.0, and NVIDIA's figures are cited rather than redistributed.</p>
+    <p><b>OpenAPI.</b> A machine-readable description is at <a href="{{ROOT}}api/v1/openapi.json"><code>openapi.json</code></a>. The <a href="{{ROOT}}mcp/">MCP server</a> is built on these same files.</p>
+  </div>
+</section>

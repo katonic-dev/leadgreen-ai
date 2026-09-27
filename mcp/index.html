@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>MCP server | Lead Green</title>
+<meta name="description" content="An MCP server that gives Claude, Cursor and other AI assistants the Green Tokens index as tools: energy per million tokens by model and GPU, estimates with carbon by country, concurrency curves, GPU hardware and sources.">
+<link rel="canonical" href="https://leadgreen.ai/mcp/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="MCP server | Lead Green">
+<meta property="og:description" content="An MCP server that gives Claude, Cursor and other AI assistants the Green Tokens index as tools: energy per million tokens by model and GPU, estimates with carbon by country, concurrency curves, GPU hardware and sources.">
+<meta property="og:url" content="https://leadgreen.ai/mcp/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": "MCP server | Lead Green",
+ "description": "An MCP server that gives Claude, Cursor and other AI assistants the Green Tokens index as tools: energy per million tokens by model and GPU, estimates with carbon by country, concurrency curves, GPU hardware and sources.",
+ "url": "https://leadgreen.ai/mcp/",
+ "publisher": {
+  "@type": "Organization",
+  "name": "Lead Green",
+  "url": "https://leadgreen.ai/",
+  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+  "parentOrganization": {
+   "@type": "Organization",
+   "name": "Katonic",
+   "url": "https://www.katonic.ai"
+  }
+ },
+ "inLanguage": "en"
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../index/" data-nav="index">The index</a></li>
+        <li><a href="../api/" data-nav="api">Data API</a></li>
+        <li><a href="../mcp/" data-nav="mcp" aria-current="page">MCP</a></li>
+        <li><a href="../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow">MCP server</p>
+  <h1>Ask your assistant, get a sourced number</h1>
+  <p class="stand">The Model Context Protocol (MCP) is an open standard that lets an AI assistant call tools a server exposes. Lead Green ships a small MCP server so that Claude, Cursor or any MCP-capable client can answer questions about the index with the row, the source and the caveat attached, instead of guessing.</p>
+  <p class="unit"><b>Package</b> leadgreen-mcp 0.1.0 · <b>Transport</b> stdio · <b>Data</b> the live API, with a bundled snapshot as fallback · <b>Licence</b> Apache 2.0</p>
+</div>
+
+<section class="first" id="install">
+  <p class="eyebrow">Install</p>
+  <h2>One line</h2>
+<pre><code>pip install https://leadgreen.ai/dist/leadgreen_mcp-0.1.0-py3-none-any.whl</code></pre>
+  <div class="prose"><p>Or run it without installing, with <a href="https://docs.astral.sh/uv/">uv</a>:</p></div>
+<pre><code>uvx --from https://leadgreen.ai/dist/leadgreen_mcp-0.1.0-py3-none-any.whl leadgreen-mcp</code></pre>
+  <p class="note">Python 3.10 or later. The server works with the <code>mcp</code> Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline.</p>
+</section>
+
+<section id="configure">
+  <p class="eyebrow">Configure</p>
+  <h2>Three clients</h2>
+  <h3>Claude Desktop</h3>
+  <div class="prose"><p>Add to <code>claude_desktop_config.json</code> (Settings, Developer, Edit Config):</p></div>
+<pre><code>{
+  "mcpServers": {
+    "leadgreen": { "command": "leadgreen-mcp" }
+  }
+}</code></pre>
+  <h3>Claude Code</h3>
+<pre><code>claude mcp add leadgreen -- leadgreen-mcp</code></pre>
+  <h3>Cursor</h3>
+  <div class="prose"><p>Add the same block to <code>.cursor/mcp.json</code> in the project, or to the global file from Cursor Settings, MCP.</p>
+  <p>If you run it with uv rather than installing it, use <code>"command": "uvx", "args": ["--from", "https://leadgreen.ai/dist/leadgreen_mcp-0.1.0-py3-none-any.whl", "leadgreen-mcp"]</code> instead.</p></div>
+</section>
+
+<section id="tools">
+  <p class="eyebrow">Tools</p>
+  <h2>Eight tools, one resource</h2>
+  <div class="table-scroll">
+    <table class="spec">
+      <caption>What the server exposes, and a prompt that would call it</caption>
+      <thead><tr><th scope="col">Tool</th><th scope="col">Answers</th><th scope="col">Try asking</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">list_models</th><td>Every model on the index, with slugs, ids, parameter counts and measured GPUs</td><td>"Which models does Lead Green have energy figures for?"</td></tr>
+        <tr><th scope="row">energy_per_million_tokens</th><td>The index rows for one model, optionally one GPU</td><td>"What is the energy per million tokens for Llama 3.1 70B on H100?"</td></tr>
+        <tr><th scope="row">estimate</th><td>Wh and kWh for a token count, with kg CO2e for a country, optionally at a given concurrency</td><td>"How much energy would 50 million tokens of Qwen 3 32B use on H100s, and what is the carbon in Serbia?"</td></tr>
+        <tr><th scope="row">compare_gpus</th><td>H100 against B200 for a model, with the ratio</td><td>"How much does B200 save over H100 for DeepSeek V3.1?"</td></tr>
+        <tr><th scope="row">concurrency_curve</th><td>Energy per token at every measured concurrency</td><td>"Show me how energy per token changes with load for Qwen 3 8B on B200"</td></tr>
+        <tr><th scope="row">grid_intensity</th><td>Annual average gCO2e per kWh for a country or World</td><td>"What is the grid carbon intensity of the Philippines?"</td></tr>
+        <tr><th scope="row">gpu_hardware</th><td>Max TDP, memory and MIG profiles</td><td>"What MIG slices can an H200 be split into?"</td></tr>
+        <tr><th scope="row">sources</th><td>Every source, version, retrieval date, licence and endpoint</td><td>"Where do these numbers come from?"</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">The resource <code>leadgreen://manifest</code> returns the same manifest as a document. Every tool response carries a <code>caveat</code> field; a well-behaved assistant repeats it.</p>
+</section>
+
+<section id="example">
+  <p class="eyebrow">Worked example</p>
+  <h2>Fifty million tokens in Serbia</h2>
+  <div class="prose">
+    <p>The estimate tool for Qwen 3 32B on H100, 50,000,000 output tokens, country Serbia, uses the index's best H100 row (63.47 Wh/M, the API's two-decimal value) and Ember's 2024 figure for Serbia (668 gCO2e per kWh):</p>
+    <ul>
+      <li>Energy: 63.47 Wh/M × 50 M = <b>3,173.5 Wh</b>, or 3.1735 kWh.</li>
+      <li>Carbon: 3.1735 kWh × 668 g ÷ 1,000 = <b>2.12 kg CO2e</b>.</li>
+    </ul>
+    <p>Pass <code>requests_in_flight</code> and the tool switches from the best row to the measured configuration nearest that concurrency, which for a lightly loaded server can multiply the answer several times. That is the honest number for most enterprise deployments.</p>
+  </div>
+</section>
+
+<section id="env">
+  <p class="eyebrow">Settings</p>
+  <h2>Environment</h2>
+  <div class="table-scroll"><table class="spec">
+    <thead><tr><th scope="col">Variable</th><th scope="col">Effect</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">LEADGREEN_API_BASE</th><td>Another base URL, or a local folder holding the API files. Default https://leadgreen.ai/api/v1.</td></tr>
+      <tr><th scope="row">LEADGREEN_TIMEOUT</th><td>Seconds to wait for the site before falling back to the bundled snapshot. Default 10.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in the repository (link to follow once it is public).</p>
+</section>
+
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../index/">The index</a>
+      <a href="../api/">Data API</a>
+      <a href="../mcp/">MCP server</a>
+      <a href="../feed.xml">RSS</a>
+      <a href="../llms.txt">llms.txt</a>
+      <a href="../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 26 September 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

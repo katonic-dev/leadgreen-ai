@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="canonical" href="{{CANONICAL}}">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="{{OG_TITLE}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:url" content="{{CANONICAL}}">
+<meta property="og:type" content="{{OG_TYPE}}">
+<meta property="og:image" content="{{SITE}}/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="{{SITE}}/feed.xml">
+<link rel="icon" href="{{ROOT}}favicon.ico" sizes="32x32">
+<link rel="icon" href="{{ROOT}}favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ROOT}}apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="{{ROOT}}assets/site.css">
+{{JSONLD}}
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="{{ROOT}}" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="{{ROOT}}why/" data-nav="why">Why it matters</a></li>
+        <li><a href="{{ROOT}}index/" data-nav="index">The index</a></li>
+        <li><a href="{{ROOT}}api/" data-nav="api">Data API</a></li>
+        <li><a href="{{ROOT}}mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="{{ROOT}}blog/" data-nav="blog">Blog</a></li>
+        <li><a href="{{ROOT}}newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="{{ROOT}}contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="{{ROOT}}about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+{{CONTENT}}
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="{{ROOT}}index/">The index</a>
+      <a href="{{ROOT}}api/">Data API</a>
+      <a href="{{ROOT}}mcp/">MCP server</a>
+      <a href="{{ROOT}}feed.xml">RSS</a>
+      <a href="{{ROOT}}llms.txt">llms.txt</a>
+      <a href="{{ROOT}}contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated {{UPDATED_LONG}}.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

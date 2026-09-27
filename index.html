@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Lead Green: the energy behind the token</title>
+<meta name="description" content="A public index of the GPU energy it takes to serve a million output tokens, by model, GPU and configuration, with grid carbon to price it anywhere. Open data, a JSON API, an MCP server and a place to contribute. A Katonic project.">
+<link rel="canonical" href="https://leadgreen.ai/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Lead Green: the energy behind the token">
+<meta property="og:description" content="A public index of the GPU energy it takes to serve a million output tokens, by model, GPU and configuration, with grid carbon to price it anywhere. Open data, a JSON API, an MCP server and a place to contribute. A Katonic project.">
+<meta property="og:url" content="https://leadgreen.ai/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "name": "Lead Green",
+   "url": "https://leadgreen.ai/",
+   "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+   "parentOrganization": {
+    "@type": "Organization",
+    "name": "Katonic",
+    "url": "https://www.katonic.ai"
+   },
+   "@id": "https://leadgreen.ai/#org",
+   "description": "A public index of the GPU energy it takes to serve a million output tokens, by model, GPU and configuration, with grid carbon to price it anywhere. Open data, a JSON API, an MCP server and a place to contribute. A Katonic project."
+  },
+  {
+   "@type": "WebSite",
+   "name": "Lead Green",
+   "url": "https://leadgreen.ai/",
+   "description": "A public index of the GPU energy it takes to serve a million output tokens, by model, GPU and configuration, with grid carbon to price it anywhere. Open data, a JSON API, an MCP server and a place to contribute. A Katonic project.",
+   "publisher": {
+    "@id": "https://leadgreen.ai/#org"
+   },
+   "inLanguage": "en",
+   "license": "https://creativecommons.org/licenses/by/4.0/"
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="why/" data-nav="why">Why it matters</a></li>
+        <li><a href="index/" data-nav="index">The index</a></li>
+        <li><a href="api/" data-nav="api">Data API</a></li>
+        <li><a href="mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="blog/" data-nav="blog">Blog</a></li>
+        <li><a href="newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <h1>The energy behind the token</h1>
+  <p class="stand">Lead Green is a public index of the <b>GPU watt-hours it takes to serve a million output tokens</b>, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open, there is a JSON API and an MCP server, and anyone with a GPU can add a measurement.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. Updated 26 September 2026.</p>
+  <div class="actions">
+    <a class="cta solid" href="index/">Read the index</a>
+    <a class="cta" href="why/">Why it matters</a>
+    <a class="cta" href="api/">Use the data</a>
+  </div>
+</div>
+
+<div class="tiles" role="group" aria-label="Headline readings">
+  <div class="tile">
+    <span class="lbl">Lowest on the index</span>
+    <span class="val">13<small>Wh/M</small></span>
+    <span class="sub">Llama 3.1 8B Instruct, 1 × B200</span>
+  </div>
+  <div class="tile ref">
+    <span class="lbl">Reference row</span>
+    <span class="val">63<small>Wh/M</small></span>
+    <span class="sub">Qwen 3 32B, 2 × H100. The carbon table is priced on this row.</span>
+  </div>
+  <div class="tile">
+    <span class="lbl">Highest on the index</span>
+    <span class="val">573<small>Wh/M</small></span>
+    <span class="sub">Llama 3.1 405B Instruct FP8, 8 × H100</span>
+  </div>
+</div>
+<p class="after-tiles">A million output tokens is roughly three quarters of a million words of English. The index spans <b>44×</b> from its lowest row to its highest, and the same model on the same GPUs moves <b>7.1×</b> depending on how busy the server is. Every row is a floor. The number a buyer should ask for is the one measured on their own server.</p>
+
+<section id="what" class="first">
+  <p class="eyebrow">What it is</p>
+  <h2>One unit, one place, for people and for machines</h2>
+  <div class="cards">
+    <div class="card"><span class="k">Index</span><h3>Green Tokens</h3><p>32 rows, 18 open-weight models, two GPU generations, with the concurrency curves, the carbon table and the hardware ceilings behind them. Method and sources on the page.</p><a class="more" href="index/">The index</a></div>
+    <div class="card"><span class="k">API</span><h3>Read-only JSON</h3><p>Every table as static JSON, CORS open, versioned, additive only. Pull it into a spreadsheet, a dashboard or a procurement model.</p><a class="more" href="api/">Data API</a></div>
+    <div class="card"><span class="k">MCP</span><h3>Tools for assistants</h3><p>An MCP server so Claude, Cursor or any MCP client can answer "how much energy would fifty million tokens of this model use, and what is the carbon in Serbia" with sourced numbers.</p><a class="more" href="mcp/">MCP server</a></div>
+    <div class="card"><span class="k">Blog</span><h3>The reasoning behind the rows</h3><p>Short, sourced pieces on what the numbers mean: the baseline, the idle token, sliced GPUs, per correct answer, where the electricity is, what the regulator asks.</p><a class="more" href="blog/">Blog</a></div>
+    <div class="card"><span class="k">Newsletter</span><h3>One number a month</h3><p>The Green Tokens edition: one reading from the index, one note on what moved, one pointer to read further.</p><a class="more" href="newsletter/">Newsletter</a></div>
+    <div class="card"><span class="k">Contribute</span><h3>Measure, review, write</h3><p>A measurement protocol anyone with a GPU can follow, and a review process so that what lands on the index can be defended.</p><a class="more" href="contribute/">Contribute</a></div>
+  </div>
+</section>
+
+<section id="why-exists">
+  <p class="eyebrow">Why it exists</p>
+  <h2>Everyone buys tokens. Nobody is told the energy.</h2>
+  <div class="prose">
+    <p>Enterprises are buying GPUs by the rack and tokens by the billion, and neither invoice carries an energy figure. The model vendors do not publish one. The cloud providers do not itemise one. The measurements that do exist are academic and scattered across leaderboards and papers, in different units, on different hardware, under different load. A CIO who wants to know what a million tokens costs in watt-hours has nowhere to look it up.</p>
+    <p>Meanwhile the questions are arriving. Boards want the AI line in the energy report. Auditors want to know how Scope 2 grows when the assistants roll out. Regulators already ask model providers to document energy consumption, and buyers will start asking downstream. Sovereign and on-premise deployments run inside a fixed power envelope, so energy per token sets how much AI a site can serve at all.</p>
+    <p>Lead Green puts the public measurements in one unit on one page, explains what they mean, exposes them to software, and adds measurements of its own as they are made. It is run by <a href="https://www.katonic.ai">Katonic</a>, a sovereign AI platform company that meets these questions on every deployment, and it takes no vendor money.</p>
+  </div>
+</section>
+
+<section id="care">
+  <p class="eyebrow">Why you should care</p>
+  <h2>Six of the nine reasons</h2>
+  <div class="cards">
+    <div class="card"><span class="k">Utilisation</span><span class="n">7.1×<small>same model, same GPUs</small></span><p>Energy per token is a utilisation meter. A high reading means you are paying for silicon that is waiting.</p></div>
+    <div class="card"><span class="k">Power is the ceiling</span><span class="n">15.8 bn<small>tokens per MWh</small></span><p>At the reference row. At the top of the concurrency ladder the same megawatt-hour serves 2.2 billion. On a fixed feed, the number decides how much AI you can run.</p></div>
+    <div class="card"><span class="k">Location</span><span class="n">23×<small>carbon, same tokens</small></span><p>Saudi grid against Norwegian grid, 2024 averages. Geography changes the carbon number and not the energy number.</p></div>
+    <div class="card"><span class="k">Reporting</span><span class="n">E1-5<small>ESRS</small></span><p>European sustainability reporting asks for energy consumption in MWh. AI serving is a growing line inside it, and it needs a per-token figure to forecast.</p></div>
+    <div class="card"><span class="k">Regulation</span><span class="n">XI 2(e)<small>EU AI Act, Annex</small></span><p>General-purpose model providers must document known or estimated energy consumption. What is documented upstream gets asked for downstream.</p></div>
+    <div class="card"><span class="k">Cheap, and that is the point</span><span class="n">0.6¢<small>per million tokens</small></span><p>Electricity at the reference row, priced at USD 0.10 per kWh. Trivial as a bill, decisive as a signal: it tracks GPU-hours, which is where the real money goes.</p></div>
+  </div>
+  <p class="note"><a href="why/">All nine, with the working and the sources, and an RFP clause you can paste.</a></p>
+</section>
+
+<section id="who">
+  <p class="eyebrow">Who it is for</p>
+  <h2>Four desks, one number</h2>
+  <div class="cards">
+    <div class="card"><h3>CIO and CTO</h3><p>To size a GPU estate against a power budget, to compare a hosted API against an on-premise deployment on something other than price per token, and to answer the board.</p></div>
+    <div class="card"><h3>Sustainability officer</h3><p>To put AI serving into the energy and Scope 2 lines with a defensible method, and to know which questions to send back to the vendor.</p></div>
+    <div class="card"><h3>Platform engineer</h3><p>To see what concurrency, quantisation and GPU generation do to energy per token, and to measure their own cluster against a public baseline.</p></div>
+    <div class="card"><h3>Procurement</h3><p>To ask every bidder for the same figure at the same load, in a clause that names the unit, the workload and the latency limit.</p></div>
+  </div>
+</section>
+
+<section id="how">
+  <p class="eyebrow">How to use it</p>
+  <h2>Three ways in</h2>
+  <ol class="steps">
+    <li><div><b>Read.</b> Start with the three tiles and the concurrency section of <a href="index/">the index</a>. If you take one thing away, take the 7.1× ladder.</div></li>
+    <li><div><b>Compute.</b> Pull <code>index.json</code> and <code>grid.json</code> from the <a href="api/">API</a>. Multiply Wh per million by your monthly tokens for energy; multiply by your grid's gCO2e per kWh and divide by 1,000 for kg CO2e per billion tokens.</div></li>
+    <li><div><b>Ask.</b> Add the <a href="mcp/">MCP server</a> to your assistant and ask in plain words. It answers with the row, the source and the caveat.</div></li>
+  </ol>
+  <p class="note">Latest from the blog: <a href="blog/what-a-million-tokens-costs-in-watt-hours/">What a million tokens costs in watt-hours</a>.</p>
+</section>
+
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="index/">The index</a>
+      <a href="api/">Data API</a>
+      <a href="mcp/">MCP server</a>
+      <a href="feed.xml">RSS</a>
+      <a href="llms.txt">llms.txt</a>
+      <a href="contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 26 September 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!--meta
+title: Contribute | Lead Green
+description: How to add a measurement, review a claim or write for Lead Green. Volunteer roles, the measurement protocol v0.1, the review rules, what is needed first, and the licences.
+-->
+<div class="title">
+  <p class="eyebrow">Contribute</p>
+  <h1>Bring a GPU, a red pen or a keyboard</h1>
+  <p class="stand">Lead Green is small and it is public. Its value is the number of independent, reproducible measurements on the index and the care with which each one is checked. Both grow faster with volunteers. Here is what is needed, how to do it, and the rules that keep a row defensible.</p>
+</div>
+
+<section class="first" id="roles">
+  <p class="eyebrow">Roles</p>
+  <h2>Five ways to help</h2>
+  <div class="cards">
+    <div class="card"><span class="k">Measurers</span><h3>Run the protocol</h3><p>You have access to a GPU server, on-premise or rented, and can run a serving engine under a fixed load for an hour. You produce rows.</p></div>
+    <div class="card"><span class="k">Reviewers</span><h3>Check the working</h3><p>You can read a benchmark's method, recompute a figure from its raw file, and say whether a claim on the site survives contact with its source.</p></div>
+    <div class="card"><span class="k">Writers</span><h3>Explain one question</h3><p>You can take one of the upcoming blog topics, or propose one, and write it with the working shown and every figure sourced.</p></div>
+    <div class="card"><span class="k">Translators</span><h3>Carry it across</h3><p>The carbon table was chosen for readers in the Gulf, South Asia, South-East Asia and Central Europe. Translations of the index and the "why" page, checked by a second speaker, are welcome.</p></div>
+    <div class="card"><span class="k">Developers</span><h3>API and MCP</h3><p>The build script, the JSON API and the MCP server are small Python. A hosted MCP endpoint, a per-model comparison tool, tighter OpenAPI schemas and a spreadsheet export are all open.</p></div>
+  </div>
+</section>
+
+<section id="how">
+  <p class="eyebrow">How</p>
+  <h2>Issues and pull requests</h2>
+  <div class="prose">
+    <p>Everything lives in {{REPO_LINK}}: the page sources, the build script, the dated data snapshots, the API and the MCP server. Propose a change as a pull request, or open an issue if you want to discuss it first. A measurement is submitted as a JSON file in the row schema below plus the logs it was computed from; a correction is submitted with a link to the primary source. There is no mailing list to join and no form to fill.</p>
+    <p>Contributors are credited by name on the change record and, for measurements, on the row itself. Bylines on blog posts are the author's own.</p>
+  </div>
+</section>
+
+<section id="protocol">
+  <p class="eyebrow">Measurement protocol v0.1</p>
+  <h2>How to produce a row that can sit beside the public ones</h2>
+  <ol class="steps">
+    <li><div><b>Serving engine.</b> vLLM, the engine the public benchmark uses, so rows are comparable. Record the exact version. Other engines are welcome as clearly labelled separate rows.</div></li>
+    <li><div><b>Hardware.</b> Name the GPU model, memory, form factor (SXM, PCIe, NVL), count, and any MIG profile. Name the driver and CUDA versions and the host. If the card is shared with anything else, say so.</div></li>
+    <li><div><b>Prompt set.</b> A fixed, published prompt set with a stated average prompt length. The public benchmark uses an LM Arena conversation sample; a link or a file is required so another measurer can repeat it.</div></li>
+    <li><div><b>Load.</b> A fixed concurrency (max sequences), held long enough to reach steady state: at least five minutes after warm-up and at least 1,000 requests. Record the average requests in flight the server actually held, not only the cap.</div></li>
+    <li><div><b>Power.</b> Sample GPU power at 1 Hz through NVIDIA DCGM (<code>DCGM_FI_DEV_POWER_USAGE</code>) or <code>nvidia-smi --query-gpu=power.draw</code>, for every card in the configuration. Integrate over the steady-state window for energy in joules.</div></li>
+    <li><div><b>Tokens.</b> Count output tokens served in the same window from the engine's own metrics, and record the average output length.</div></li>
+    <li><div><b>Report.</b> Joules per output token (energy ÷ output tokens), Wh per million (× 1,000,000 ÷ 3,600), median and p99 inter-token latency, tokens per second, average power summed across cards, and the fields above, in the JSON row schema used by <a href="{{ROOT}}api/#fields">the API</a>. Attach the raw power log and the engine log.</div></li>
+    <li><div><b>Repeat.</b> Two runs; report both and the mean. If they differ by more than 5 percent, say why or run a third.</div></li>
+  </ol>
+  <p class="note">The protocol measures GPU energy only, like the index. If you also have facility or host power, report it as separate fields; do not fold it in. A sliced (MIG) card is measured on the slice's own metrics where the tooling allows, and the whole-card draw is reported alongside with the slice count.</p>
+</section>
+
+<section id="review">
+  <p class="eyebrow">Review rules</p>
+  <h2>What it takes to land on the index</h2>
+  <div class="prose">
+    <ul>
+      <li><b>Two reviewers</b> for a new row or a changed figure, one of whom recomputes the number from the attached logs or the source file.</li>
+      <li><b>Source snapshot.</b> Every public figure is taken from a dated copy of the source file, kept with the site, so it can be recomputed later even if the source moves.</li>
+      <li><b>Claims ledger.</b> Every figure on every page has a source and a retrieval date in the sources list. If it cannot be sourced, it does not ship.</li>
+      <li><b>Corrections</b> are made in the open: the change record on the index names what changed, when and why, and a corrected blog post keeps a note at the top.</li>
+      <li><b>Vendor rows are labelled.</b> A measurement made by or paid for by a hardware, cloud or model vendor is marked as such and shown separately from independent rows.</li>
+      <li><b>No customer names.</b> A measurement from a production site is described by hardware and workload, not by whose site it is.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="needs">
+  <p class="eyebrow">Needed first</p>
+  <h2>The gaps, in order</h2>
+  <ol class="steps">
+    <li><div><b>MIG slices.</b> Any model on a 1g, 2g or 3g slice of an H100 or H200, against the whole card. Nothing public exists.</div></li>
+    <li><div><b>Other GPUs.</b> A100, H200, L40S, and AMD MI300X. The index has H100 and B200 only.</div></li>
+    <li><div><b>Hourly grid data.</b> Annual averages hide a lot. Hourly intensity for the grids on the carbon table, from a source whose licence allows republishing.</div></li>
+    <li><div><b>Translations.</b> Arabic, Serbian, Traditional Chinese, Tagalog and Sinhala first, for the readers the carbon table was built for.</div></li>
+    <li><div><b>Reviews.</b> A second pair of eyes on any figure on the site, starting with the ones that get cited most.</div></li>
+  </ol>
+</section>
+
+<section id="licences">
+  <p class="eyebrow">Licences</p>
+  <h2>What you give and what you get</h2>
+  <div class="prose">
+    <p>Code (the build script, the API generator, the MCP server) is Apache 2.0. Data and text (the compiled index, derived figures, page text, blog posts) are CC BY 4.0. By contributing you agree your contribution is offered under the same terms. Public sources keep their own licences, which are listed per source and never overridden.</p>
+  </div>
+</section>

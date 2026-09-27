@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Data API | Lead Green</title>
+<meta name="description" content="The Green Tokens index as read-only JSON: index rows, per-model configurations, grid carbon intensity for 193 countries, GPU hardware and per-query scores. Static files, CORS open, versioned, CC BY 4.0.">
+<link rel="canonical" href="https://leadgreen.ai/api/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Data API | Lead Green">
+<meta property="og:description" content="The Green Tokens index as read-only JSON: index rows, per-model configurations, grid carbon intensity for 193 countries, GPU hardware and per-query scores. Static files, CORS open, versioned, CC BY 4.0.">
+<meta property="og:url" content="https://leadgreen.ai/api/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebAPI",
+ "name": "Lead Green Green Tokens API",
+ "description": "The Green Tokens index as read-only JSON: index rows, per-model configurations, grid carbon intensity for 193 countries, GPU hardware and per-query scores. Static files, CORS open, versioned, CC BY 4.0.",
+ "url": "https://leadgreen.ai/api/v1/manifest.json",
+ "documentation": "https://leadgreen.ai/api/",
+ "provider": {
+  "@type": "Organization",
+  "name": "Lead Green",
+  "url": "https://leadgreen.ai/",
+  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+  "parentOrganization": {
+   "@type": "Organization",
+   "name": "Katonic",
+   "url": "https://www.katonic.ai"
+  }
+ },
+ "license": "https://creativecommons.org/licenses/by/4.0/",
+ "termsOfService": "https://leadgreen.ai/api/"
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../index/" data-nav="index">The index</a></li>
+        <li><a href="../api/" data-nav="api" aria-current="page">Data API</a></li>
+        <li><a href="../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow">Data API</p>
+  <h1>Every table, as JSON</h1>
+  <p class="stand">The index is published as static JSON files under <code>/api/v1/</code>. No key, no tracking, no rate limit beyond what a static host imposes. Fetch them from a browser, a spreadsheet, a notebook or a build pipeline. Version 1 only ever adds fields; it never renames or removes them.</p>
+  <p class="unit"><b>Base URL</b> https://leadgreen.ai/api/v1/ · <b>Updated</b> 26 September 2026 · <b>Licence</b> CC BY 4.0 for the compilation; sources keep theirs</p>
+</div>
+
+<section class="first" id="endpoints">
+  <p class="eyebrow">Endpoints</p>
+  <h2>Eight files</h2>
+  <div class="endpoints">
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/manifest.json</code><br>Sources, versions, retrieval dates, licences and this endpoint list.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/index.json</code><br>The index: 32 rows, one per model and GPU, energy-optimal under the latency limit, sorted ascending.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/models.json</code><br>Every model on the index with its slug, Hugging Face id, parameter counts and measured GPUs.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/models/{slug}.json</code><br>One model: every measured configuration (concurrency, parallelism, latency, power) and the best row per GPU.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/grid.json</code><br>Grid emissions intensity, gCO2e per kWh, 2024 annual average, 193 countries plus World.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/hardware.json</code><br>Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/per-query.json</code><br>AI Energy Score text-generation rows: Wh per 1,000 queries at batch size 1 on one H100.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/openapi.json</code><br>OpenAPI 3.1 description of these endpoints.</div></div>
+  </div>
+  <p class="note">Model slugs are lower-case with hyphens: <code>deepseek-v3-1</code>, <code>gemma-3-12b</code>, <code>gemma-3-27b</code>, <code>llama-3-1-405b-instruct</code>, <code>llama-3-1-405b-instruct-fp8</code>, <code>llama-3-1-70b-instruct</code>, <code>llama-3-1-8b-instruct</code>, <code>llama-3-3-70b-instruct</code>, <code>llama-4-maverick-17b-128e-instruct-fp8</code>, <code>llama-4-scout-17b-16e-instruct</code>, <code>nvidia-nemotron-nano-12b-v2</code>, <code>nvidia-nemotron-nano-9b-v2</code>, <code>qwen-3-14b</code>, <code>qwen-3-235b-a22b-instruct</code>, <code>qwen-3-235b-a22b-instruct-fp8</code>, <code>qwen-3-30b-a3b-instruct</code>, <code>qwen-3-32b</code>, <code>qwen-3-8b</code>. The list, with Hugging Face ids, is in <code>models.json</code>.</p>
+</section>
+
+<section id="example">
+  <p class="eyebrow">Example</p>
+  <h2>Fetch the index and price it on your grid</h2>
+  <div class="prose"><p>Two requests, one multiplication. Energy per million tokens times the grid's grams per kWh, divided by 1,000, is kilograms of CO2e per billion tokens.</p></div>
+<pre><code>curl -s https://leadgreen.ai/api/v1/index.json | jq '.rows[] | select(.slug == "qwen-3-32b")'
+curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == "SRB")'</code></pre>
+  <div class="prose"><p>The first returns the reference model's rows (one per GPU); the second returns Serbia at 668 gCO2e per kWh. 63.5 × 668 ÷ 1,000 = 42.4 kg CO2e per billion output tokens on the H100 row.</p></div>
+  <h3>index.json, trimmed</h3>
+<pre><code>{
+  &quot;version&quot;: &quot;1&quot;,
+  &quot;updated&quot;: &quot;2026-09-26&quot;,
+  &quot;unit&quot;: &quot;Wh per million output tokens&quot;,
+  &quot;workload&quot;: &quot;text-conversation&quot;,
+  &quot;itl_deadline_ms&quot;: 400,
+  &quot;selection&quot;: &quot;per model and GPU, the configuration with the lowest energy per token whose median inter-token latency is under itl_deadline_ms&quot;,
+  &quot;reference_row&quot;: {
+    &quot;model&quot;: &quot;Qwen 3 32B&quot;,
+    &quot;gpu&quot;: &quot;H100&quot;,
+    &quot;num_gpus&quot;: 2
+  },
+  &quot;source&quot;: {
+    &quot;name&quot;: &quot;ML.ENERGY Leaderboard&quot;,
+    &quot;version&quot;: &quot;3.0, last updated 2026-09-23&quot;,
+    &quot;url&quot;: &quot;https://ml.energy/leaderboard/&quot;,
+    &quot;...&quot;: &quot;...&quot;
+  },
+  &quot;rows&quot;: [
+    {
+      &quot;model&quot;: &quot;Llama 3.1 8B Instruct&quot;,
+      &quot;slug&quot;: &quot;llama-3-1-8b-instruct&quot;,
+      &quot;model_id&quot;: &quot;meta-llama/Llama-3.1-8B-Instruct&quot;,
+      &quot;params_b&quot;: 8.0,
+      &quot;active_params_b&quot;: 8.0,
+      &quot;precision&quot;: &quot;BF16&quot;,
+      &quot;gpu&quot;: &quot;B200&quot;,
+      &quot;num_gpus&quot;: 1,
+      &quot;wh_per_million_output_tokens&quot;: 12.97,
+      &quot;joules_per_output_token&quot;: 0.0467,
+      &quot;median_itl_ms&quot;: 124.9,
+      &quot;avg_requests_in_flight&quot;: 2042.9,
+      &quot;gpu_power_watts_total&quot;: 691,
+      &quot;avg_output_tokens&quot;: 396
+    },
+    {
+      &quot;model&quot;: &quot;Qwen 3 8B&quot;,
+      &quot;slug&quot;: &quot;qwen-3-8b&quot;,
+      &quot;model_id&quot;: &quot;Qwen/Qwen3-8B&quot;,
+      &quot;params_b&quot;: 8.0,
+      &quot;active_params_b&quot;: 8.0,
+      &quot;precision&quot;: &quot;BF16&quot;,
+      &quot;gpu&quot;: &quot;B200&quot;,
+      &quot;num_gpus&quot;: 1,
+      &quot;wh_per_million_output_tokens&quot;: 14.74,
+      &quot;joules_per_output_token&quot;: 0.05306,
+      &quot;median_itl_ms&quot;: 91.2,
+      &quot;avg_requests_in_flight&quot;: 1426.7,
+      &quot;gpu_power_watts_total&quot;: 801,
+      &quot;avg_output_tokens&quot;: 649
+    },
+    &quot;... 30 more rows&quot;
+  ]
+}</code></pre>
+  <h3>models/qwen-3-32b.json, trimmed</h3>
+<pre><code>{
+  &quot;slug&quot;: &quot;qwen-3-32b&quot;,
+  &quot;name&quot;: &quot;Qwen 3 32B&quot;,
+  &quot;model_id&quot;: &quot;Qwen/Qwen3-32B&quot;,
+  &quot;params_b&quot;: 32.0,
+  &quot;gpus&quot;: [
+    &quot;B200&quot;,
+    &quot;H100&quot;
+  ],
+  &quot;configurations&quot;: [
+    {
+      &quot;gpu&quot;: &quot;B200&quot;,
+      &quot;num_gpus&quot;: 1,
+      &quot;tensor_parallel&quot;: 1,
+      &quot;data_parallel&quot;: 1,
+      &quot;expert_parallel&quot;: 1,
+      &quot;precision&quot;: &quot;BF16&quot;,
+      &quot;max_num_seqs&quot;: 8,
+      &quot;avg_requests_in_flight&quot;: 8.0,
+      &quot;wh_per_million_output_tokens&quot;: 429.18,
+      &quot;joules_per_output_token&quot;: 1.54505,
+      &quot;median_itl_ms&quot;: 14.1,
+      &quot;p90_itl_ms&quot;: 15.7,
+      &quot;p99_itl_ms&quot;: 27.1,
+      &quot;tokens_per_second&quot;: 556.4,
+      &quot;gpu_power_watts_total&quot;: 860,
+      &quot;avg_output_tokens&quot;: 646,
+      &quot;under_itl_deadline&quot;: true
+    },
+    &quot;... 21 more configurations&quot;
+  ],
+  &quot;best&quot;: {
+    &quot;B200&quot;: {
+      &quot;num_gpus&quot;: 1,
+      &quot;wh_per_million_output_tokens&quot;: 39.05,
+      &quot;...&quot;: &quot;...&quot;
+    },
+    &quot;H100&quot;: {
+      &quot;num_gpus&quot;: 2,
+      &quot;wh_per_million_output_tokens&quot;: 63.47,
+      &quot;...&quot;: &quot;...&quot;
+    }
+  }
+}</code></pre>
+  <h3>grid.json, trimmed</h3>
+<pre><code>{
+  &quot;year&quot;: &quot;2024&quot;,
+  &quot;unit&quot;: &quot;gCO2e per kWh&quot;,
+  &quot;world&quot;: 473.7,
+  &quot;areas&quot;: [
+    {
+      &quot;iso3&quot;: &quot;NOR&quot;,
+      &quot;name&quot;: &quot;Norway&quot;,
+      &quot;area_type&quot;: &quot;country&quot;,
+      &quot;continent&quot;: &quot;Europe&quot;,
+      &quot;g_co2e_per_kwh&quot;: 29.6
+    },
+    {
+      &quot;iso3&quot;: &quot;SRB&quot;,
+      &quot;name&quot;: &quot;Serbia&quot;,
+      &quot;area_type&quot;: &quot;country&quot;,
+      &quot;continent&quot;: &quot;Europe&quot;,
+      &quot;g_co2e_per_kwh&quot;: 668.0
+    },
+    &quot;... 192 more areas&quot;
+  ]
+}</code></pre>
+  <p class="note">The examples above are generated from the live files at build time, so they match what the endpoints return.</p>
+</section>
+
+<section id="browser">
+  <p class="eyebrow">From a browser</p>
+  <h2>CORS is open</h2>
+  <div class="prose">
+    <p>The files are served by GitHub Pages, which sends <code>access-control-allow-origin: *</code>, so a page on any origin can fetch them directly.</p>
+  </div>
+<pre><code>const r = await fetch("https://leadgreen.ai/api/v1/index.json");
+const { rows } = await r.json();
+const best = rows[0];   // sorted ascending by Wh per million output tokens
+console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pre>
+</section>
+
+<section id="fields">
+  <p class="eyebrow">Fields</p>
+  <h2>What the columns mean</h2>
+  <div class="table-scroll">
+    <table class="spec">
+      <caption>index.json rows and models/&lt;slug&gt;.json configurations</caption>
+      <thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours. joules_per_output_token × 1,000,000 ÷ 3,600.</td></tr>
+        <tr><th scope="row">joules_per_output_token</th><td>The source's figure: steady-state GPU energy per request divided by output tokens per request. Prompt processing is included.</td></tr>
+        <tr><th scope="row">median_itl_ms</th><td>Median inter-token latency in milliseconds at that configuration. Index rows are the best under 400 ms.</td></tr>
+        <tr><th scope="row">avg_requests_in_flight</th><td>Average batch the server was holding during the measurement. max_num_seqs is the configured cap.</td></tr>
+        <tr><th scope="row">gpu_power_watts_total</th><td>Average power drawn, summed across every GPU in the configuration.</td></tr>
+        <tr><th scope="row">tokens_per_second</th><td>Output throughput of the whole configuration.</td></tr>
+        <tr><th scope="row">num_gpus, tensor_parallel, data_parallel, expert_parallel</th><td>How many cards and how the model is split across them.</td></tr>
+        <tr><th scope="row">params_b, active_params_b, precision</th><td>Total and activated parameters in billions (they differ for mixture-of-experts models) and the weight precision.</td></tr>
+        <tr><th scope="row">g_co2e_per_kwh</th><td>Grid emissions intensity of total generation, annual average, from Ember. The year is in the document.</td></tr>
+        <tr><th scope="row">caveat</th><td>Carried on every document that has index rows. Please carry it into whatever you build.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="versioning">
+  <p class="eyebrow">Versioning and licence</p>
+  <h2>Additive only</h2>
+  <div class="prose">
+    <p><b>Version 1.</b> Fields are added, never renamed or removed. A new source or a re-measurement changes values and the <code>updated</code> date, and the change is recorded on <a href="../index/#changes">the index's change list</a>. A breaking change would ship as <code>/api/v2/</code> with v1 left in place.</p>
+    <p><b>Licence.</b> The compilation, the derived figures and the site text are offered under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: use them, credit Lead Green and the underlying source. Each source keeps its own licence, stated per source in <code>manifest.json</code>: ML.ENERGY's data is Apache 2.0, Ember's is CC BY 4.0, the AI Energy Score space is Apache 2.0, and NVIDIA's figures are cited rather than redistributed.</p>
+    <p><b>OpenAPI.</b> A machine-readable description is at <a href="../api/v1/openapi.json"><code>openapi.json</code></a>. The <a href="../mcp/">MCP server</a> is built on these same files.</p>
+  </div>
+</section>
+
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../index/">The index</a>
+      <a href="../api/">Data API</a>
+      <a href="../mcp/">MCP server</a>
+      <a href="../feed.xml">RSS</a>
+      <a href="../llms.txt">llms.txt</a>
+      <a href="../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 26 September 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Why it matters | Lead Green</title>
+<meta name="description" content="Nine reasons GPU energy per million output tokens belongs in procurement, operations and reporting, with the working shown, the sources named and an RFP clause to paste.">
+<link rel="canonical" href="https://leadgreen.ai/why/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Why it matters | Lead Green">
+<meta property="og:description" content="Nine reasons GPU energy per million output tokens belongs in procurement, operations and reporting, with the working shown, the sources named and an RFP clause to paste.">
+<meta property="og:url" content="https://leadgreen.ai/why/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": "Why it matters | Lead Green",
+ "description": "Nine reasons GPU energy per million output tokens belongs in procurement, operations and reporting, with the working shown, the sources named and an RFP clause to paste.",
+ "url": "https://leadgreen.ai/why/",
+ "publisher": {
+  "@type": "Organization",
+  "name": "Lead Green",
+  "url": "https://leadgreen.ai/",
+  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+  "parentOrganization": {
+   "@type": "Organization",
+   "name": "Katonic",
+   "url": "https://www.katonic.ai"
+  }
+ },
+ "inLanguage": "en"
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../why/" data-nav="why" aria-current="page">Why it matters</a></li>
+        <li><a href="../index/" data-nav="index">The index</a></li>
+        <li><a href="../api/" data-nav="api">Data API</a></li>
+        <li><a href="../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow">Why it matters</p>
+  <h1>Nine reasons to know your watt-hours per million tokens</h1>
+  <p class="stand">The number is small, cheap to buy and easy to ignore. It is also the only figure that ties a model, a GPU and a workload to a power feed, a carbon line and a utilisation rate at the same time. Here is why each of those matters, with the working shown.</p>
+  <ul class="toc" aria-label="On this page">
+    <li><a href="#utilisation">1 Utilisation</a></li>
+    <li><a href="#power">2 Power</a></li>
+    <li><a href="#board">3 The board</a></li>
+    <li><a href="#regulator">4 The regulator</a></li>
+    <li><a href="#location">5 Location</a></li>
+    <li><a href="#sci">6 The SCI</a></li>
+    <li><a href="#cheap">7 Cheap</a></li>
+    <li><a href="#mig">8 Sliced GPUs</a></li>
+    <li><a href="#monday">9 Monday</a></li>
+  </ul>
+</div>
+
+<section id="utilisation" class="first">
+  <p class="eyebrow">1</p>
+  <h2>It is a utilisation meter</h2>
+  <div class="prose">
+    <p>Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from <b>452 Wh/M</b> at 8 requests in flight to <b>63 Wh/M</b> at 256. That is 7.1× on the same hardware, while the cards draw 850 to 1,178 W either way and median inter-token latency stays at 44 ms or under.</p>
+    <p>Read it the other way round. A high energy per token does not mean the GPU is working hard. It means the GPU is drawing close to full power and producing few tokens, which is what an under-used server looks like from the wall socket. Energy per token is the utilisation rate expressed in a unit finance can see. If yours is high, you are paying for silicon that is waiting.</p>
+    <p class="fn">Source: ML.ENERGY Leaderboard v3.0, Text Conversation, all measured configurations of Qwen 3 32B on 2 × H100. Full ladder on <a href="../index/#concurrency">the index</a>.</p>
+  </div>
+</section>
+
+<section id="power">
+  <p class="eyebrow">2</p>
+  <h2>Power is the ceiling</h2>
+  <div class="prose">
+    <p>A data hall, a sovereign site or a telco exchange has a fixed power envelope long before it has a fixed GPU count. Energy per token converts that envelope into capacity. One megawatt-hour serves <b>15.8 billion output tokens</b> at the reference row (63.5 Wh/M). At the top of the concurrency ladder, 452 Wh/M, the same megawatt-hour serves <b>2.2 billion</b>.</p>
+    <p>An eight-GPU DGX B200 is rated at about 14.3 kW, and each B200 can be configured up to 1,000 W. Those are the numbers a facility engineer works with. What they buy depends entirely on the Wh/M the platform achieves, which is why the figure belongs in the capacity plan and not only in the sustainability report.</p>
+    <p class="fn">Sources: ML.ENERGY Leaderboard v3.0 for the rows; NVIDIA DGX B200 product page and the HGX B200 product carbon footprint summary (July 2025) for the ceilings.</p>
+  </div>
+</section>
+
+<section id="board">
+  <p class="eyebrow">3</p>
+  <h2>The board will ask</h2>
+  <div class="prose">
+    <p>Under the European Sustainability Reporting Standards, disclosure E1-5 asks for total energy consumption in MWh from own operations, split by fossil, nuclear and renewable sources. AI serving is a new and growing line inside that total, and the electricity behind it lands in Scope 2. A company that cannot say how many MWh its assistants used last quarter, or how many they will use next year as adoption grows, cannot fill in the line with a method it can defend.</p>
+    <p>Energy per million tokens is the forecasting unit. Tokens served next year multiplied by Wh/M gives the MWh. Without the first factor the second is a guess.</p>
+    <p class="fn">Source: Commission Delegated Regulation (EU) 2023/2772, ESRS E1-5 "Energy consumption and mix".</p>
+  </div>
+</section>
+
+<section id="regulator">
+  <p class="eyebrow">4</p>
+  <h2>The regulator already asks model providers</h2>
+  <div class="prose">
+    <p>The EU AI Act (Regulation 2024/1689) requires providers of general-purpose AI models to keep technical documentation, and Annex XI lists what it must contain. Section 1, point 2(e) names the "known or estimated energy consumption of the model", and adds that where it is unknown it may be based on the computational resources used. The duty sits with the model provider, not with the company deploying the model.</p>
+    <p>That is the point. Once a property is documented upstream, buyers start asking for it downstream. A deployer choosing between two models, or between a hosted API and its own cluster, will want the energy figure at their own load and not the provider's. The index is a public baseline to check that answer against.</p>
+    <p class="fn">Source: Regulation (EU) 2024/1689, Article 53(1)(a) and Annex XI, Section 1, point 2(e).</p>
+  </div>
+</section>
+
+<section id="location">
+  <p class="eyebrow">5</p>
+  <h2>Location changes carbon 23×, and not energy</h2>
+  <div class="prose">
+    <p>Energy per token is a property of the model, the hardware and the load. Carbon per token adds the grid. On Ember's 2024 annual averages, Saudi Arabia's grid runs at 692 gCO2e per kWh and Norway's at 30. The reference row priced against them gives <b>43.9 kg CO2e per billion tokens</b> in one place and <b>1.9 kg</b> in the other, for identical tokens on identical GPUs.</p>
+    <p>So a sovereign or in-country deployment changes the carbon figure with no change to the energy figure, in either direction. Which is why the two numbers should be reported separately, and why a claim about one should never be dressed as a claim about the other.</p>
+    <p class="fn">Source: Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, 2024. 193 countries in <a href="../api/">the API</a>; twenty-two on <a href="../index/#carbon">the index</a>.</p>
+  </div>
+</section>
+
+<section id="sci">
+  <p class="eyebrow">6</p>
+  <h2>It is the E in the SCI</h2>
+  <div class="prose">
+    <p>ISO/IEC 21031:2024 standardises the Software Carbon Intensity specification: SCI = ((E × I) + M) per R, where E is the energy consumed by the software, I the carbon intensity of that energy, M the embodied emissions of the hardware, and R the functional unit. For a language model, R is naturally a million output tokens, E is exactly what this index measures, Ember supplies I, and manufacturer footprints such as NVIDIA's 2,274 kg CO2e cradle-to-gate figure for an eight-GPU HGX B200 baseboard give a scale for M.</p>
+    <p>Anyone building an SCI score for an AI service needs the E. The index is a public place to get a baseline for it.</p>
+    <p class="fn">Sources: ISO/IEC 21031:2024, Information technology, Software Carbon Intensity (SCI) specification; NVIDIA, Product Carbon Footprint Summary for HGX B200, July 2025.</p>
+  </div>
+</section>
+
+<section id="cheap">
+  <p class="eyebrow">7</p>
+  <h2>Electricity per token is cheap. That is exactly why the number matters.</h2>
+  <div class="prose">
+    <p>At the reference row, a million output tokens takes 63.5 Wh, which at USD 0.10 per kWh is <b>0.6 US cents</b>. A billion tokens is about USD 6.35. Nobody will make a decision on that bill.</p>
+    <p>But the bill is not the point. Energy per token is the power a GPU draws multiplied by the time it spends on the tokens. Watt-hours per token track GPU-hours per token, and GPU-hours are the real cost of serving, whether they are rented at cloud rates or depreciated on a balance sheet. A configuration that halves Wh/M has halved the GPU-hours per token. The electricity figure is the cheapest instrument you can put on the most expensive thing in the room.</p>
+    <p class="fn">Working: 63.5 Wh per million tokens is 63.5 kWh per billion; at USD 0.10 per kWh that is USD 6.35 per billion tokens, or 0.6 cents per million. The electricity price is an assumption for the worked example, not a source figure.</p>
+  </div>
+</section>
+
+<section id="mig">
+  <p class="eyebrow">8</p>
+  <h2>Sliced GPUs are unmeasured</h2>
+  <div class="prose">
+    <p>Multi-Instance GPU lets one A100, H100, H200 or B200 be split into up to seven isolated slices, and it is how many enterprise and telco platforms serve several small models from one card. NVIDIA publishes the slice shapes. It does not publish power draw per slice, and neither of the two public benchmarks on the index has measured a sliced card. So the configuration a great many production deployments actually run in has no public energy figure at all.</p>
+    <p>That is the first gap Lead Green intends to close with a measurement of its own: a 32B model on two MIG slices against a whole card, GPU power sampled through NVIDIA DCGM, with hardware, driver, engine and prompt set named. Until it is published, the honest answer for a sliced deployment is "unknown, and above the index".</p>
+    <p class="fn">Source: NVIDIA Multi-Instance GPU User Guide, supported MIG profiles, last updated 11 September 2026. Profiles on <a href="../index/#hardware">the index</a>.</p>
+  </div>
+</section>
+
+<section id="monday">
+  <p class="eyebrow">9</p>
+  <h2>What to do on Monday</h2>
+  <div class="prose">
+    <ol>
+      <li><b>Ask the vendor for Wh per million output tokens at your concurrency.</b> Not at theirs. Name the model, the precision, the GPU count, the workload and the latency limit, and ask for the average requests in flight the figure was measured at. Workload matters as much as load: on the same leaderboard, the Problem Solving task costs 3 to 41 times the energy per response of Text Conversation for the same model on the same GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464. If the vendor cannot answer, the index gives you the floor to hold them to.</li>
+      <li><b>Measure your own.</b> NVIDIA DCGM or <code>nvidia-smi</code> report GPU power; sample it at one hertz through a steady load, divide the energy by the output tokens served, and you have your own row. The <a href="../contribute/#protocol">measurement protocol</a> is short and the result can be listed beside the public ones.</li>
+      <li><b>Put the number in the RFP.</b> One clause, below, turns a marketing conversation into a comparable figure across every bidder.</li>
+    </ol>
+    <p class="fn">Source for the workload comparison: ML.ENERGY Leaderboard v3.0, Problem Solving (gpqa) against Text Conversation, energy-optimal rows under each task's default latency limit, 11 model and GPU pairs measured on both.</p>
+  </div>
+  <div class="callout">
+    <p class="eyebrow">RFP clause, ready to paste</p>
+    <p>"The bidder shall state the GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state with the proposed serving engine on the proposed hardware, at an average of [N] concurrent requests and with median inter-token latency not exceeding [T] ms, on a conversational workload with prompts and outputs representative of the buyer's use. The bidder shall name the measurement method, the sampling tool, the software versions and the date, and shall state whether host, network and cooling energy are included. Figures for sliced (MIG) configurations shall be measured on the sliced configuration and not derived from whole-card figures."</p>
+  </div>
+  <p class="note">Fill [N] with the concurrency you expect in production and [T] with the latency your users will accept. The index uses 400 ms. Everything else in the clause is there so that two bidders' numbers can be compared.</p>
+</section>
+
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../index/">The index</a>
+      <a href="../api/">Data API</a>
+      <a href="../mcp/">MCP server</a>
+      <a href="../feed.xml">RSS</a>
+      <a href="../llms.txt">llms.txt</a>
+      <a href="../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 26 September 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

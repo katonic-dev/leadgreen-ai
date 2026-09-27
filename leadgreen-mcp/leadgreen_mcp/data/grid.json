@@ -1,0 +1,1379 @@
+{
+  "version": "1",
+  "updated": "2026-09-26",
+  "year": "2024",
+  "unit": "gCO2e per kWh",
+  "basis": "annual average emissions intensity of total generation; hourly intensity, contracted supply and self-generation are not reflected",
+  "source": {
+    "name": "Ember, Yearly electricity data",
+    "publisher": "Ember",
+    "url": "https://ember-energy.org/data/yearly-electricity-data/",
+    "data_url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
+    "version": "September 2026 release (file last modified 2026-09-22)",
+    "retrieved": "2026-09-26",
+    "licence": "CC-BY-4.0",
+    "used_for": "grid emissions intensity of total generation, gCO2e per kWh, 2024"
+  },
+  "licence": "CC BY 4.0",
+  "world": 473.7,
+  "note": "Area names are Ember's labels. 'WLD' is used as the code for the World row; Ember gives it none.",
+  "areas": [
+    {
+      "iso3": "WLD",
+      "name": "World",
+      "area_type": "world",
+      "g_co2e_per_kwh": 473.7
+    },
+    {
+      "iso3": "AFG",
+      "name": "Afghanistan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 117.2
+    },
+    {
+      "iso3": "ALB",
+      "name": "Albania",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 24.7
+    },
+    {
+      "iso3": "DZA",
+      "name": "Algeria",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 632.8
+    },
+    {
+      "iso3": "ASM",
+      "name": "American Samoa",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 622.2
+    },
+    {
+      "iso3": "AGO",
+      "name": "Angola",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 185.1
+    },
+    {
+      "iso3": "ATG",
+      "name": "Antigua and Barbuda",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 608.1
+    },
+    {
+      "iso3": "ARG",
+      "name": "Argentina",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 344.9
+    },
+    {
+      "iso3": "ARM",
+      "name": "Armenia",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 240.3
+    },
+    {
+      "iso3": "ABW",
+      "name": "Aruba",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 549.0
+    },
+    {
+      "iso3": "AUS",
+      "name": "Australia",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 554.0
+    },
+    {
+      "iso3": "AUT",
+      "name": "Austria",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 103.5
+    },
+    {
+      "iso3": "AZE",
+      "name": "Azerbaijan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 634.4
+    },
+    {
+      "iso3": "BHS",
+      "name": "Bahamas",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 652.4
+    },
+    {
+      "iso3": "BHR",
+      "name": "Bahrain",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 902.5
+    },
+    {
+      "iso3": "BGD",
+      "name": "Bangladesh",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 695.8
+    },
+    {
+      "iso3": "BRB",
+      "name": "Barbados",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 600.9
+    },
+    {
+      "iso3": "BLR",
+      "name": "Belarus",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 329.5
+    },
+    {
+      "iso3": "BEL",
+      "name": "Belgium",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 126.9
+    },
+    {
+      "iso3": "BLZ",
+      "name": "Belize",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 170.2
+    },
+    {
+      "iso3": "BEN",
+      "name": "Benin",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 579.2
+    },
+    {
+      "iso3": "BTN",
+      "name": "Bhutan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 23.7
+    },
+    {
+      "iso3": "BOL",
+      "name": "Bolivia",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 495.7
+    },
+    {
+      "iso3": "BIH",
+      "name": "Bosnia Herzegovina",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 607.4
+    },
+    {
+      "iso3": "BWA",
+      "name": "Botswana",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 852.5
+    },
+    {
+      "iso3": "BRA",
+      "name": "Brazil",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 106.1
+    },
+    {
+      "iso3": "BRN",
+      "name": "Brunei Darussalam",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 893.0
+    },
+    {
+      "iso3": "BGR",
+      "name": "Bulgaria",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 279.1
+    },
+    {
+      "iso3": "BFA",
+      "name": "Burkina Faso",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 560.9
+    },
+    {
+      "iso3": "BDI",
+      "name": "Burundi",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 183.7
+    },
+    {
+      "iso3": "CPV",
+      "name": "Cabo Verde",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 463.5
+    },
+    {
+      "iso3": "KHM",
+      "name": "Cambodia",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 538.7
+    },
+    {
+      "iso3": "CMR",
+      "name": "Cameroon",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 226.2
+    },
+    {
+      "iso3": "CAN",
+      "name": "Canada",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 185.4
+    },
+    {
+      "iso3": "CYM",
+      "name": "Cayman Islands",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 632.4
+    },
+    {
+      "iso3": "TCD",
+      "name": "Chad",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 629.7
+    },
+    {
+      "iso3": "CHL",
+      "name": "Chile",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 260.9
+    },
+    {
+      "iso3": "CHN",
+      "name": "China",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 559.0
+    },
+    {
+      "iso3": "COL",
+      "name": "Colombia",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 298.3
+    },
+    {
+      "iso3": "COG",
+      "name": "Congo",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 715.6
+    },
+    {
+      "iso3": "COD",
+      "name": "Congo (DRC)",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 27.6
+    },
+    {
+      "iso3": "COK",
+      "name": "Cook Islands (the)",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 350.0
+    },
+    {
+      "iso3": "CRI",
+      "name": "Costa Rica",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 25.8
+    },
+    {
+      "iso3": "CIV",
+      "name": "Cote d'Ivoire",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 405.6
+    },
+    {
+      "iso3": "HRV",
+      "name": "Croatia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 170.5
+    },
+    {
+      "iso3": "CUB",
+      "name": "Cuba",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 642.9
+    },
+    {
+      "iso3": "CYP",
+      "name": "Cyprus",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 513.0
+    },
+    {
+      "iso3": "CZE",
+      "name": "Czechia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 414.2
+    },
+    {
+      "iso3": "DNK",
+      "name": "Denmark",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 132.2
+    },
+    {
+      "iso3": "DJI",
+      "name": "Djibouti",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 430.0
+    },
+    {
+      "iso3": "DOM",
+      "name": "Dominican Republic",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 567.3
+    },
+    {
+      "iso3": "ECU",
+      "name": "Ecuador",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 203.7
+    },
+    {
+      "iso3": "EGY",
+      "name": "Egypt",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 574.5
+    },
+    {
+      "iso3": "SLV",
+      "name": "El Salvador",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 114.0
+    },
+    {
+      "iso3": "GNQ",
+      "name": "Equatorial Guinea",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 643.0
+    },
+    {
+      "iso3": "ERI",
+      "name": "Eritrea",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 591.1
+    },
+    {
+      "iso3": "EST",
+      "name": "Estonia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 344.2
+    },
+    {
+      "iso3": "SWZ",
+      "name": "Eswatini",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 119.7
+    },
+    {
+      "iso3": "ETH",
+      "name": "Ethiopia",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 23.5
+    },
+    {
+      "iso3": "FJI",
+      "name": "Fiji",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 275.7
+    },
+    {
+      "iso3": "FIN",
+      "name": "Finland",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 66.9
+    },
+    {
+      "iso3": "FRA",
+      "name": "France",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 40.3
+    },
+    {
+      "iso3": "PYF",
+      "name": "French Polynesia",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 440.3
+    },
+    {
+      "iso3": "GAB",
+      "name": "Gabon",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 525.4
+    },
+    {
+      "iso3": "GMB",
+      "name": "Gambia",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 658.8
+    },
+    {
+      "iso3": "GEO",
+      "name": "Georgia",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 145.1
+    },
+    {
+      "iso3": "DEU",
+      "name": "Germany",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 339.9
+    },
+    {
+      "iso3": "GHA",
+      "name": "Ghana",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 468.8
+    },
+    {
+      "iso3": "GRC",
+      "name": "Greece",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 321.8
+    },
+    {
+      "iso3": "GRL",
+      "name": "Greenland",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 138.3
+    },
+    {
+      "iso3": "GRD",
+      "name": "Grenada",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 658.3
+    },
+    {
+      "iso3": "GUM",
+      "name": "Guam",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 605.4
+    },
+    {
+      "iso3": "GTM",
+      "name": "Guatemala",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 301.5
+    },
+    {
+      "iso3": "GIN",
+      "name": "Guinea",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 181.4
+    },
+    {
+      "iso3": "GNB",
+      "name": "Guinea-Bissau",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 662.5
+    },
+    {
+      "iso3": "GUY",
+      "name": "Guyana",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 642.0
+    },
+    {
+      "iso3": "HTI",
+      "name": "Haiti",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 539.5
+    },
+    {
+      "iso3": "HND",
+      "name": "Honduras",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 322.0
+    },
+    {
+      "iso3": "HKG",
+      "name": "Hong Kong (SAR of China)",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 675.6
+    },
+    {
+      "iso3": "HUN",
+      "name": "Hungary",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 183.9
+    },
+    {
+      "iso3": "ISL",
+      "name": "Iceland",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 27.8
+    },
+    {
+      "iso3": "IND",
+      "name": "India",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 707.1
+    },
+    {
+      "iso3": "IDN",
+      "name": "Indonesia",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 710.4
+    },
+    {
+      "iso3": "IRN",
+      "name": "Iran",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 648.7
+    },
+    {
+      "iso3": "IRQ",
+      "name": "Iraq",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 683.1
+    },
+    {
+      "iso3": "IRL",
+      "name": "Ireland",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 270.8
+    },
+    {
+      "iso3": "ISR",
+      "name": "Israel",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 540.7
+    },
+    {
+      "iso3": "ITA",
+      "name": "Italy",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 281.4
+    },
+    {
+      "iso3": "JAM",
+      "name": "Jamaica",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 562.4
+    },
+    {
+      "iso3": "JPN",
+      "name": "Japan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 483.6
+    },
+    {
+      "iso3": "JOR",
+      "name": "Jordan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 529.7
+    },
+    {
+      "iso3": "KAZ",
+      "name": "Kazakhstan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 801.9
+    },
+    {
+      "iso3": "KEN",
+      "name": "Kenya",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 85.8
+    },
+    {
+      "iso3": "KIR",
+      "name": "Kiribati",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 500.0
+    },
+    {
+      "iso3": "XKX",
+      "name": "Kosovo",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 925.0
+    },
+    {
+      "iso3": "KWT",
+      "name": "Kuwait",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 635.3
+    },
+    {
+      "iso3": "KGZ",
+      "name": "Kyrgyzstan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 120.2
+    },
+    {
+      "iso3": "LAO",
+      "name": "Lao PDR",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 232.1
+    },
+    {
+      "iso3": "LVA",
+      "name": "Latvia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 134.5
+    },
+    {
+      "iso3": "LBN",
+      "name": "Lebanon",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 388.2
+    },
+    {
+      "iso3": "LBR",
+      "name": "Liberia",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 314.0
+    },
+    {
+      "iso3": "LBY",
+      "name": "Libya",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 826.9
+    },
+    {
+      "iso3": "LTU",
+      "name": "Lithuania",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 116.1
+    },
+    {
+      "iso3": "LUX",
+      "name": "Luxembourg",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 125.8
+    },
+    {
+      "iso3": "MAC",
+      "name": "Macao (SAR of China)",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 474.4
+    },
+    {
+      "iso3": "MDG",
+      "name": "Madagascar",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 433.7
+    },
+    {
+      "iso3": "MWI",
+      "name": "Malawi",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 56.8
+    },
+    {
+      "iso3": "MYS",
+      "name": "Malaysia",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 604.3
+    },
+    {
+      "iso3": "MDV",
+      "name": "Maldives",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 615.3
+    },
+    {
+      "iso3": "MLI",
+      "name": "Mali",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 537.4
+    },
+    {
+      "iso3": "MLT",
+      "name": "Malta",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 488.1
+    },
+    {
+      "iso3": "MRT",
+      "name": "Mauritania",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 515.0
+    },
+    {
+      "iso3": "MUS",
+      "name": "Mauritius",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 642.2
+    },
+    {
+      "iso3": "MEX",
+      "name": "Mexico",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 483.1
+    },
+    {
+      "iso3": "MDA",
+      "name": "Moldova",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 636.7
+    },
+    {
+      "iso3": "MNG",
+      "name": "Mongolia",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 817.0
+    },
+    {
+      "iso3": "MNE",
+      "name": "Montenegro",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 424.6
+    },
+    {
+      "iso3": "MSR",
+      "name": "Montserrat",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 700.0
+    },
+    {
+      "iso3": "MAR",
+      "name": "Morocco",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 595.3
+    },
+    {
+      "iso3": "MOZ",
+      "name": "Mozambique",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 129.4
+    },
+    {
+      "iso3": "MMR",
+      "name": "Myanmar",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 502.3
+    },
+    {
+      "iso3": "NAM",
+      "name": "Namibia",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 52.4
+    },
+    {
+      "iso3": "NRU",
+      "name": "Nauru",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 540.0
+    },
+    {
+      "iso3": "NPL",
+      "name": "Nepal",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 24.0
+    },
+    {
+      "iso3": "NLD",
+      "name": "Netherlands",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 250.8
+    },
+    {
+      "iso3": "NCL",
+      "name": "New Caledonia",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 564.1
+    },
+    {
+      "iso3": "NZL",
+      "name": "New Zealand",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 111.9
+    },
+    {
+      "iso3": "NIC",
+      "name": "Nicaragua",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 300.4
+    },
+    {
+      "iso3": "NER",
+      "name": "Niger",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 670.5
+    },
+    {
+      "iso3": "NGA",
+      "name": "Nigeria",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 495.6
+    },
+    {
+      "iso3": "PRK",
+      "name": "North Korea",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 340.6
+    },
+    {
+      "iso3": "MKD",
+      "name": "North Macedonia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 511.7
+    },
+    {
+      "iso3": "NOR",
+      "name": "Norway",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 29.6
+    },
+    {
+      "iso3": "OMN",
+      "name": "Oman",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 542.9
+    },
+    {
+      "iso3": "PAK",
+      "name": "Pakistan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 334.4
+    },
+    {
+      "iso3": "PSE",
+      "name": "Palestine (State of)",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 417.2
+    },
+    {
+      "iso3": "PAN",
+      "name": "Panama",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 220.3
+    },
+    {
+      "iso3": "PNG",
+      "name": "Papua New Guinea",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 516.1
+    },
+    {
+      "iso3": "PRY",
+      "name": "Paraguay",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 24.9
+    },
+    {
+      "iso3": "PER",
+      "name": "Peru",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 258.4
+    },
+    {
+      "iso3": "POL",
+      "name": "Poland",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 608.5
+    },
+    {
+      "iso3": "PRT",
+      "name": "Portugal",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 110.6
+    },
+    {
+      "iso3": "PRI",
+      "name": "Puerto Rico",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 656.5
+    },
+    {
+      "iso3": "QAT",
+      "name": "Qatar",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 581.7
+    },
+    {
+      "iso3": "ROU",
+      "name": "Romania",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 259.7
+    },
+    {
+      "iso3": "RUS",
+      "name": "Russia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 446.1
+    },
+    {
+      "iso3": "RWA",
+      "name": "Rwanda",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 361.9
+    },
+    {
+      "iso3": "KNA",
+      "name": "Saint Kitts and Nevis",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 604.3
+    },
+    {
+      "iso3": "LCA",
+      "name": "Saint Lucia",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 642.5
+    },
+    {
+      "iso3": "VCT",
+      "name": "Saint Vincent and the Grenadines",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 573.3
+    },
+    {
+      "iso3": "WSM",
+      "name": "Samoa",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 400.0
+    },
+    {
+      "iso3": "SAU",
+      "name": "Saudi Arabia",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 691.9
+    },
+    {
+      "iso3": "SEN",
+      "name": "Senegal",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 540.1
+    },
+    {
+      "iso3": "SRB",
+      "name": "Serbia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 668.0
+    },
+    {
+      "iso3": "SYC",
+      "name": "Seychelles",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 560.3
+    },
+    {
+      "iso3": "SLE",
+      "name": "Sierra Leone",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 57.1
+    },
+    {
+      "iso3": "SGP",
+      "name": "Singapore",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 498.7
+    },
+    {
+      "iso3": "SVK",
+      "name": "Slovakia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 97.2
+    },
+    {
+      "iso3": "SVN",
+      "name": "Slovenia",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 230.5
+    },
+    {
+      "iso3": "SLB",
+      "name": "Solomon Islands",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 600.0
+    },
+    {
+      "iso3": "SOM",
+      "name": "Somalia",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 530.2
+    },
+    {
+      "iso3": "ZAF",
+      "name": "South Africa",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 717.7
+    },
+    {
+      "iso3": "KOR",
+      "name": "South Korea",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 415.6
+    },
+    {
+      "iso3": "SSD",
+      "name": "South Sudan",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 646.4
+    },
+    {
+      "iso3": "ESP",
+      "name": "Spain",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 146.3
+    },
+    {
+      "iso3": "LKA",
+      "name": "Sri Lanka",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 386.8
+    },
+    {
+      "iso3": "SDN",
+      "name": "Sudan",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 154.3
+    },
+    {
+      "iso3": "SUR",
+      "name": "Suriname",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 323.0
+    },
+    {
+      "iso3": "SWE",
+      "name": "Sweden",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 34.9
+    },
+    {
+      "iso3": "CHE",
+      "name": "Switzerland",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 34.6
+    },
+    {
+      "iso3": "SYR",
+      "name": "Syria",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 706.2
+    },
+    {
+      "iso3": "TWN",
+      "name": "Taiwan (China)",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 636.2
+    },
+    {
+      "iso3": "TJK",
+      "name": "Tajikistan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 70.8
+    },
+    {
+      "iso3": "TZA",
+      "name": "Tanzania (the United Republic of)",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 343.9
+    },
+    {
+      "iso3": "THA",
+      "name": "Thailand",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 555.4
+    },
+    {
+      "iso3": "PHL",
+      "name": "The Philippines",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 629.5
+    },
+    {
+      "iso3": "TGO",
+      "name": "Togo",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 421.1
+    },
+    {
+      "iso3": "TON",
+      "name": "Tonga",
+      "area_type": "country",
+      "continent": "Oceania",
+      "g_co2e_per_kwh": 571.4
+    },
+    {
+      "iso3": "TTO",
+      "name": "Trinidad and Tobago",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 681.3
+    },
+    {
+      "iso3": "TUN",
+      "name": "Tunisia",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 558.1
+    },
+    {
+      "iso3": "TKM",
+      "name": "Turkmenistan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 1306.2
+    },
+    {
+      "iso3": "TCA",
+      "name": "Turks and Caicos Islands",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 637.0
+    },
+    {
+      "iso3": "TUR",
+      "name": "Türkiye",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 470.8
+    },
+    {
+      "iso3": "UGA",
+      "name": "Uganda",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 58.5
+    },
+    {
+      "iso3": "ARE",
+      "name": "United Arab Emirates",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 467.5
+    },
+    {
+      "iso3": "GBR",
+      "name": "United Kingdom",
+      "area_type": "country",
+      "continent": "Europe",
+      "g_co2e_per_kwh": 216.5
+    },
+    {
+      "iso3": "USA",
+      "name": "United States",
+      "area_type": "country",
+      "continent": "North America",
+      "g_co2e_per_kwh": 383.8
+    },
+    {
+      "iso3": "URY",
+      "name": "Uruguay",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 68.8
+    },
+    {
+      "iso3": "UZB",
+      "name": "Uzbekistan",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 1040.2
+    },
+    {
+      "iso3": "VEN",
+      "name": "Venezuela",
+      "area_type": "country",
+      "continent": "South America",
+      "g_co2e_per_kwh": 85.9
+    },
+    {
+      "iso3": "VNM",
+      "name": "Viet Nam",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 487.0
+    },
+    {
+      "iso3": "YEM",
+      "name": "Yemen",
+      "area_type": "country",
+      "continent": "Asia",
+      "g_co2e_per_kwh": 591.4
+    },
+    {
+      "iso3": "ZMB",
+      "name": "Zambia",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 125.8
+    },
+    {
+      "iso3": "ZWE",
+      "name": "Zimbabwe",
+      "area_type": "country",
+      "continent": "Africa",
+      "g_co2e_per_kwh": 383.7
+    }
+  ]
+}

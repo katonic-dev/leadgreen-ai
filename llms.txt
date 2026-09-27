@@ -1,0 +1,41 @@
+# Lead Green
+
+> Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens, Wh/M), by model, GPU and configuration, with grid carbon intensity to price it anywhere. Every figure comes from a named public source with a retrieval date. It is a Katonic project. Updated 26 September 2026.
+
+Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-optimal configuration under a 400 ms median inter-token-latency limit):
+- Lowest on the index: 13 Wh/M (Llama 3.1 8B Instruct, 1 × B200)
+- Reference row: 63.5 Wh/M (Qwen 3 32B, 2 × H100)
+- Highest on the index: 573 Wh/M (Llama 3.1 405B Instruct FP8, 8 × H100)
+- The index spans 44x. The same model on the same GPUs moves 7.1x with concurrency (452 to 63 Wh/M for Qwen 3 32B on 2 x H100, 8 to 256 requests in flight).
+- Carbon: multiply Wh/M by the grid's gCO2e/kWh and divide by 1,000 for kg CO2e per billion tokens. Saudi Arabia 692, Serbia 668, Norway 30, World 474 gCO2e/kWh (Ember, 2024).
+- Caveat: GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.
+
+## Pages
+- [Home](https://leadgreen.ai/): what Lead Green is, why it exists, who it is for
+- [Why it matters](https://leadgreen.ai/why/): nine reasons the number belongs in procurement, operations and reporting, with an RFP clause
+- [The index](https://leadgreen.ai/index/): the full tables, method, sources ledger and change record
+- [Data API](https://leadgreen.ai/api/): read-only JSON, CORS open, CC BY 4.0
+- [MCP server](https://leadgreen.ai/mcp/): tools for AI assistants (list_models, energy_per_million_tokens, estimate, compare_gpus, concurrency_curve, grid_intensity, gpu_hardware, sources)
+- [Blog](https://leadgreen.ai/blog/): RSS at https://leadgreen.ai/feed.xml
+- [Newsletter](https://leadgreen.ai/newsletter/)
+- [Contribute](https://leadgreen.ai/contribute/): volunteer roles and the measurement protocol
+- [About](https://leadgreen.ai/about/)
+
+## Data API (JSON)
+- https://leadgreen.ai/api/v1/manifest.json: Sources, versions, retrieval dates, licences and this endpoint list.
+- https://leadgreen.ai/api/v1/index.json: The index: 32 rows, one per model and GPU, energy-optimal under the latency limit, sorted ascending.
+- https://leadgreen.ai/api/v1/models.json: Every model on the index with its slug, Hugging Face id, parameter counts and measured GPUs.
+- https://leadgreen.ai/api/v1/models/{slug}.json: One model: every measured configuration (concurrency, parallelism, latency, power) and the best row per GPU.
+- https://leadgreen.ai/api/v1/grid.json: Grid emissions intensity, gCO2e per kWh, 2024 annual average, 193 countries plus World.
+- https://leadgreen.ai/api/v1/hardware.json: Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure.
+- https://leadgreen.ai/api/v1/per-query.json: AI Energy Score text-generation rows: Wh per 1,000 queries at batch size 1 on one H100.
+- https://leadgreen.ai/api/v1/openapi.json: OpenAPI 3.1 description of these endpoints.
+
+## Sources
+- ML.ENERGY Leaderboard (The ML.ENERGY Initiative, University of Michigan), 3.0, last updated 2026-09-23, Apache-2.0: https://ml.energy/leaderboard/
+- Ember, Yearly electricity data, September 2026 release (file last modified 2026-09-22), CC-BY-4.0: https://ember-energy.org/data/yearly-electricity-data/
+- NVIDIA MIG profiles, product specifications and the HGX B200 product carbon footprint summary: https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html
+- AI Energy Score leaderboard (Hugging Face), December 2025 round: https://huggingface.co/spaces/AIEnergyScore/Leaderboard
+
+## Licence
+Compilation, site text and derived figures: CC BY 4.0. Each source keeps its own licence, listed per source. Code: Apache 2.0.

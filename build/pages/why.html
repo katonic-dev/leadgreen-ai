@@ -1,0 +1,119 @@
+<!--meta
+title: Why it matters | Lead Green
+description: Nine reasons GPU energy per million output tokens belongs in procurement, operations and reporting, with the working shown, the sources named and an RFP clause to paste.
+og_type: article
+-->
+<div class="title">
+  <p class="eyebrow">Why it matters</p>
+  <h1>Nine reasons to know your watt-hours per million tokens</h1>
+  <p class="stand">The number is small, cheap to buy and easy to ignore. It is also the only figure that ties a model, a GPU and a workload to a power feed, a carbon line and a utilisation rate at the same time. Here is why each of those matters, with the working shown.</p>
+  <ul class="toc" aria-label="On this page">
+    <li><a href="#utilisation">1 Utilisation</a></li>
+    <li><a href="#power">2 Power</a></li>
+    <li><a href="#board">3 The board</a></li>
+    <li><a href="#regulator">4 The regulator</a></li>
+    <li><a href="#location">5 Location</a></li>
+    <li><a href="#sci">6 The SCI</a></li>
+    <li><a href="#cheap">7 Cheap</a></li>
+    <li><a href="#mig">8 Sliced GPUs</a></li>
+    <li><a href="#monday">9 Monday</a></li>
+  </ul>
+</div>
+
+<section id="utilisation" class="first">
+  <p class="eyebrow">1</p>
+  <h2>It is a utilisation meter</h2>
+  <div class="prose">
+    <p>Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from <b>{{LADDER_32_FIRST}} Wh/M</b> at {{LADDER_32_FIRST_BATCH}} requests in flight to <b>{{LADDER_32_LAST}} Wh/M</b> at {{LADDER_32_LAST_BATCH}}. That is {{LADDER_32_RATIO}}× on the same hardware, while the cards draw {{LADDER_32_FIRST_W}} to {{LADDER_32_LAST_W}} W either way and median inter-token latency stays at {{LADDER_32_LAST_ITL}} ms or under.</p>
+    <p>Read it the other way round. A high energy per token does not mean the GPU is working hard. It means the GPU is drawing close to full power and producing few tokens, which is what an under-used server looks like from the wall socket. Energy per token is the utilisation rate expressed in a unit finance can see. If yours is high, you are paying for silicon that is waiting.</p>
+    <p class="fn">Source: ML.ENERGY Leaderboard v3.0, Text Conversation, all measured configurations of Qwen 3 32B on 2 × H100. Full ladder on <a href="{{ROOT}}index/#concurrency">the index</a>.</p>
+  </div>
+</section>
+
+<section id="power">
+  <p class="eyebrow">2</p>
+  <h2>Power is the ceiling</h2>
+  <div class="prose">
+    <p>A data hall, a sovereign site or a telco exchange has a fixed power envelope long before it has a fixed GPU count. Energy per token converts that envelope into capacity. One megawatt-hour serves <b>{{TOKENS_PER_MWH_REF_B}} billion output tokens</b> at the reference row ({{REF_WH_1}} Wh/M). At the top of the concurrency ladder, {{LADDER_32_FIRST}} Wh/M, the same megawatt-hour serves <b>{{TOKENS_PER_MWH_TOP_B}} billion</b>.</p>
+    <p>An eight-GPU DGX B200 is rated at about {{DGX_B200_KW}} kW, and each B200 can be configured up to {{B200_TDP}} W. Those are the numbers a facility engineer works with. What they buy depends entirely on the Wh/M the platform achieves, which is why the figure belongs in the capacity plan and not only in the sustainability report.</p>
+    <p class="fn">Sources: ML.ENERGY Leaderboard v3.0 for the rows; NVIDIA DGX B200 product page and the HGX B200 product carbon footprint summary (July 2025) for the ceilings.</p>
+  </div>
+</section>
+
+<section id="board">
+  <p class="eyebrow">3</p>
+  <h2>The board will ask</h2>
+  <div class="prose">
+    <p>Under the European Sustainability Reporting Standards, disclosure E1-5 asks for total energy consumption in MWh from own operations, split by fossil, nuclear and renewable sources. AI serving is a new and growing line inside that total, and the electricity behind it lands in Scope 2. A company that cannot say how many MWh its assistants used last quarter, or how many they will use next year as adoption grows, cannot fill in the line with a method it can defend.</p>
+    <p>Energy per million tokens is the forecasting unit. Tokens served next year multiplied by Wh/M gives the MWh. Without the first factor the second is a guess.</p>
+    <p class="fn">Source: Commission Delegated Regulation (EU) 2023/2772, ESRS E1-5 "Energy consumption and mix".</p>
+  </div>
+</section>
+
+<section id="regulator">
+  <p class="eyebrow">4</p>
+  <h2>The regulator already asks model providers</h2>
+  <div class="prose">
+    <p>The EU AI Act (Regulation 2024/1689) requires providers of general-purpose AI models to keep technical documentation, and Annex XI lists what it must contain. Section 1, point 2(e) names the "known or estimated energy consumption of the model", and adds that where it is unknown it may be based on the computational resources used. The duty sits with the model provider, not with the company deploying the model.</p>
+    <p>That is the point. Once a property is documented upstream, buyers start asking for it downstream. A deployer choosing between two models, or between a hosted API and its own cluster, will want the energy figure at their own load and not the provider's. The index is a public baseline to check that answer against.</p>
+    <p class="fn">Source: Regulation (EU) 2024/1689, Article 53(1)(a) and Annex XI, Section 1, point 2(e).</p>
+  </div>
+</section>
+
+<section id="location">
+  <p class="eyebrow">5</p>
+  <h2>Location changes carbon {{SAU_NOR_RATIO}}×, and not energy</h2>
+  <div class="prose">
+    <p>Energy per token is a property of the model, the hardware and the load. Carbon per token adds the grid. On Ember's {{EMBER_YEAR}} annual averages, Saudi Arabia's grid runs at {{SAU_G}} gCO2e per kWh and Norway's at {{NOR_G}}. The reference row priced against them gives <b>{{REF_KG_SAU}} kg CO2e per billion tokens</b> in one place and <b>{{REF_KG_NOR}} kg</b> in the other, for identical tokens on identical GPUs.</p>
+    <p>So a sovereign or in-country deployment changes the carbon figure with no change to the energy figure, in either direction. Which is why the two numbers should be reported separately, and why a claim about one should never be dressed as a claim about the other.</p>
+    <p class="fn">Source: Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, {{EMBER_YEAR}}. {{GRID_COUNT}} countries in <a href="{{ROOT}}api/">the API</a>; twenty-two on <a href="{{ROOT}}index/#carbon">the index</a>.</p>
+  </div>
+</section>
+
+<section id="sci">
+  <p class="eyebrow">6</p>
+  <h2>It is the E in the SCI</h2>
+  <div class="prose">
+    <p>ISO/IEC 21031:2024 standardises the Software Carbon Intensity specification: SCI = ((E × I) + M) per R, where E is the energy consumed by the software, I the carbon intensity of that energy, M the embodied emissions of the hardware, and R the functional unit. For a language model, R is naturally a million output tokens, E is exactly what this index measures, Ember supplies I, and manufacturer footprints such as NVIDIA's {{B200_EMBODIED_KG}} kg CO2e cradle-to-gate figure for an eight-GPU HGX B200 baseboard give a scale for M.</p>
+    <p>Anyone building an SCI score for an AI service needs the E. The index is a public place to get a baseline for it.</p>
+    <p class="fn">Sources: ISO/IEC 21031:2024, Information technology, Software Carbon Intensity (SCI) specification; NVIDIA, Product Carbon Footprint Summary for HGX B200, July 2025.</p>
+  </div>
+</section>
+
+<section id="cheap">
+  <p class="eyebrow">7</p>
+  <h2>Electricity per token is cheap. That is exactly why the number matters.</h2>
+  <div class="prose">
+    <p>At the reference row, a million output tokens takes {{REF_WH_1}} Wh, which at USD {{ELECTRICITY_PRICE}} per kWh is <b>{{CENTS_PER_M_REF}} US cents</b>. A billion tokens is about USD {{USD_PER_B_REF}}. Nobody will make a decision on that bill.</p>
+    <p>But the bill is not the point. Energy per token is the power a GPU draws multiplied by the time it spends on the tokens. Watt-hours per token track GPU-hours per token, and GPU-hours are the real cost of serving, whether they are rented at cloud rates or depreciated on a balance sheet. A configuration that halves Wh/M has halved the GPU-hours per token. The electricity figure is the cheapest instrument you can put on the most expensive thing in the room.</p>
+    <p class="fn">Working: {{REF_WH_1}} Wh per million tokens is {{REF_KWH_PER_B}} kWh per billion; at USD {{ELECTRICITY_PRICE}} per kWh that is USD {{USD_PER_B_REF}} per billion tokens, or {{CENTS_PER_M_REF}} cents per million. The electricity price is an assumption for the worked example, not a source figure.</p>
+  </div>
+</section>
+
+<section id="mig">
+  <p class="eyebrow">8</p>
+  <h2>Sliced GPUs are unmeasured</h2>
+  <div class="prose">
+    <p>Multi-Instance GPU lets one A100, H100, H200 or B200 be split into up to seven isolated slices, and it is how many enterprise and telco platforms serve several small models from one card. NVIDIA publishes the slice shapes. It does not publish power draw per slice, and neither of the two public benchmarks on the index has measured a sliced card. So the configuration a great many production deployments actually run in has no public energy figure at all.</p>
+    <p>That is the first gap Lead Green intends to close with a measurement of its own: a 32B model on two MIG slices against a whole card, GPU power sampled through NVIDIA DCGM, with hardware, driver, engine and prompt set named. Until it is published, the honest answer for a sliced deployment is "unknown, and above the index".</p>
+    <p class="fn">Source: NVIDIA Multi-Instance GPU User Guide, supported MIG profiles, last updated 11 September 2026. Profiles on <a href="{{ROOT}}index/#hardware">the index</a>.</p>
+  </div>
+</section>
+
+<section id="monday">
+  <p class="eyebrow">9</p>
+  <h2>What to do on Monday</h2>
+  <div class="prose">
+    <ol>
+      <li><b>Ask the vendor for Wh per million output tokens at your concurrency.</b> Not at theirs. Name the model, the precision, the GPU count, the workload and the latency limit, and ask for the average requests in flight the figure was measured at. Workload matters as much as load: on the same leaderboard, the Problem Solving task costs {{GPQA_RATIO_MIN}} to {{GPQA_RATIO_MAX}} times the energy per response of Text Conversation for the same model on the same GPU, because its answers run {{GPQA_OUT_MIN}} to {{GPQA_OUT_MAX}} tokens against {{CHAT_OUT_MIN}} to {{CHAT_OUT_MAX}}. If the vendor cannot answer, the index gives you the floor to hold them to.</li>
+      <li><b>Measure your own.</b> NVIDIA DCGM or <code>nvidia-smi</code> report GPU power; sample it at one hertz through a steady load, divide the energy by the output tokens served, and you have your own row. The <a href="{{ROOT}}contribute/#protocol">measurement protocol</a> is short and the result can be listed beside the public ones.</li>
+      <li><b>Put the number in the RFP.</b> One clause, below, turns a marketing conversation into a comparable figure across every bidder.</li>
+    </ol>
+    <p class="fn">Source for the workload comparison: ML.ENERGY Leaderboard v3.0, Problem Solving (gpqa) against Text Conversation, energy-optimal rows under each task's default latency limit, {{GPQA_PAIRS}} model and GPU pairs measured on both.</p>
+  </div>
+  <div class="callout">
+    <p class="eyebrow">RFP clause, ready to paste</p>
+    <p>"The bidder shall state the GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state with the proposed serving engine on the proposed hardware, at an average of [N] concurrent requests and with median inter-token latency not exceeding [T] ms, on a conversational workload with prompts and outputs representative of the buyer's use. The bidder shall name the measurement method, the sampling tool, the software versions and the date, and shall state whether host, network and cooling energy are included. Figures for sliced (MIG) configurations shall be measured on the sliced configuration and not derived from whole-card figures."</p>
+  </div>
+  <p class="note">Fill [N] with the concurrency you expect in production and [T] with the latency your users will accept. The index uses {{ITL}} ms. Everything else in the clause is there so that two bidders' numbers can be compared.</p>
+</section>

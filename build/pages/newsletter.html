@@ -1,0 +1,30 @@
+<!--meta
+title: Newsletter | Lead Green
+description: The {{INDEX_NAME}} newsletter: one number from the index, one note on what moved, one pointer to read further. Monthly, by email, alongside the fortnightly Own Your AI newsletter on LinkedIn.
+-->
+<div class="title">
+  <p class="eyebrow">Newsletter</p>
+  <h1>One number a month</h1>
+  <p class="stand">The {{INDEX_NAME}} edition is deliberately short: <b>one number</b> from the index, <b>one note</b> on what moved it or what it means, and <b>one pointer</b> to something worth reading. If the index did not change, the note says so. No round-ups, no sponsors.</p>
+</div>
+
+<section class="first" id="subscribe">
+  <p class="eyebrow">Subscribe</p>
+  <h2>Email edition</h2>
+{{NEWSLETTER_CTA}}
+</section>
+
+<section id="format">
+  <p class="eyebrow">Format</p>
+  <h2>What an edition looks like</h2>
+  <div class="callout">
+    <p class="eyebrow">Sample, built from the current index</p>
+    <p><b>The number.</b> {{REF_WH_1}} Wh per million output tokens: {{REF_MODEL}} on {{REF_GPUS}}, the index's reference row, at {{REF_BATCH}} requests in flight and {{REF_ITL}} ms median inter-token latency.</p>
+    <p><b>The note.</b> The same model on the same cards reads {{LADDER_32_FIRST}} Wh/M at {{LADDER_32_FIRST_BATCH}} requests in flight. The {{LADDER_32_RATIO}}× between those two rows is not the model and not the hardware. It is how busy the server was.</p>
+    <p><b>The pointer.</b> ML.ENERGY Leaderboard v3.0, Text Conversation tab, sorted by energy per token, with the About tab open beside it for the method.</p>
+  </div>
+  <div class="prose">
+    <p><b>Cadence.</b> Monthly, on the first working day, or sooner when a measurement lands that changes a tile. <b>Length.</b> Under 200 words. <b>Archive.</b> Every edition is posted to the <a href="{{ROOT}}blog/">blog</a> the same day, so the RSS feed carries them too.</p>
+    <p><b>Own Your AI.</b> {{EDITOR}}'s fortnightly LinkedIn newsletter on sovereign AI carries a three-line "meter" block with one reading from this index in every issue. The two do not overlap: Own Your AI is about control, this one is about energy.</p>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+<!--meta
+title: Blog | Lead Green
+description: Short, sourced pieces on what GPU energy per token means: the baseline, the idle token, sliced GPUs, per correct answer, where the electricity is, and what the regulator asks.
+-->
+<div class="title">
+  <p class="eyebrow">Blog</p>
+  <h1>The reasoning behind the rows</h1>
+  <p class="stand">Each post takes one question the index raises and answers it with public data, the working shown and the sources listed. Written to be read by people, and to be cited by the machines that now answer people's questions.</p>
+  <p class="unit"><b>Feed</b> <a href="{{ROOT}}feed.xml">RSS</a> · <b>Editor</b> {{EDITOR}} · <b>Licence</b> CC BY 4.0</p>
+</div>
+
+<section class="first" id="posts">
+  <p class="eyebrow">Posts</p>
+  <h2>Published</h2>
+  <ul class="postlist">
+{{POST_LIST}}
+  </ul>
+</section>
+
+<section id="upcoming">
+  <p class="eyebrow">Upcoming</p>
+  <h2>The next five</h2>
+  <ul class="upcoming">
+    <li><span class="when">next</span><span><b>The sliced GPU.</b> Energy per token when one card is split into MIG instances, measured: a 32B model on two slices against a whole card.</span></li>
+    <li><span class="when">then</span><span><b>The idle token.</b> Why an under-used GPU is the dirtiest configuration, with the concurrency ladder as the evidence.</span></li>
+    <li><span class="when">then</span><span><b>Per correct answer, not per token.</b> Small model against large model once re-tries and wrong answers are counted.</span></li>
+    <li><span class="when">then</span><span><b>Where the electricity is.</b> The same workload in Riyadh, Belgrade, Hong Kong and Auckland, by grid intensity.</span></li>
+    <li><span class="when">then</span><span><b>What the EU AI Act asks.</b> The energy documentation duty on model providers, and what an operator serving models to tenants should keep on file.</span></li>
+  </ul>
+  <p class="note">Order and timing may change; a post ships when its data does. Volunteers who want to take one of these: see <a href="{{ROOT}}contribute/">Contribute</a>.</p>
+</section>

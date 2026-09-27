@@ -1,0 +1,274 @@
+<!--meta
+title: {{INDEX_NAME}}: GPU energy per million output tokens | Lead Green
+description: GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: {{ROW_COUNT}} rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated {{UPDATED_LONG}}.
+og_type: website
+-->
+<div class="title">
+  <p class="eyebrow">The index</p>
+  <h1>{{INDEX_NAME}}</h1>
+  <p class="stand">The GPU energy it takes to serve a million tokens, by model, GPU and configuration. Every figure is from a public measurement or a manufacturer's specification, and every source is listed at the foot of the page. Updated {{UPDATED_LONG}}.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. The same data as <a href="{{ROOT}}api/">JSON</a> and through the <a href="{{ROOT}}mcp/">MCP server</a>.</p>
+  <ul class="toc" aria-label="On this page">
+    <li><a href="#index">Index</a></li>
+    <li><a href="#generations">Two generations</a></li>
+    <li><a href="#concurrency">Concurrency</a></li>
+    <li><a href="#carbon">Carbon</a></li>
+    <li><a href="#hardware">Hardware</a></li>
+    <li><a href="#per-query">Per query</a></li>
+    <li><a href="#method">Method</a></li>
+    <li><a href="#own">Own measurements</a></li>
+    <li><a href="#sources">Sources</a></li>
+    <li><a href="#changes">Changes</a></li>
+  </ul>
+</div>
+
+<div class="tiles" role="group" aria-label="Headline readings">
+  <div class="tile">
+    <span class="lbl">Lowest on the index</span>
+    <span class="val">{{TILE_LOW_WH}}<small>Wh/M</small></span>
+    <span class="sub">{{TILE_LOW_LABEL}}</span>
+  </div>
+  <div class="tile ref">
+    <span class="lbl">Reference row</span>
+    <span class="val">{{TILE_REF_WH}}<small>Wh/M</small></span>
+    <span class="sub">{{TILE_REF_LABEL}}. The carbon table is priced on this row.</span>
+  </div>
+  <div class="tile">
+    <span class="lbl">Highest on the index</span>
+    <span class="val">{{TILE_HIGH_WH}}<small>Wh/M</small></span>
+    <span class="sub">{{TILE_HIGH_LABEL}}</span>
+  </div>
+</div>
+<p class="after-tiles">A million output tokens is roughly three quarters of a million words of English. The index spans <b>{{SPAN}}×</b> from its lowest row to its highest, and the same model on the same GPU moves <b>{{LADDER_32_RATIO}}×</b> depending on how busy the server is. Every row here is a floor. The number a buyer should ask for is the one measured on their own server.</p>
+
+<section id="index" class="first">
+  <p class="eyebrow">The index</p>
+  <h2>Energy per million output tokens</h2>
+  <p class="lead">{{ROW_COUNT}} rows, {{MODEL_COUNT}} open-weight models, two GPUs. Each row is the most energy-efficient configuration the ML.ENERGY benchmark found for that model on that GPU while keeping median inter-token latency under {{ITL}} ms, on its Text Conversation workload. Sorted from least energy to most.</p>
+  <div class="table-scroll">
+    <table>
+      <caption>ML.ENERGY Leaderboard v3.0, Text Conversation, energy-optimal configuration per model and GPU at a {{ITL}} ms median ITL deadline</caption>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col" class="num">Params (B) · weights</th>
+          <th scope="col" class="num">GPUs</th>
+          <th scope="col" class="num">Wh / M tokens</th>
+          <th scope="col" class="num">Median ITL (ms)</th>
+          <th scope="col" class="num">Requests in flight</th>
+          <th scope="col" class="num">GPU power, all cards (W)</th>
+        </tr>
+      </thead>
+      <tbody>
+{{INDEX_ROWS}}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Wh/M is derived from the source's joules per output token (hover a value to see it). Prompt processing is included: the benchmark divides steady-state GPU energy by output tokens. "Requests in flight" is the average batch the server was holding when the measurement was taken. GPU power is the average draw summed across every card in the configuration. The bar is linear, scaled to the highest row.</p>
+  <p class="note">Source: ML.ENERGY Leaderboard v3.0, University of Michigan, last updated 23 September 2026, retrieved {{UPDATED_LONG}}. {{CONFIG_COUNT}} configurations were examined; the table shows the best per model and GPU. Every configuration is in the <a href="{{ROOT}}api/">API</a>.</p>
+</section>
+
+<section id="generations">
+  <p class="eyebrow">Two generations</p>
+  <h2>The same model on H100 and B200</h2>
+  <p class="lead">{{PAIR_COUNT}} models were measured on both GPUs. The newer card's advantage runs from <b>{{PAIR_MAX_RATIO}}×</b> on {{PAIR_MAX_MODEL}} to <b>{{PAIR_MIN_RATIO}}×</b> on {{PAIR_MIN_MODEL}}. The gap is widest where the H100 configuration needs many cards to hold the weights, and narrowest for small models that fit one card either way.</p>
+  <div class="table-scroll">
+    <table>
+      <caption>Energy-optimal rows from the index, paired by model</caption>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col" class="num">H100 configuration</th>
+          <th scope="col" class="num">Wh / M</th>
+          <th scope="col" class="num">B200 configuration</th>
+          <th scope="col" class="num">Wh / M</th>
+          <th scope="col" class="num">B200 advantage</th>
+        </tr>
+      </thead>
+      <tbody>
+{{PAIR_ROWS}}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">A card that draws more power can still use less energy per token, because it finishes more tokens per second. Power tells you the size of the feed. Energy per token tells you what the feed produced.</p>
+</section>
+
+<section id="concurrency">
+  <p class="eyebrow">Concurrency</p>
+  <h2>The idle server is the expensive one</h2>
+  <p class="lead">Energy per token depends on how many requests the server is handling at once. Below is the same Qwen 3 32B on the same two H100 cards, from {{LADDER_32_FIRST_BATCH}} requests in flight to {{LADDER_32_LAST_BATCH}}. Energy per token falls <b>{{LADDER_32_RATIO}}×</b>, from {{LADDER_32_FIRST}} to {{LADDER_32_LAST}} Wh/M, while median inter-token latency stays under 50 ms. The cards draw roughly the same power either way. What changes is how many tokens that power produces.</p>
+  <div class="stack">
+    <div class="table-scroll">
+      <table>
+        <caption>Qwen 3 32B, BF16, 2 × H100</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="num">Requests in flight</th>
+            <th scope="col" class="num">Wh / M</th>
+            <th scope="col" class="num">Median ITL (ms)</th>
+            <th scope="col" class="num">Tokens / s</th>
+            <th scope="col" class="num">GPU power (W)</th>
+          </tr>
+        </thead>
+        <tbody>
+{{LADDER_32_ROWS}}
+        </tbody>
+      </table>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <caption>Llama 3.1 8B Instruct, BF16, 1 × H100</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="num">Requests in flight</th>
+            <th scope="col" class="num">Wh / M</th>
+            <th scope="col" class="num">Median ITL (ms)</th>
+            <th scope="col" class="num">Tokens / s</th>
+            <th scope="col" class="num">GPU power (W)</th>
+          </tr>
+        </thead>
+        <tbody>
+{{LADDER_8_ROWS}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="note">A departmental deployment that serves a handful of people at a time lives at the top of these tables, not the bottom. Consolidating traffic onto fewer, busier cards is the largest single lever an operator controls, and it costs nothing in hardware.</p>
+  <p class="note">Same source and workload as the index. Each row is one benchmarked configuration; the index takes the best of them. Every model's full curve is in its <a href="{{ROOT}}api/">API document</a>.</p>
+</section>
+
+<section id="carbon">
+  <p class="eyebrow">Carbon</p>
+  <h2>Same tokens, different grid</h2>
+  <p class="lead">Energy per token does not change with geography. Carbon per token does. This table prices the reference row ({{REF_MODEL}}, {{REF_GPUS}}, {{REF_WH_1}} Wh/M) against each grid's average emissions intensity for {{EMBER_YEAR}}. A billion output tokens on the Saudi grid carries about <b>{{REF_KG_SAU}} kg CO2e</b> of GPU-side emissions. The same billion tokens on the Norwegian grid carries <b>{{REF_KG_NOR}} kg</b>.</p>
+  <div class="table-scroll">
+    <table>
+      <caption>Grid emissions intensity, {{EMBER_YEAR}} annual generation average, and the reference row priced against it</caption>
+      <thead>
+        <tr>
+          <th scope="col">Grid</th>
+          <th scope="col" class="num">g CO2e per kWh</th>
+          <th scope="col" class="num">kg CO2e per billion output tokens</th>
+        </tr>
+      </thead>
+      <tbody>
+{{CARBON_ROWS}}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Multiply any row of the index by the grid figure and divide by 1,000 to price a different model. Grid figures are annual averages of total generation from Ember's yearly electricity data (CC BY 4.0), September 2026 release. {{EMBER_YEAR}} is the latest year with a value for every grid listed. Hourly intensity, contracted renewable supply and on-site generation all move the real number, and so does facility overhead, which is not counted here. Area names are shortened from Ember's labels. All {{GRID_COUNT}} countries with a {{EMBER_YEAR}} value are in the <a href="{{ROOT}}api/">API</a>.</p>
+</section>
+
+<section id="hardware">
+  <p class="eyebrow">Hardware</p>
+  <h2>What a card can draw, and how it splits</h2>
+  <p class="lead">Manufacturer ceilings, for scale. A card at the index's best rows runs close to these numbers. The concurrency tables above show what that draw earns.</p>
+  <div class="pair">
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Maximum thermal design power, as published by NVIDIA</caption>
+        <thead>
+          <tr>
+            <th scope="col">GPU</th>
+            <th scope="col">Form</th>
+            <th scope="col" class="num">Max TDP</th>
+            <th scope="col" class="num">Memory</th>
+          </tr>
+        </thead>
+        <tbody>
+{{TDP_ROWS}}
+        </tbody>
+      </table>
+    </div>
+    <div class="table-scroll">
+      <table class="spec">
+        <caption>Multi-Instance GPU profiles, H100 80GB and H200 141GB</caption>
+        <thead>
+          <tr>
+            <th scope="col">H100 profile</th>
+            <th scope="col">H200 profile</th>
+            <th scope="col" class="num">Memory</th>
+            <th scope="col" class="num">Compute (SMs)</th>
+            <th scope="col" class="num">Per card</th>
+          </tr>
+        </thead>
+        <tbody>
+{{MIG_ROWS}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="note">The A100 80GB uses the same seven shapes as the H100 column, and the B200 180GB has the same shapes at its own sizes (all four cards are in the <a href="{{ROOT}}api/">API</a>). NVIDIA does not publish power draw per MIG slice, and neither public benchmark on this page measures a sliced card. That gap is the first measurement Lead Green will add.</p>
+  <p class="note">Sources: NVIDIA product specifications for A100, H100 and H200; NVIDIA Product Carbon Footprint Summary for HGX B200 (July 2025) for the B200 ceiling; NVIDIA Multi-Instance GPU User Guide, supported profiles, last updated 11 September 2026. The "+me" media-extension variants of the 1g profiles are omitted.</p>
+</section>
+
+<section id="per-query">
+  <p class="eyebrow">Per query</p>
+  <h2>Batch size one, a different question</h2>
+  <p class="lead">The AI Energy Score measures something else: GPU watt-hours for 1,000 text-generation queries, one query at a time, on a single H100. That is the shape of a lightly used internal tool rather than a busy serving cluster, and the score does not publish output lengths, so it cannot be converted to the index unit. It is here because the ranking is useful, and because one-at-a-time is what many enterprise deployments look like in practice.</p>
+  <div class="table-scroll">
+    <table>
+      <caption>AI Energy Score, text generation, December 2025 round, NVIDIA H100, batch size 1</caption>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col">Class</th>
+          <th scope="col" class="num">Wh per 1,000 queries</th>
+          <th scope="col" class="num">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+{{AIES_ROWS}}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">December 2025 round only, twelve of its {{PER_QUERY_COUNT}} rows shown; all are in the <a href="{{ROOT}}api/">API</a>. The February 2025 round is not comparable with it (a 70B-class model scores about 1,720 Wh in one round and about 50 Wh in the other), so it is not shown. Stars are relative within a hardware class: A fits one consumer GPU, B one H100, C more than one H100. Source: Hugging Face AI Energy Score leaderboard, retrieved {{UPDATED_LONG}}.</p>
+</section>
+
+<section id="method">
+  <p class="eyebrow">Method</p>
+  <h2>What is counted, and what is not</h2>
+  <div class="prose">
+    <ul>
+      <li><b>The unit.</b> Watt-hours per million output tokens equals joules per output token multiplied by one million and divided by 3,600. The reference row, {{REF_J}} J per token, becomes {{REF_WH_1}} Wh/M.</li>
+      <li><b>Counted.</b> GPU energy only, read from the device by the benchmark's measurement library (Zeus) at steady state, with vLLM serving the model on a real H100 80GB HBM3 or B200 server. Prompt processing is included, because the benchmark divides total GPU energy by output tokens.</li>
+      <li><b>Not counted.</b> Host CPU and memory, network and storage, cooling and the rest of the facility, time the GPU spends idle between requests, and the carbon embodied in the hardware. For scale on that last item, NVIDIA's own cradle-to-gate footprint for one HGX B200 baseboard, eight GPUs, is {{B200_EMBODIED_KG}} kg CO2e.</li>
+      <li><b>Not measurable.</b> Closed-weight models served over an API. The benchmark's authors say so plainly, and this index says nothing about them.</li>
+      <li><b>A floor.</b> Every index row is the best configuration found under a latency limit, at high concurrency. A real deployment sits above it, often far above it. The concurrency section shows how far.</li>
+      <li><b>Workload.</b> The index uses the Text Conversation task. The same leaderboard's Problem Solving task costs {{GPQA_RATIO_MIN}} to {{GPQA_RATIO_MAX}} times the energy per response for the same model and GPU, because its answers run {{GPQA_OUT_MIN}} to {{GPQA_OUT_MAX}} tokens against {{CHAT_OUT_MIN}} to {{CHAT_OUT_MAX}}. Energy per token is the fairer comparison across workloads; energy per response is what a bill sees.</li>
+      <li><b>Grid intensity.</b> Annual generation average per country, in grams of CO2e per kWh, from Ember. Hourly values, contracted supply and self-generation are not reflected.</li>
+      <li><b>Words.</b> The words-per-token conversion uses the common English rule of thumb of about three quarters of a word per token. It is a rough guide, nothing more.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="own">
+  <p class="eyebrow">Own measurements</p>
+  <h2>None yet</h2>
+  <div class="prose">
+    <p>Lead Green has not published a measurement of its own. The first will be a 32B model on two MIG slices against a whole card, with GPU power sampled through NVIDIA DCGM on a server Katonic operates. It will be labelled as ours, with hardware, driver, serving engine and prompt set named, and it will sit beside the public figures rather than in place of them. The protocol it will follow is on the <a href="{{ROOT}}contribute/#protocol">contribute page</a>, and anyone with a GPU can follow it too.</p>
+  </div>
+</section>
+
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Every figure, and where it came from</h2>
+  <ol class="ledger">
+    <li><div><div class="src"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a>, The ML.ENERGY Initiative, University of Michigan</div><div class="use">Index, two-generation table, concurrency tables, the workload comparison in the method, and the measured GPU power figures. Text Conversation workload, all {{CONFIG_COUNT}} configurations; Problem Solving workload, all {{GPQA_CONFIG_COUNT}} configurations. Data files in the leaderboard's public repository, Apache 2.0.</div><div class="meta">Version 3.0, last updated 23 September 2026. Retrieved {{UPDATED_LONG}}.</div></div></li>
+    <li><div><div class="src"><a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a></div><div class="use">Carbon table and the grid API. Emissions intensity of total generation, gCO2e per kWh, {{EMBER_YEAR}}. CC BY 4.0.</div><div class="meta">September 2026 release. Retrieved {{UPDATED_LONG}}.</div></div></li>
+    <li><div><div class="src"><a href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles</a></div><div class="use">MIG profile table.</div><div class="meta">Last updated 11 September 2026. Retrieved {{UPDATED_LONG}}.</div></div></li>
+    <li><div><div class="src">NVIDIA product specifications: <a href="https://www.nvidia.com/en-us/data-center/a100/">A100</a>, <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a>, <a href="https://www.nvidia.com/en-us/data-center/h200/">H200</a>, <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a></div><div class="use">Maximum TDP and memory in the hardware table; the DGX B200 system power figure used on the "why" page.</div><div class="meta">Retrieved {{UPDATED_LONG}}.</div></div></li>
+    <li><div><div class="src"><a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200</a></div><div class="use">B200 maximum TDP (configurable up to 1,000 W per GPU) and the {{B200_EMBODIED_KG}} kg CO2e cradle-to-gate figure in the method.</div><div class="meta">July 2025. Retrieved {{UPDATED_LONG}}.</div></div></li>
+    <li><div><div class="src"><a href="https://huggingface.co/spaces/AIEnergyScore/Leaderboard">Hugging Face, AI Energy Score leaderboard</a>, with its <a href="https://huggingface.github.io/AIEnergyScore/">documentation</a></div><div class="use">Per-query table. Text generation task, December 2025 round. Space published under Apache 2.0.</div><div class="meta">Retrieved {{UPDATED_LONG}}.</div></div></li>
+    <li><div><div class="src"><a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">OpenAI, What are tokens and how to count them</a></div><div class="use">The rough words-per-token conversion in the opening paragraph.</div><div class="meta">Retrieved {{UPDATED_LONG}}.</div></div></li>
+  </ol>
+  <p class="note">Snapshots of every data file used, as retrieved, are kept alongside the page so each figure can be recomputed. Corrections are welcome and are recorded below.</p>
+</section>
+
+<section id="changes">
+  <p class="eyebrow">Changes</p>
+  <h2>Record</h2>
+  <ul class="changes">
+    <li><time datetime="2026-09-26">26 Sep 2026</time><span>First release. {{ROW_COUNT}} index rows from ML.ENERGY v3.0 (23 September 2026 update), grid intensities from Ember ({{EMBER_YEAR}}), NVIDIA specifications, AI Energy Score December 2025 round. Site opened with the API, the MCP server and the first blog post.</span></li>
+  </ul>
+</section>

@@ -1,0 +1,135 @@
+{
+  "version": "1",
+  "updated": "2026-09-26",
+  "site": "https://leadgreen.ai",
+  "name": "Lead Green Green Tokens API",
+  "description": "GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity and GPU hardware reference data. Static JSON, GET only, CORS open.",
+  "endpoints": [
+    {
+      "path": "manifest.json",
+      "url": "https://leadgreen.ai/api/v1/manifest.json",
+      "description": "Sources, versions, retrieval dates, licences and this endpoint list."
+    },
+    {
+      "path": "index.json",
+      "url": "https://leadgreen.ai/api/v1/index.json",
+      "description": "The index: 32 rows, one per model and GPU, energy-optimal under the latency limit, sorted ascending."
+    },
+    {
+      "path": "models.json",
+      "url": "https://leadgreen.ai/api/v1/models.json",
+      "description": "Every model on the index with its slug, Hugging Face id, parameter counts and measured GPUs."
+    },
+    {
+      "path": "models/{slug}.json",
+      "url": "https://leadgreen.ai/api/v1/models/{slug}.json",
+      "description": "One model: every measured configuration (concurrency, parallelism, latency, power) and the best row per GPU."
+    },
+    {
+      "path": "grid.json",
+      "url": "https://leadgreen.ai/api/v1/grid.json",
+      "description": "Grid emissions intensity, gCO2e per kWh, 2024 annual average, 193 countries plus World."
+    },
+    {
+      "path": "hardware.json",
+      "url": "https://leadgreen.ai/api/v1/hardware.json",
+      "description": "Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure."
+    },
+    {
+      "path": "per-query.json",
+      "url": "https://leadgreen.ai/api/v1/per-query.json",
+      "description": "AI Energy Score text-generation rows: Wh per 1,000 queries at batch size 1 on one H100."
+    },
+    {
+      "path": "openapi.json",
+      "url": "https://leadgreen.ai/api/v1/openapi.json",
+      "description": "OpenAPI 3.1 description of these endpoints."
+    }
+  ],
+  "sources": [
+    {
+      "name": "ML.ENERGY Leaderboard",
+      "publisher": "The ML.ENERGY Initiative, University of Michigan",
+      "url": "https://ml.energy/leaderboard/",
+      "data_url": "https://raw.githubusercontent.com/ml-energy/leaderboard/master/public/data/tasks/lm-arena-chat.json",
+      "version": "3.0, last updated 2026-09-23",
+      "retrieved": "2026-09-26",
+      "licence": "Apache-2.0",
+      "workload": "Text Conversation (lm-arena-chat)",
+      "method": "vLLM serving on H100 80GB HBM3 or B200 servers; steady-state GPU energy measured with Zeus; energy per output token = GPU energy per request / output tokens, so prompt processing is included.",
+      "used_for": "index, per-model configurations, concurrency curves, measured GPU power"
+    },
+    {
+      "name": "ML.ENERGY Leaderboard",
+      "publisher": "The ML.ENERGY Initiative, University of Michigan",
+      "url": "https://ml.energy/leaderboard/",
+      "data_url": "https://raw.githubusercontent.com/ml-energy/leaderboard/master/public/data/tasks/gpqa.json",
+      "version": "3.0, last updated 2026-09-23",
+      "retrieved": "2026-09-26",
+      "licence": "Apache-2.0",
+      "workload": "Problem Solving (gpqa)",
+      "method": "vLLM serving on H100 80GB HBM3 or B200 servers; steady-state GPU energy measured with Zeus; energy per output token = GPU energy per request / output tokens, so prompt processing is included.",
+      "used_for": "problem-solving versus chat comparison"
+    },
+    {
+      "name": "Ember, Yearly electricity data",
+      "publisher": "Ember",
+      "url": "https://ember-energy.org/data/yearly-electricity-data/",
+      "data_url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
+      "version": "September 2026 release (file last modified 2026-09-22)",
+      "retrieved": "2026-09-26",
+      "licence": "CC-BY-4.0",
+      "used_for": "grid emissions intensity of total generation, gCO2e per kWh, 2024"
+    },
+    {
+      "name": "NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles",
+      "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html",
+      "version": "last updated 2026-09-11",
+      "retrieved": "2026-09-26",
+      "used_for": "mig_profiles",
+      "licence": "cited, not redistributed"
+    },
+    {
+      "name": "NVIDIA product specifications: A100, H100, H200, DGX B200",
+      "url": "https://www.nvidia.com/en-us/data-center/h100/",
+      "version": "as published on the retrieval date",
+      "retrieved": "2026-09-26",
+      "used_for": "tdp (A100, H100, H200), systems",
+      "licence": "cited, not redistributed"
+    },
+    {
+      "name": "NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200",
+      "url": "https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf",
+      "version": "July 2025",
+      "retrieved": "2026-09-26",
+      "used_for": "tdp (B200), embodied",
+      "licence": "cited, not redistributed"
+    },
+    {
+      "name": "AI Energy Score leaderboard",
+      "publisher": "Hugging Face",
+      "url": "https://huggingface.co/spaces/AIEnergyScore/Leaderboard",
+      "data_url": "https://huggingface.co/spaces/AIEnergyScore/Leaderboard/raw/main/data/energy/text_generation.csv",
+      "version": "December 2025 round",
+      "retrieved": "2026-09-26",
+      "licence": "Apache-2.0 (the space)",
+      "used_for": "GPU energy per 1,000 text-generation queries at batch size 1 on one H100"
+    },
+    {
+      "name": "OpenAI, What are tokens and how to count them",
+      "publisher": "OpenAI",
+      "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them",
+      "version": "as published on the retrieval date",
+      "retrieved": "2026-09-26",
+      "licence": "cited, not redistributed",
+      "used_for": "the rough words-per-token conversion"
+    }
+  ],
+  "licence": "Compilation, site text and derived figures: CC BY 4.0. Each source keeps its own licence, listed per source.",
+  "caveat": "GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.",
+  "publisher": {
+    "name": "Lead Green",
+    "parent": "Katonic",
+    "url": "https://leadgreen.ai"
+  }
+}
