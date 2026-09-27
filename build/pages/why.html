@@ -109,11 +109,11 @@ og_type: article
       <li><b>Measure your own.</b> NVIDIA DCGM or <code>nvidia-smi</code> report GPU power; sample it at one hertz through a steady load, divide the energy by the output tokens served, and you have your own row. The <a href="{{ROOT}}contribute/#protocol">measurement protocol</a> is short and the result can be listed beside the public ones.</li>
       <li><b>Put the number in the RFP.</b> One clause, below, turns a marketing conversation into a comparable figure across every bidder.</li>
     </ol>
-    <p class="fn">Source for the workload comparison: ML.ENERGY Leaderboard v3.0, Problem Solving (gpqa) against Text Conversation, energy-optimal rows under each task's default latency limit, {{GPQA_PAIRS}} model and GPU pairs measured on both.</p>
+    <p class="fn">Source for the workload comparison: ML.ENERGY Leaderboard v3.0, Problem Solving (gpqa) against Text Conversation, energy-optimal rows at or under a {{GPQA_ITL}} ms median inter-token latency, the leaderboard's own default for both tasks; no measured configuration exceeds {{MAX_CHAT_ITL}} ms, so the limit changes no row; {{GPQA_PAIRS}} model and GPU pairs measured on both.</p>
   </div>
   <div class="callout">
     <p class="eyebrow">RFP clause, ready to paste</p>
     <p>"The bidder shall state the GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state with the proposed serving engine on the proposed hardware, at an average of [N] concurrent requests and with median inter-token latency not exceeding [T] ms, on a conversational workload with prompts and outputs representative of the buyer's use. The bidder shall name the measurement method, the sampling tool, the software versions and the date, and shall state whether host, network and cooling energy are included. Figures for sliced (MIG) configurations shall be measured on the sliced configuration and not derived from whole-card figures."</p>
   </div>
-  <p class="note">Fill [N] with the concurrency you expect in production and [T] with the latency your users will accept. The index uses {{ITL}} ms. Everything else in the clause is there so that two bidders' numbers can be compared.</p>
+  <p class="note">Fill [N] with the concurrency you expect in production and [T] with the latency your users will accept. The index uses {{ITL}} ms, the leaderboard's default, which no measured configuration reaches; choose [T] from what your users will tolerate. Everything else in the clause is there so that two bidders' numbers can be compared.</p>
 </section>

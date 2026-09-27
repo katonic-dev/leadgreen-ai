@@ -92,7 +92,7 @@
 <p>For scale: a million output tokens is roughly three quarters of a million words of English. And the reference row below, 63.5 Wh, is a 2 kW kettle running for 1.9 minutes. The kettle is my assumption, not a source; the tokens are.</p>
 
 <h2>Where the numbers come from</h2>
-<p>The ML.ENERGY Leaderboard, run by the ML.ENERGY Initiative at the University of Michigan, serves open-weight models with vLLM on real H100 and B200 servers, measures GPU energy at steady state with its Zeus library, and publishes every configuration it ran as raw data under Apache 2.0. Version 3.0 was updated on 23 September 2026. I took its Text Conversation task, kept the 328 configurations it published, and for each model and GPU picked the one with the least energy per token that still keeps median inter-token latency under 500 ms. That gives 32 rows for 18 models. My recomputation matches the leaderboard's own displayed table, row for row.</p>
+<p>The ML.ENERGY Leaderboard, run by the ML.ENERGY Initiative at the University of Michigan, serves open-weight models with vLLM on real H100 and B200 servers, measures GPU energy at steady state with its Zeus library, and publishes every configuration it ran as raw data under Apache 2.0. Version 3.0 was updated on 23 September 2026. I took its Text Conversation task, kept the 328 configurations it published, and for each model and GPU picked the one with the least energy per token at or under a median inter-token latency of 500 ms, the leaderboard's own default. None of them comes near it. That gives 32 rows for 18 models. My recomputation matches the leaderboard's own displayed table, row for row.</p>
 
 <h2>Three numbers</h2>
 <ul>

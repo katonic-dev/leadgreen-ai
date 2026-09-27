@@ -996,7 +996,7 @@ api_docs["manifest.json"] = {
 }
 api_docs["index.json"] = {
     "version": "1", "updated": UPDATED, "unit": "Wh per million output tokens", "workload": "text-conversation",
-    "itl_deadline_ms": ITL_DEADLINE_MS, "selection": "per model and GPU, the configuration with the lowest energy per token whose median inter-token latency is under itl_deadline_ms",
+    "itl_deadline_ms": ITL_DEADLINE_MS, "selection": "per model and GPU, the configuration with the lowest energy per token whose median inter-token latency does not exceed itl_deadline_ms (the leaderboard's default ceiling; no measured configuration reaches it)",
     "reference_row": {"model": ref["model"], "gpu": ref["gpu"], "num_gpus": ref["num_gpus"]},
     "source": SRC_MLE, "caveat": CAVEAT, "rows": [{k: v for k, v in r.items() if not k.startswith("_")} for r in index_rows],
 }
@@ -1238,7 +1238,7 @@ outputs["llms.txt"] = f"""# Lead Green
 
 > Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens, Wh/M), by model, GPU and configuration, with grid carbon intensity to price it anywhere. Every figure comes from a named public source with a retrieval date. It is a Katonic project. Updated {long_date(UPDATED)}.
 
-Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-optimal configuration under a {ITL_DEADLINE_MS} ms median inter-token-latency limit):
+Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-optimal configuration at or under a {ITL_DEADLINE_MS} ms median inter-token latency, the leaderboard's default ceiling, which no configuration reaches):
 - Lowest on the index: {subs['TILE_LOW_WH']} Wh/M ({subs['TILE_LOW_LABEL']})
 - Reference row: {subs['REF_WH_1']} Wh/M ({subs['TILE_REF_LABEL']})
 - Highest on the index: {subs['TILE_HIGH_WH']} Wh/M ({subs['TILE_HIGH_LABEL']})

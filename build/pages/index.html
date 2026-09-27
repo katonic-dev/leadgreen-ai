@@ -44,10 +44,10 @@ og_type: website
 <section id="index" class="first">
   <p class="eyebrow">The index</p>
   <h2>Energy per million output tokens</h2>
-  <p class="lead">{{ROW_COUNT}} rows, {{MODEL_COUNT}} open-weight models, two GPUs. Each row is the most energy-efficient configuration the ML.ENERGY benchmark found for that model on that GPU while keeping median inter-token latency under {{ITL}} ms, on its Text Conversation workload. Sorted from least energy to most.</p>
+  <p class="lead">{{ROW_COUNT}} rows, {{MODEL_COUNT}} open-weight models, two GPUs. Each row is the most energy-efficient configuration the ML.ENERGY benchmark found for that model on that GPU at or under a median inter-token latency of {{ITL}} ms, the leaderboard's own default ceiling, on its Text Conversation workload. No measured configuration reaches the ceiling (the highest median is {{MAX_CHAT_ITL}} ms), so it selects nothing: each row is also the lowest-energy configuration for its model and GPU at any latency. Sorted from least energy to most.</p>
   <div class="table-scroll">
     <table>
-      <caption>ML.ENERGY Leaderboard v3.0, Text Conversation, energy-optimal configuration per model and GPU at a {{ITL}} ms median ITL deadline</caption>
+      <caption>ML.ENERGY Leaderboard v3.0, Text Conversation, energy-optimal configuration per model and GPU at or under the leaderboard's default {{ITL}} ms median ITL ceiling</caption>
       <thead>
         <tr>
           <th scope="col">Model</th>
@@ -90,6 +90,7 @@ og_type: website
       </tbody>
     </table>
   </div>
+  <p class="note"><b>At a tighter ceiling.</b> {{PAIR50_SENTENCE}}</p>
   <p class="note">A card that draws more power can still use less energy per token, because it finishes more tokens per second. Power tells you the size of the feed. Energy per token tells you what the feed produced.</p>
 </section>
 
@@ -238,6 +239,7 @@ og_type: website
       <li><b>Not counted.</b> Host CPU and memory, network and storage, cooling and the rest of the facility, time the GPU spends idle between requests, and the carbon embodied in the hardware. For scale on that last item, NVIDIA's own cradle-to-gate footprint for one HGX B200 baseboard, eight GPUs, is {{B200_EMBODIED_KG}} kg CO2e.</li>
       <li><b>Not measurable.</b> Closed-weight models served over an API. The benchmark's authors say so plainly, and this index says nothing about them.</li>
       <li><b>A floor.</b> Every index row is the best configuration found under a latency limit, at high concurrency. A real deployment sits above it, often far above it. The concurrency section shows how far.</li>
+      <li><b>The latency ceiling.</b> {{ITL}} ms is the leaderboard's own default for every LLM task, chosen to match it. No measured configuration reaches it, so it changes no row. Tighter ceilings would: {{SENS_SENTENCE}} None of these is applied to the index.</li>
       <li><b>Workload.</b> The index uses the Text Conversation task. The same leaderboard's Problem Solving task costs {{GPQA_RATIO_MIN}} to {{GPQA_RATIO_MAX}} times the energy per response for the same model and GPU, because its answers run {{GPQA_OUT_MIN}} to {{GPQA_OUT_MAX}} tokens against {{CHAT_OUT_MIN}} to {{CHAT_OUT_MAX}}. Energy per token is the fairer comparison across workloads; energy per response is what a bill sees.</li>
       <li><b>Grid intensity.</b> Annual generation average per country, in grams of CO2e per kWh, from Ember. Hourly values, contracted supply and self-generation are not reflected.</li>
       <li><b>Words.</b> The words-per-token conversion uses the common English rule of thumb of about three quarters of a word per token. It is a rough guide, nothing more.</li>

@@ -4,7 +4,7 @@
   "unit": "Wh per million output tokens",
   "workload": "text-conversation",
   "itl_deadline_ms": 500,
-  "selection": "per model and GPU, the configuration with the lowest energy per token whose median inter-token latency is under itl_deadline_ms",
+  "selection": "per model and GPU, the configuration with the lowest energy per token whose median inter-token latency does not exceed itl_deadline_ms (the leaderboard's default ceiling; no measured configuration reaches it)",
   "reference_row": {
     "model": "Qwen 3 32B",
     "gpu": "H100",

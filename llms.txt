@@ -2,7 +2,7 @@
 
 > Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens, Wh/M), by model, GPU and configuration, with grid carbon intensity to price it anywhere. Every figure comes from a named public source with a retrieval date. It is a Katonic project. Updated 27 September 2026.
 
-Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-optimal configuration under a 500 ms median inter-token-latency limit):
+Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-optimal configuration at or under a 500 ms median inter-token latency, the leaderboard's default ceiling, which no configuration reaches):
 - Lowest on the index: 13.0 Wh/M (Llama 3.1 8B Instruct, 1 × B200)
 - Reference row: 63.5 Wh/M (Qwen 3 32B, 2 × H100)
 - Highest on the index: 572.9 Wh/M (Llama 3.1 405B Instruct FP8, 8 × H100)

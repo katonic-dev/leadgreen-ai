@@ -56,7 +56,7 @@ console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pr
       <tbody>
         <tr><th scope="row">wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours. joules_per_output_token × 1,000,000 ÷ 3,600.</td></tr>
         <tr><th scope="row">joules_per_output_token</th><td>The source's figure: steady-state GPU energy per request divided by output tokens per request. Prompt processing is included.</td></tr>
-        <tr><th scope="row">median_itl_ms</th><td>Median inter-token latency in milliseconds at that configuration. Index rows are the best under {{ITL}} ms.</td></tr>
+        <tr><th scope="row">median_itl_ms</th><td>Median inter-token latency in milliseconds at that configuration. Index rows are the lowest-energy configuration whose median does not exceed itl_deadline_ms ({{ITL}} ms, the leaderboard's default).</td></tr>
         <tr><th scope="row">avg_running_batch</th><td>The average number of requests the server was decoding at once over the steady-state window (vLLM's num_requests_running). Queued requests are not counted, and the benchmark keeps a queue at all times. max_num_seqs is the configured cap.</td></tr>
         <tr><th scope="row">avg_requests_in_flight</th><td>The same value as avg_running_batch under its first name, kept in v1 so nothing breaks and removed at v2. Despite the name it is the running batch, not the requests a client has outstanding.</td></tr>
         <tr><th scope="row">gpu_power_watts_total</th><td>Average power drawn, summed across every GPU in the configuration.</td></tr>
