@@ -91,6 +91,8 @@ EMBER_YEAR = "2024"            # latest year with every listed grid present
 REFERENCE = ("Qwen 3 32B", "H100")   # the row the carbon table is priced on
 ELECTRICITY_USD_PER_KWH = 0.10       # stated assumption in one worked example
 KETTLE_KW = 2.0                      # stated assumption in one worked example
+EED_MIN_KW = 500                     # D7: Delegated Regulation (EU) 2024/1364, Article 1: installed IT power demand of at least 500 kW
+GPAI_MODIFY_SHARE = "a third"        # D7: Commission GPAI guidelines, July 2025: a modifier becomes a provider above about a third of the original training compute
 PUE_EXAMPLE = 1.3                    # D4: stated assumption in the to-the-meter illustration (PUE is the operator's own figure)
 SCI_LIFE_YEARS = 5                   # stated assumption in the SCI illustration (hardware life over which M is amortised)
 AIES_FIXED_TOKENS = 10               # AI Energy Score protocol: ten generated tokens for non-reasoning runs (reasoning_helpers.py)
@@ -940,7 +942,7 @@ subs.update({
     "GPQA_TOK_MIN": f"{min(p['ratio_tok'] for p in gpqa_pairs):.2f}", "GPQA_TOK_MAX": f"{max(p['ratio_tok'] for p in gpqa_pairs):.2f}",
     # to the meter (D4)
     "SYS_NAME": _sys["system"], "SYS_KW": fmt(_sys["max_power_kw"], 1), "SYS_GPU_COUNT": str(_sys_n), "SYS_GPU_W": f"{_b200_w:,}",
-    "SYS_GPU_KW": fmt(gpu_kw_sys, 1), "SYS_RATIO": f"{sys_ratio:.2f}", "PUE_EXAMPLE": f"{PUE_EXAMPLE:g}",
+    "SYS_GPU_KW": fmt(gpu_kw_sys, 1), "SYS_RATIO": f"{sys_ratio:.2f}", "EED_MIN_KW": fmt(EED_MIN_KW, 0), "GPAI_MODIFY_SHARE": GPAI_MODIFY_SHARE, "PUE_EXAMPLE": f"{PUE_EXAMPLE:g}",
     "METER_WH": fmt(meter_wh, 0), "METER_TOKENS_B": fmt(meter_tokens_b, 1),
     "GOOGLE_WH": f"{GOOGLE_2025['wh']:g}", "GOOGLE_ACCEL_PCT": f"{GOOGLE_2025['accelerator_share'] * 100:.0f}",
     "GOOGLE_NARROW_WH": f"{GOOGLE_2025['narrow_wh']:.2f}", "GOOGLE_G": f"{GOOGLE_2025['g_co2e']:g}", "GOOGLE_ML": f"{GOOGLE_2025['water_ml']:g}",
