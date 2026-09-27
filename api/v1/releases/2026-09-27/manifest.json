@@ -1,6 +1,7 @@
 {
   "version": "1",
   "updated": "2026-09-27",
+  "data_version": "2026-09-27",
   "site": "https://leadgreen.ai",
   "name": "Lead Green Green Tokens API",
   "description": "GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity and GPU hardware reference data. Static JSON, GET only, CORS open.",
@@ -54,6 +55,26 @@
       "path": "schema/measurement.schema.json",
       "url": "https://leadgreen.ai/api/v1/schema/measurement.schema.json",
       "description": "JSON Schema for a contributed measurement file (protocol v0.2); the build validates every submission against it."
+    },
+    {
+      "path": "changes.json",
+      "url": "https://leadgreen.ai/api/v1/changes.json",
+      "description": "Every change to the published data or its description: date, summary, documents, reason and source version."
+    },
+    {
+      "path": "index.csv",
+      "url": "https://leadgreen.ai/api/v1/index.csv",
+      "description": "The index rows as CSV, for a spreadsheet."
+    },
+    {
+      "path": "types.d.ts",
+      "url": "https://leadgreen.ai/api/v1/types.d.ts",
+      "description": "TypeScript types for every document, generated from the documents."
+    },
+    {
+      "path": "all.zip",
+      "url": "https://leadgreen.ai/api/v1/all.zip",
+      "description": "Every JSON document of the current release in one zip (the same bytes as the dated release zip)."
     },
     {
       "path": "releases/index.json",
@@ -182,7 +203,6 @@
     "response_working_days": 10
   },
   "attribution": "Green Tokens index, Lead Green, a Katonic project, https://leadgreen.ai/api/v1/, CC BY 4.0. Contains data from the ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled 2026-02-16, retrieved 2026-09-26) and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe].",
-  "data_version": "2026-09-27",
   "releases": {
     "index": "https://leadgreen.ai/api/v1/releases/index.json",
     "pattern": "https://leadgreen.ai/api/v1/releases/<date>/"

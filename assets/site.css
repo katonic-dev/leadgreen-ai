@@ -216,3 +216,7 @@ footer .fine { font-size: .8rem; color: var(--muted); margin: 0; }
   .ledger li { grid-template-columns: 1.6rem 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* D20: per-document field tables on the API page */
+details.fields { margin: .9rem 0; border-top: 1px solid var(--rule); padding-top: .6rem; }
+details.fields > summary { cursor: pointer; font-family: var(--mono); font-size: .8rem; letter-spacing: .02em; color: var(--ink-2); }
+details.fields[open] > summary { margin-bottom: .5rem; }

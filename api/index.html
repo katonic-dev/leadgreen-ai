@@ -79,7 +79,7 @@
 
 <section class="first" id="endpoints">
   <p class="eyebrow">Endpoints</p>
-  <h2>Eight files</h2>
+  <h2>15 files</h2>
   <div class="endpoints">
 <div class="endpoint"><span class="m">GET</span><div><code>/api/v1/manifest.json</code><br>Sources, versions, retrieval dates, licences and this endpoint list.</div></div>
 <div class="endpoint"><span class="m">GET</span><div><code>/api/v1/index.json</code><br>The index: 32 rows, one per model and GPU, energy-optimal under the latency limit, sorted ascending.</div></div>
@@ -91,6 +91,10 @@
 <div class="endpoint"><span class="m">GET</span><div><code>/api/v1/openapi.json</code><br>OpenAPI 3.1 description of these endpoints.</div></div>
 <div class="endpoint"><span class="m">GET</span><div><code>/api/v1/measurements.json</code><br>Contributed measurements accepted under the protocol, with contributor, affiliation, date, versions and MIG profile; never merged into index.json.</div></div>
 <div class="endpoint"><span class="m">GET</span><div><code>/api/v1/schema/measurement.schema.json</code><br>JSON Schema for a contributed measurement file (protocol v0.2); the build validates every submission against it.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/changes.json</code><br>Every change to the published data or its description: date, summary, documents, reason and source version.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/index.csv</code><br>The index rows as CSV, for a spreadsheet.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/types.d.ts</code><br>TypeScript types for every document, generated from the documents.</div></div>
+<div class="endpoint"><span class="m">GET</span><div><code>/api/v1/all.zip</code><br>Every JSON document of the current release in one zip (the same bytes as the dated release zip).</div></div>
 <div class="endpoint"><span class="m">GET</span><div><code>/api/v1/releases/index.json</code><br>Every dated release of api/v1, each kept unchanged at releases/&lt;date&gt;/ with a zip of the whole release, for citation.</div></div>
   </div>
   <p class="note">Model slugs are lower-case with hyphens: <code>deepseek-v3-1</code>, <code>gemma-3-12b</code>, <code>gemma-3-27b</code>, <code>llama-3-1-405b-instruct</code>, <code>llama-3-1-405b-instruct-fp8</code>, <code>llama-3-1-70b-instruct</code>, <code>llama-3-1-8b-instruct</code>, <code>llama-3-3-70b-instruct</code>, <code>llama-4-maverick-17b-128e-instruct-fp8</code>, <code>llama-4-scout-17b-16e-instruct</code>, <code>nvidia-nemotron-nano-12b-v2</code>, <code>nvidia-nemotron-nano-9b-v2</code>, <code>qwen-3-14b</code>, <code>qwen-3-235b-a22b-instruct</code>, <code>qwen-3-235b-a22b-instruct-fp8</code>, <code>qwen-3-30b-a3b-instruct</code>, <code>qwen-3-32b</code>, <code>qwen-3-8b</code>. The list, with Hugging Face ids, is in <code>models.json</code>.</p>
@@ -107,6 +111,7 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
 <pre><code>{
   &quot;version&quot;: &quot;1&quot;,
   &quot;updated&quot;: &quot;2026-09-27&quot;,
+  &quot;data_version&quot;: &quot;2026-09-27&quot;,
   &quot;unit&quot;: &quot;Wh per million output tokens&quot;,
   &quot;workload&quot;: &quot;text-conversation&quot;,
   &quot;itl_deadline_ms&quot;: 500,
@@ -266,38 +271,229 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
 const { rows } = await r.json();
 const best = rows[0];   // sorted ascending by Wh per million output tokens
 console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pre>
+  <h3>Python</h3>
+<pre><code>import json, urllib.request
+
+BASE = "https://leadgreen.ai/api/v1/"
+index = json.load(urllib.request.urlopen(BASE + "index.json"))
+grid = {a["iso3"]: a for a in json.load(urllib.request.urlopen(BASE + "grid.json"))["areas"]}
+
+row = next(r for r in index["rows"] if r["slug"] == "qwen-3-32b" and r["gpu"] == "H100")
+kg = row["wh_per_million_output_tokens"] * grid["SRB"]["g_co2e_per_kwh"] / 1000
+print(row["model"], row["num_gpus"], "x", row["gpu"], round(kg, 1), "kg CO2e per billion output tokens in Serbia")
+print(index["caveat"])</code></pre>
+  <p class="note">A spreadsheet can open <a href="../api/v1/index.csv"><code>index.csv</code></a> directly. <a href="../api/v1/all.zip"><code>all.zip</code></a> holds every document of the current release.</p>
 </section>
 
 <section id="fields">
   <p class="eyebrow">Fields</p>
   <h2>What the columns mean</h2>
-  <div class="table-scroll">
-    <table class="spec">
-      <caption>index.json rows and models/&lt;slug&gt;.json configurations</caption>
-      <thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours. joules_per_output_token × 1,000,000 ÷ 3,600.</td></tr>
-        <tr><th scope="row">joules_per_output_token</th><td>The source's figure: GPU energy over the steady-state window divided by the output tokens generated in that window (the benchmark's steady_state_energy_per_token). Prompt processing is included. The source's energy per request is this figure multiplied by the average output length, not a separate measurement.</td></tr>
-        <tr><th scope="row">median_itl_ms</th><td>Median inter-token latency in milliseconds at that configuration. Index rows are the lowest-energy configuration whose median does not exceed itl_deadline_ms (500 ms, the leaderboard's default).</td></tr>
-        <tr><th scope="row">avg_running_batch</th><td>The average number of requests the server was decoding at once over the steady-state window (vLLM's num_requests_running). Queued requests are not counted, and the benchmark keeps a queue at all times. max_num_seqs is the configured cap.</td></tr>
-        <tr><th scope="row">avg_requests_in_flight</th><td>The same value as avg_running_batch under its first name, kept in v1 so nothing breaks and removed at v2. Despite the name it is the running batch, not the requests a client has outstanding.</td></tr>
-        <tr><th scope="row">gpu_power_watts_total</th><td>Average power drawn, summed across every GPU in the configuration.</td></tr>
-        <tr><th scope="row">tokens_per_second</th><td>Output throughput of the whole configuration.</td></tr>
-        <tr><th scope="row">num_gpus, tensor_parallel, data_parallel, expert_parallel</th><td>How many cards and how the model is split across them.</td></tr>
-        <tr><th scope="row">params_b, active_params_b, precision</th><td>Total and activated parameters in billions (they differ for mixture-of-experts models) and the weight precision.</td></tr>
-        <tr><th scope="row">g_co2e_per_kwh</th><td>Grid emissions intensity of total generation, annual average, from Ember. The year is in the document.</td></tr>
-        <tr><th scope="row">boundary</th><td><code>gpu_only</code>: the figures cover GPU energy and nothing else. Host, network, storage, cooling and idle time are outside it. To reach the facility meter, multiply by a system-to-GPU power ratio and the site's PUE (see the index <a href="../index/#method">method</a>).</td></tr>
-        <tr><th scope="row">caveat</th><td>Carried on every document that has index rows. Please carry it into whatever you build.</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="prose"><p>One table for the fields every document carries, then one per document. The build refuses to publish a field that has no description here, and <a href="../api/v1/openapi.json"><code>openapi.json</code></a> and <a href="../api/v1/types.d.ts"><code>types.d.ts</code></a> are generated from the same documents, so the three cannot drift apart. <code>joules_per_output_token</code> is published to seven decimals, so <code>wh_per_million_output_tokens</code> = joules × 1,000,000 ÷ 3,600 holds exactly on every row.</p></div>
+<div class="table-scroll"><table class="spec"><caption>Fields on every document</caption><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">version</th><td>API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place.</td></tr>
+<tr><th scope="row">updated</th><td>Date the document was built.</td></tr>
+<tr><th scope="row">data_version</th><td>Changes whenever a value in the document changes. Cite it with the release archive.</td></tr>
+<tr><th scope="row">unit</th><td>Unit of the main figure in the document.</td></tr>
+<tr><th scope="row">caveat</th><td>Carried on every document with energy figures. Please carry it into whatever you build.</td></tr>
+<tr><th scope="row">boundary</th><td>gpu_only: GPU energy and nothing else; host, network, storage, cooling and idle time are outside it.</td></tr>
+<tr><th scope="row">itl_deadline_ms</th><td>The median inter-token latency ceiling used to pick best rows: 500 ms, the leaderboard&#x27;s default.</td></tr>
+<tr><th scope="row">source</th><td>The source object: name, publisher, url, data_url, version, retrieval date, licence with its evidence, method, selection and citation.</td></tr>
+<tr><th scope="row">note</th><td>How to read the document.</td></tr>
+<tr><th scope="row">licence</th><td>Licence of the document or of its source, as stated.</td></tr>
+</tbody></table></div>
+<details class="fields"><summary><code>index.json</code>, 24 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">workload</th><td>The benchmark task behind the rows.</td></tr>
+<tr><th scope="row">selection</th><td>The rule that picks each row, in words.</td></tr>
+<tr><th scope="row">reference_row</th><td>The row the carbon table and worked examples are priced on.</td></tr>
+<tr><th scope="row">reference_row.model</th><td>Its model.</td></tr>
+<tr><th scope="row">reference_row.gpu</th><td>Its GPU.</td></tr>
+<tr><th scope="row">reference_row.num_gpus</th><td>Its card count.</td></tr>
+<tr><th scope="row">rows</th><td>One row per model and GPU, sorted ascending by Wh/M.</td></tr>
+<tr><th scope="row">rows[].model</th><td>Display name.</td></tr>
+<tr><th scope="row">rows[].slug</th><td>Key for models/&lt;slug&gt;.json.</td></tr>
+<tr><th scope="row">rows[].model_id</th><td>Hugging Face id.</td></tr>
+<tr><th scope="row">rows[].params_b</th><td>Total parameters, billions.</td></tr>
+<tr><th scope="row">rows[].active_params_b</th><td>Parameters active per token, billions (they differ for mixture-of-experts models).</td></tr>
+<tr><th scope="row">rows[].precision</th><td>Weight precision (BF16, FP8, MXFP4).</td></tr>
+<tr><th scope="row">rows[].gpu</th><td>GPU model: H100 (H100 80GB HBM3) or B200.</td></tr>
+<tr><th scope="row">rows[].num_gpus</th><td>Cards in the configuration.</td></tr>
+<tr><th scope="row">rows[].wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours: joules_per_output_token x 1,000,000 / 3,600, which holds exactly on every row.</td></tr>
+<tr><th scope="row">rows[].joules_per_output_token</th><td>The source&#x27;s figure, seven decimals: steady-state GPU energy divided by the output tokens generated in that window (steady_state_energy_per_token). Prompt processing is included.</td></tr>
+<tr><th scope="row">rows[].median_itl_ms</th><td>Median inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">rows[].avg_requests_in_flight</th><td>The same value as avg_running_batch under its first name, kept in v1 and removed at v2. It is the running batch, not client-side requests outstanding.</td></tr>
+<tr><th scope="row">rows[].gpu_power_watts_total</th><td>Average power drawn, summed across every card.</td></tr>
+<tr><th scope="row">rows[].avg_output_tokens</th><td>Average output length per response, tokens.</td></tr>
+<tr><th scope="row">rows[].avg_running_batch</th><td>The average number of requests the server was decoding at once over the steady-state window (vLLM num_requests_running). Queued requests are not counted.</td></tr>
+<tr><th scope="row">rows[].max_num_seqs</th><td>The configured cap on sequences decoded at once (vLLM max_num_seqs).</td></tr>
+<tr><th scope="row">rows[].row_id</th><td>Stable identifier, &lt;slug&gt;/&lt;gpu&gt;/&lt;num_gpus&gt;/&lt;max_num_seqs&gt;, with /r2 on a repeated run. It survives re-sorting and new rows.</td></tr>
+</tbody></table></div></details>
+<details class="fields"><summary><code>models.json</code>, 8 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">models</th><td>Every model on the index.</td></tr>
+<tr><th scope="row">models[].slug</th><td>Model key.</td></tr>
+<tr><th scope="row">models[].name</th><td>Display name.</td></tr>
+<tr><th scope="row">models[].model_id</th><td>Hugging Face id.</td></tr>
+<tr><th scope="row">models[].params_b</th><td>Total parameters, billions.</td></tr>
+<tr><th scope="row">models[].active_params_b</th><td>Parameters active per token, billions.</td></tr>
+<tr><th scope="row">models[].gpus</th><td>GPUs measured.</td></tr>
+<tr><th scope="row">models[].url</th><td>URL of models/&lt;slug&gt;.json.</td></tr>
+</tbody></table></div></details>
+<details class="fields"><summary><code>models/{slug}.json</code>, 52 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">slug</th><td>Model key.</td></tr>
+<tr><th scope="row">name</th><td>Display name.</td></tr>
+<tr><th scope="row">model_id</th><td>Hugging Face id.</td></tr>
+<tr><th scope="row">params_b</th><td>Total parameters, billions.</td></tr>
+<tr><th scope="row">active_params_b</th><td>Parameters active per token, billions.</td></tr>
+<tr><th scope="row">architecture</th><td>dense or moe.</td></tr>
+<tr><th scope="row">gpus</th><td>GPUs the model was measured on.</td></tr>
+<tr><th scope="row">configurations</th><td>Every stable configuration the source measured for this model.</td></tr>
+<tr><th scope="row">configurations[].gpu</th><td>GPU model: H100 (H100 80GB HBM3) or B200.</td></tr>
+<tr><th scope="row">configurations[].num_gpus</th><td>Cards in the configuration.</td></tr>
+<tr><th scope="row">configurations[].tensor_parallel</th><td>Tensor-parallel degree.</td></tr>
+<tr><th scope="row">configurations[].data_parallel</th><td>Data-parallel degree.</td></tr>
+<tr><th scope="row">configurations[].expert_parallel</th><td>Expert-parallel degree (mixture-of-experts models).</td></tr>
+<tr><th scope="row">configurations[].precision</th><td>Weight precision (BF16, FP8, MXFP4).</td></tr>
+<tr><th scope="row">configurations[].max_num_seqs</th><td>The configured cap on sequences decoded at once (vLLM max_num_seqs).</td></tr>
+<tr><th scope="row">configurations[].avg_requests_in_flight</th><td>The same value as avg_running_batch under its first name, kept in v1 and removed at v2. It is the running batch, not client-side requests outstanding.</td></tr>
+<tr><th scope="row">configurations[].wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours: joules_per_output_token x 1,000,000 / 3,600, which holds exactly on every row.</td></tr>
+<tr><th scope="row">configurations[].joules_per_output_token</th><td>The source&#x27;s figure, seven decimals: steady-state GPU energy divided by the output tokens generated in that window (steady_state_energy_per_token). Prompt processing is included.</td></tr>
+<tr><th scope="row">configurations[].median_itl_ms</th><td>Median inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">configurations[].p90_itl_ms</th><td>90th percentile inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">configurations[].p99_itl_ms</th><td>99th percentile inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">configurations[].tokens_per_second</th><td>Output throughput of the whole configuration.</td></tr>
+<tr><th scope="row">configurations[].gpu_power_watts_total</th><td>Average power drawn, summed across every card.</td></tr>
+<tr><th scope="row">configurations[].avg_output_tokens</th><td>Average output length per response, tokens.</td></tr>
+<tr><th scope="row">configurations[].under_itl_deadline</th><td>Whether median_itl_ms is at or under itl_deadline_ms; every published configuration currently is.</td></tr>
+<tr><th scope="row">configurations[].avg_running_batch</th><td>The average number of requests the server was decoding at once over the steady-state window (vLLM num_requests_running). Queued requests are not counted.</td></tr>
+<tr><th scope="row">configurations[].p95_itl_ms</th><td>95th percentile inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">configurations[].row_id</th><td>Stable identifier, &lt;slug&gt;/&lt;gpu&gt;/&lt;num_gpus&gt;/&lt;max_num_seqs&gt;, with /r2 on a repeated run. It survives re-sorting and new rows.</td></tr>
+<tr><th scope="row">configurations[].repeat</th><td>1 for the first run of a configuration, 2 for the source&#x27;s repeat of it (two Qwen 3 30B A3B configurations were run twice).</td></tr>
+<tr><th scope="row">best</th><td>The index row per GPU, keyed by GPU; each value has the configuration fields.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;</th><td>The configuration the index row uses for that GPU.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.gpu</th><td>GPU model: H100 (H100 80GB HBM3) or B200.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.num_gpus</th><td>Cards in the configuration.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.tensor_parallel</th><td>Tensor-parallel degree.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.data_parallel</th><td>Data-parallel degree.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.expert_parallel</th><td>Expert-parallel degree (mixture-of-experts models).</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.precision</th><td>Weight precision (BF16, FP8, MXFP4).</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.max_num_seqs</th><td>The configured cap on sequences decoded at once (vLLM max_num_seqs).</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.avg_requests_in_flight</th><td>The same value as avg_running_batch under its first name, kept in v1 and removed at v2. It is the running batch, not client-side requests outstanding.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours: joules_per_output_token x 1,000,000 / 3,600, which holds exactly on every row.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.joules_per_output_token</th><td>The source&#x27;s figure, seven decimals: steady-state GPU energy divided by the output tokens generated in that window (steady_state_energy_per_token). Prompt processing is included.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.median_itl_ms</th><td>Median inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.p90_itl_ms</th><td>90th percentile inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.p99_itl_ms</th><td>99th percentile inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.tokens_per_second</th><td>Output throughput of the whole configuration.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.gpu_power_watts_total</th><td>Average power drawn, summed across every card.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.avg_output_tokens</th><td>Average output length per response, tokens.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.under_itl_deadline</th><td>Whether median_itl_ms is at or under itl_deadline_ms; every published configuration currently is.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.avg_running_batch</th><td>The average number of requests the server was decoding at once over the steady-state window (vLLM num_requests_running). Queued requests are not counted.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.p95_itl_ms</th><td>95th percentile inter-token latency, milliseconds.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.row_id</th><td>Stable identifier, &lt;slug&gt;/&lt;gpu&gt;/&lt;num_gpus&gt;/&lt;max_num_seqs&gt;, with /r2 on a repeated run. It survives re-sorting and new rows.</td></tr>
+<tr><th scope="row">best.&lt;key&gt;.repeat</th><td>1 for the first run of a configuration, 2 for the source&#x27;s repeat of it (two Qwen 3 30B A3B configurations were run twice).</td></tr>
+</tbody></table></div></details>
+<details class="fields"><summary><code>grid.json</code>, 14 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">year</th><td>The year g_co2e_per_kwh is taken from (2024, the latest with every listed grid).</td></tr>
+<tr><th scope="row">basis</th><td>What the figure is: lifecycle, location-based, production-based.</td></tr>
+<tr><th scope="row">world</th><td>The World figure for year.</td></tr>
+<tr><th scope="row">areas</th><td>Every area Ember covers, plus the World row (iso3 WLD, area_type world); filter on area_type == country.</td></tr>
+<tr><th scope="row">areas[].iso3</th><td>ISO 3166-1 alpha-3 code (WLD for World).</td></tr>
+<tr><th scope="row">areas[].name</th><td>Ember&#x27;s label.</td></tr>
+<tr><th scope="row">areas[].area_type</th><td>country or world.</td></tr>
+<tr><th scope="row">areas[].g_co2e_per_kwh</th><td>Emissions intensity, gCO2e per kWh, for year (2024); kept for compatibility.</td></tr>
+<tr><th scope="row">areas[].display_name</th><td>The shorter name the site shows.</td></tr>
+<tr><th scope="row">areas[].iso2</th><td>ISO 3166-1 alpha-2 code; null for World and for Kosovo, which has none.</td></tr>
+<tr><th scope="row">areas[].years</th><td>Every year Ember holds for the area from 2023, keyed by year.</td></tr>
+<tr><th scope="row">areas[].years.&lt;key&gt;</th><td>gCO2e per kWh in that year.</td></tr>
+<tr><th scope="row">areas[].latest_year</th><td>The newest year in years.</td></tr>
+<tr><th scope="row">areas[].continent</th><td>Ember&#x27;s continent label.</td></tr>
+</tbody></table></div></details>
+<details class="fields"><summary><code>hardware.json</code>, 26 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">retrieved</th><td>When the specifications were read.</td></tr>
+<tr><th scope="row">tdp</th><td>Maximum thermal design power per GPU.</td></tr>
+<tr><th scope="row">tdp[].gpu</th><td>GPU.</td></tr>
+<tr><th scope="row">tdp[].form</th><td>Form factor.</td></tr>
+<tr><th scope="row">tdp[].max_tdp_w</th><td>Maximum TDP, watts.</td></tr>
+<tr><th scope="row">tdp[].tdp_label</th><td>TDP as NVIDIA words it.</td></tr>
+<tr><th scope="row">tdp[].memory</th><td>Memory.</td></tr>
+<tr><th scope="row">tdp[].source</th><td>Where the figure is from.</td></tr>
+<tr><th scope="row">systems</th><td>System power ratings.</td></tr>
+<tr><th scope="row">systems[].system</th><td>System.</td></tr>
+<tr><th scope="row">systems[].gpus</th><td>GPUs in the system.</td></tr>
+<tr><th scope="row">systems[].max_power_kw</th><td>Maximum system power, kW.</td></tr>
+<tr><th scope="row">systems[].label</th><td>The rating as published.</td></tr>
+<tr><th scope="row">systems[].source</th><td>Where it is from.</td></tr>
+<tr><th scope="row">mig_profiles</th><td>Multi-Instance GPU profiles per card (the media-extension variants are omitted).</td></tr>
+<tr><th scope="row">mig_profiles[].gpu</th><td>Card.</td></tr>
+<tr><th scope="row">mig_profiles[].profile</th><td>Profile name.</td></tr>
+<tr><th scope="row">mig_profiles[].memory_fraction</th><td>Share of the card&#x27;s memory.</td></tr>
+<tr><th scope="row">mig_profiles[].sm_fraction</th><td>Share of the card&#x27;s streaming multiprocessors.</td></tr>
+<tr><th scope="row">mig_profiles[].instances</th><td>How many fit on one card.</td></tr>
+<tr><th scope="row">embodied</th><td>One embodied-carbon figure.</td></tr>
+<tr><th scope="row">embodied.item</th><td>What it covers.</td></tr>
+<tr><th scope="row">embodied.kg_co2e_cradle_to_gate</th><td>kg CO2e, cradle to gate, baseboard only.</td></tr>
+<tr><th scope="row">embodied.source</th><td>Source.</td></tr>
+<tr><th scope="row">embodied.published</th><td>Publication date.</td></tr>
+<tr><th scope="row">sources</th><td>The NVIDIA documents, with their terms.</td></tr>
+</tbody></table></div></details>
+<details class="fields"><summary><code>per-query.json</code>, 12 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">round</th><td>The AI Energy Score round.</td></tr>
+<tr><th scope="row">setup</th><td>How a query is run.</td></tr>
+<tr><th scope="row">classes</th><td>Hardware classes.</td></tr>
+<tr><th scope="row">classes.&lt;key&gt;</th><td>What the class means.</td></tr>
+<tr><th scope="row">score</th><td>What the stars mean.</td></tr>
+<tr><th scope="row">rows</th><td>Every row of the round.</td></tr>
+<tr><th scope="row">rows[].model</th><td>Clean Hugging Face id.</td></tr>
+<tr><th scope="row">rows[].class</th><td>Hardware class.</td></tr>
+<tr><th scope="row">rows[].wh_per_1000_queries</th><td>GPU watt-hours for 1,000 queries.</td></tr>
+<tr><th scope="row">rows[].score</th><td>Stars, 1 to 5, within the class.</td></tr>
+<tr><th scope="row">rows[].source_label</th><td>The model string exactly as the source gives it.</td></tr>
+<tr><th scope="row">rows[].note</th><td>A note on the row, where there is one.</td></tr>
+</tbody></table></div></details>
+<details class="fields"><summary><code>manifest.json</code>, 22 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">site</th><td>Site URL.</td></tr>
+<tr><th scope="row">name</th><td>API name.</td></tr>
+<tr><th scope="row">description</th><td>What the API is.</td></tr>
+<tr><th scope="row">endpoints</th><td>Every endpoint.</td></tr>
+<tr><th scope="row">endpoints[].path</th><td>Path under /api/v1/.</td></tr>
+<tr><th scope="row">endpoints[].url</th><td>Full URL.</td></tr>
+<tr><th scope="row">endpoints[].description</th><td>What it returns.</td></tr>
+<tr><th scope="row">sources</th><td>Every source with version, retrieval date, licence and evidence.</td></tr>
+<tr><th scope="row">publisher</th><td>Who publishes the API.</td></tr>
+<tr><th scope="row">publisher.name</th><td>Project.</td></tr>
+<tr><th scope="row">publisher.parent</th><td>Parent.</td></tr>
+<tr><th scope="row">publisher.url</th><td>Site.</td></tr>
+<tr><th scope="row">publisher.entity</th><td>Legal entity.</td></tr>
+<tr><th scope="row">publisher.registration</th><td>Registration number.</td></tr>
+<tr><th scope="row">publisher.jurisdiction</th><td>Jurisdiction.</td></tr>
+<tr><th scope="row">publisher.address</th><td>Registered office; null until confirmed.</td></tr>
+<tr><th scope="row">publisher.contact</th><td>Corrections and contributions mailbox.</td></tr>
+<tr><th scope="row">publisher.response_working_days</th><td>Response time, working days.</td></tr>
+<tr><th scope="row">attribution</th><td>A ready CC BY 4.0 credit line.</td></tr>
+<tr><th scope="row">releases</th><td>Where dated releases are kept.</td></tr>
+<tr><th scope="row">releases.index</th><td>The list of releases.</td></tr>
+<tr><th scope="row">releases.pattern</th><td>URL pattern of a release.</td></tr>
+</tbody></table></div></details>
+<details class="fields"><summary><code>measurements.json</code>, 3 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">protocol_version</th><td>Protocol version the rows follow.</td></tr>
+<tr><th scope="row">schema</th><td>URL of the measurement schema.</td></tr>
+<tr><th scope="row">rows</th><td>Contributed rows: the measurement schema&#x27;s fields plus source_file and comparable (median ITL at or under itl_deadline_ms).</td></tr>
+</tbody></table></div></details>
+<details class="fields"><summary><code>changes.json</code>, 6 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><th scope="row">changes</th><td>One entry per change, oldest first.</td></tr>
+<tr><th scope="row">changes[].date</th><td>Date of the change.</td></tr>
+<tr><th scope="row">changes[].summary</th><td>What changed.</td></tr>
+<tr><th scope="row">changes[].documents</th><td>Documents affected (* for all).</td></tr>
+<tr><th scope="row">changes[].reason</th><td>Why.</td></tr>
+<tr><th scope="row">changes[].source_version</th><td>Source version at the time.</td></tr>
+</tbody></table></div></details>
 </section>
 
 <section id="versioning">
   <p class="eyebrow">Versioning and licence</p>
   <h2>Additive only</h2>
   <div class="prose">
-    <p><b>Version 1.</b> Fields are added, never renamed or removed. A new source or a re-measurement changes values and the <code>updated</code> date, and the change is recorded on <a href="../index/#changes">the index's change list</a>. A breaking change would ship as <code>/api/v2/</code> with v1 left in place.</p>
+    <p><b>Caching and limits.</b> The files are served by GitHub Pages, which sends <code>Cache-Control: max-age=600</code>, an ETag and Last-Modified. Poll with <code>If-None-Match</code>, no more than hourly, and mirror the files rather than fetching them for each of your users: the host has a soft bandwidth limit of 100 GB a month and does not allow software-as-a-service use. There is no uptime promise. The data is refreshed when a source publishes a new release, checked monthly; the date is in every document and in <a href="../api/v1/changes.json"><code>changes.json</code></a>.</p>
+    <p><b>Version 1.</b> Fields are added, never renamed or removed. A new source or a re-measurement changes values, <code>data_version</code> and the <code>updated</code> date, and the change is recorded in <a href="../api/v1/changes.json"><code>changes.json</code></a> and on <a href="../index/#changes">the index's change list</a>. <code>row_id</code> identifies a row across releases. A breaking change would ship as <code>/api/v2/</code> with v1 left in place.</p>
     <p><b>Licence.</b> The compilation, the derived figures and the site text are offered under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: use them, credit Lead Green and the underlying source. Each source keeps its own licence, stated per source in <code>manifest.json</code> with the evidence. ML.ENERGY: The leaderboard repository the JSON comes from carries no licence file; the benchmark data is published under Apache 2.0 on the dataset card and in the NeurIPS 2025 paper, and the JSON is reproduced here as published measurements on that basis while the ML.ENERGY team is asked to confirm that the licence covers it. Ember's data is CC BY 4.0. AI Energy Score: Apache-2.0 as tagged on the Hugging Face Space; the project states no separate licence for the results file, which is reproduced as facts with attribution. NVIDIA's figures are reproduced as facts with attribution; NVIDIA grants no licence and none is claimed. The Apache License 2.0 text is in <a href="../LICENSE"><code>LICENSE</code></a>, and <code>build/data/NOTICE.md</code> records each snapshot's source, retrieval date and terms.</p>
     <p><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
     <p><b>Attribution.</b> If you republish the data, this line covers the CC BY 4.0 credit (it is also the <code>attribution</code> field in <code>manifest.json</code>): Green Tokens index, Lead Green, a Katonic project, https://leadgreen.ai/api/v1/, CC BY 4.0. Contains data from the ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled 2026-02-16, retrieved 2026-09-26) and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe].</p>

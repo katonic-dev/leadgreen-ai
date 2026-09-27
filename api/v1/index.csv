@@ -1,0 +1,33 @@
+model,slug,model_id,params_b,active_params_b,precision,gpu,num_gpus,max_num_seqs,avg_running_batch,wh_per_million_output_tokens,joules_per_output_token,median_itl_ms,gpu_power_watts_total,avg_output_tokens,row_id
+Llama 3.1 8B Instruct,llama-3-1-8b-instruct,meta-llama/Llama-3.1-8B-Instruct,8.0,8.0,BF16,B200,1,2048,2042.9,12.97,0.0466958,124.9,691,396,llama-3-1-8b-instruct/B200/1/2048
+Qwen 3 8B,qwen-3-8b,Qwen/Qwen3-8B,8.0,8.0,BF16,B200,1,1536,1426.7,14.74,0.0530581,91.2,801,649,qwen-3-8b/B200/1/1536
+Qwen 3 14B,qwen-3-14b,Qwen/Qwen3-14B,14.0,14.0,BF16,B200,1,2048,2044.6,15.21,0.0547711,112.6,869,613,qwen-3-14b/B200/1/2048
+Qwen 3 30B A3B Instruct,qwen-3-30b-a3b-instruct,Qwen/Qwen3-30B-A3B-Instruct-2507,30.0,3.0,BF16,B200,1,1024,1022.6,15.67,0.0564083,88.7,601,928,qwen-3-30b-a3b-instruct/B200/1/1024
+Llama 3.1 8B Instruct,llama-3-1-8b-instruct,meta-llama/Llama-3.1-8B-Instruct,8.0,8.0,BF16,H100,1,512,510.9,19.5,0.0701945,47.4,688,397,llama-3-1-8b-instruct/H100/1/512
+Qwen 3 8B,qwen-3-8b,Qwen/Qwen3-8B,8.0,8.0,BF16,H100,1,512,474.4,20.04,0.0721292,47.2,616,645,qwen-3-8b/H100/1/512
+Qwen 3 30B A3B Instruct,qwen-3-30b-a3b-instruct,Qwen/Qwen3-30B-A3B-Instruct-2507,30.0,3.0,BF16,H100,2,1024,1018.8,24.69,0.0888773,74.8,1123,920,qwen-3-30b-a3b-instruct/H100/2/1024
+Gemma 3 12B,gemma-3-12b,google/gemma-3-12b-it,12.0,12.0,BF16,B200,1,512,486.6,26.49,0.0953556,43.5,928,723,gemma-3-12b/B200/1/512
+Qwen 3 14B,qwen-3-14b,Qwen/Qwen3-14B,14.0,14.0,BF16,H100,1,256,253.4,31.09,0.1119169,38.4,645,625,qwen-3-14b/H100/1/256
+Qwen 3 32B,qwen-3-32b,Qwen/Qwen3-32B,32.0,32.0,BF16,B200,1,384,383.3,39.05,0.1405812,50.2,972,635,qwen-3-32b/B200/1/384
+NVIDIA Nemotron Nano 12B V2,nvidia-nemotron-nano-12b-v2,nvidia/NVIDIA-Nemotron-Nano-12B-v2,12.0,12.0,BF16,B200,1,256,255.6,39.43,0.1419623,33.9,885,1464,nvidia-nemotron-nano-12b-v2/B200/1/256
+NVIDIA Nemotron Nano 9B V2,nvidia-nemotron-nano-9b-v2,nvidia/NVIDIA-Nemotron-Nano-9B-v2,9.0,9.0,BF16,B200,1,256,255.3,40.94,0.1473681,40.7,800,1242,nvidia-nemotron-nano-9b-v2/B200/1/256
+NVIDIA Nemotron Nano 9B V2,nvidia-nemotron-nano-9b-v2,nvidia/NVIDIA-Nemotron-Nano-9B-v2,9.0,9.0,BF16,H100,1,256,255.3,43.11,0.1552074,43.4,693,510,nvidia-nemotron-nano-9b-v2/H100/1/256
+Gemma 3 12B,gemma-3-12b,google/gemma-3-12b-it,12.0,12.0,BF16,H100,1,128,127.8,46.14,0.1661133,34.7,589,723,gemma-3-12b/H100/1/128
+Gemma 3 27B,gemma-3-27b,google/gemma-3-27b-it,27.0,27.0,BF16,B200,1,256,247.3,49.1,0.1767455,39.6,974,717,gemma-3-27b/B200/1/256
+NVIDIA Nemotron Nano 12B V2,nvidia-nemotron-nano-12b-v2,nvidia/NVIDIA-Nemotron-Nano-12B-v2,12.0,12.0,BF16,H100,1,256,241.2,50.08,0.1803029,46.0,694,462,nvidia-nemotron-nano-12b-v2/H100/1/256
+Llama 3.1 70B Instruct,llama-3-1-70b-instruct,meta-llama/Llama-3.1-70B-Instruct,70.0,70.0,BF16,B200,2,2048,2041.9,52.41,0.1886745,140.5,1907,351,llama-3-1-70b-instruct/B200/2/2048
+Llama 3.3 70B Instruct,llama-3-3-70b-instruct,meta-llama/Llama-3.3-70B-Instruct,70.0,70.0,BF16,B200,2,1024,1021.6,60.72,0.218586,105.6,1935,409,llama-3-3-70b-instruct/B200/2/1024
+Qwen 3 32B,qwen-3-32b,Qwen/Qwen3-32B,32.0,32.0,BF16,H100,2,256,255.6,63.47,0.2284806,44.5,1178,634,qwen-3-32b/H100/2/256
+Qwen 3 235B A22B Instruct,qwen-3-235b-a22b-instruct,Qwen/Qwen3-235B-A22B-Instruct-2507,235.0,22.0,BF16,B200,4,4096,3764.6,66.73,0.2402453,67.8,3196,874,qwen-3-235b-a22b-instruct/B200/4/4096
+Gemma 3 27B,gemma-3-27b,google/gemma-3-27b-it,27.0,27.0,BF16,H100,2,192,187.0,80.42,0.2895195,39.8,1210,714,gemma-3-27b/H100/2/192
+Llama 4 Scout 17B 16E Instruct,llama-4-scout-17b-16e-instruct,meta-llama/Llama-4-Scout-17B-16E-Instruct,109.0,17.0,BF16,H100,4,512,472.8,93.39,0.3361983,69.1,1881,402,llama-4-scout-17b-16e-instruct/H100/4/512
+Llama 3.1 70B Instruct,llama-3-1-70b-instruct,meta-llama/Llama-3.1-70B-Instruct,70.0,70.0,BF16,H100,4,1024,898.5,103.65,0.373142,105.6,2548,351,llama-3-1-70b-instruct/H100/4/1024
+Llama 3.3 70B Instruct,llama-3-3-70b-instruct,meta-llama/Llama-3.3-70B-Instruct,70.0,70.0,BF16,H100,4,768,724.2,117.53,0.4230942,97.5,2546,413,llama-3-3-70b-instruct/H100/4/768
+Llama 4 Maverick 17B 128E Instruct FP8,llama-4-maverick-17b-128e-instruct-fp8,meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8,400.0,17.0,FP8,H100,8,384,383.3,134.5,0.4841928,47.9,3462,408,llama-4-maverick-17b-128e-instruct-fp8/H100/8/384
+Qwen 3 235B A22B Instruct FP8,qwen-3-235b-a22b-instruct-fp8,Qwen/Qwen3-235B-A22B-Instruct-2507-FP8,235.0,22.0,FP8,B200,2,256,255.7,139.08,0.5006937,64.5,1891,876,qwen-3-235b-a22b-instruct-fp8/B200/2/256
+DeepSeek V3.1,deepseek-v3-1,deepseek-ai/DeepSeek-V3.1,671.0,37.0,FP8,B200,8,3072,3007.5,168.43,0.6063443,185.5,5470,842,deepseek-v3-1/B200/8/3072
+Qwen 3 235B A22B Instruct FP8,qwen-3-235b-a22b-instruct-fp8,Qwen/Qwen3-235B-A22B-Instruct-2507-FP8,235.0,22.0,FP8,H100,8,512,511.2,205.96,0.7414699,75.8,3961,881,qwen-3-235b-a22b-instruct-fp8/H100/8/512
+Llama 3.1 405B Instruct,llama-3-1-405b-instruct,meta-llama/Llama-3.1-405B-Instruct,405.0,405.0,BF16,B200,8,4096,3588.7,281.96,1.0150418,272.3,7530,370,llama-3-1-405b-instruct/B200/8/4096
+Qwen 3 235B A22B Instruct,qwen-3-235b-a22b-instruct,Qwen/Qwen3-235B-A22B-Instruct-2507,235.0,22.0,BF16,H100,8,256,228.5,303.53,1.0927101,55.5,4038,874,qwen-3-235b-a22b-instruct/H100/8/256
+Llama 3.1 405B Instruct FP8,llama-3-1-405b-instruct-fp8,meta-llama/Llama-3.1-405B-Instruct-FP8,405.0,405.0,FP8,B200,4,512,510.5,318.53,1.1466946,98.2,3883,380,llama-3-1-405b-instruct-fp8/B200/4/512
+Llama 3.1 405B Instruct FP8,llama-3-1-405b-instruct-fp8,meta-llama/Llama-3.1-405B-Instruct-FP8,405.0,405.0,FP8,H100,8,256,255.2,572.94,2.0625855,66.9,4875,367,llama-3-1-405b-instruct-fp8/H100/8/256

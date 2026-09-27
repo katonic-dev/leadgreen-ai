@@ -11,7 +11,7 @@ description: The {{INDEX_NAME}} index as read-only JSON: index rows, per-model c
 
 <section class="first" id="endpoints">
   <p class="eyebrow">Endpoints</p>
-  <h2>Eight files</h2>
+  <h2>{{ENDPOINT_COUNT}} files</h2>
   <div class="endpoints">
 {{ENDPOINT_LIST}}
   </div>
@@ -44,38 +44,33 @@ curl -s {{SITE}}/api/v1/grid.json  | jq '.areas[] | select(.iso3 == "SRB")'</cod
 const { rows } = await r.json();
 const best = rows[0];   // sorted ascending by Wh per million output tokens
 console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pre>
+  <h3>Python</h3>
+<pre><code>import json, urllib.request
+
+BASE = "{{SITE}}/api/v1/"
+index = json.load(urllib.request.urlopen(BASE + "index.json"))
+grid = {a["iso3"]: a for a in json.load(urllib.request.urlopen(BASE + "grid.json"))["areas"]}
+
+row = next(r for r in index["rows"] if r["slug"] == "{{REF_SLUG}}" and r["gpu"] == "H100")
+kg = row["wh_per_million_output_tokens"] * grid["SRB"]["g_co2e_per_kwh"] / 1000
+print(row["model"], row["num_gpus"], "x", row["gpu"], round(kg, 1), "kg CO2e per billion output tokens in Serbia")
+print(index["caveat"])</code></pre>
+  <p class="note">A spreadsheet can open <a href="{{ROOT}}api/v1/index.csv"><code>index.csv</code></a> directly. <a href="{{ROOT}}api/v1/all.zip"><code>all.zip</code></a> holds every document of the current release.</p>
 </section>
 
 <section id="fields">
   <p class="eyebrow">Fields</p>
   <h2>What the columns mean</h2>
-  <div class="table-scroll">
-    <table class="spec">
-      <caption>index.json rows and models/&lt;slug&gt;.json configurations</caption>
-      <thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours. joules_per_output_token × 1,000,000 ÷ 3,600.</td></tr>
-        <tr><th scope="row">joules_per_output_token</th><td>The source's figure: GPU energy over the steady-state window divided by the output tokens generated in that window (the benchmark's steady_state_energy_per_token). Prompt processing is included. The source's energy per request is this figure multiplied by the average output length, not a separate measurement.</td></tr>
-        <tr><th scope="row">median_itl_ms</th><td>Median inter-token latency in milliseconds at that configuration. Index rows are the lowest-energy configuration whose median does not exceed itl_deadline_ms ({{ITL}} ms, the leaderboard's default).</td></tr>
-        <tr><th scope="row">avg_running_batch</th><td>The average number of requests the server was decoding at once over the steady-state window (vLLM's num_requests_running). Queued requests are not counted, and the benchmark keeps a queue at all times. max_num_seqs is the configured cap.</td></tr>
-        <tr><th scope="row">avg_requests_in_flight</th><td>The same value as avg_running_batch under its first name, kept in v1 so nothing breaks and removed at v2. Despite the name it is the running batch, not the requests a client has outstanding.</td></tr>
-        <tr><th scope="row">gpu_power_watts_total</th><td>Average power drawn, summed across every GPU in the configuration.</td></tr>
-        <tr><th scope="row">tokens_per_second</th><td>Output throughput of the whole configuration.</td></tr>
-        <tr><th scope="row">num_gpus, tensor_parallel, data_parallel, expert_parallel</th><td>How many cards and how the model is split across them.</td></tr>
-        <tr><th scope="row">params_b, active_params_b, precision</th><td>Total and activated parameters in billions (they differ for mixture-of-experts models) and the weight precision.</td></tr>
-        <tr><th scope="row">g_co2e_per_kwh</th><td>Grid emissions intensity of total generation, annual average, from Ember. The year is in the document.</td></tr>
-        <tr><th scope="row">boundary</th><td><code>gpu_only</code>: the figures cover GPU energy and nothing else. Host, network, storage, cooling and idle time are outside it. To reach the facility meter, multiply by a system-to-GPU power ratio and the site's PUE (see the index <a href="{{ROOT}}index/#method">method</a>).</td></tr>
-        <tr><th scope="row">caveat</th><td>Carried on every document that has index rows. Please carry it into whatever you build.</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="prose"><p>One table for the fields every document carries, then one per document. The build refuses to publish a field that has no description here, and <a href="{{ROOT}}api/v1/openapi.json"><code>openapi.json</code></a> and <a href="{{ROOT}}api/v1/types.d.ts"><code>types.d.ts</code></a> are generated from the same documents, so the three cannot drift apart. <code>joules_per_output_token</code> is published to seven decimals, so <code>wh_per_million_output_tokens</code> = joules × 1,000,000 ÷ 3,600 holds exactly on every row.</p></div>
+{{FIELD_TABLES}}
 </section>
 
 <section id="versioning">
   <p class="eyebrow">Versioning and licence</p>
   <h2>Additive only</h2>
   <div class="prose">
-    <p><b>Version 1.</b> Fields are added, never renamed or removed. A new source or a re-measurement changes values and the <code>updated</code> date, and the change is recorded on <a href="{{ROOT}}index/#changes">the index's change list</a>. A breaking change would ship as <code>/api/v2/</code> with v1 left in place.</p>
+    <p><b>Caching and limits.</b> The files are served by GitHub Pages, which sends <code>Cache-Control: max-age={{PAGES_MAX_AGE_S}}</code>, an ETag and Last-Modified. Poll with <code>If-None-Match</code>, no more than hourly, and mirror the files rather than fetching them for each of your users: the host has a soft bandwidth limit of {{PAGES_BANDWIDTH_GB}} GB a month and does not allow software-as-a-service use. There is no uptime promise. The data is refreshed when a source publishes a new release, checked monthly; the date is in every document and in <a href="{{ROOT}}api/v1/changes.json"><code>changes.json</code></a>.</p>
+    <p><b>Version 1.</b> Fields are added, never renamed or removed. A new source or a re-measurement changes values, <code>data_version</code> and the <code>updated</code> date, and the change is recorded in <a href="{{ROOT}}api/v1/changes.json"><code>changes.json</code></a> and on <a href="{{ROOT}}index/#changes">the index's change list</a>. <code>row_id</code> identifies a row across releases. A breaking change would ship as <code>/api/v2/</code> with v1 left in place.</p>
     <p><b>Licence.</b> The compilation, the derived figures and the site text are offered under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: use them, credit Lead Green and the underlying source. Each source keeps its own licence, stated per source in <code>manifest.json</code> with the evidence. ML.ENERGY: {{MLE_LICENCE_SENTENCE}} Ember's data is CC BY 4.0. AI Energy Score: Apache-2.0 as tagged on the Hugging Face Space; the project states no separate licence for the results file, which is reproduced as facts with attribution. NVIDIA's figures are reproduced as facts with attribution; NVIDIA grants no licence and none is claimed. The Apache License 2.0 text is in <a href="{{ROOT}}LICENSE"><code>LICENSE</code></a>, and <code>build/data/NOTICE.md</code> records each snapshot's source, retrieval date and terms.</p>
     <p><b>Cite as.</b> {{CITE_AS}}</p>
     <p><b>Attribution.</b> If you republish the data, this line covers the CC BY 4.0 credit (it is also the <code>attribution</code> field in <code>manifest.json</code>): {{ATTRIBUTION}}</p>

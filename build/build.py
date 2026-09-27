@@ -94,6 +94,8 @@ KETTLE_KW = 2.0                      # stated assumption in one worked example
 PROTO_MIN_MINUTES = 5                # protocol: steady-state window at least this long after warm-up
 PROTO_MIN_REQUESTS = 1000            # protocol: at least this many requests in the window
 REPEAT_THRESHOLD_PCT = 5             # protocol: two runs further apart than this need a reason or a third run
+PAGES_MAX_AGE_S = 600               # D20: GitHub Pages Cache-Control max-age, checked 26 Sep 2026
+PAGES_BANDWIDTH_GB = 100            # D20: GitHub Pages soft bandwidth limit per month
 REVIEW_DECISION_DAYS = 30           # D19: a decision on a contributed row within this many days
 MLE_PROMPT_REQUESTS = 1024          # D19: the benchmark's request count (run doc: --workload.num-requests 1024)
 MLE_MAX_BATCHED_TOKENS = 8192       # D19: the benchmark's vLLM flags
@@ -1114,6 +1116,10 @@ ENDPOINTS = [
     ("openapi.json", "OpenAPI 3.1 description of these endpoints."),
     ("measurements.json", "Contributed measurements accepted under the protocol, with contributor, affiliation, date, versions and MIG profile; never merged into index.json."),
     ("schema/measurement.schema.json", "JSON Schema for a contributed measurement file (protocol v0.2); the build validates every submission against it."),
+    ("changes.json", "Every change to the published data or its description: date, summary, documents, reason and source version."),
+    ("index.csv", "The index rows as CSV, for a spreadsheet."),
+    ("types.d.ts", "TypeScript types for every document, generated from the documents."),
+    ("all.zip", "Every JSON document of the current release in one zip (the same bytes as the dated release zip)."),
     ("releases/index.json", "Every dated release of api/v1, each kept unchanged at releases/<date>/ with a zip of the whole release, for citation."),
 ]
 api_docs: dict[str, dict] = {}
@@ -1206,6 +1212,250 @@ api_docs["openapi.json"] = {
     }},
 }
 
+# ----------------------------------------------------------------- D20: change list, data_version, field docs, typed schemas, downloads
+CHANGES = [
+    {"date": "2026-09-26", "summary": (f"First build. {len(index_rows)} index rows from ML.ENERGY v3.0 (data compiled {long_date(SRC_MLE['compiled'])}), "
+                                        f"grid intensities from Ember ({EMBER_YEAR}), NVIDIA specifications, AI Energy Score December 2025 round. "
+                                        "The API, the MCP server and the first blog post."),
+     "documents": ["*"], "reason": "first build", "source_version": SRC_MLE["version"]},
+    {"date": "2026-09-27", "summary": ("Corrections after a nine-reader review, before launch. The ML.ENERGY data is dated to its compile date, not a banner "
+                                        f"update; the latency ceiling is the leaderboard's own {ITL_DEADLINE_MS} ms (no row moved); \"requests in flight\" is "
+                                        "renamed running batch; full concurrency ladders; all AI Energy Score December rows; a two-task table; the carbon "
+                                        "basis, grid years and display names; seven-decimal joules; additive API fields (data_version, row_id, repeat, "
+                                        "p95_itl_ms, avg_running_batch, boundary, years, latest_year, iso2, display_name, source_label); changes.json, "
+                                        "measurements.json, the measurement schema, a dated release archive, CSV, zip and TypeScript types."),
+     "documents": ["*"], "reason": "review corrections", "source_version": SRC_MLE["version"]},
+]
+assert CHANGES[-1]["date"] == DATA_VERSION, "add a CHANGES entry for this DATA_VERSION"
+api_docs["changes.json"] = {"version": "1", "updated": UPDATED, "note": "One entry per change to the published data or its description, newest last.",
+                            "changes": CHANGES}
+subs["CHANGES_LIST"] = "\n".join(
+    f"    <li><time datetime=\"{c['date']}\">{short_date(c['date'])}</time><span>{esc(c['summary'])}"
+    + (subs["REVIEWED_LINE"] if c is CHANGES[0] else "") + "</span></li>" for c in reversed(CHANGES))
+
+for _rel in list(api_docs):   # D20: data_version beside updated in every data document
+    if _rel not in ("openapi.json", "schema/measurement.schema.json"):
+        _d = api_docs[_rel]
+        api_docs[_rel] = {**{k: _d[k] for k in ("version", "updated") if k in _d}, "data_version": DATA_VERSION,
+                          **{k: v for k, v in _d.items() if k not in ("version", "updated", "data_version")}}
+
+_CFG = {
+    "gpu": "GPU model: H100 (H100 80GB HBM3) or B200.", "num_gpus": "Cards in the configuration.",
+    "tensor_parallel": "Tensor-parallel degree.", "data_parallel": "Data-parallel degree.", "expert_parallel": "Expert-parallel degree (mixture-of-experts models).",
+    "precision": "Weight precision (BF16, FP8, MXFP4).", "max_num_seqs": "The configured cap on sequences decoded at once (vLLM max_num_seqs).",
+    "avg_running_batch": "The average number of requests the server was decoding at once over the steady-state window (vLLM num_requests_running). Queued requests are not counted.",
+    "avg_requests_in_flight": "The same value as avg_running_batch under its first name, kept in v1 and removed at v2. It is the running batch, not client-side requests outstanding.",
+    "wh_per_million_output_tokens": "GPU energy per million output tokens, watt-hours: joules_per_output_token x 1,000,000 / 3,600, which holds exactly on every row.",
+    "joules_per_output_token": "The source's figure, seven decimals: steady-state GPU energy divided by the output tokens generated in that window (steady_state_energy_per_token). Prompt processing is included.",
+    "median_itl_ms": "Median inter-token latency, milliseconds.", "p90_itl_ms": "90th percentile inter-token latency, milliseconds.",
+    "p95_itl_ms": "95th percentile inter-token latency, milliseconds.", "p99_itl_ms": "99th percentile inter-token latency, milliseconds.",
+    "tokens_per_second": "Output throughput of the whole configuration.", "gpu_power_watts_total": "Average power drawn, summed across every card.",
+    "avg_output_tokens": "Average output length per response, tokens.",
+    "under_itl_deadline": "Whether median_itl_ms is at or under itl_deadline_ms; every published configuration currently is.",
+    "row_id": "Stable identifier, <slug>/<gpu>/<num_gpus>/<max_num_seqs>, with /r2 on a repeated run. It survives re-sorting and new rows.",
+    "repeat": "1 for the first run of a configuration, 2 for the source's repeat of it (two Qwen 3 30B A3B configurations were run twice).",
+}
+FIELD_DOCS = {
+    "*": {"version": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place.",
+          "updated": "Date the document was built.", "data_version": "Changes whenever a value in the document changes. Cite it with the release archive.",
+          "unit": "Unit of the main figure in the document.", "caveat": "Carried on every document with energy figures. Please carry it into whatever you build.",
+          "boundary": "gpu_only: GPU energy and nothing else; host, network, storage, cooling and idle time are outside it.",
+          "itl_deadline_ms": f"The median inter-token latency ceiling used to pick best rows: {ITL_DEADLINE_MS} ms, the leaderboard's default.",
+          "source": "The source object: name, publisher, url, data_url, version, retrieval date, licence with its evidence, method, selection and citation.",
+          "note": "How to read the document.", "licence": "Licence of the document or of its source, as stated."},
+    "index.json": {"workload": "The benchmark task behind the rows.", "selection": "The rule that picks each row, in words.",
+                   "reference_row": "The row the carbon table and worked examples are priced on.", "reference_row.model": "Its model.",
+                   "reference_row.gpu": "Its GPU.", "reference_row.num_gpus": "Its card count.",
+                   "rows": "One row per model and GPU, sorted ascending by Wh/M.", "rows[].model": "Display name.", "rows[].slug": "Key for models/<slug>.json.",
+                   "rows[].model_id": "Hugging Face id.", "rows[].params_b": "Total parameters, billions.", "rows[].active_params_b": "Parameters active per token, billions (they differ for mixture-of-experts models).",
+                   **{f"rows[].{k}": v for k, v in _CFG.items()}},
+    "models/{slug}.json": {"slug": "Model key.", "name": "Display name.", "model_id": "Hugging Face id.", "params_b": "Total parameters, billions.",
+                           "active_params_b": "Parameters active per token, billions.", "architecture": "dense or moe.", "gpus": "GPUs the model was measured on.",
+                           "configurations": "Every stable configuration the source measured for this model.",
+                           **{f"configurations[].{k}": v for k, v in _CFG.items()},
+                           "best": "The index row per GPU, keyed by GPU; each value has the configuration fields.",
+                           **{f"best.<key>.{k}": v for k, v in _CFG.items()}, "best.<key>": "The configuration the index row uses for that GPU."},
+    "models.json": {"models": "Every model on the index.", "models[].slug": "Model key.", "models[].name": "Display name.", "models[].model_id": "Hugging Face id.",
+                    "models[].params_b": "Total parameters, billions.", "models[].active_params_b": "Parameters active per token, billions.",
+                    "models[].gpus": "GPUs measured.", "models[].url": "URL of models/<slug>.json."},
+    "grid.json": {"year": f"The year g_co2e_per_kwh is taken from ({EMBER_YEAR}, the latest with every listed grid).", "basis": "What the figure is: lifecycle, location-based, production-based.",
+                  "world": "The World figure for year.", "areas": "Every area Ember covers, plus the World row (iso3 WLD, area_type world); filter on area_type == country.",
+                  "areas[].iso3": "ISO 3166-1 alpha-3 code (WLD for World).", "areas[].iso2": "ISO 3166-1 alpha-2 code; null for World and for Kosovo, which has none.",
+                  "areas[].name": "Ember's label.", "areas[].display_name": "The shorter name the site shows.", "areas[].area_type": "country or world.",
+                  "areas[].continent": "Ember's continent label.", "areas[].g_co2e_per_kwh": f"Emissions intensity, gCO2e per kWh, for year ({EMBER_YEAR}); kept for compatibility.",
+                  "areas[].years": "Every year Ember holds for the area from 2023, keyed by year.", "areas[].years.<key>": "gCO2e per kWh in that year.",
+                  "areas[].latest_year": "The newest year in years."},
+    "hardware.json": {"retrieved": "When the specifications were read.", "tdp": "Maximum thermal design power per GPU.", "tdp[].gpu": "GPU.", "tdp[].form": "Form factor.",
+                      "tdp[].max_tdp_w": "Maximum TDP, watts.", "tdp[].tdp_label": "TDP as NVIDIA words it.", "tdp[].memory": "Memory.", "tdp[].source": "Where the figure is from.",
+                      "systems": "System power ratings.", "systems[].system": "System.", "systems[].gpus": "GPUs in the system.", "systems[].max_power_kw": "Maximum system power, kW.",
+                      "systems[].label": "The rating as published.", "systems[].source": "Where it is from.",
+                      "mig_profiles": "Multi-Instance GPU profiles per card (the media-extension variants are omitted).", "mig_profiles[].gpu": "Card.", "mig_profiles[].profile": "Profile name.",
+                      "mig_profiles[].memory_fraction": "Share of the card's memory.", "mig_profiles[].sm_fraction": "Share of the card's streaming multiprocessors.",
+                      "mig_profiles[].instances": "How many fit on one card.", "embodied": "One embodied-carbon figure.", "embodied.item": "What it covers.",
+                      "embodied.kg_co2e_cradle_to_gate": "kg CO2e, cradle to gate, baseboard only.", "embodied.source": "Source.", "embodied.published": "Publication date.",
+                      "sources": "The NVIDIA documents, with their terms."},
+    "per-query.json": {"round": "The AI Energy Score round.", "setup": "How a query is run.", "classes": "Hardware classes.", "classes.<key>": "What the class means.",
+                       "score": "What the stars mean.", "rows": "Every row of the round.", "rows[].model": "Clean Hugging Face id.", "rows[].source_label": "The model string exactly as the source gives it.",
+                       "rows[].class": "Hardware class.", "rows[].wh_per_1000_queries": "GPU watt-hours for 1,000 queries.", "rows[].score": "Stars, 1 to 5, within the class.",
+                       "rows[].note": "A note on the row, where there is one."},
+    "manifest.json": {"site": "Site URL.", "name": "API name.", "description": "What the API is.", "endpoints": "Every endpoint.", "endpoints[].path": "Path under /api/v1/.",
+                      "endpoints[].url": "Full URL.", "endpoints[].description": "What it returns.", "sources": "Every source with version, retrieval date, licence and evidence.",
+                      "publisher": "Who publishes the API.", "publisher.name": "Project.", "publisher.parent": "Parent.", "publisher.url": "Site.", "publisher.entity": "Legal entity.",
+                      "publisher.registration": "Registration number.", "publisher.jurisdiction": "Jurisdiction.", "publisher.address": "Registered office; null until confirmed.",
+                      "publisher.contact": "Corrections and contributions mailbox.", "publisher.response_working_days": "Response time, working days.",
+                      "attribution": "A ready CC BY 4.0 credit line.", "releases": "Where dated releases are kept.", "releases.index": "The list of releases.", "releases.pattern": "URL pattern of a release."},
+    "measurements.json": {"protocol_version": "Protocol version the rows follow.", "schema": "URL of the measurement schema.",
+                          "rows": "Contributed rows: the measurement schema's fields plus source_file and comparable (median ITL at or under itl_deadline_ms)."},
+    "changes.json": {"changes": "One entry per change, oldest first.", "changes[].date": "Date of the change.", "changes[].summary": "What changed.",
+                     "changes[].documents": "Documents affected (* for all).", "changes[].reason": "Why.", "changes[].source_version": "Source version at the time."},
+    "releases/index.json": {"current": "The DATA_VERSION of the live files.", "releases": "Every release, newest first.", "releases[].date": "Release date.",
+                            "releases[].url": "Folder holding that release's documents.", "releases[].zip": "Zip of the whole release.",
+                            "releases[].sha256": "SHA-256 of the zip.", "releases[].published": "Whether the release is published and frozen."},
+}
+
+
+def _field_paths(o, prefix: str, acc: dict, doc: str) -> None:
+    if isinstance(o, dict):
+        for k, v in o.items():
+            if prefix.endswith(("best.", "years.", "classes.")):
+                k = "<key>"
+            path = prefix + k
+            if path in ("source", "sources") or path.startswith(("source.", "sources")):
+                acc.setdefault(path.split(".")[0], None)
+                continue
+            acc.setdefault(path, None)
+            _field_paths(v, path + ".", acc, doc)
+    elif isinstance(o, list):
+        for x in o:
+            if isinstance(x, dict):
+                _field_paths(x, prefix[:-1] + "[].", acc, doc)
+
+
+_doc_samples = {"index.json": [api_docs["index.json"]], "models.json": [api_docs["models.json"]],
+                "models/{slug}.json": [d for r, d in api_docs.items() if r.startswith("models/")],
+                "grid.json": [api_docs["grid.json"]], "hardware.json": [api_docs["hardware.json"]], "per-query.json": [api_docs["per-query.json"]],
+                "manifest.json": [api_docs["manifest.json"]], "measurements.json": [api_docs["measurements.json"]], "changes.json": [api_docs["changes.json"]]}
+_undocumented = []
+FIELD_ROWS: dict[str, list[tuple[str, str]]] = {}
+for _doc, _samples in _doc_samples.items():
+    _acc: dict = {}
+    for _s in _samples:
+        _field_paths(_s, "", _acc, _doc)
+    FIELD_ROWS[_doc] = []
+    for _f in _acc:
+        _m = FIELD_DOCS.get(_doc, {}).get(_f) or (FIELD_DOCS["*"].get(_f) if "." not in _f and "[]" not in _f else None)
+        if _m is None:
+            _undocumented.append(f"{_doc}: {_f}")
+        elif _f not in FIELD_DOCS["*"]:
+            FIELD_ROWS[_doc].append((_f, _m))
+if _undocumented:
+    sys.exit("REFUSING TO BUILD, API fields without a description in FIELD_DOCS:\n  " + "\n  ".join(_undocumented))
+subs["FIELD_TABLES"] = (
+    "<div class=\"table-scroll\"><table class=\"spec\"><caption>Fields on every document</caption><thead><tr><th scope=\"col\">Field</th><th scope=\"col\">Meaning</th></tr></thead><tbody>\n"
+    + "\n".join(f"<tr><th scope=\"row\">{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in FIELD_DOCS["*"].items()) + "\n</tbody></table></div>\n"
+    + "\n".join(f"<details class=\"fields\"><summary><code>{esc(d)}</code>, {len(rows)} fields</summary><div class=\"table-scroll\"><table class=\"spec\"><thead><tr><th scope=\"col\">Field</th><th scope=\"col\">Meaning</th></tr></thead><tbody>\n"
+                + "\n".join(f"<tr><th scope=\"row\">{esc(k)}</th><td>{esc(v)}</td></tr>" for k, v in rows) + "\n</tbody></table></div></details>"
+                for d, rows in FIELD_ROWS.items() if rows))
+
+
+def infer_schema(values: list, path: str = "", doc: str = "") -> dict:
+    """A JSON Schema inferred from every real value at this position, so the published types are the published data."""
+    vals = [v for v in values]
+    types = []
+    for v in vals:
+        t = ("null" if v is None else "boolean" if isinstance(v, bool) else "integer" if isinstance(v, int) else "number" if isinstance(v, float)
+             else "string" if isinstance(v, str) else "array" if isinstance(v, list) else "object")
+        if t not in types:
+            types.append(t)
+    if "integer" in types and "number" in types:
+        types.remove("integer")
+    sch: dict = {"type": types[0] if len(types) == 1 else types}
+    desc = FIELD_DOCS.get(doc, {}).get(path) or FIELD_DOCS["*"].get(path)
+    if desc:
+        sch["description"] = desc
+    objs = [v for v in vals if isinstance(v, dict)]
+    if objs:
+        if path.endswith(("best", "years", "classes")):
+            sch["additionalProperties"] = infer_schema([x for o in objs for x in o.values()], path + ".<key>", doc)
+        else:
+            keys = list(dict.fromkeys(k for o in objs for k in o))
+            sch["properties"] = {k: infer_schema([o[k] for o in objs if k in o], (path + "." if path else "") + k, doc)
+                                 if not (path == "" and k in ("source", "sources")) else {"type": "object" if k == "source" else "array"}
+                                 for k in keys}
+            sch["required"] = [k for k in keys if all(k in o for o in objs)]
+    lists = [v for v in vals if isinstance(v, list)]
+    if lists:
+        items = [x for l in lists for x in l]
+        sch["items"] = infer_schema(items, path + "[]", doc) if items else {}
+    return sch
+
+
+_SCHEMA_NAMES = {"manifest.json": "Manifest", "index.json": "Index", "models.json": "Models", "models/{slug}.json": "Model", "grid.json": "Grid",
+                 "hardware.json": "Hardware", "per-query.json": "PerQuery", "measurements.json": "Measurements", "changes.json": "Changes"}
+_components = {name: infer_schema(_doc_samples[d], "", d) for d, name in _SCHEMA_NAMES.items()}
+_components["Measurement"] = MEAS_SCHEMA
+_paths = {}
+for _p, _d in ENDPOINTS:
+    _name = _SCHEMA_NAMES.get(_p)
+    _ctype = {"csv": "text/csv", "ts": "text/plain", "zip": "application/zip"}.get(_p.rsplit(".", 1)[-1], "application/json")
+    _schema = ({"$ref": f"#/components/schemas/{_name}"} if _name else {"$ref": "#/components/schemas/Measurement"} if _p.startswith("schema/")
+               else {"type": "object"} if _ctype == "application/json" else {"type": "string"})
+    _op = {"operationId": "get_" + re.sub(r"[^a-z0-9]+", "_", _p.replace(".json", "").replace("{slug}", "by_slug")).strip("_"), "summary": _d,
+           "responses": {"200": {"description": _d, "content": {_ctype: {"schema": _schema}}}}}
+    if "{slug}" in _p:
+        _op["parameters"] = [{"name": "slug", "in": "path", "required": True, "schema": {"type": "string", "enum": sorted(models)}, "example": ref["slug"]}]
+        _op["responses"]["404"] = {"description": "Unknown slug. The static host answers with its own HTML 404 page, not JSON."}
+    _paths["/" + _p] = {"get": _op}
+api_docs["openapi.json"]["paths"] = _paths
+api_docs["openapi.json"]["components"] = {"schemas": _components}
+api_docs["openapi.json"]["info"]["description"] = (
+    "Static JSON files. GET only. No authentication. CORS open. Additive changes only within v1. Every schema here is inferred at build time "
+    "from the published documents themselves, with the field descriptions the API page shows.")
+
+
+def _ts(s: dict, ind: str = "") -> str:
+    t = s.get("type")
+    ts = t if isinstance(t, list) else [t]
+    parts = []
+    for x in ts:
+        if x == "object":
+            if "additionalProperties" in s and isinstance(s["additionalProperties"], dict):
+                parts.append("Record<string, " + _ts(s["additionalProperties"], ind) + ">")
+            elif "properties" in s:
+                req = set(s.get("required", []))
+                body = "".join(f"\n{ind}  {json.dumps(k) if not re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', k) else k}{'' if k in req else '?'}: {_ts(v, ind + '  ')};"
+                               for k, v in s["properties"].items())
+                parts.append("{" + body + f"\n{ind}}}")
+            else:
+                parts.append("Record<string, unknown>")
+        elif x == "array":
+            parts.append("Array<" + _ts(s.get("items") or {}, ind) + ">")
+        elif x in ("integer", "number"):
+            parts.append("number")
+        elif x in ("string", "boolean", "null"):
+            parts.append(x)
+        else:
+            parts.append("unknown")
+    return " | ".join(parts) if parts else "unknown"
+
+
+_extra_outputs: dict[str, str] = {}
+_extra_outputs["api/v1/types.d.ts"] = (f"// Lead Green API v1 types, generated from the published documents on {UPDATED} (data_version {DATA_VERSION}).\n"
+                                "// Additive only within v1: new optional fields may appear.\n\n"
+                                + "\n\n".join(f"export type {n} = {_ts(s)};" for n, s in _components.items() if n != "Measurement") + "\n")
+_csv_cols = ["model", "slug", "model_id", "params_b", "active_params_b", "precision", "gpu", "num_gpus", "max_num_seqs", "avg_running_batch",
+             "wh_per_million_output_tokens", "joules_per_output_token", "median_itl_ms", "gpu_power_watts_total", "avg_output_tokens", "row_id"]
+import io as _io
+_buf = _io.StringIO()
+_w = csv.writer(_buf, lineterminator="\n")
+_w.writerow(_csv_cols)
+for _r in api_docs["index.json"]["rows"]:
+    _w.writerow([_r.get(c, "") for c in _csv_cols])
+_extra_outputs["api/v1/index.csv"] = _buf.getvalue()
+subs["ENDPOINT_COUNT"] = str(len(ENDPOINTS))
+subs["PAGES_MAX_AGE_S"] = str(PAGES_MAX_AGE_S)
+subs["PAGES_BANDWIDTH_GB"] = str(PAGES_BANDWIDTH_GB)
+
 # examples for the API page, taken from the real documents
 _ex_index = {k: v for k, v in api_docs["index.json"].items() if k not in ("rows", "source", "caveat")}
 _ex_index["source"] = {"name": SRC_MLE["name"], "version": SRC_MLE["version"], "url": SRC_MLE["url"], "...": "..."}
@@ -1289,6 +1539,7 @@ def jsonld_for(kind: str, title: str, desc: str, url: str, post: dict | None = N
 
 layout = LAYOUT.read_text(encoding="utf-8")
 outputs: dict[str, str] = {}
+outputs.update(_extra_outputs)
 sitemap: list[tuple[str, str]] = []
 
 
@@ -1506,7 +1757,9 @@ for d in sorted((p.name for p in RELEASES.iterdir() if p.is_dir()), reverse=True
     "note": "A release listed as published never changes. Cite a release, not the live files.", "releases": _releases}),
     encoding="utf-8", newline="\n")
 
-sync_tree(API_DIR, MCP_DATA, skip=("releases",))
+shutil.copyfile(zip_path, API_DIR / "all.zip")
+
+sync_tree(API_DIR, MCP_DATA, skip=("releases", "all.zip", "index.csv", "types.d.ts"))
 
 wheel = ROOT / "dist" / WHEEL_NAME
 print(f"wrote {len(outputs)} pages/files and {len(api_docs)} API documents; {len(index_rows)} index rows from {len(cfgs)} configurations; "

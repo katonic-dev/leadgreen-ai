@@ -1,6 +1,7 @@
 {
   "version": "1",
   "updated": "2026-09-27",
+  "data_version": "2026-09-27",
   "source": {
     "name": "ML.ENERGY Leaderboard",
     "publisher": "The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)",
