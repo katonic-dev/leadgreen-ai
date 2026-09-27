@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "year": "2024",
   "unit": "gCO2e per kWh",
   "basis": "annual average emissions intensity of total generation; hourly intensity, contracted supply and self-generation are not reflected",
@@ -12,7 +12,8 @@
     "version": "September 2026 release (file last modified 2026-09-22)",
     "retrieved": "2026-09-26",
     "licence": "CC-BY-4.0",
-    "used_for": "grid emissions intensity of total generation, gCO2e per kWh, 2024"
+    "factor_basis": "Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported.",
+    "used_for": "grid emissions intensity of total generation, gCO2e per kWh, 2024 (location-based)"
   },
   "licence": "CC BY 4.0",
   "world": 473.7,
@@ -22,1358 +23,2810 @@
       "iso3": "WLD",
       "name": "World",
       "area_type": "world",
-      "g_co2e_per_kwh": 473.7
+      "g_co2e_per_kwh": 473.7,
+      "display_name": "World",
+      "iso2": null,
+      "years": {
+        "2023": 485.5,
+        "2024": 473.7,
+        "2025": 460.5
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "AFG",
       "name": "Afghanistan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 117.2
+      "g_co2e_per_kwh": 117.2,
+      "display_name": "Afghanistan",
+      "iso2": "AF",
+      "years": {
+        "2023": 118.6,
+        "2024": 117.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ALB",
       "name": "Albania",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 24.7
+      "g_co2e_per_kwh": 24.7,
+      "display_name": "Albania",
+      "iso2": "AL",
+      "years": {
+        "2023": 24.5,
+        "2024": 24.7
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "DZA",
       "name": "Algeria",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 632.8
+      "g_co2e_per_kwh": 632.8,
+      "display_name": "Algeria",
+      "iso2": "DZ",
+      "years": {
+        "2023": 633.6,
+        "2024": 632.8
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ASM",
       "name": "American Samoa",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 622.2
+      "g_co2e_per_kwh": 622.2,
+      "display_name": "American Samoa",
+      "iso2": "AS",
+      "years": {
+        "2023": 658.8,
+        "2024": 622.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "AGO",
       "name": "Angola",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 185.1
+      "g_co2e_per_kwh": 185.1,
+      "display_name": "Angola",
+      "iso2": "AO",
+      "years": {
+        "2023": 183.0,
+        "2024": 185.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ATG",
       "name": "Antigua and Barbuda",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 608.1
+      "g_co2e_per_kwh": 608.1,
+      "display_name": "Antigua and Barbuda",
+      "iso2": "AG",
+      "years": {
+        "2023": 625.0,
+        "2024": 608.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ARG",
       "name": "Argentina",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 344.9
+      "g_co2e_per_kwh": 344.9,
+      "display_name": "Argentina",
+      "iso2": "AR",
+      "years": {
+        "2023": 350.8,
+        "2024": 344.9,
+        "2025": 342.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "ARM",
       "name": "Armenia",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 240.3
+      "g_co2e_per_kwh": 240.3,
+      "display_name": "Armenia",
+      "iso2": "AM",
+      "years": {
+        "2023": 262.8,
+        "2024": 240.3,
+        "2025": 244.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "ABW",
       "name": "Aruba",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 549.0
+      "g_co2e_per_kwh": 549.0,
+      "display_name": "Aruba",
+      "iso2": "AW",
+      "years": {
+        "2023": 549.0,
+        "2024": 549.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "AUS",
       "name": "Australia",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 554.0
+      "g_co2e_per_kwh": 554.0,
+      "display_name": "Australia",
+      "iso2": "AU",
+      "years": {
+        "2023": 556.9,
+        "2024": 554.0,
+        "2025": 524.6
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "AUT",
       "name": "Austria",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 103.5
+      "g_co2e_per_kwh": 103.5,
+      "display_name": "Austria",
+      "iso2": "AT",
+      "years": {
+        "2023": 111.6,
+        "2024": 103.5,
+        "2025": 116.7
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "AZE",
       "name": "Azerbaijan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 634.4
+      "g_co2e_per_kwh": 634.4,
+      "display_name": "Azerbaijan",
+      "iso2": "AZ",
+      "years": {
+        "2023": 670.4,
+        "2024": 634.4,
+        "2025": 642.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "BHS",
       "name": "Bahamas",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 652.4
+      "g_co2e_per_kwh": 652.4,
+      "display_name": "Bahamas",
+      "iso2": "BS",
+      "years": {
+        "2023": 652.5,
+        "2024": 652.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BHR",
       "name": "Bahrain",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 902.5
+      "g_co2e_per_kwh": 902.5,
+      "display_name": "Bahrain",
+      "iso2": "BH",
+      "years": {
+        "2023": 902.7,
+        "2024": 902.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BGD",
       "name": "Bangladesh",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 695.8
+      "g_co2e_per_kwh": 695.8,
+      "display_name": "Bangladesh",
+      "iso2": "BD",
+      "years": {
+        "2023": 682.7,
+        "2024": 695.8,
+        "2025": 696.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "BRB",
       "name": "Barbados",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 600.9
+      "g_co2e_per_kwh": 600.9,
+      "display_name": "Barbados",
+      "iso2": "BB",
+      "years": {
+        "2023": 606.4,
+        "2024": 600.9
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BLR",
       "name": "Belarus",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 329.5
+      "g_co2e_per_kwh": 329.5,
+      "display_name": "Belarus",
+      "iso2": "BY",
+      "years": {
+        "2023": 360.3,
+        "2024": 329.5,
+        "2025": 315.2
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "BEL",
       "name": "Belgium",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 126.9
+      "g_co2e_per_kwh": 126.9,
+      "display_name": "Belgium",
+      "iso2": "BE",
+      "years": {
+        "2023": 134.7,
+        "2024": 126.9,
+        "2025": 125.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "BLZ",
       "name": "Belize",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 170.2
+      "g_co2e_per_kwh": 170.2,
+      "display_name": "Belize",
+      "iso2": "BZ",
+      "years": {
+        "2023": 160.0,
+        "2024": 170.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BEN",
       "name": "Benin",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 579.2
+      "g_co2e_per_kwh": 579.2,
+      "display_name": "Benin",
+      "iso2": "BJ",
+      "years": {
+        "2023": 584.0,
+        "2024": 579.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BTN",
       "name": "Bhutan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 23.7
+      "g_co2e_per_kwh": 23.7,
+      "display_name": "Bhutan",
+      "iso2": "BT",
+      "years": {
+        "2023": 23.7,
+        "2024": 23.7
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BOL",
       "name": "Bolivia",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 495.7
+      "g_co2e_per_kwh": 495.7,
+      "display_name": "Bolivia",
+      "iso2": "BO",
+      "years": {
+        "2023": 501.0,
+        "2024": 495.7,
+        "2025": 481.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "BIH",
       "name": "Bosnia Herzegovina",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 607.4
+      "g_co2e_per_kwh": 607.4,
+      "display_name": "Bosnia Herzegovina",
+      "iso2": "BA",
+      "years": {
+        "2023": 576.1,
+        "2024": 607.4,
+        "2025": 572.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "BWA",
       "name": "Botswana",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 852.5
+      "g_co2e_per_kwh": 852.5,
+      "display_name": "Botswana",
+      "iso2": "BW",
+      "years": {
+        "2023": 853.3,
+        "2024": 852.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BRA",
       "name": "Brazil",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 106.1
+      "g_co2e_per_kwh": 106.1,
+      "display_name": "Brazil",
+      "iso2": "BR",
+      "years": {
+        "2023": 96.2,
+        "2024": 106.1,
+        "2025": 109.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "BRN",
       "name": "Brunei Darussalam",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 893.0
+      "g_co2e_per_kwh": 893.0,
+      "display_name": "Brunei Darussalam",
+      "iso2": "BN",
+      "years": {
+        "2023": 894.8,
+        "2024": 893.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BGR",
       "name": "Bulgaria",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 279.1
+      "g_co2e_per_kwh": 279.1,
+      "display_name": "Bulgaria",
+      "iso2": "BG",
+      "years": {
+        "2023": 338.4,
+        "2024": 279.1,
+        "2025": 275.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "BFA",
       "name": "Burkina Faso",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 560.9
+      "g_co2e_per_kwh": 560.9,
+      "display_name": "Burkina Faso",
+      "iso2": "BF",
+      "years": {
+        "2023": 568.0,
+        "2024": 560.9
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "BDI",
       "name": "Burundi",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 183.7
+      "g_co2e_per_kwh": 183.7,
+      "display_name": "Burundi",
+      "iso2": "BI",
+      "years": {
+        "2023": 180.0,
+        "2024": 183.7
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "CPV",
       "name": "Cabo Verde",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 463.5
+      "g_co2e_per_kwh": 463.5,
+      "display_name": "Cabo Verde",
+      "iso2": "CV",
+      "years": {
+        "2023": 482.0,
+        "2024": 463.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "KHM",
       "name": "Cambodia",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 538.7
+      "g_co2e_per_kwh": 538.7,
+      "display_name": "Cambodia",
+      "iso2": "KH",
+      "years": {
+        "2023": 491.6,
+        "2024": 538.7,
+        "2025": 498.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "CMR",
       "name": "Cameroon",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 226.2
+      "g_co2e_per_kwh": 226.2,
+      "display_name": "Cameroon",
+      "iso2": "CM",
+      "years": {
+        "2023": 225.2,
+        "2024": 226.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "CAN",
       "name": "Canada",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 185.4
+      "g_co2e_per_kwh": 185.4,
+      "display_name": "Canada",
+      "iso2": "CA",
+      "years": {
+        "2023": 174.4,
+        "2024": 185.4,
+        "2025": 190.7
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "CYM",
       "name": "Cayman Islands",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 632.4
+      "g_co2e_per_kwh": 632.4,
+      "display_name": "Cayman Islands",
+      "iso2": "KY",
+      "years": {
+        "2023": 640.0,
+        "2024": 632.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "TCD",
       "name": "Chad",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 629.7
+      "g_co2e_per_kwh": 629.7,
+      "display_name": "Chad",
+      "iso2": "TD",
+      "years": {
+        "2023": 627.8,
+        "2024": 629.7
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "CHL",
       "name": "Chile",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 260.9
+      "g_co2e_per_kwh": 260.9,
+      "display_name": "Chile",
+      "iso2": "CL",
+      "years": {
+        "2023": 304.8,
+        "2024": 260.9,
+        "2025": 290.6
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "CHN",
       "name": "China",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 559.0
+      "g_co2e_per_kwh": 559.0,
+      "display_name": "China",
+      "iso2": "CN",
+      "years": {
+        "2023": 586.4,
+        "2024": 559.0,
+        "2025": 528.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "COL",
       "name": "Colombia",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 298.3
+      "g_co2e_per_kwh": 298.3,
+      "display_name": "Colombia",
+      "iso2": "CO",
+      "years": {
+        "2023": 259.5,
+        "2024": 298.3,
+        "2025": 190.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "COG",
       "name": "Congo",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 715.6
+      "g_co2e_per_kwh": 715.6,
+      "display_name": "Congo",
+      "iso2": "CG",
+      "years": {
+        "2023": 692.0,
+        "2024": 715.6
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "COD",
       "name": "Congo (DRC)",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 27.6
+      "g_co2e_per_kwh": 27.6,
+      "display_name": "Congo (DRC)",
+      "iso2": "CD",
+      "years": {
+        "2023": 27.3,
+        "2024": 27.6
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "COK",
       "name": "Cook Islands (the)",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 350.0
+      "g_co2e_per_kwh": 350.0,
+      "display_name": "Cook Islands",
+      "iso2": "CK",
+      "years": {
+        "2023": 350.0,
+        "2024": 350.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "CRI",
       "name": "Costa Rica",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 25.8
+      "g_co2e_per_kwh": 25.8,
+      "display_name": "Costa Rica",
+      "iso2": "CR",
+      "years": {
+        "2023": 25.3,
+        "2024": 25.8,
+        "2025": -37.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "CIV",
       "name": "Cote d'Ivoire",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 405.6
+      "g_co2e_per_kwh": 405.6,
+      "display_name": "Cote d'Ivoire",
+      "iso2": "CI",
+      "years": {
+        "2023": 398.8,
+        "2024": 405.6
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "HRV",
       "name": "Croatia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 170.5
+      "g_co2e_per_kwh": 170.5,
+      "display_name": "Croatia",
+      "iso2": "HR",
+      "years": {
+        "2023": 195.4,
+        "2024": 170.5,
+        "2025": 158.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "CUB",
       "name": "Cuba",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 642.9
+      "g_co2e_per_kwh": 642.9,
+      "display_name": "Cuba",
+      "iso2": "CU",
+      "years": {
+        "2023": 644.5,
+        "2024": 642.9
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "CYP",
       "name": "Cyprus",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 513.0
+      "g_co2e_per_kwh": 513.0,
+      "display_name": "Cyprus",
+      "iso2": "CY",
+      "years": {
+        "2023": 533.4,
+        "2024": 513.0,
+        "2025": 505.2
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "CZE",
       "name": "Czechia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 414.2
+      "g_co2e_per_kwh": 414.2,
+      "display_name": "Czechia",
+      "iso2": "CZ",
+      "years": {
+        "2023": 442.6,
+        "2024": 414.2,
+        "2025": 401.4
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "DNK",
       "name": "Denmark",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 132.2
+      "g_co2e_per_kwh": 132.2,
+      "display_name": "Denmark",
+      "iso2": "DK",
+      "years": {
+        "2023": 152.6,
+        "2024": 132.2,
+        "2025": 99.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "DJI",
       "name": "Djibouti",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 430.0
+      "g_co2e_per_kwh": 430.0,
+      "display_name": "Djibouti",
+      "iso2": "DJ",
+      "years": {
+        "2023": 430.0,
+        "2024": 430.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "DOM",
       "name": "Dominican Republic",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 567.3
+      "g_co2e_per_kwh": 567.3,
+      "display_name": "Dominican Republic",
+      "iso2": "DO",
+      "years": {
+        "2023": 579.6,
+        "2024": 567.3,
+        "2025": 538.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "ECU",
       "name": "Ecuador",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 203.7
+      "g_co2e_per_kwh": 203.7,
+      "display_name": "Ecuador",
+      "iso2": "EC",
+      "years": {
+        "2023": 195.8,
+        "2024": 203.7,
+        "2025": 158.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "EGY",
       "name": "Egypt",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 574.5
+      "g_co2e_per_kwh": 574.5,
+      "display_name": "Egypt",
+      "iso2": "EG",
+      "years": {
+        "2023": 571.3,
+        "2024": 574.5,
+        "2025": 563.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SLV",
       "name": "El Salvador",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 114.0
+      "g_co2e_per_kwh": 114.0,
+      "display_name": "El Salvador",
+      "iso2": "SV",
+      "years": {
+        "2023": 134.9,
+        "2024": 114.0,
+        "2025": 111.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "GNQ",
       "name": "Equatorial Guinea",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 643.0
+      "g_co2e_per_kwh": 643.0,
+      "display_name": "Equatorial Guinea",
+      "iso2": "GQ",
+      "years": {
+        "2023": 662.9,
+        "2024": 643.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ERI",
       "name": "Eritrea",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 591.1
+      "g_co2e_per_kwh": 591.1,
+      "display_name": "Eritrea",
+      "iso2": "ER",
+      "years": {
+        "2023": 595.9,
+        "2024": 591.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "EST",
       "name": "Estonia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 344.2
+      "g_co2e_per_kwh": 344.2,
+      "display_name": "Estonia",
+      "iso2": "EE",
+      "years": {
+        "2023": 395.3,
+        "2024": 344.2,
+        "2025": 318.6
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SWZ",
       "name": "Eswatini",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 119.7
+      "g_co2e_per_kwh": 119.7,
+      "display_name": "Eswatini",
+      "iso2": "SZ",
+      "years": {
+        "2023": 113.6,
+        "2024": 119.7
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ETH",
       "name": "Ethiopia",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 23.5
+      "g_co2e_per_kwh": 23.5,
+      "display_name": "Ethiopia",
+      "iso2": "ET",
+      "years": {
+        "2023": 23.5,
+        "2024": 23.5,
+        "2025": 23.4
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "FJI",
       "name": "Fiji",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 275.7
+      "g_co2e_per_kwh": 275.7,
+      "display_name": "Fiji",
+      "iso2": "FJ",
+      "years": {
+        "2023": 275.7,
+        "2024": 275.7
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "FIN",
       "name": "Finland",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 66.9
+      "g_co2e_per_kwh": 66.9,
+      "display_name": "Finland",
+      "iso2": "FI",
+      "years": {
+        "2023": 81.4,
+        "2024": 66.9,
+        "2025": 57.2
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "FRA",
       "name": "France",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 40.3
+      "g_co2e_per_kwh": 40.3,
+      "display_name": "France",
+      "iso2": "FR",
+      "years": {
+        "2023": 53.3,
+        "2024": 40.3,
+        "2025": 41.2
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "PYF",
       "name": "French Polynesia",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 440.3
+      "g_co2e_per_kwh": 440.3,
+      "display_name": "French Polynesia",
+      "iso2": "PF",
+      "years": {
+        "2023": 445.1,
+        "2024": 440.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GAB",
       "name": "Gabon",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 525.4
+      "g_co2e_per_kwh": 525.4,
+      "display_name": "Gabon",
+      "iso2": "GA",
+      "years": {
+        "2023": 524.3,
+        "2024": 525.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GMB",
       "name": "Gambia",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 658.8
+      "g_co2e_per_kwh": 658.8,
+      "display_name": "Gambia",
+      "iso2": "GM",
+      "years": {
+        "2023": 658.8,
+        "2024": 658.8
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GEO",
       "name": "Georgia",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 145.1
+      "g_co2e_per_kwh": 145.1,
+      "display_name": "Georgia",
+      "iso2": "GE",
+      "years": {
+        "2023": 167.6,
+        "2024": 145.1,
+        "2025": 146.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "DEU",
       "name": "Germany",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 339.9
+      "g_co2e_per_kwh": 339.9,
+      "display_name": "Germany",
+      "iso2": "DE",
+      "years": {
+        "2023": 363.6,
+        "2024": 339.9,
+        "2025": 334.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "GHA",
       "name": "Ghana",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 468.8
+      "g_co2e_per_kwh": 468.8,
+      "display_name": "Ghana",
+      "iso2": "GH",
+      "years": {
+        "2023": 452.7,
+        "2024": 468.8
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GRC",
       "name": "Greece",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 321.8
+      "g_co2e_per_kwh": 321.8,
+      "display_name": "Greece",
+      "iso2": "GR",
+      "years": {
+        "2023": 336.7,
+        "2024": 321.8,
+        "2025": 324.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "GRL",
       "name": "Greenland",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 138.3
+      "g_co2e_per_kwh": 138.3,
+      "display_name": "Greenland",
+      "iso2": "GL",
+      "years": {
+        "2023": 144.3,
+        "2024": 138.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GRD",
       "name": "Grenada",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 658.3
+      "g_co2e_per_kwh": 658.3,
+      "display_name": "Grenada",
+      "iso2": "GD",
+      "years": {
+        "2023": 658.3,
+        "2024": 658.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GUM",
       "name": "Guam",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 605.4
+      "g_co2e_per_kwh": 605.4,
+      "display_name": "Guam",
+      "iso2": "GU",
+      "years": {
+        "2023": 610.6,
+        "2024": 605.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GTM",
       "name": "Guatemala",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 301.5
+      "g_co2e_per_kwh": 301.5,
+      "display_name": "Guatemala",
+      "iso2": "GT",
+      "years": {
+        "2023": 310.5,
+        "2024": 301.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GIN",
       "name": "Guinea",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 181.4
+      "g_co2e_per_kwh": 181.4,
+      "display_name": "Guinea",
+      "iso2": "GN",
+      "years": {
+        "2023": 185.8,
+        "2024": 181.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GNB",
       "name": "Guinea-Bissau",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 662.5
+      "g_co2e_per_kwh": 662.5,
+      "display_name": "Guinea-Bissau",
+      "iso2": "GW",
+      "years": {
+        "2023": 662.5,
+        "2024": 662.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GUY",
       "name": "Guyana",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 642.0
+      "g_co2e_per_kwh": 642.0,
+      "display_name": "Guyana",
+      "iso2": "GY",
+      "years": {
+        "2023": 642.0,
+        "2024": 642.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "HTI",
       "name": "Haiti",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 539.5
+      "g_co2e_per_kwh": 539.5,
+      "display_name": "Haiti",
+      "iso2": "HT",
+      "years": {
+        "2023": 516.5,
+        "2024": 539.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "HND",
       "name": "Honduras",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 322.0
+      "g_co2e_per_kwh": 322.0,
+      "display_name": "Honduras",
+      "iso2": "HN",
+      "years": {
+        "2023": 328.5,
+        "2024": 322.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "HKG",
       "name": "Hong Kong (SAR of China)",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 675.6
+      "g_co2e_per_kwh": 675.6,
+      "display_name": "Hong Kong",
+      "iso2": "HK",
+      "years": {
+        "2023": 674.3,
+        "2024": 675.6
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "HUN",
       "name": "Hungary",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 183.9
+      "g_co2e_per_kwh": 183.9,
+      "display_name": "Hungary",
+      "iso2": "HU",
+      "years": {
+        "2023": 195.6,
+        "2024": 183.9,
+        "2025": 162.6
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "ISL",
       "name": "Iceland",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 27.8
+      "g_co2e_per_kwh": 27.8,
+      "display_name": "Iceland",
+      "iso2": "IS",
+      "years": {
+        "2023": 27.8,
+        "2024": 27.8,
+        "2025": 27.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "IND",
       "name": "India",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 707.1
+      "g_co2e_per_kwh": 707.1,
+      "display_name": "India",
+      "iso2": "IN",
+      "years": {
+        "2023": 714.2,
+        "2024": 707.1,
+        "2025": 670.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "IDN",
       "name": "Indonesia",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 710.4
+      "g_co2e_per_kwh": 710.4,
+      "display_name": "Indonesia",
+      "iso2": "ID",
+      "years": {
+        "2023": 710.5,
+        "2024": 710.4,
+        "2025": 705.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "IRN",
       "name": "Iran",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 648.7
+      "g_co2e_per_kwh": 648.7,
+      "display_name": "Iran",
+      "iso2": "IR",
+      "years": {
+        "2023": 641.4,
+        "2024": 648.7,
+        "2025": 658.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "IRQ",
       "name": "Iraq",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 683.1
+      "g_co2e_per_kwh": 683.1,
+      "display_name": "Iraq",
+      "iso2": "IQ",
+      "years": {
+        "2023": 685.2,
+        "2024": 683.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "IRL",
       "name": "Ireland",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 270.8
+      "g_co2e_per_kwh": 270.8,
+      "display_name": "Ireland",
+      "iso2": "IE",
+      "years": {
+        "2023": 282.4,
+        "2024": 270.8,
+        "2025": 263.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "ISR",
       "name": "Israel",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 540.7
+      "g_co2e_per_kwh": 540.7,
+      "display_name": "Israel",
+      "iso2": "IL",
+      "years": {
+        "2023": 558.9,
+        "2024": 540.7,
+        "2025": 492.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "ITA",
       "name": "Italy",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 281.4
+      "g_co2e_per_kwh": 281.4,
+      "display_name": "Italy",
+      "iso2": "IT",
+      "years": {
+        "2023": 323.3,
+        "2024": 281.4,
+        "2025": 284.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "JAM",
       "name": "Jamaica",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 562.4
+      "g_co2e_per_kwh": 562.4,
+      "display_name": "Jamaica",
+      "iso2": "JM",
+      "years": {
+        "2023": 564.8,
+        "2024": 562.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "JPN",
       "name": "Japan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 483.6
+      "g_co2e_per_kwh": 483.6,
+      "display_name": "Japan",
+      "iso2": "JP",
+      "years": {
+        "2023": 492.6,
+        "2024": 483.6,
+        "2025": 477.4
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "JOR",
       "name": "Jordan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 529.7
+      "g_co2e_per_kwh": 529.7,
+      "display_name": "Jordan",
+      "iso2": "JO",
+      "years": {
+        "2023": 542.6,
+        "2024": 529.7
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "KAZ",
       "name": "Kazakhstan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 801.9
+      "g_co2e_per_kwh": 801.9,
+      "display_name": "Kazakhstan",
+      "iso2": "KZ",
+      "years": {
+        "2023": 826.6,
+        "2024": 801.9,
+        "2025": 805.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "KEN",
       "name": "Kenya",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 85.8
+      "g_co2e_per_kwh": 85.8,
+      "display_name": "Kenya",
+      "iso2": "KE",
+      "years": {
+        "2023": 97.0,
+        "2024": 85.8,
+        "2025": 95.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "KIR",
       "name": "Kiribati",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 500.0
+      "g_co2e_per_kwh": 500.0,
+      "display_name": "Kiribati",
+      "iso2": "KI",
+      "years": {
+        "2023": 500.0,
+        "2024": 500.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "XKX",
       "name": "Kosovo",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 925.0
+      "g_co2e_per_kwh": 925.0,
+      "display_name": "Kosovo",
+      "iso2": null,
+      "years": {
+        "2023": 885.0,
+        "2024": 925.0,
+        "2025": 901.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "KWT",
       "name": "Kuwait",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 635.3
+      "g_co2e_per_kwh": 635.3,
+      "display_name": "Kuwait",
+      "iso2": "KW",
+      "years": {
+        "2023": 636.1,
+        "2024": 635.3,
+        "2025": 634.7
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "KGZ",
       "name": "Kyrgyzstan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 120.2
+      "g_co2e_per_kwh": 120.2,
+      "display_name": "Kyrgyzstan",
+      "iso2": "KG",
+      "years": {
+        "2023": 139.9,
+        "2024": 120.2,
+        "2025": 72.6
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "LAO",
       "name": "Lao PDR",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 232.1
+      "g_co2e_per_kwh": 232.1,
+      "display_name": "Lao PDR",
+      "iso2": "LA",
+      "years": {
+        "2023": 232.1,
+        "2024": 232.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "LVA",
       "name": "Latvia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 134.5
+      "g_co2e_per_kwh": 134.5,
+      "display_name": "Latvia",
+      "iso2": "LV",
+      "years": {
+        "2023": 120.1,
+        "2024": 134.5,
+        "2025": 134.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "LBN",
       "name": "Lebanon",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 388.2
+      "g_co2e_per_kwh": 388.2,
+      "display_name": "Lebanon",
+      "iso2": "LB",
+      "years": {
+        "2023": 448.1,
+        "2024": 388.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "LBR",
       "name": "Liberia",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 314.0
+      "g_co2e_per_kwh": 314.0,
+      "display_name": "Liberia",
+      "iso2": "LR",
+      "years": {
+        "2023": 293.4,
+        "2024": 314.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "LBY",
       "name": "Libya",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 826.9
+      "g_co2e_per_kwh": 826.9,
+      "display_name": "Libya",
+      "iso2": "LY",
+      "years": {
+        "2023": 825.2,
+        "2024": 826.9
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "LTU",
       "name": "Lithuania",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 116.1
+      "g_co2e_per_kwh": 116.1,
+      "display_name": "Lithuania",
+      "iso2": "LT",
+      "years": {
+        "2023": 121.3,
+        "2024": 116.1,
+        "2025": 138.2
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "LUX",
       "name": "Luxembourg",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 125.8
+      "g_co2e_per_kwh": 125.8,
+      "display_name": "Luxembourg",
+      "iso2": "LU",
+      "years": {
+        "2023": 122.7,
+        "2024": 125.8,
+        "2025": 120.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "MAC",
       "name": "Macao (SAR of China)",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 474.4
+      "g_co2e_per_kwh": 474.4,
+      "display_name": "Macao",
+      "iso2": "MO",
+      "years": {
+        "2023": 468.2,
+        "2024": 474.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MDG",
       "name": "Madagascar",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 433.7
+      "g_co2e_per_kwh": 433.7,
+      "display_name": "Madagascar",
+      "iso2": "MG",
+      "years": {
+        "2023": 423.4,
+        "2024": 433.7
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MWI",
       "name": "Malawi",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 56.8
+      "g_co2e_per_kwh": 56.8,
+      "display_name": "Malawi",
+      "iso2": "MW",
+      "years": {
+        "2023": 56.8,
+        "2024": 56.8
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MYS",
       "name": "Malaysia",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 604.3
+      "g_co2e_per_kwh": 604.3,
+      "display_name": "Malaysia",
+      "iso2": "MY",
+      "years": {
+        "2023": 609.9,
+        "2024": 604.3,
+        "2025": 605.5
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "MDV",
       "name": "Maldives",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 615.3
+      "g_co2e_per_kwh": 615.3,
+      "display_name": "Maldives",
+      "iso2": "MV",
+      "years": {
+        "2023": 615.3,
+        "2024": 615.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MLI",
       "name": "Mali",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 537.4
+      "g_co2e_per_kwh": 537.4,
+      "display_name": "Mali",
+      "iso2": "ML",
+      "years": {
+        "2023": 535.3,
+        "2024": 537.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MLT",
       "name": "Malta",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 488.1
+      "g_co2e_per_kwh": 488.1,
+      "display_name": "Malta",
+      "iso2": "MT",
+      "years": {
+        "2023": 498.3,
+        "2024": 488.1,
+        "2025": 479.6
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "MRT",
       "name": "Mauritania",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 515.0
+      "g_co2e_per_kwh": 515.0,
+      "display_name": "Mauritania",
+      "iso2": "MR",
+      "years": {
+        "2023": 522.5,
+        "2024": 515.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MUS",
       "name": "Mauritius",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 642.2
+      "g_co2e_per_kwh": 642.2,
+      "display_name": "Mauritius",
+      "iso2": "MU",
+      "years": {
+        "2023": 634.6,
+        "2024": 642.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MEX",
       "name": "Mexico",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 483.1
+      "g_co2e_per_kwh": 483.1,
+      "display_name": "Mexico",
+      "iso2": "MX",
+      "years": {
+        "2023": 489.1,
+        "2024": 483.1,
+        "2025": 474.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "MDA",
       "name": "Moldova",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 636.7
+      "g_co2e_per_kwh": 636.7,
+      "display_name": "Moldova",
+      "iso2": "MD",
+      "years": {
+        "2023": 643.5,
+        "2024": 636.7,
+        "2025": 514.4
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "MNG",
       "name": "Mongolia",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 817.0
+      "g_co2e_per_kwh": 817.0,
+      "display_name": "Mongolia",
+      "iso2": "MN",
+      "years": {
+        "2023": 816.4,
+        "2024": 817.0,
+        "2025": 821.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "MNE",
       "name": "Montenegro",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 424.6
+      "g_co2e_per_kwh": 424.6,
+      "display_name": "Montenegro",
+      "iso2": "ME",
+      "years": {
+        "2023": 411.0,
+        "2024": 424.6,
+        "2025": 265.4
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "MSR",
       "name": "Montserrat",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 700.0
+      "g_co2e_per_kwh": 700.0,
+      "display_name": "Montserrat",
+      "iso2": "MS",
+      "years": {
+        "2023": 700.0,
+        "2024": 700.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MAR",
       "name": "Morocco",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 595.3
+      "g_co2e_per_kwh": 595.3,
+      "display_name": "Morocco",
+      "iso2": "MA",
+      "years": {
+        "2023": 616.8,
+        "2024": 595.3,
+        "2025": 603.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "MOZ",
       "name": "Mozambique",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 129.4
+      "g_co2e_per_kwh": 129.4,
+      "display_name": "Mozambique",
+      "iso2": "MZ",
+      "years": {
+        "2023": 128.5,
+        "2024": 129.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MMR",
       "name": "Myanmar",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 502.3
+      "g_co2e_per_kwh": 502.3,
+      "display_name": "Myanmar",
+      "iso2": "MM",
+      "years": {
+        "2023": 515.0,
+        "2024": 502.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "NAM",
       "name": "Namibia",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 52.4
+      "g_co2e_per_kwh": 52.4,
+      "display_name": "Namibia",
+      "iso2": "NA",
+      "years": {
+        "2023": 46.6,
+        "2024": 52.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "NRU",
       "name": "Nauru",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 540.0
+      "g_co2e_per_kwh": 540.0,
+      "display_name": "Nauru",
+      "iso2": "NR",
+      "years": {
+        "2023": 650.0,
+        "2024": 540.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "NPL",
       "name": "Nepal",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 24.0
+      "g_co2e_per_kwh": 24.0,
+      "display_name": "Nepal",
+      "iso2": "NP",
+      "years": {
+        "2023": 23.9,
+        "2024": 24.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "NLD",
       "name": "Netherlands",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 250.8
+      "g_co2e_per_kwh": 250.8,
+      "display_name": "Netherlands",
+      "iso2": "NL",
+      "years": {
+        "2023": 268.2,
+        "2024": 250.8,
+        "2025": 253.7
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "NCL",
       "name": "New Caledonia",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 564.1
+      "g_co2e_per_kwh": 564.1,
+      "display_name": "New Caledonia",
+      "iso2": "NC",
+      "years": {
+        "2023": 569.3,
+        "2024": 564.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "NZL",
       "name": "New Zealand",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 111.9
+      "g_co2e_per_kwh": 111.9,
+      "display_name": "New Zealand",
+      "iso2": "NZ",
+      "years": {
+        "2023": 87.4,
+        "2024": 111.9,
+        "2025": 92.7
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "NIC",
       "name": "Nicaragua",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 300.4
+      "g_co2e_per_kwh": 300.4,
+      "display_name": "Nicaragua",
+      "iso2": "NI",
+      "years": {
+        "2023": 300.4,
+        "2024": 300.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "NER",
       "name": "Niger",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 670.5
+      "g_co2e_per_kwh": 670.5,
+      "display_name": "Niger",
+      "iso2": "NE",
+      "years": {
+        "2023": 676.3,
+        "2024": 670.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "NGA",
       "name": "Nigeria",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 495.6
+      "g_co2e_per_kwh": 495.6,
+      "display_name": "Nigeria",
+      "iso2": "NG",
+      "years": {
+        "2023": 510.2,
+        "2024": 495.6,
+        "2025": 451.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "PRK",
       "name": "North Korea",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 340.6
+      "g_co2e_per_kwh": 340.6,
+      "display_name": "North Korea",
+      "iso2": "KP",
+      "years": {
+        "2023": 346.0,
+        "2024": 340.6
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "MKD",
       "name": "North Macedonia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 511.7
+      "g_co2e_per_kwh": 511.7,
+      "display_name": "North Macedonia",
+      "iso2": "MK",
+      "years": {
+        "2023": 566.7,
+        "2024": 511.7,
+        "2025": 406.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "NOR",
       "name": "Norway",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 29.6
+      "g_co2e_per_kwh": 29.6,
+      "display_name": "Norway",
+      "iso2": "NO",
+      "years": {
+        "2023": 30.4,
+        "2024": 29.6,
+        "2025": 28.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "OMN",
       "name": "Oman",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 542.9
+      "g_co2e_per_kwh": 542.9,
+      "display_name": "Oman",
+      "iso2": "OM",
+      "years": {
+        "2023": 542.6,
+        "2024": 542.9,
+        "2025": 544.4
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "PAK",
       "name": "Pakistan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 334.4
+      "g_co2e_per_kwh": 334.4,
+      "display_name": "Pakistan",
+      "iso2": "PK",
+      "years": {
+        "2023": 365.3,
+        "2024": 334.4,
+        "2025": 308.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "PSE",
       "name": "Palestine (State of)",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 417.2
+      "g_co2e_per_kwh": 417.2,
+      "display_name": "Palestine",
+      "iso2": "PS",
+      "years": {
+        "2023": 414.1,
+        "2024": 417.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "PAN",
       "name": "Panama",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 220.3
+      "g_co2e_per_kwh": 220.3,
+      "display_name": "Panama",
+      "iso2": "PA",
+      "years": {
+        "2023": 265.9,
+        "2024": 220.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "PNG",
       "name": "Papua New Guinea",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 516.1
+      "g_co2e_per_kwh": 516.1,
+      "display_name": "Papua New Guinea",
+      "iso2": "PG",
+      "years": {
+        "2023": 516.1,
+        "2024": 516.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "PRY",
       "name": "Paraguay",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 24.9
+      "g_co2e_per_kwh": 24.9,
+      "display_name": "Paraguay",
+      "iso2": "PY",
+      "years": {
+        "2023": 24.6,
+        "2024": 24.9,
+        "2025": 24.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "PER",
       "name": "Peru",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 258.4
+      "g_co2e_per_kwh": 258.4,
+      "display_name": "Peru",
+      "iso2": "PE",
+      "years": {
+        "2023": 291.9,
+        "2024": 258.4,
+        "2025": 238.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "POL",
       "name": "Poland",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 608.5
+      "g_co2e_per_kwh": 608.5,
+      "display_name": "Poland",
+      "iso2": "PL",
+      "years": {
+        "2023": 650.8,
+        "2024": 608.5,
+        "2025": 590.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "PRT",
       "name": "Portugal",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 110.6
+      "g_co2e_per_kwh": 110.6,
+      "display_name": "Portugal",
+      "iso2": "PT",
+      "years": {
+        "2023": 158.5,
+        "2024": 110.6,
+        "2025": 127.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "PRI",
       "name": "Puerto Rico",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 656.5
+      "g_co2e_per_kwh": 656.5,
+      "display_name": "Puerto Rico",
+      "iso2": "PR",
+      "years": {
+        "2023": 661.2,
+        "2024": 656.5,
+        "2025": 656.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "QAT",
       "name": "Qatar",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 581.7
+      "g_co2e_per_kwh": 581.7,
+      "display_name": "Qatar",
+      "iso2": "QA",
+      "years": {
+        "2023": 584.2,
+        "2024": 581.7,
+        "2025": 581.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "ROU",
       "name": "Romania",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 259.7
+      "g_co2e_per_kwh": 259.7,
+      "display_name": "Romania",
+      "iso2": "RO",
+      "years": {
+        "2023": 243.0,
+        "2024": 259.7,
+        "2025": 259.2
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "RUS",
       "name": "Russia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 446.1
+      "g_co2e_per_kwh": 446.1,
+      "display_name": "Russia",
+      "iso2": "RU",
+      "years": {
+        "2023": 442.9,
+        "2024": 446.1,
+        "2025": 449.6
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "RWA",
       "name": "Rwanda",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 361.9
+      "g_co2e_per_kwh": 361.9,
+      "display_name": "Rwanda",
+      "iso2": "RW",
+      "years": {
+        "2023": 365.5,
+        "2024": 361.9
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "KNA",
       "name": "Saint Kitts and Nevis",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 604.3
+      "g_co2e_per_kwh": 604.3,
+      "display_name": "Saint Kitts and Nevis",
+      "iso2": "KN",
+      "years": {
+        "2023": 627.3,
+        "2024": 604.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "LCA",
       "name": "Saint Lucia",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 642.5
+      "g_co2e_per_kwh": 642.5,
+      "display_name": "Saint Lucia",
+      "iso2": "LC",
+      "years": {
+        "2023": 642.5,
+        "2024": 642.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "VCT",
       "name": "Saint Vincent and the Grenadines",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 573.3
+      "g_co2e_per_kwh": 573.3,
+      "display_name": "Saint Vincent and the Grenadines",
+      "iso2": "VC",
+      "years": {
+        "2023": 573.3,
+        "2024": 573.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "WSM",
       "name": "Samoa",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 400.0
+      "g_co2e_per_kwh": 400.0,
+      "display_name": "Samoa",
+      "iso2": "WS",
+      "years": {
+        "2023": 420.0,
+        "2024": 400.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "SAU",
       "name": "Saudi Arabia",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 691.9
+      "g_co2e_per_kwh": 691.9,
+      "display_name": "Saudi Arabia",
+      "iso2": "SA",
+      "years": {
+        "2023": 697.3,
+        "2024": 691.9
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "SEN",
       "name": "Senegal",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 540.1
+      "g_co2e_per_kwh": 540.1,
+      "display_name": "Senegal",
+      "iso2": "SN",
+      "years": {
+        "2023": 557.1,
+        "2024": 540.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "SRB",
       "name": "Serbia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 668.0
+      "g_co2e_per_kwh": 668.0,
+      "display_name": "Serbia",
+      "iso2": "RS",
+      "years": {
+        "2023": 638.9,
+        "2024": 668.0,
+        "2025": 695.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SYC",
       "name": "Seychelles",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 560.3
+      "g_co2e_per_kwh": 560.3,
+      "display_name": "Seychelles",
+      "iso2": "SC",
+      "years": {
+        "2023": 569.4,
+        "2024": 560.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "SLE",
       "name": "Sierra Leone",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 57.1
+      "g_co2e_per_kwh": 57.1,
+      "display_name": "Sierra Leone",
+      "iso2": "SL",
+      "years": {
+        "2023": 57.1,
+        "2024": 57.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "SGP",
       "name": "Singapore",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 498.7
+      "g_co2e_per_kwh": 498.7,
+      "display_name": "Singapore",
+      "iso2": "SG",
+      "years": {
+        "2023": 500.8,
+        "2024": 498.7,
+        "2025": 497.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SVK",
       "name": "Slovakia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 97.2
+      "g_co2e_per_kwh": 97.2,
+      "display_name": "Slovakia",
+      "iso2": "SK",
+      "years": {
+        "2023": 115.4,
+        "2024": 97.2,
+        "2025": 95.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SVN",
       "name": "Slovenia",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 230.5
+      "g_co2e_per_kwh": 230.5,
+      "display_name": "Slovenia",
+      "iso2": "SI",
+      "years": {
+        "2023": 224.3,
+        "2024": 230.5,
+        "2025": 188.5
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SLB",
       "name": "Solomon Islands",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 600.0
+      "g_co2e_per_kwh": 600.0,
+      "display_name": "Solomon Islands",
+      "iso2": "SB",
+      "years": {
+        "2023": 600.0,
+        "2024": 600.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "SOM",
       "name": "Somalia",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 530.2
+      "g_co2e_per_kwh": 530.2,
+      "display_name": "Somalia",
+      "iso2": "SO",
+      "years": {
+        "2023": 540.5,
+        "2024": 530.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ZAF",
       "name": "South Africa",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 717.7
+      "g_co2e_per_kwh": 717.7,
+      "display_name": "South Africa",
+      "iso2": "ZA",
+      "years": {
+        "2023": 714.4,
+        "2024": 717.7,
+        "2025": 699.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "KOR",
       "name": "South Korea",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 415.6
+      "g_co2e_per_kwh": 415.6,
+      "display_name": "South Korea",
+      "iso2": "KR",
+      "years": {
+        "2023": 427.3,
+        "2024": 415.6,
+        "2025": 417.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SSD",
       "name": "South Sudan",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 646.4
+      "g_co2e_per_kwh": 646.4,
+      "display_name": "South Sudan",
+      "iso2": "SS",
+      "years": {
+        "2023": 646.4,
+        "2024": 646.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ESP",
       "name": "Spain",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 146.3
+      "g_co2e_per_kwh": 146.3,
+      "display_name": "Spain",
+      "iso2": "ES",
+      "years": {
+        "2023": 169.7,
+        "2024": 146.3,
+        "2025": 153.5
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "LKA",
       "name": "Sri Lanka",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 386.8
+      "g_co2e_per_kwh": 386.8,
+      "display_name": "Sri Lanka",
+      "iso2": "LK",
+      "years": {
+        "2023": 416.9,
+        "2024": 386.8,
+        "2025": 367.7
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SDN",
       "name": "Sudan",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 154.3
+      "g_co2e_per_kwh": 154.3,
+      "display_name": "Sudan",
+      "iso2": "SD",
+      "years": {
+        "2023": 146.1,
+        "2024": 154.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "SUR",
       "name": "Suriname",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 323.0
+      "g_co2e_per_kwh": 323.0,
+      "display_name": "Suriname",
+      "iso2": "SR",
+      "years": {
+        "2023": 320.8,
+        "2024": 323.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "SWE",
       "name": "Sweden",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 34.9
+      "g_co2e_per_kwh": 34.9,
+      "display_name": "Sweden",
+      "iso2": "SE",
+      "years": {
+        "2023": 38.4,
+        "2024": 34.9,
+        "2025": 35.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "CHE",
       "name": "Switzerland",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 34.6
+      "g_co2e_per_kwh": 34.6,
+      "display_name": "Switzerland",
+      "iso2": "CH",
+      "years": {
+        "2023": 34.8,
+        "2024": 34.6,
+        "2025": 39.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "SYR",
       "name": "Syria",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 706.2
+      "g_co2e_per_kwh": 706.2,
+      "display_name": "Syria",
+      "iso2": "SY",
+      "years": {
+        "2023": 705.6,
+        "2024": 706.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "TWN",
       "name": "Taiwan (China)",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 636.2
+      "g_co2e_per_kwh": 636.2,
+      "display_name": "Taiwan",
+      "iso2": "TW",
+      "years": {
+        "2023": 645.4,
+        "2024": 636.2,
+        "2025": 634.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "TJK",
       "name": "Tajikistan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 70.8
+      "g_co2e_per_kwh": 70.8,
+      "display_name": "Tajikistan",
+      "iso2": "TJ",
+      "years": {
+        "2023": 74.0,
+        "2024": 70.8,
+        "2025": 72.6
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "TZA",
       "name": "Tanzania (the United Republic of)",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 343.9
+      "g_co2e_per_kwh": 343.9,
+      "display_name": "Tanzania",
+      "iso2": "TZ",
+      "years": {
+        "2023": 372.5,
+        "2024": 343.9
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "THA",
       "name": "Thailand",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 555.4
+      "g_co2e_per_kwh": 555.4,
+      "display_name": "Thailand",
+      "iso2": "TH",
+      "years": {
+        "2023": 549.9,
+        "2024": 555.4,
+        "2025": 546.3
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "PHL",
       "name": "The Philippines",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 629.5
+      "g_co2e_per_kwh": 629.5,
+      "display_name": "The Philippines",
+      "iso2": "PH",
+      "years": {
+        "2023": 622.7,
+        "2024": 629.5,
+        "2025": 595.4
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "TGO",
       "name": "Togo",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 421.1
+      "g_co2e_per_kwh": 421.1,
+      "display_name": "Togo",
+      "iso2": "TG",
+      "years": {
+        "2023": 436.6,
+        "2024": 421.1
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "TON",
       "name": "Tonga",
       "area_type": "country",
       "continent": "Oceania",
-      "g_co2e_per_kwh": 571.4
+      "g_co2e_per_kwh": 571.4,
+      "display_name": "Tonga",
+      "iso2": "TO",
+      "years": {
+        "2023": 571.4,
+        "2024": 571.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "TTO",
       "name": "Trinidad and Tobago",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 681.3
+      "g_co2e_per_kwh": 681.3,
+      "display_name": "Trinidad and Tobago",
+      "iso2": "TT",
+      "years": {
+        "2023": 681.3,
+        "2024": 681.3
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "TUN",
       "name": "Tunisia",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 558.1
+      "g_co2e_per_kwh": 558.1,
+      "display_name": "Tunisia",
+      "iso2": "TN",
+      "years": {
+        "2023": 560.5,
+        "2024": 558.1,
+        "2025": 561.1
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "TKM",
       "name": "Turkmenistan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 1306.2
+      "g_co2e_per_kwh": 1306.2,
+      "display_name": "Turkmenistan",
+      "iso2": "TM",
+      "years": {
+        "2023": 1306.2,
+        "2024": 1306.2
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "TCA",
       "name": "Turks and Caicos Islands",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 637.0
+      "g_co2e_per_kwh": 637.0,
+      "display_name": "Turks and Caicos Islands",
+      "iso2": "TC",
+      "years": {
+        "2023": 657.7,
+        "2024": 637.0
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "TUR",
       "name": "Türkiye",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 470.8
+      "g_co2e_per_kwh": 470.8,
+      "display_name": "Türkiye",
+      "iso2": "TR",
+      "years": {
+        "2023": 494.9,
+        "2024": 470.8,
+        "2025": 475.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "UGA",
       "name": "Uganda",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 58.5
+      "g_co2e_per_kwh": 58.5,
+      "display_name": "Uganda",
+      "iso2": "UG",
+      "years": {
+        "2023": 58.8,
+        "2024": 58.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ARE",
       "name": "United Arab Emirates",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 467.5
+      "g_co2e_per_kwh": 467.5,
+      "display_name": "United Arab Emirates",
+      "iso2": "AE",
+      "years": {
+        "2023": 483.8,
+        "2024": 467.5
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "GBR",
       "name": "United Kingdom",
       "area_type": "country",
       "continent": "Europe",
-      "g_co2e_per_kwh": 216.5
+      "g_co2e_per_kwh": 216.5,
+      "display_name": "United Kingdom",
+      "iso2": "GB",
+      "years": {
+        "2023": 235.6,
+        "2024": 216.5,
+        "2025": 218.2
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "USA",
       "name": "United States",
       "area_type": "country",
       "continent": "North America",
-      "g_co2e_per_kwh": 383.8
+      "g_co2e_per_kwh": 383.8,
+      "display_name": "United States",
+      "iso2": "US",
+      "years": {
+        "2023": 392.9,
+        "2024": 383.8,
+        "2025": 384.4
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "URY",
       "name": "Uruguay",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 68.8
+      "g_co2e_per_kwh": 68.8,
+      "display_name": "Uruguay",
+      "iso2": "UY",
+      "years": {
+        "2023": 112.9,
+        "2024": 68.8,
+        "2025": 79.8
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "UZB",
       "name": "Uzbekistan",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 1040.2
+      "g_co2e_per_kwh": 1040.2,
+      "display_name": "Uzbekistan",
+      "iso2": "UZ",
+      "years": {
+        "2023": 1113.2,
+        "2024": 1040.2,
+        "2025": 1000.0
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "VEN",
       "name": "Venezuela",
       "area_type": "country",
       "continent": "South America",
-      "g_co2e_per_kwh": 85.9
+      "g_co2e_per_kwh": 85.9,
+      "display_name": "Venezuela",
+      "iso2": "VE",
+      "years": {
+        "2023": 91.8,
+        "2024": 85.9
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "VNM",
       "name": "Viet Nam",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 487.0
+      "g_co2e_per_kwh": 487.0,
+      "display_name": "Viet Nam",
+      "iso2": "VN",
+      "years": {
+        "2023": 474.7,
+        "2024": 487.0,
+        "2025": 463.9
+      },
+      "latest_year": "2025"
     },
     {
       "iso3": "YEM",
       "name": "Yemen",
       "area_type": "country",
       "continent": "Asia",
-      "g_co2e_per_kwh": 591.4
+      "g_co2e_per_kwh": 591.4,
+      "display_name": "Yemen",
+      "iso2": "YE",
+      "years": {
+        "2023": 598.0,
+        "2024": 591.4
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ZMB",
       "name": "Zambia",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 125.8
+      "g_co2e_per_kwh": 125.8,
+      "display_name": "Zambia",
+      "iso2": "ZM",
+      "years": {
+        "2023": 116.3,
+        "2024": 125.8
+      },
+      "latest_year": "2024"
     },
     {
       "iso3": "ZWE",
       "name": "Zimbabwe",
       "area_type": "country",
       "continent": "Africa",
-      "g_co2e_per_kwh": 383.7
+      "g_co2e_per_kwh": 383.7,
+      "display_name": "Zimbabwe",
+      "iso2": "ZW",
+      "years": {
+        "2023": 391.8,
+        "2024": 383.7
+      },
+      "latest_year": "2024"
     }
   ]
 }

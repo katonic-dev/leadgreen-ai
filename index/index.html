@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Green Tokens: GPU energy per million output tokens | Lead Green</title>
-<meta name="description" content="GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 26 September 2026.">
+<meta name="description" content="GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 27 September 2026.">
 <link rel="canonical" href="https://leadgreen.ai/index/">
 <meta property="og:site_name" content="Lead Green">
 <meta property="og:title" content="Green Tokens: GPU energy per million output tokens | Lead Green">
-<meta property="og:description" content="GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 26 September 2026.">
+<meta property="og:description" content="GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 27 September 2026.">
 <meta property="og:url" content="https://leadgreen.ai/index/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
@@ -30,7 +30,7 @@
  "@context": "https://schema.org",
  "@type": "Dataset",
  "name": "Green Tokens: GPU energy per million output tokens",
- "description": "GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 26 September 2026.",
+ "description": "GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 27 September 2026.",
  "url": "https://leadgreen.ai/index/",
  "license": "https://creativecommons.org/licenses/by/4.0/",
  "creator": {
@@ -55,8 +55,8 @@
    "url": "https://www.katonic.ai"
   }
  },
- "dateModified": "2026-09-26",
- "version": "2026-09-26",
+ "dateModified": "2026-09-27",
+ "version": "2026-09-27",
  "inLanguage": "en",
  "keywords": [
   "LLM inference energy",
@@ -139,7 +139,7 @@
 <div class="title">
   <p class="eyebrow">The index</p>
   <h1>Green Tokens</h1>
-  <p class="stand">The GPU energy it takes to serve a million tokens, by model, GPU and configuration. Every figure is from a public measurement or a manufacturer's specification, and every source is listed at the foot of the page. Updated 26 September 2026.</p>
+  <p class="stand">The GPU energy it takes to serve a million tokens, by model, GPU and configuration. Every figure is from a public measurement or a manufacturer's specification, and every source is listed at the foot of the page. Updated 27 September 2026.</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. The same data as <a href="../api/">JSON</a> and through the <a href="../mcp/">MCP server</a>.</p>
   <ul class="toc" aria-label="On this page">
     <li><a href="#index">Index</a></li>
@@ -158,17 +158,17 @@
 <div class="tiles" role="group" aria-label="Headline readings">
   <div class="tile">
     <span class="lbl">Lowest on the index</span>
-    <span class="val">13<small>Wh/M</small></span>
+    <span class="val">13.0<small>Wh/M</small></span>
     <span class="sub">Llama 3.1 8B Instruct, 1 × B200</span>
   </div>
   <div class="tile ref">
     <span class="lbl">Reference row</span>
-    <span class="val">63<small>Wh/M</small></span>
+    <span class="val">63.5<small>Wh/M</small></span>
     <span class="sub">Qwen 3 32B, 2 × H100. The carbon table is priced on this row.</span>
   </div>
   <div class="tile">
     <span class="lbl">Highest on the index</span>
-    <span class="val">573<small>Wh/M</small></span>
+    <span class="val">572.9<small>Wh/M</small></span>
     <span class="sub">Llama 3.1 405B Instruct FP8, 8 × H100</span>
   </div>
 </div>
@@ -177,10 +177,10 @@
 <section id="index" class="first">
   <p class="eyebrow">The index</p>
   <h2>Energy per million output tokens</h2>
-  <p class="lead">32 rows, 18 open-weight models, two GPUs. Each row is the most energy-efficient configuration the ML.ENERGY benchmark found for that model on that GPU while keeping median inter-token latency under 400 ms, on its Text Conversation workload. Sorted from least energy to most.</p>
+  <p class="lead">32 rows, 18 open-weight models, two GPUs. Each row is the most energy-efficient configuration the ML.ENERGY benchmark found for that model on that GPU while keeping median inter-token latency under 500 ms, on its Text Conversation workload. Sorted from least energy to most.</p>
   <div class="table-scroll">
     <table>
-      <caption>ML.ENERGY Leaderboard v3.0, Text Conversation, energy-optimal configuration per model and GPU at a 400 ms median ITL deadline</caption>
+      <caption>ML.ENERGY Leaderboard v3.0, Text Conversation, energy-optimal configuration per model and GPU at a 500 ms median ITL deadline</caption>
       <thead>
         <tr>
           <th scope="col">Model</th>
@@ -229,13 +229,13 @@
     </table>
   </div>
   <p class="note">Wh/M is derived from the source's joules per output token (hover a value to see it). Prompt processing is included: the benchmark divides steady-state GPU energy by output tokens. "Requests in flight" is the average batch the server was holding when the measurement was taken. GPU power is the average draw summed across every card in the configuration. The bar is linear, scaled to the highest row.</p>
-  <p class="note">Source: ML.ENERGY Leaderboard v3.0, University of Michigan, last updated 23 September 2026, retrieved 26 September 2026. 328 configurations were examined; the table shows the best per model and GPU. Every configuration is in the <a href="../api/">API</a>.</p>
+  <p class="note">Source: ML.ENERGY Leaderboard v3.0, University of Michigan, last updated 23 September 2026, retrieved 27 September 2026. 328 configurations were examined; the table shows the best per model and GPU. Every configuration is in the <a href="../api/">API</a>.</p>
 </section>
 
 <section id="generations">
   <p class="eyebrow">Two generations</p>
   <h2>The same model on H100 and B200</h2>
-  <p class="lead">14 models were measured on both GPUs. The newer card's advantage runs from <b>4.5×</b> on Qwen 3 235B A22B Instruct to <b>1.05×</b> on NVIDIA Nemotron Nano 9B V2. The gap is widest where the H100 configuration needs many cards to hold the weights, and narrowest for small models that fit one card either way.</p>
+  <p class="lead">14 models were measured on both GPUs. The newer card's advantage runs from <b>4.55×</b> on Qwen 3 235B A22B Instruct to <b>1.05×</b> on NVIDIA Nemotron Nano 9B V2. The gap is widest where the H100 configuration needs many cards to hold the weights, and narrowest for small models that fit one card either way.</p>
   <div class="table-scroll">
     <table>
       <caption>Energy-optimal rows from the index, paired by model</caption>
@@ -250,20 +250,20 @@
         </tr>
       </thead>
       <tbody>
-<tr><th scope="row"><span class="model">Qwen 3 235B A22B Instruct</span></th><td class="num">8 × H100</td><td class="num">303.5</td><td class="num">4 × B200</td><td class="num">66.7</td><td class="num key">4.5×</td></tr>
-<tr><th scope="row"><span class="model">Qwen 3 14B</span></th><td class="num">1 × H100</td><td class="num">31.1</td><td class="num">1 × B200</td><td class="num">15.2</td><td class="num key">2.0×</td></tr>
-<tr><th scope="row"><span class="model">Llama 3.1 70B Instruct</span></th><td class="num">4 × H100</td><td class="num">103.7</td><td class="num">2 × B200</td><td class="num">52.4</td><td class="num key">2.0×</td></tr>
-<tr><th scope="row"><span class="model">Llama 3.3 70B Instruct</span></th><td class="num">4 × H100</td><td class="num">117.5</td><td class="num">2 × B200</td><td class="num">60.7</td><td class="num key">1.9×</td></tr>
-<tr><th scope="row"><span class="model">Llama 3.1 405B Instruct FP8</span></th><td class="num">8 × H100</td><td class="num">572.9</td><td class="num">4 × B200</td><td class="num">318.5</td><td class="num key">1.8×</td></tr>
-<tr><th scope="row"><span class="model">Gemma 3 12B</span></th><td class="num">1 × H100</td><td class="num">46.1</td><td class="num">1 × B200</td><td class="num">26.5</td><td class="num key">1.7×</td></tr>
-<tr><th scope="row"><span class="model">Gemma 3 27B</span></th><td class="num">2 × H100</td><td class="num">80.4</td><td class="num">1 × B200</td><td class="num">49.1</td><td class="num key">1.6×</td></tr>
-<tr><th scope="row"><span class="model">Qwen 3 32B</span></th><td class="num">2 × H100</td><td class="num">63.5</td><td class="num">1 × B200</td><td class="num">39.1</td><td class="num key">1.6×</td></tr>
-<tr><th scope="row"><span class="model">Qwen 3 30B A3B Instruct</span></th><td class="num">2 × H100</td><td class="num">24.7</td><td class="num">1 × B200</td><td class="num">15.7</td><td class="num key">1.6×</td></tr>
-<tr><th scope="row"><span class="model">Llama 3.1 8B Instruct</span></th><td class="num">1 × H100</td><td class="num">19.5</td><td class="num">1 × B200</td><td class="num">13.0</td><td class="num key">1.5×</td></tr>
-<tr><th scope="row"><span class="model">Qwen 3 235B A22B Instruct FP8</span></th><td class="num">8 × H100</td><td class="num">206.0</td><td class="num">2 × B200</td><td class="num">139.1</td><td class="num key">1.5×</td></tr>
-<tr><th scope="row"><span class="model">Qwen 3 8B</span></th><td class="num">1 × H100</td><td class="num">20.0</td><td class="num">1 × B200</td><td class="num">14.7</td><td class="num key">1.4×</td></tr>
-<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 12B V2</span></th><td class="num">1 × H100</td><td class="num">50.1</td><td class="num">1 × B200</td><td class="num">39.4</td><td class="num key">1.3×</td></tr>
-<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 9B V2</span></th><td class="num">1 × H100</td><td class="num">43.1</td><td class="num">1 × B200</td><td class="num">40.9</td><td class="num key">1.1×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 235B A22B Instruct</span></th><td class="num">8 × H100</td><td class="num">303.5</td><td class="num">4 × B200</td><td class="num">66.7</td><td class="num key">4.55×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 14B</span></th><td class="num">1 × H100</td><td class="num">31.1</td><td class="num">1 × B200</td><td class="num">15.2</td><td class="num key">2.04×</td></tr>
+<tr><th scope="row"><span class="model">Llama 3.1 70B Instruct</span></th><td class="num">4 × H100</td><td class="num">103.7</td><td class="num">2 × B200</td><td class="num">52.4</td><td class="num key">1.98×</td></tr>
+<tr><th scope="row"><span class="model">Llama 3.3 70B Instruct</span></th><td class="num">4 × H100</td><td class="num">117.5</td><td class="num">2 × B200</td><td class="num">60.7</td><td class="num key">1.94×</td></tr>
+<tr><th scope="row"><span class="model">Llama 3.1 405B Instruct FP8</span></th><td class="num">8 × H100</td><td class="num">572.9</td><td class="num">4 × B200</td><td class="num">318.5</td><td class="num key">1.80×</td></tr>
+<tr><th scope="row"><span class="model">Gemma 3 12B</span></th><td class="num">1 × H100</td><td class="num">46.1</td><td class="num">1 × B200</td><td class="num">26.5</td><td class="num key">1.74×</td></tr>
+<tr><th scope="row"><span class="model">Gemma 3 27B</span></th><td class="num">2 × H100</td><td class="num">80.4</td><td class="num">1 × B200</td><td class="num">49.1</td><td class="num key">1.64×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 32B</span></th><td class="num">2 × H100</td><td class="num">63.5</td><td class="num">1 × B200</td><td class="num">39.1</td><td class="num key">1.63×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 30B A3B Instruct</span></th><td class="num">2 × H100</td><td class="num">24.7</td><td class="num">1 × B200</td><td class="num">15.7</td><td class="num key">1.58×</td></tr>
+<tr><th scope="row"><span class="model">Llama 3.1 8B Instruct</span></th><td class="num">1 × H100</td><td class="num">19.5</td><td class="num">1 × B200</td><td class="num">13.0</td><td class="num key">1.50×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 235B A22B Instruct FP8</span></th><td class="num">8 × H100</td><td class="num">206.0</td><td class="num">2 × B200</td><td class="num">139.1</td><td class="num key">1.48×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 8B</span></th><td class="num">1 × H100</td><td class="num">20.0</td><td class="num">1 × B200</td><td class="num">14.7</td><td class="num key">1.36×</td></tr>
+<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 12B V2</span></th><td class="num">1 × H100</td><td class="num">50.1</td><td class="num">1 × B200</td><td class="num">39.4</td><td class="num key">1.27×</td></tr>
+<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 9B V2</span></th><td class="num">1 × H100</td><td class="num">43.1</td><td class="num">1 × B200</td><td class="num">40.9</td><td class="num key">1.05×</td></tr>
       </tbody>
     </table>
   </div>
@@ -288,12 +288,15 @@
           </tr>
         </thead>
         <tbody>
-<tr><th scope="row" class="num">8</th><td class="num key">452.0</td><td class="num">15</td><td class="num">522</td><td class="num">850</td></tr>
-<tr><th scope="row" class="num">16</th><td class="num key">252.8</td><td class="num">16</td><td class="num">970</td><td class="num">883</td></tr>
-<tr><th scope="row" class="num">32</th><td class="num key">153.8</td><td class="num">18</td><td class="num">1,706</td><td class="num">944</td></tr>
-<tr><th scope="row" class="num">64</th><td class="num key">102.0</td><td class="num">22</td><td class="num">2,654</td><td class="num">974</td></tr>
-<tr><th scope="row" class="num">128</th><td class="num key">76.4</td><td class="num">30</td><td class="num">3,905</td><td class="num">1,074</td></tr>
-<tr><th scope="row" class="num">256</th><td class="num key">63.5</td><td class="num">44</td><td class="num">5,155</td><td class="num">1,178</td></tr>
+<tr><th scope="row" class="num">8</th><td class="num">8</td><td class="num key">452.0</td><td class="num">15</td><td class="num">522</td><td class="num">850</td></tr>
+<tr><th scope="row" class="num">16</th><td class="num">16</td><td class="num key">252.8</td><td class="num">16</td><td class="num">970</td><td class="num">883</td></tr>
+<tr><th scope="row" class="num">32</th><td class="num">32</td><td class="num key">153.8</td><td class="num">18</td><td class="num">1,706</td><td class="num">944</td></tr>
+<tr><th scope="row" class="num">64</th><td class="num">64</td><td class="num key">102.0</td><td class="num">22</td><td class="num">2,654</td><td class="num">974</td></tr>
+<tr><th scope="row" class="num">96</th><td class="num">96</td><td class="num key">84.6</td><td class="num">26</td><td class="num">3,356</td><td class="num">1,022</td></tr>
+<tr><th scope="row" class="num">128</th><td class="num">128</td><td class="num key">76.4</td><td class="num">30</td><td class="num">3,905</td><td class="num">1,074</td></tr>
+<tr><th scope="row" class="num">192</th><td class="num">192</td><td class="num key">69.0</td><td class="num">37</td><td class="num">4,601</td><td class="num">1,143</td></tr>
+<tr class="best"><th scope="row" class="num">256</th><td class="num">256</td><td class="num key">63.5</td><td class="num">44</td><td class="num">5,155</td><td class="num">1,178</td></tr>
+<tr><th scope="row" class="num">384</th><td class="num">340</td><td class="num key">64.6</td><td class="num">55</td><td class="num">5,071</td><td class="num">1,180</td></tr>
         </tbody>
       </table>
     </div>
@@ -310,13 +313,17 @@
           </tr>
         </thead>
         <tbody>
-<tr><th scope="row" class="num">8</th><td class="num key">126.3</td><td class="num">7</td><td class="num">1,070</td><td class="num">486</td></tr>
-<tr><th scope="row" class="num">16</th><td class="num key">73.0</td><td class="num">8</td><td class="num">1,954</td><td class="num">513</td></tr>
-<tr><th scope="row" class="num">32</th><td class="num key">45.8</td><td class="num">9</td><td class="num">3,391</td><td class="num">560</td></tr>
-<tr><th scope="row" class="num">64</th><td class="num key">32.9</td><td class="num">12</td><td class="num">5,147</td><td class="num">610</td></tr>
-<tr><th scope="row" class="num">128</th><td class="num key">26.4</td><td class="num">16</td><td class="num">7,037</td><td class="num">669</td></tr>
-<tr><th scope="row" class="num">255</th><td class="num key">21.3</td><td class="num">26</td><td class="num">9,010</td><td class="num">691</td></tr>
-<tr><th scope="row" class="num">511</th><td class="num key">19.5</td><td class="num">47</td><td class="num">9,806</td><td class="num">688</td></tr>
+<tr><th scope="row" class="num">8</th><td class="num">8</td><td class="num key">126.3</td><td class="num">7</td><td class="num">1,070</td><td class="num">486</td></tr>
+<tr><th scope="row" class="num">16</th><td class="num">16</td><td class="num key">73.0</td><td class="num">8</td><td class="num">1,954</td><td class="num">513</td></tr>
+<tr><th scope="row" class="num">32</th><td class="num">32</td><td class="num key">45.8</td><td class="num">9</td><td class="num">3,391</td><td class="num">560</td></tr>
+<tr><th scope="row" class="num">64</th><td class="num">64</td><td class="num key">32.9</td><td class="num">12</td><td class="num">5,147</td><td class="num">610</td></tr>
+<tr><th scope="row" class="num">96</th><td class="num">96</td><td class="num key">28.6</td><td class="num">14</td><td class="num">6,260</td><td class="num">644</td></tr>
+<tr><th scope="row" class="num">128</th><td class="num">128</td><td class="num key">26.4</td><td class="num">16</td><td class="num">7,037</td><td class="num">669</td></tr>
+<tr><th scope="row" class="num">192</th><td class="num">192</td><td class="num key">23.2</td><td class="num">21</td><td class="num">8,223</td><td class="num">688</td></tr>
+<tr><th scope="row" class="num">256</th><td class="num">255</td><td class="num key">21.3</td><td class="num">26</td><td class="num">9,010</td><td class="num">691</td></tr>
+<tr><th scope="row" class="num">384</th><td class="num">383</td><td class="num key">20.6</td><td class="num">38</td><td class="num">9,248</td><td class="num">687</td></tr>
+<tr class="best"><th scope="row" class="num">512</th><td class="num">511</td><td class="num key">19.5</td><td class="num">47</td><td class="num">9,806</td><td class="num">688</td></tr>
+<tr><th scope="row" class="num">768</th><td class="num">691</td><td class="num key">19.8</td><td class="num">63</td><td class="num">9,603</td><td class="num">685</td></tr>
         </tbody>
       </table>
     </div>
@@ -439,9 +446,14 @@
         </tr>
       </thead>
       <tbody>
+<tr><th scope="row"><span class="model">tencent/Hunyuan-1.8B-Instruct</span></th><td>A</td><td class="num key">4.2</td><td class="num">★★★★★</td></tr>
 <tr><th scope="row"><span class="model">google/gemma-3-270m</span></th><td>A</td><td class="num key">9.3</td><td class="num">★★★★★</td></tr>
 <tr><th scope="row"><span class="model">Qwen/Qwen3-0.6B</span></th><td>A</td><td class="num key">11.8</td><td class="num">★★★★★</td></tr>
+<tr><th scope="row"><span class="model">google/gemma-3-1b-pt</span></th><td>A</td><td class="num key">12.3</td><td class="num">★★★★★</td></tr>
+<tr><th scope="row"><span class="model">ibm-granite/granite-4.0-micro</span></th><td>A</td><td class="num key">16.6</td><td class="num">★★★★★</td></tr>
+<tr><th scope="row"><span class="model">microsoft/Phi-4-reasoning-plus</span></th><td>A</td><td class="num key">18.4</td><td class="num">★★★★★</td></tr>
 <tr><th scope="row"><span class="model">HuggingFaceTB/SmolLM3-3B</span></th><td>A</td><td class="num key">18.4</td><td class="num">★★★★★</td></tr>
+<tr><th scope="row"><span class="model">swiss-ai/Apertus-8B-Instruct-2509</span></th><td>A</td><td class="num key">21.7</td><td class="num">★★★★☆</td></tr>
 <tr><th scope="row"><span class="model">mistralai/Mistral-Nemo-Instruct-2407</span></th><td>A</td><td class="num key">23.2</td><td class="num">★★★★☆</td></tr>
 <tr><th scope="row"><span class="model">Qwen/Qwen2.5-Coder-14B</span></th><td>A</td><td class="num key">27.1</td><td class="num">★★★★☆</td></tr>
 <tr><th scope="row"><span class="model">google/gemma-3-4b-pt</span></th><td>A</td><td class="num key">34.4</td><td class="num">★★★★☆</td></tr>
@@ -449,12 +461,17 @@
 <tr><th scope="row"><span class="model">Qwen/Qwen3-30B-A3B</span></th><td>B</td><td class="num key">37.4</td><td class="num">★★★★★</td></tr>
 <tr><th scope="row"><span class="model">deepseek-ai/DeepSeek-R1-Distill-Llama-70B</span></th><td>C</td><td class="num key">49.5</td><td class="num">★★★★★</td></tr>
 <tr><th scope="row"><span class="model">google/gemma-3-27b-pt</span></th><td>B</td><td class="num key">50.4</td><td class="num">★★☆☆☆</td></tr>
+<tr><th scope="row"><span class="model">LGAI-EXAONE/EXAONE-4.0-32B</span></th><td>B</td><td class="num key">54.5</td><td class="num">★☆☆☆☆</td></tr>
+<tr><th scope="row"><span class="model">ibm-granite/granite-4.0-h-tiny</span></th><td>A</td><td class="num key">81.8</td><td class="num">★☆☆☆☆</td></tr>
+<tr><th scope="row"><span class="model">zai-org/GLM-4.5-Air</span></th><td>C</td><td class="num key">220.5</td><td class="num">★★★★★</td></tr>
 <tr><th scope="row"><span class="model">Qwen/Qwen3-235B-A22B</span></th><td>C</td><td class="num key">305.8</td><td class="num">★★★★☆</td></tr>
+<tr><th scope="row"><span class="model">swiss-ai/Apertus-70B-Instruct-2509</span></th><td>C</td><td class="num key">697.5</td><td class="num">★★★☆☆</td></tr>
+<tr><th scope="row"><span class="model">zai-org/GLM-4.5</span></th><td>C</td><td class="num key">1,225.4</td><td class="num">★☆☆☆☆</td></tr>
 <tr><th scope="row"><span class="model">zai-org/GLM-4.6</span></th><td>C</td><td class="num key">1,273.5</td><td class="num">★☆☆☆☆</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="note">December 2025 round only, twelve of its 22 rows shown; all are in the <a href="../api/">API</a>. The February 2025 round is not comparable with it (a 70B-class model scores about 1,720 Wh in one round and about 50 Wh in the other), so it is not shown. Stars are relative within a hardware class: A fits one consumer GPU, B one H100, C more than one H100. Source: Hugging Face AI Energy Score leaderboard, retrieved 26 September 2026.</p>
+  <p class="note">December 2025 round only, twelve of its 22 rows shown; all are in the <a href="../api/">API</a>. The February 2025 round is not comparable with it (a 70B-class model scores about 1,720 Wh in one round and about 50 Wh in the other), so it is not shown. Stars are relative within a hardware class: A fits one consumer GPU, B one H100, C more than one H100. Source: Hugging Face AI Energy Score leaderboard, retrieved 27 September 2026.</p>
 </section>
 
 <section id="method">
@@ -486,13 +503,13 @@
   <p class="eyebrow">Sources</p>
   <h2>Every figure, and where it came from</h2>
   <ol class="ledger">
-    <li><div><div class="src"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a>, The ML.ENERGY Initiative, University of Michigan</div><div class="use">Index, two-generation table, concurrency tables, the workload comparison in the method, and the measured GPU power figures. Text Conversation workload, all 328 configurations; Problem Solving workload, all 187 configurations. Data files in the leaderboard's public repository, Apache 2.0.</div><div class="meta">Version 3.0, last updated 23 September 2026. Retrieved 26 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a></div><div class="use">Carbon table and the grid API. Emissions intensity of total generation, gCO2e per kWh, 2024. CC BY 4.0.</div><div class="meta">September 2026 release. Retrieved 26 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles</a></div><div class="use">MIG profile table.</div><div class="meta">Last updated 11 September 2026. Retrieved 26 September 2026.</div></div></li>
-    <li><div><div class="src">NVIDIA product specifications: <a href="https://www.nvidia.com/en-us/data-center/a100/">A100</a>, <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a>, <a href="https://www.nvidia.com/en-us/data-center/h200/">H200</a>, <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a></div><div class="use">Maximum TDP and memory in the hardware table; the DGX B200 system power figure used on the "why" page.</div><div class="meta">Retrieved 26 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200</a></div><div class="use">B200 maximum TDP (configurable up to 1,000 W per GPU) and the 2,274 kg CO2e cradle-to-gate figure in the method.</div><div class="meta">July 2025. Retrieved 26 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://huggingface.co/spaces/AIEnergyScore/Leaderboard">Hugging Face, AI Energy Score leaderboard</a>, with its <a href="https://huggingface.github.io/AIEnergyScore/">documentation</a></div><div class="use">Per-query table. Text generation task, December 2025 round. Space published under Apache 2.0.</div><div class="meta">Retrieved 26 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">OpenAI, What are tokens and how to count them</a></div><div class="use">The rough words-per-token conversion in the opening paragraph.</div><div class="meta">Retrieved 26 September 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a>, The ML.ENERGY Initiative, University of Michigan</div><div class="use">Index, two-generation table, concurrency tables, the workload comparison in the method, and the measured GPU power figures. Text Conversation workload, all 328 configurations; Problem Solving workload, all 187 configurations. Data files in the leaderboard's public repository, Apache 2.0.</div><div class="meta">Version 3.0, last updated 23 September 2026. Retrieved 27 September 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a></div><div class="use">Carbon table and the grid API. Emissions intensity of total generation, gCO2e per kWh, 2024. CC BY 4.0.</div><div class="meta">September 2026 release. Retrieved 27 September 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles</a></div><div class="use">MIG profile table.</div><div class="meta">Last updated 11 September 2026. Retrieved 27 September 2026.</div></div></li>
+    <li><div><div class="src">NVIDIA product specifications: <a href="https://www.nvidia.com/en-us/data-center/a100/">A100</a>, <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a>, <a href="https://www.nvidia.com/en-us/data-center/h200/">H200</a>, <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a></div><div class="use">Maximum TDP and memory in the hardware table; the DGX B200 system power figure used on the "why" page.</div><div class="meta">Retrieved 27 September 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200</a></div><div class="use">B200 maximum TDP (configurable up to 1,000 W per GPU) and the 2,274 kg CO2e cradle-to-gate figure in the method.</div><div class="meta">July 2025. Retrieved 27 September 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://huggingface.co/spaces/AIEnergyScore/Leaderboard">Hugging Face, AI Energy Score leaderboard</a>, with its <a href="https://huggingface.github.io/AIEnergyScore/">documentation</a></div><div class="use">Per-query table. Text generation task, December 2025 round. Space published under Apache 2.0.</div><div class="meta">Retrieved 27 September 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">OpenAI, What are tokens and how to count them</a></div><div class="use">The rough words-per-token conversion in the opening paragraph.</div><div class="meta">Retrieved 27 September 2026.</div></div></li>
   </ol>
   <p class="note">Snapshots of every data file used, as retrieved, are kept alongside the page so each figure can be recomputed. Corrections are welcome and are recorded below.</p>
 </section>
@@ -518,7 +535,7 @@
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 26 September 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 27 September 2026.</p>
   </footer>
 
 </div>

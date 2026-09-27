@@ -18,18 +18,22 @@ Every number on every page comes from a file in build/data. Page bodies and
 posts carry {{PLACEHOLDERS}}; the script renders everything first and refuses
 to write anything if a single placeholder is left unfilled. To update the
 index: replace a snapshot with a newer retrieval (keep the date in the file
-name), point the constants below at it, bump UPDATED and the source versions,
-add a line to the Changes list in build/pages/index.html, and re-run. Never
-type a figure into a page by hand.
+name), point the constants below at it, bump UPDATED, RETRIEVED and the source
+versions, add an entry to CHANGES (the index page's change record and
+api/v1/changes.json are both generated from it), and re-run. Never type a
+figure into a page by hand.
 """
 from __future__ import annotations
 
 import csv
+import hashlib
 import html
 import json
+import os
 import re
 import shutil
 import sys
+import zipfile
 from datetime import date, datetime, timezone
 from email.utils import format_datetime
 from pathlib import Path
@@ -45,78 +49,153 @@ MCP_DATA = ROOT / "leadgreen-mcp" / "leadgreen_mcp" / "data"
 
 # ----------------------------------------------------------------- settings
 SITE = "https://leadgreen.ai"
-UPDATED = "2026-09-26"                 # bump on every data or content change
+UPDATED = "2026-09-27"                 # bump on every data or content change
+DATA_VERSION = UPDATED                 # D20: carried by every API document; a published release never changes
+RETRIEVED = "2026-09-26"               # when the snapshots in build/data were retrieved; not the same as UPDATED
 INDEX_NAME = "Green Tokens"            # D1: "Green Tokens" or "The Green Token Index"
 EDITOR = "Prem Naraindas"
 LINKEDIN_URL = "https://www.linkedin.com/in/premnaraindas/"
 OWN_YOUR_AI_URL = "https://www.linkedin.com/newsletters/own-your-ai-7508174547041292288/"
 REPO_URL = ""                          # D6: set when the repository is public; links are omitted while empty
 NEWSLETTER_SIGNUP_URL = ""             # D2: set when the email provider is chosen; never a fake form
-MCP_VERSION = "0.1.0"
+MCP_VERSION = "0.2.0"
 WHEEL_NAME = f"leadgreen_mcp-{MCP_VERSION}-py3-none-any.whl"
 WHEEL_URL = f"{SITE}/dist/{WHEEL_NAME}"
+# D16 publisher block. The address is typed only from the DIFC registry extract, after Prem confirms it.
+PUBLISHER_ENTITY = "Katonic AI Technology Ltd"
+PUBLISHER_REGISTRATION = "CL9944"
+PUBLISHER_JURISDICTION = "Dubai International Financial Centre (DIFC), United Arab Emirates"
+PUBLISHER_ADDRESS = ""                 # OWED: registered office, word for word from the registry extract
+CONTACT_EMAIL = "hello@leadgreen.ai"   # D16: forwarded to the editor; mail on the domain must work before launch
+RESPONSE_DAYS = 10                     # working days, for corrections and contributions
+REVIEWERS: list[str] = []              # D1 OWED: the two named reviewers
+OUTSIDE_REVIEWER = ""                  # D1 OWED: the reviewer with no Katonic affiliation who checks any Katonic row
+SUBMISSIONS_OPEN = ""                  # D19: date contributed rows open while the repository is not public; "" = to be announced
+MLE_LICENCE_CONFIRMED = False          # D17: True once the ML.ENERGY team confirms the leaderboard JSON is Apache 2.0
+LEGAL_AS_AT = "2026-09-27"             # D15: the date the regulatory summaries were checked
 
 MLE_CHAT = DATA / "mlenergy-v3-lm-arena-chat-2026-09-26.json"
 MLE_GPQA = DATA / "mlenergy-v3-gpqa-2026-09-26.json"
 EMBER = DATA / "ember-yearly-total-generation-extract-2026-09-26.csv"
 AIES = DATA / "aienergyscore-text_generation-2026-09-26.csv"
 HW = DATA / "nvidia-hardware-2026-09-26.json"
+ISO3166 = DATA / "iso3166-1-alpha3-to-alpha2-2026-09-27.json"   # pycountry 26.2.16 (Debian iso-codes)
+MEASUREMENTS = DATA / "measurements"
+MEASUREMENT_SCHEMA = HERE / "schema" / "measurement.schema.json"
 
-ITL_DEADLINE_MS = 400          # the leaderboard's Text Conversation default
-GPQA_DEADLINE_MS = 300         # the leaderboard's Problem Solving default
+ITL_DEADLINE_MS = 500          # D5: the leaderboard's default for every LLM task (tasks.ts defaultItlDeadlineMs, the slider's start)
+GPQA_DEADLINE_MS = 500         # D5: the same default; rows at or under the ceiling are kept, as the leaderboard keeps them
+SENSITIVITY_MS = (250, 100, 50)  # D5: tighter ceilings reported under Method; none of them is applied to the index
 EMBER_YEAR = "2024"            # latest year with every listed grid present
 REFERENCE = ("Qwen 3 32B", "H100")   # the row the carbon table is priced on
 ELECTRICITY_USD_PER_KWH = 0.10       # stated assumption in one worked example
 KETTLE_KW = 2.0                      # stated assumption in one worked example
+PUE_EXAMPLE = 1.3                    # D4: stated assumption in the to-the-meter illustration (PUE is the operator's own figure)
+SCI_LIFE_YEARS = 5                   # stated assumption in the SCI illustration (hardware life over which M is amortised)
+AIES_FIXED_TOKENS = 10               # AI Energy Score protocol: ten generated tokens for non-reasoning runs (reasoning_helpers.py)
+# Published per-prompt figures, cited on the site (F2, D4, D9). Neither is Wh per million output tokens at a stated load.
+GOOGLE_2025 = {"date": "August 2025", "wh": 0.24, "accelerator_share": 0.58, "narrow_wh": 0.10, "g_co2e": 0.03,
+               "water_ml": 0.26, "url": "https://arxiv.org/abs/2508.15734"}
+MISTRAL_2025 = {"date": "July 2025", "g_co2e": 1.14, "water_ml": 45, "tokens": 400,
+                "url": "https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai"}
 
+MLE_LICENCE_EVIDENCE = [
+    "Hugging Face dataset ml-energy/benchmark-v3: tagged license:apache-2.0, ships a LICENSE file, and its dataset card's License section reads Apache-2.0",
+    "The ML.ENERGY Leaderboard web app's footer says Apache 2.0",
+    ("The ML.ENERGY team has confirmed that the licence covers the leaderboard JSON files" if MLE_LICENCE_CONFIRMED else
+     "The leaderboard repository (github.com/ml-energy/leaderboard) carries no licence file; its JSON files are reproduced here "
+     "as published measurements until the ML.ENERGY team confirms that the dataset licence covers them"),
+]
 SRC_MLE = {
     "name": "ML.ENERGY Leaderboard",
-    "publisher": "The ML.ENERGY Initiative, University of Michigan",
+    "publisher": "The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)",
     "url": "https://ml.energy/leaderboard/",
     "data_url": "https://raw.githubusercontent.com/ml-energy/leaderboard/master/public/data/tasks/lm-arena-chat.json",
-    "version": "3.0, last updated 2026-09-23",
-    "retrieved": UPDATED,
-    "licence": "Apache-2.0",
+    "version": "3.0 (released 2025-12-01); data compiled 2026-02-16",
+    "released": "2025-12-01",
+    "compiled": "2026-02-16",
+    "compiled_evidence": "the leaderboard's public/data/index.json last_updated, and the last commit to the task files, both 2026-02-16",
+    "retrieved": RETRIEVED,
+    "licence": "Apache-2.0 per the ml-energy/benchmark-v3 dataset card",
+    "licence_evidence": MLE_LICENCE_EVIDENCE,
     "workload": "Text Conversation (lm-arena-chat)",
-    "method": "vLLM serving on H100 80GB HBM3 or B200 servers; steady-state GPU energy measured with Zeus; "
-              "energy per output token = GPU energy per request / output tokens, so prompt processing is included.",
+    "method": ("Energy per output token is steady-state GPU energy divided by the output tokens generated in the steady-state window "
+               "(the benchmark's steady_state_energy_per_token), measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers. "
+               "Energy per request is that figure multiplied by the average output length, not a separate measurement. "
+               "Prompt processing is included."),
+    "selection": (f"Each index row is the lowest-energy configuration for its model and GPU whose median inter-token latency does not "
+                  f"exceed {ITL_DEADLINE_MS} ms, the leaderboard's own default ceiling; no measured configuration reaches it."),
+    "cite": "Chung et al., The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371",
+    "cite_url": "https://arxiv.org/abs/2505.06371",
     "used_for": "index, per-model configurations, concurrency curves, measured GPU power",
 }
 SRC_MLE_GPQA = {**SRC_MLE, "data_url": SRC_MLE["data_url"].replace("lm-arena-chat", "gpqa"),
                 "workload": "Problem Solving (gpqa)", "used_for": "problem-solving versus chat comparison"}
+EMBER_BASIS = ("Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors "
+               "(IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are "
+               "included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, "
+               "not a Scope 2 combustion factor to file as reported.")
 SRC_EMBER = {
     "name": "Ember, Yearly electricity data",
     "publisher": "Ember",
     "url": "https://ember-energy.org/data/yearly-electricity-data/",
     "data_url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
     "version": "September 2026 release (file last modified 2026-09-22)",
-    "retrieved": UPDATED,
+    "retrieved": RETRIEVED,
     "licence": "CC-BY-4.0",
-    "used_for": f"grid emissions intensity of total generation, gCO2e per kWh, {EMBER_YEAR}",
+    "factor_basis": EMBER_BASIS,
+    "used_for": f"grid emissions intensity of total generation, gCO2e per kWh, {EMBER_YEAR} (location-based)",
 }
 SRC_AIES = {
     "name": "AI Energy Score leaderboard",
-    "publisher": "Hugging Face",
+    "publisher": "AI Energy Score (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University)",
     "url": "https://huggingface.co/spaces/AIEnergyScore/Leaderboard",
     "data_url": "https://huggingface.co/spaces/AIEnergyScore/Leaderboard/raw/main/data/energy/text_generation.csv",
+    "documentation": "https://huggingface.github.io/AIEnergyScore/",
     "version": "December 2025 round",
-    "retrieved": UPDATED,
-    "licence": "Apache-2.0 (the space)",
-    "used_for": "GPU energy per 1,000 text-generation queries at batch size 1 on one H100",
+    "harness": "Neuralwatt's AI Energy Benchmarks for the December 2025 round; the February 2025 round ran on Optimum Benchmark",
+    "retrieved": RETRIEVED,
+    "licence": ("Apache-2.0 as tagged on the Space; the project states no separate licence for the results file, "
+                "which is reproduced as facts with attribution"),
+    "used_for": ("GPU energy per 1,000 text-generation queries at batch size 1 on NVIDIA H100 80GB GPUs "
+                 "(one card for class A and B models, several for class C)"),
 }
 SRC_OPENAI_TOKENS = {
     "name": "OpenAI, What are tokens and how to count them",
     "publisher": "OpenAI",
     "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them",
     "version": "as published on the retrieval date",
-    "retrieved": UPDATED,
+    "retrieved": RETRIEVED,
     "licence": "cited, not redistributed",
     "used_for": "the rough words-per-token conversion",
 }
+SRC_GOOGLE_2025 = {
+    "name": "Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale",
+    "publisher": "Google",
+    "url": GOOGLE_2025["url"],
+    "version": "arXiv 2508.15734, August 2025",
+    "retrieved": RETRIEVED,
+    "licence": "cited, not redistributed",
+    "used_for": "the published per-prompt energy, carbon and water figures, and the accelerator share of serving energy",
+}
+SRC_MISTRAL_2025 = {
+    "name": "Mistral AI, life-cycle analysis of its models (with Carbone 4 and ADEME)",
+    "publisher": "Mistral AI",
+    "url": MISTRAL_2025["url"],
+    "version": "22 July 2025",
+    "retrieved": RETRIEVED,
+    "licence": "cited, not redistributed",
+    "used_for": "the published per-reply carbon and water figures",
+}
+NVIDIA_LICENCE = "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
 CAVEAT = ("GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration "
           "under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; "
           "a lightly used server sits well above it.")
-LICENCE_TEXT = "Compilation, site text and derived figures: CC BY 4.0. Each source keeps its own licence, listed per source."
+BOUNDARY = "gpu_only"
+FUNDING = ("Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the "
+           "questions on this site. It takes no money from hardware, cloud or model vendors.")
+LICENCE_TEXT = ("Compilation and site text: CC BY 4.0. Code: Apache 2.0. Third-party figures remain subject to their sources' "
+                "terms, listed per source.")
 
 
 # ----------------------------------------------------------------- helpers
@@ -149,10 +228,30 @@ def jdump(obj) -> str:
     return json.dumps(obj, ensure_ascii=False, indent=2) + "\n"
 
 
+WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"]
+
+
+def word(n: int) -> str:
+    return WORDS[n] if 0 <= n < len(WORDS) else f"{n:,}"
+
+
+def times(x: float, d: int = 1) -> str:
+    return f"{x:,.{d}f}×"
+
+
+LEGAL_NOTE = f"Regulatory summaries on this site are as at {long_date(LEGAL_AS_AT)}, for orientation, and are not legal advice."
+ATTRIBUTION = (f"{INDEX_NAME} index, Lead Green, a Katonic project, {SITE}/api/v1/, CC BY 4.0. Contains data from the "
+               f"ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled {SRC_MLE['compiled']}, retrieved {RETRIEVED}) "
+               "and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe].")
+
+
 # ----------------------------------------------------------------- ML.ENERGY
 chat = json.loads(MLE_CHAT.read_text(encoding="utf-8"))
 cfgs = chat["configurations"]
 gpqa = json.loads(MLE_GPQA.read_text(encoding="utf-8"))["configurations"]
+for _src, _n in ((SRC_MLE, len(cfgs)), (SRC_MLE_GPQA, len(gpqa))):
+    _src["configurations"] = (f"{_n} stable configurations: the leaderboard publishes the runs that passed its stability filter; "
+                              "every run, including the unstable ones, is in the gated Hugging Face dataset ml-energy/benchmark-v3")
 
 
 def best_by_model_gpu(configs, deadline_ms):
@@ -170,6 +269,32 @@ best = best_by_model_gpu(cfgs, ITL_DEADLINE_MS)
 best_gpqa = best_by_model_gpu(gpqa, GPQA_DEADLINE_MS)
 
 
+# F31: the source publishes a few configurations twice, with different results. Number the runs of an
+# identical configuration in source order; row_id carries the run number from the second run on.
+_seen: dict[tuple, int] = {}
+RUN_NO: dict[int, int] = {}
+for _c in cfgs:
+    _k = (slug(_c["nickname"]), _c["gpu_model"], _c["num_gpus"], _c["max_num_seqs"], _c["tensor_parallel"],
+          _c["data_parallel"], _c["expert_parallel"], _c["weight_precision"])
+    _seen[_k] = _seen.get(_k, 0) + 1
+    RUN_NO[id(_c)] = _seen[_k]
+
+
+def api_wh(c) -> float:
+    return round(round(c["energy_per_token_joules"], 7) * 1_000_000 / 3600, 2)
+
+
+def row_id(c) -> str:
+    base = f"{slug(c['nickname'])}/{c['gpu_model']}/{c['num_gpus']}/{c['max_num_seqs']}"
+    n = RUN_NO[id(c)]
+    return base if n == 1 else f"{base}/r{n}"
+
+
+_ids = [row_id(c) for c in cfgs]
+assert len(set(_ids)) == len(_ids), "row_id is not unique; extend it with the parallelism"
+REPEATED = {k for k, n in _seen.items() if n > 1}
+
+
 def api_row(c) -> dict:
     return {
         "model": c["nickname"],
@@ -180,12 +305,15 @@ def api_row(c) -> dict:
         "precision": precision_label(c["weight_precision"]),
         "gpu": c["gpu_model"],
         "num_gpus": c["num_gpus"],
-        "wh_per_million_output_tokens": round(wh_per_million(c["energy_per_token_joules"]), 2),
-        "joules_per_output_token": round(c["energy_per_token_joules"], 5),
+        "wh_per_million_output_tokens": api_wh(c),
+        "joules_per_output_token": round(c["energy_per_token_joules"], 7),
         "median_itl_ms": round(c["median_itl_ms"], 1),
         "avg_requests_in_flight": round(c["avg_batch_size"], 1),
         "gpu_power_watts_total": round(c["avg_power_watts"]),
         "avg_output_tokens": round(c["avg_output_len"]),
+        "avg_running_batch": round(c["avg_batch_size"], 1),
+        "max_num_seqs": c["max_num_seqs"],
+        "row_id": row_id(c),
     }
 
 
@@ -199,8 +327,8 @@ def api_cfg(c) -> dict:
         "precision": precision_label(c["weight_precision"]),
         "max_num_seqs": c["max_num_seqs"],
         "avg_requests_in_flight": round(c["avg_batch_size"], 1),
-        "wh_per_million_output_tokens": round(wh_per_million(c["energy_per_token_joules"]), 2),
-        "joules_per_output_token": round(c["energy_per_token_joules"], 5),
+        "wh_per_million_output_tokens": api_wh(c),
+        "joules_per_output_token": round(c["energy_per_token_joules"], 7),
         "median_itl_ms": round(c["median_itl_ms"], 1),
         "p90_itl_ms": round(c["p90_itl_ms"], 1),
         "p99_itl_ms": round(c["p99_itl_ms"], 1),
@@ -208,7 +336,17 @@ def api_cfg(c) -> dict:
         "gpu_power_watts_total": round(c["avg_power_watts"]),
         "avg_output_tokens": round(c["avg_output_len"]),
         "under_itl_deadline": c["median_itl_ms"] <= ITL_DEADLINE_MS,
+        "avg_running_batch": round(c["avg_batch_size"], 1),
+        "p95_itl_ms": round(c["p95_itl_ms"], 1),
+        "row_id": row_id(c),
+        "repeat": RUN_NO[id(c)],
     }
+
+
+# D20: the API's Wh/M is computed from the seven-decimal joules it publishes, so a consumer who recomputes
+# Wh/M = J x 1,000,000 / 3,600 from the published joules gets the published value on every configuration.
+# (Seven decimals alone leave one configuration on a rounding edge; deriving from the published joules closes it.)
+API_WH_EDGE = [row_id(_c) for _c in cfgs if api_wh(_c) != round(wh_per_million(_c["energy_per_token_joules"]), 2)]
 
 
 index_rows = []
@@ -245,7 +383,7 @@ for (name, gpu), c in best.items():
     models[slug(name)]["best"][gpu] = api_cfg(c)
 for m in models.values():
     m["gpus"].sort()
-    m["configurations"].sort(key=lambda x: (x["gpu"], x["num_gpus"], x["avg_requests_in_flight"]))
+    m["configurations"].sort(key=lambda x: (x["gpu"], x["num_gpus"], x["avg_requests_in_flight"], x["repeat"]))
 
 
 def params_cell(r) -> str:
@@ -293,52 +431,92 @@ def pairs_table():
             f"<th scope=\"row\"><span class=\"model\">{esc(m)}</span></th>"
             f"<td class=\"num\">{h['num_gpus']} × H100</td><td class=\"num\">{fmt(raw_wh(h))}</td>"
             f"<td class=\"num\">{b['num_gpus']} × B200</td><td class=\"num\">{fmt(raw_wh(b))}</td>"
-            f"<td class=\"num key\">{ratio:.1f}×</td>"
+            f"<td class=\"num key\">{ratio:.2f}×</td>"
             "</tr>"
         )
     return "\n".join(out), rows
 
 
-def ladder(name, gpu, num_gpus, seqs):
-    rows = {c["max_num_seqs"]: c for c in cfgs if c["nickname"] == name and c["gpu_model"] == gpu and c["num_gpus"] == num_gpus}
+def ladder(name, gpu, num_gpus):
+    rows = sorted((c for c in cfgs if c["nickname"] == name and c["gpu_model"] == gpu and c["num_gpus"] == num_gpus),
+                  key=lambda c: (c["max_num_seqs"], RUN_NO[id(c)]))
+    best_c = min(rows, key=lambda c: c["energy_per_token_joules"])
     out = []
-    for s in seqs:
-        c = rows[s]
+    for c in rows:
+        mark = " class=\"best\"" if c is best_c else ""
         out.append(
-            "<tr>"
-            f"<th scope=\"row\" class=\"num\">{fmt(c['avg_batch_size'], 0)}</th>"
+            f"<tr{mark}>"
+            f"<th scope=\"row\" class=\"num\">{fmt(c['max_num_seqs'], 0)}</th>"
+            f"<td class=\"num\">{fmt(c['avg_batch_size'], 0)}</td>"
             f"<td class=\"num key\">{fmt(wh_per_million(c['energy_per_token_joules']))}</td>"
             f"<td class=\"num\">{fmt(c['median_itl_ms'], 0)}</td>"
             f"<td class=\"num\">{fmt(c['output_throughput_tokens_per_sec'], 0)}</td>"
             f"<td class=\"num\">{fmt(c['avg_power_watts'], 0)}</td>"
             "</tr>"
         )
-    first, last = rows[seqs[0]], rows[seqs[-1]]
+    first = rows[0]
+    i = rows.index(best_c)
+    turn = rows[i + 1] if i + 1 < len(rows) else None
     return {
-        "rows": "\n".join(out),
-        "ratio": first["energy_per_token_joules"] / last["energy_per_token_joules"],
-        "first": wh_per_million(first["energy_per_token_joules"]),
-        "last": wh_per_million(last["energy_per_token_joules"]),
-        "first_w": first["avg_power_watts"], "last_w": last["avg_power_watts"],
-        "first_itl": first["median_itl_ms"], "last_itl": last["median_itl_ms"],
-        "first_tps": first["output_throughput_tokens_per_sec"], "last_tps": last["output_throughput_tokens_per_sec"],
-        "first_batch": first["avg_batch_size"], "last_batch": last["avg_batch_size"],
+        "rows": "\n".join(out), "count": len(rows),
+        "ratio": first["energy_per_token_joules"] / best_c["energy_per_token_joules"],
+        "first": wh_per_million(first["energy_per_token_joules"]), "best": wh_per_million(best_c["energy_per_token_joules"]),
+        "first_w": first["avg_power_watts"], "best_w": best_c["avg_power_watts"],
+        "power_pct": (best_c["avg_power_watts"] / first["avg_power_watts"] - 1) * 100,
+        "first_itl": first["median_itl_ms"], "best_itl": best_c["median_itl_ms"],
+        "max_itl_to_best": max(c["median_itl_ms"] for c in rows[: i + 1]),
+        "first_tps": first["output_throughput_tokens_per_sec"], "best_tps": best_c["output_throughput_tokens_per_sec"],
+        "tps_ratio": best_c["output_throughput_tokens_per_sec"] / first["output_throughput_tokens_per_sec"],
+        "first_batch": first["avg_batch_size"], "best_batch": best_c["avg_batch_size"],
+        "first_cap": first["max_num_seqs"], "best_cap": best_c["max_num_seqs"],
+        # aliases kept while pages still say "last": the last row the old pages showed was the best row
+        "last": wh_per_million(best_c["energy_per_token_joules"]), "last_w": best_c["avg_power_watts"],
+        "last_itl": best_c["median_itl_ms"], "last_tps": best_c["output_throughput_tokens_per_sec"],
+        "last_batch": best_c["avg_batch_size"],
+        "turn": None if turn is None else {
+            "cap": turn["max_num_seqs"], "wh": wh_per_million(turn["energy_per_token_joules"]),
+            "itl": turn["median_itl_ms"], "batch": turn["avg_batch_size"]},
     }
 
 
-# problem solving versus chat, energy per response, same model and GPU, best row each
+# problem solving versus chat, same model and GPU, best row of each task (F30, D23)
 gpqa_pairs = []
 for k, c in best.items():
     if k in best_gpqa:
         g = best_gpqa[k]
         gpqa_pairs.append({
-            "model": k[0], "gpu": k[1],
+            "model": k[0], "gpu": k[1], "num_gpus": c["num_gpus"], "num_gpus_gpqa": g["num_gpus"],
             "ratio": g["energy_per_request_joules"] / c["energy_per_request_joules"],
+            "ratio_tok": g["energy_per_token_joules"] / c["energy_per_token_joules"],
+            "ratio_out": g["avg_output_len"] / c["avg_output_len"],
             "out_gpqa": g["avg_output_len"], "out_chat": c["avg_output_len"],
+            "batch_chat": c["avg_batch_size"], "batch_gpqa": g["avg_batch_size"],
             "wh_chat": wh_per_million(c["energy_per_token_joules"]),
             "wh_gpqa": wh_per_million(g["energy_per_token_joules"]),
         })
 gpqa_pairs.sort(key=lambda p: p["ratio"])
+gp_nemo = [p for p in gpqa_pairs if "Nemotron" in p["model"]]
+gp_rest = [p for p in gpqa_pairs if "Nemotron" not in p["model"]]
+gp_rest_families = sorted({p["model"].split()[0] for p in gp_rest})
+
+
+def gpqa_table() -> str:
+    out = []
+    for p in gpqa_pairs:
+        gpus = (f"{p['num_gpus']} × {p['gpu']}" if p["num_gpus"] == p["num_gpus_gpqa"]
+                else f"{p['num_gpus']} and {p['num_gpus_gpqa']} × {p['gpu']}")
+        out.append(
+            "<tr>"
+            f"<th scope=\"row\"><span class=\"model\">{esc(p['model'])}</span></th>"
+            f"<td class=\"num\">{gpus}</td>"
+            f"<td class=\"num key\">{times(p['ratio'])}</td>"
+            f"<td class=\"num\">{times(p['ratio_tok'], 2)}</td>"
+            f"<td class=\"num\">{fmt(p['out_chat'], 0)} / {fmt(p['out_gpqa'], 0)}</td>"
+            f"<td class=\"num\">{fmt(p['batch_chat'], 0)} / {fmt(p['batch_gpqa'], 0)}</td>"
+            "</tr>"
+        )
+    return "\n".join(out)
+
 
 # ----------------------------------------------------------------- Ember
 ember = list(csv.DictReader(EMBER.open(encoding="utf-8")))
@@ -350,6 +528,17 @@ COUNTRIES = [  # the grids shown on the page; the API carries every country
     ("DEU", "Germany"), ("FRA", "France"), ("GBR", "United Kingdom"), ("IRL", "Ireland"),
     ("NOR", "Norway"), ("USA", "United States"), ("JPN", "Japan"),
 ]
+SHORT_NAMES = {  # F23: the short names the site shows; grid.json carries them as display_name
+    "Hong Kong (SAR of China)": "Hong Kong", "Macao (SAR of China)": "Macao", "Taiwan (China)": "Taiwan",
+    "Cook Islands (the)": "Cook Islands", "Palestine (State of)": "Palestine", "Tanzania (the United Republic of)": "Tanzania",
+}
+ISO2 = json.loads(ISO3166.read_text(encoding="utf-8"))["alpha_3_to_alpha_2"]
+years_by_area: dict[str, dict[str, float]] = {}
+for r in ember:
+    key = "WLD" if r["Area"] == "World" else r["ISO 3 code"]
+    val = r["Emissions intensity (gCO2e/kWh)"]
+    if key and val != "":
+        years_by_area.setdefault(key, {})[r["Year"]] = round(float(val), 1)
 areas = []
 intensity: dict[str, float] = {}
 for r in ember:
@@ -358,14 +547,24 @@ for r in ember:
     g = float(r["Emissions intensity (gCO2e/kWh)"])
     if r["Area"] == "World":
         intensity["World"] = g
-        areas.append({"iso3": "WLD", "name": "World", "area_type": "world", "g_co2e_per_kwh": round(g, 1)})
+        yrs = dict(sorted(years_by_area["WLD"].items()))
+        areas.append({"iso3": "WLD", "name": "World", "area_type": "world", "g_co2e_per_kwh": round(g, 1),
+                      "display_name": "World", "iso2": None, "years": yrs, "latest_year": max(yrs)})
         continue
     intensity[r["ISO 3 code"]] = g
+    yrs = dict(sorted(years_by_area[r["ISO 3 code"]].items()))
     areas.append({"iso3": r["ISO 3 code"], "name": r["Area"], "area_type": "country", "continent": r["Continent"],
-                  "g_co2e_per_kwh": round(g, 1)})
+                  "g_co2e_per_kwh": round(g, 1), "display_name": SHORT_NAMES.get(r["Area"], r["Area"]),
+                  "iso2": ISO2.get(r["ISO 3 code"]), "years": yrs, "latest_year": max(yrs)})
 areas.sort(key=lambda a: (a["area_type"] != "world", a["name"]))
 world = intensity["World"]
 grid_count = sum(1 for a in areas if a["area_type"] == "country")
+countries_only = [a for a in areas if a["area_type"] == "country"]
+grid_min = min(countries_only, key=lambda a: intensity[a["iso3"]])
+grid_max = max(countries_only, key=lambda a: intensity[a["iso3"]])
+grid_2025_count = sum(1 for a in countries_only if "2025" in a["years"])
+no_2025_listed = [name for iso, name in COUNTRIES if "2025" not in years_by_area[iso]]
+no_iso2 = [a["name"] for a in countries_only if not a["iso2"]]
 
 
 def kg_per_billion(wh_per_m: float, g_per_kwh: float) -> float:
@@ -397,24 +596,23 @@ def carbon_table() -> str:
 # ----------------------------------------------------------------- AI Energy Score
 aies = list(csv.DictReader(AIES.open(encoding="utf-8-sig")))
 aies_dec = [r for r in aies if r["test date"].strip().startswith("Dec")]
-AIES_PICK = [
-    "google/gemma-3-270m", "Qwen/Qwen3-0.6B", "HuggingFaceTB/SmolLM3-3B", "google/gemma-3-4b-pt",
-    "mistralai/Mistral-Nemo-Instruct-2407", "Qwen/Qwen2.5-Coder-14B", "Qwen/Qwen3-30B-A3B",
-    "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B", "google/gemma-3-27b-pt",
-    "deepseek-ai/DeepSeek-R1-Distill-Llama-70B", "Qwen/Qwen3-235B-A22B", "zai-org/GLM-4.6",
-]
-per_query_rows = sorted(
-    ({"model": r["model"], "class": r["class"], "wh_per_1000_queries": round(float(r["total_gpu_energy"]) * 1000, 1),
-      "score": int(r["energy_score"])} for r in aies_dec),
-    key=lambda x: x["wh_per_1000_queries"],
-)
+
+
+def aies_row(r) -> dict:
+    row = {"model": r["model"].replace("*", ""), "class": r["class"],
+           "wh_per_1000_queries": round(float(r["total_gpu_energy"]) * 1000, 1), "score": int(r["energy_score"]),
+           "source_label": r["model"]}
+    if "*" in r["model"]:
+        row["note"] = "The source marks this row with an asterisk; model holds the clean Hugging Face id."
+    return row
+
+
+per_query_rows = sorted((aies_row(r) for r in aies_dec), key=lambda x: x["wh_per_1000_queries"])
 
 
 def aies_table() -> str:
     out = []
     for r in per_query_rows:
-        if r["model"] not in AIES_PICK:
-            continue
         out.append(
             "<tr>"
             f"<th scope=\"row\"><span class=\"model\">{esc(r['model'])}</span></th>"
@@ -426,8 +624,21 @@ def aies_table() -> str:
     return "\n".join(out)
 
 
-def aies_val(model_id: str) -> float:
-    return next(r["wh_per_1000_queries"] for r in per_query_rows if r["model"] == model_id)
+def aies_val(model_id: str, round_prefix: str = "Dec") -> float:
+    return next(round(float(r["total_gpu_energy"]) * 1000, 1) for r in aies
+                if r["model"] == model_id and r["test date"].strip().startswith(round_prefix))
+
+
+aies_class = {}
+for cl in ("A", "B", "C"):
+    vals = [r["wh_per_1000_queries"] for r in per_query_rows if r["class"] == cl]
+    lo, hi = min(vals), max(vals)
+    aies_class[cl] = {"count": len(vals), "lo": lo, "hi": hi, "five_star_up_to": lo + (hi - lo) / 5}
+_c5 = [r for r in per_query_rows if r["class"] == "C" and r["score"] == 5]
+_b_low = min((r for r in per_query_rows if r["class"] == "B"), key=lambda r: r["score"])
+aies_heavy5 = max(_c5, key=lambda r: r["wh_per_1000_queries"])
+aies_light_b = min((r for r in per_query_rows if r["class"] == "B" and r["score"] == _b_low["score"]),
+                   key=lambda r: r["wh_per_1000_queries"])
 
 
 # ----------------------------------------------------------------- hardware
@@ -456,8 +667,8 @@ def mig_table() -> str:
 
 # ----------------------------------------------------------------- derived figures for prose
 pairs_html, pairs = pairs_table()
-l32 = ladder("Qwen 3 32B", "H100", 2, [8, 16, 32, 64, 128, 256])
-l8 = ladder("Llama 3.1 8B Instruct", "H100", 1, [8, 16, 32, 64, 128, 256, 512])
+l32 = ladder("Qwen 3 32B", "H100", 2)
+l8 = ladder("Llama 3.1 8B Instruct", "H100", 1)
 ref_wh = wh_per_million(ref_j)                     # raw, for the page tables and prose
 ref_wh_api = ref["wh_per_million_output_tokens"]   # the two-decimal value the API and MCP server return
 tokens_per_mwh_ref_b = 1_000_000 / ref_wh / 1000          # million Wh ÷ Wh per million tokens = million tokens; ÷1000 = billions
@@ -468,6 +679,8 @@ kettle_minutes_ref = ref_wh / (KETTLE_KW * 1000) * 60
 sau_nor_ratio = intensity["SAU"] / intensity["NOR"]
 gp_min, gp_max = gpqa_pairs[0], gpqa_pairs[-1]
 aies_70b = aies_val("deepseek-ai/DeepSeek-R1-Distill-Llama-70B")
+aies_70b_feb = aies_val("meta-llama/Meta-Llama-3-70B", "Feb")
+aies_apertus = aies_val("swiss-ai/Apertus-70B-Instruct-2509")
 aies_small = per_query_rows[0]
 aies_large = per_query_rows[-1]
 
@@ -498,11 +711,11 @@ subs = {
     "CARBON_ROWS": carbon_table(), "AIES_ROWS": aies_table(),
     "TDP_ROWS": tdp_table(), "MIG_ROWS": mig_table(),
     # tiles and counts
-    "TILE_LOW_WH": fmt(raw_wh(low), 0),
+    "TILE_LOW_WH": fmt(raw_wh(low), 1),
     "TILE_LOW_LABEL": f"{low['model']}, {low['num_gpus']} × {low['gpu']}",
-    "TILE_REF_WH": fmt(ref_wh, 0),
+    "TILE_REF_WH": fmt(ref_wh, 1),
     "TILE_REF_LABEL": f"{ref['model']}, {ref['num_gpus']} × {ref['gpu']}",
-    "TILE_HIGH_WH": fmt(raw_wh(high), 0),
+    "TILE_HIGH_WH": fmt(raw_wh(high), 1),
     "TILE_HIGH_LABEL": f"{high['model']}, {high['num_gpus']} × {high['gpu']}",
     "LOW_MODEL": low["model"], "LOW_GPUS": f"{low['num_gpus']} × {low['gpu']}", "LOW_WH_1": fmt(raw_wh(low)),
     "HIGH_MODEL": high["model"], "HIGH_GPUS": f"{high['num_gpus']} × {high['gpu']}", "HIGH_WH_1": fmt(raw_wh(high)),
@@ -515,7 +728,7 @@ subs = {
     "PER_QUERY_COUNT": str(len(per_query_rows)),
     # pairs
     "PAIR_COUNT": str(len(pairs)),
-    "PAIR_MAX_MODEL": pairs[0][0], "PAIR_MAX_RATIO": f"{pairs[0][3]:.1f}",
+    "PAIR_MAX_MODEL": pairs[0][0], "PAIR_MAX_RATIO": f"{pairs[0][3]:.2f}",
     "PAIR_MIN_MODEL": pairs[-1][0], "PAIR_MIN_RATIO": f"{pairs[-1][3]:.2f}",
     # ladders
     "LADDER_32_RATIO": f"{l32['ratio']:.1f}", "LADDER_32_FIRST": fmt(l32["first"], 0), "LADDER_32_LAST": fmt(l32["last"], 0),
@@ -558,6 +771,206 @@ subs = {
     "B200_TDP": "1,000", "H100_TDP": "700", "DGX_B200_KW": fmt(hw["systems"][0]["max_power_kw"], 1),
     "B200_EMBODIED_KG": fmt(hw["embodied"]["kg_co2e_cradle_to_gate"], 0),
 }
+
+# ----------------------------------------------------------------- derived figures added in the review fixes
+def cfg_wh(c) -> float:
+    return wh_per_million(c["energy_per_token_joules"])
+
+
+def and_list(items: list[str]) -> str:
+    items = list(items)
+    if len(items) <= 1:
+        return "".join(items)
+    return ", ".join(items[:-1]) + " and " + items[-1]
+
+
+def short_date(iso: str) -> str:
+    d = date.fromisoformat(iso)
+    return f"{d.day} {d:%b %Y}"
+
+
+def tile_sub(r, extra: str = "") -> str:
+    c = r["_cfg"]
+    return (f"{r['model']}, {r['num_gpus']} × {r['gpu']}. Running batch {fmt(c['avg_batch_size'], 0)}, "
+            f"median ITL {fmt(c['median_itl_ms'], 0)} ms.{extra}")
+
+
+ref_rank = index_rows.index(ref) + 1
+max_chat_itl = max(c["median_itl_ms"] for c in cfgs)
+max_gpqa_itl = max(c["median_itl_ms"] for c in gpqa)
+
+# D5: what tighter ceilings would do (reported, not applied)
+def sens_part(d: int) -> str:
+    b = best_by_model_gpu(cfgs, d)
+    changed = sum(1 for k, c in best.items() if b.get(k) is not c)
+    gone = sum(1 for k in best if k not in b)
+    ordered = sorted(b.values(), key=lambda c: c["energy_per_token_joules"])
+    lo, hi = ordered[0], ordered[-1]
+    part = f"at {d} ms, {changed} {'row changes' if changed == 1 else 'rows change'}"
+    if gone:
+        part += f" ({gone} of them with no configuration that fast)"
+    extra = []
+    if lo is not low["_cfg"]:
+        extra.append(f"the lowest becomes {lo['nickname']} on {lo['num_gpus']} × {lo['gpu_model']} at {fmt(cfg_wh(lo))} Wh/M")
+    if hi is not high["_cfg"]:
+        extra.append(f"the highest becomes {hi['nickname']} on {hi['num_gpus']} × {hi['gpu_model']} at {fmt(cfg_wh(hi))} Wh/M")
+    return part + (" and " + " and ".join(extra) if extra else "")
+
+
+_sens = [sens_part(d) for d in SENSITIVITY_MS]
+sens_sentence = (_sens[0][0].upper() + _sens[0][1:] + "; " + "; ".join(_sens[1:]) + ".")
+
+# D5: the two generations at a 50 ms ceiling
+_b50 = best_by_model_gpu(cfgs, 50)
+_both50 = sorted({k[0] for k in _b50 if (k[0], "H100") in _b50 and (k[0], "B200") in _b50})
+_hwins = [(m, _b50[(m, "H100")], _b50[(m, "B200")]) for m in _both50
+          if _b50[(m, "H100")]["energy_per_token_joules"] < _b50[(m, "B200")]["energy_per_token_joules"]]
+pair50_sentence = (
+    f"At a 50 ms ceiling the comparison shifts: {len(_both50)} models still have a row on both cards, and the H100 uses less "
+    f"energy per token than the B200 on {word(len(_hwins))} of them ("
+    + "; ".join(f"{m}, {fmt(cfg_wh(h))} Wh/M on {h['num_gpus']} × H100 against {fmt(cfg_wh(b))} on {b['num_gpus']} × B200"
+                for m, h, b in _hwins) + ")."
+) if _hwins else f"At a 50 ms ceiling, {len(_both50)} models still have a row on both cards, and the B200 stays ahead on every one."
+
+# D23: the widest generations gap, read against the sweep that produced it (F34)
+_pm, _ph, _pb, _pratio = pairs[0]
+_h_sweep = [c for c in cfgs if c["nickname"] == _pm and c["gpu_model"] == "H100"]
+_h_counts = sorted({c["num_gpus"] for c in _h_sweep})
+_h_cap_max = max(c["max_num_seqs"] for c in _h_sweep)
+_hc, _bc = _ph["_cfg"], _pb["_cfg"]
+_match = [c for c in cfgs if c["nickname"] == _pm and c["gpu_model"] == "B200" and c["num_gpus"] == _bc["num_gpus"]
+          and c["max_num_seqs"] == _hc["max_num_seqs"]]
+assert len(_match) == 1, "no B200 row at the H100 row's cap"
+_mc = _match[0]
+_match_ratio = cfg_wh(_hc) / cfg_wh(_mc)
+_sweep_phrase = (f"was run only at {word(_h_counts[0])} cards and a cap of at most {_h_cap_max:,} requests" if len(_h_counts) == 1
+                 else f"was run at {and_list([str(n) for n in _h_counts])} cards and a cap of at most {_h_cap_max:,} requests")
+_nemo_pairs = [(m, h["_cfg"], b["_cfg"]) for m, h, b, _ in pairs if "Nemotron" in m]
+_nemo_pairs.sort(key=lambda t: t[0])
+pair_sweep_sentence = (
+    f"The gap also depends on which configurations were swept. The {_pratio:.2f}× pair compares an H100 row that {_sweep_phrase} "
+    f"with a B200 row at a running batch of {fmt(_bc['avg_batch_size'], 0)} on {word(_bc['num_gpus'])} cards; at the same cap of "
+    f"{_hc['max_num_seqs']:,} the B200 row reads {fmt(cfg_wh(_mc))} Wh/M against the H100's {fmt(cfg_wh(_hc))}, a gap of "
+    f"{_match_ratio:.2f}×."
+    + (f" The {word(len(_nemo_pairs))} Nemotron pairs compare runs whose average answers are "
+       + and_list([f"{b['avg_output_len'] / h['avg_output_len']:.1f}" for _, h, b in _nemo_pairs])
+       + " times longer on the B200 ("
+       + and_list([fmt(h['avg_output_len'], 0) for _, h, _b in _nemo_pairs]) + " tokens on the H100 against "
+       + and_list([fmt(b['avg_output_len'], 0) for _, _h, b in _nemo_pairs]) + ")." if _nemo_pairs else "")
+)
+
+# D23 / F30: the two workloads
+_rest_fam = sorted({p["model"].split()[0] for p in gp_rest}, key=lambda f: (-sum(1 for p in gp_rest if p["model"].startswith(f)), f))
+gpqa_tok_sentence = (
+    f"and because the long outputs cut the batch the server can hold, so energy per token itself is "
+    f"{min(p['ratio_tok'] for p in gp_rest):.1f} to {max(p['ratio_tok'] for p in gp_rest):.1f} times the Text Conversation figure "
+    f"for the {and_list(_rest_fam)} pairs, and {min(p['ratio_tok'] for p in gp_nemo):.1f} to "
+    f"{max(p['ratio_tok'] for p in gp_nemo):.1f} times it for the {word(len(gp_nemo))} Nemotron pairs"
+)
+
+# D4: to the meter. The printed sum uses the displayed factors so that it multiplies out as printed.
+_sys = hw["systems"][0]
+_sys_n = int(re.match(r"\s*(\d+)", _sys["gpus"]).group(1))
+_b200_w = next(t["max_tdp_w"] for t in hw["tdp"] if t["gpu"].startswith("B200"))
+gpu_kw_sys = _sys_n * _b200_w / 1000
+sys_ratio = _sys["max_power_kw"] / gpu_kw_sys
+meter_wh = round(ref_wh, 1) * round(sys_ratio, 2) * PUE_EXAMPLE
+meter_tokens_b = 1_000_000 / meter_wh / 1000
+
+# F4: SCI illustration, M against E x I, for the one index row that uses a whole eight-GPU baseboard
+_sci = next(r for r in index_rows if (r["model"], r["gpu"]) == ("DeepSeek V3.1", "B200"))
+assert _sci["num_gpus"] == _sys_n, "the SCI illustration needs a row that uses one whole eight-GPU baseboard"
+_sci_g_per_h = hw["embodied"]["kg_co2e_cradle_to_gate"] * 1000 / (SCI_LIFE_YEARS * 8760)
+_sci_mtok_per_h = _sci["_cfg"]["output_throughput_tokens_per_sec"] * 3600 / 1_000_000
+sci_m_per_m = _sci_g_per_h / _sci_mtok_per_h
+sci_ei_nor = kg_per_billion(raw_wh(_sci), intensity["NOR"])   # g per million tokens = kg per billion
+
+# AI Energy Score facts (F33)
+aies_cross_ratio = aies_heavy5["wh_per_1000_queries"] / aies_light_b["wh_per_1000_queries"]
+
+subs.update({
+    # publisher, funding, contact (D1, D10, D13, D16)
+    "CONTACT_EMAIL": CONTACT_EMAIL, "CONTACT_LINK": f"<a href=\"mailto:{CONTACT_EMAIL}\">{CONTACT_EMAIL}</a>",
+    "RESPONSE_DAYS": word(RESPONSE_DAYS), "PUBLISHER_ENTITY": PUBLISHER_ENTITY, "PUBLISHER_REGISTRATION": PUBLISHER_REGISTRATION,
+    "PUBLISHER_JURISDICTION": PUBLISHER_JURISDICTION,
+    "PUBLISHER_ADDRESS": (esc(PUBLISHER_ADDRESS) if PUBLISHER_ADDRESS else "to be added, word for word from the DIFC registry extract, before launch"),
+    "REVIEWERS_PHRASE": (and_list([esc(n) for n in REVIEWERS]) if REVIEWERS else "two named reviewers, listed here before the first contributed row is accepted"),
+    "OUTSIDE_REVIEWER_PHRASE": (esc(OUTSIDE_REVIEWER) if OUTSIDE_REVIEWER else "a named reviewer with no Katonic affiliation, to be named here before the first Katonic row is published"),
+    "SUBMISSIONS_OPEN_PHRASE": (f"on {long_date(SUBMISSIONS_OPEN)}" if SUBMISSIONS_OPEN else "on a date to be announced on this page"),
+    "LEGAL_AS_AT_LONG": long_date(LEGAL_AS_AT), "RETRIEVED_LONG": long_date(RETRIEVED), "DATA_VERSION": DATA_VERSION,
+    # sources (D21)
+    "MLE_SHORT": f"ML.ENERGY Leaderboard v3.0 (data compiled {long_date(SRC_MLE['compiled'])})",
+    "MLE_COMPILED_LONG": long_date(SRC_MLE["compiled"]), "MLE_RELEASED_LONG": long_date(SRC_MLE["released"]),
+    "MLE_CITE": SRC_MLE["cite"], "MLE_CITE_URL": SRC_MLE["cite_url"],
+    "MLE_BLOCK": (
+        f"<a href=\"{SRC_MLE['url']}\">ML.ENERGY Leaderboard</a> version 3.0 (released {long_date(SRC_MLE['released'])}; data compiled "
+        f"{long_date(SRC_MLE['compiled'])}; retrieved {long_date(RETRIEVED)}), The ML.ENERGY Initiative, started at SymbioticLab, "
+        f"University of Michigan. Text Conversation task, {len(cfgs)} stable configurations. Energy per token is steady-state GPU energy "
+        "divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; "
+        "energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its "
+        f"model and GPU at or under a {ITL_DEADLINE_MS} ms median inter-token latency, the leaderboard's own default ceiling, which no "
+        "configuration reaches. Apache 2.0 per the <a href=\"https://huggingface.co/datasets/ml-energy/benchmark-v3\">ml-energy/benchmark-v3</a> "
+        f"dataset card. Cite <a href=\"{SRC_MLE['cite_url']}\">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>."
+    ),
+    "ATTRIBUTION": esc(ATTRIBUTION), "FUNDING": esc(FUNDING), "LEGAL_NOTE": esc(LEGAL_NOTE),
+    # tiles (F10)
+    "TILE_LOW_SUB": tile_sub(low), "TILE_HIGH_SUB": tile_sub(high),
+    "TILE_REF_SUB": tile_sub(ref, " The carbon table is priced on this row."),
+    "REF_RANK": str(ref_rank), "REF_P99": fmt(ref["_cfg"]["p99_itl_ms"], 0), "REF_TPS": fmt(ref["_cfg"]["output_throughput_tokens_per_sec"], 0),
+    "MAX_CHAT_ITL": fmt(max_chat_itl, 0), "MAX_GPQA_ITL": fmt(max_gpqa_itl, 0),
+    "SENS_SENTENCE": sens_sentence, "PAIR50_SENTENCE": pair50_sentence, "PAIR_SWEEP_SENTENCE": pair_sweep_sentence,
+    # ladders (F7)
+    **{f"{p}_{k}": v for p, lad in (("L32", l32), ("L8", l8)) for k, v in {
+        "COUNT": str(lad["count"]), "COUNT_WORD": word(lad["count"]),
+        "FIRST": fmt(lad["first"], 0), "FIRST_CAP": fmt(lad["first_cap"], 0), "FIRST_BATCH": fmt(lad["first_batch"], 0),
+        "FIRST_W": fmt(lad["first_w"], 0), "FIRST_TPS": fmt(lad["first_tps"], 0), "FIRST_ITL": fmt(lad["first_itl"], 0),
+        "BEST": fmt(lad["best"], 1), "BEST_CAP": fmt(lad["best_cap"], 0), "BEST_BATCH": fmt(lad["best_batch"], 0),
+        "BEST_W": fmt(lad["best_w"], 0), "BEST_TPS": fmt(lad["best_tps"], 0), "BEST_ITL": fmt(lad["best_itl"], 0),
+        "MAX_ITL": fmt(lad["max_itl_to_best"], 0), "POWER_PCT": fmt(lad["power_pct"], 0), "TPS_RATIO": f"{lad['tps_ratio']:.1f}",
+        "RATIO": f"{lad['ratio']:.1f}",
+        "TURN_CAP": fmt(lad["turn"]["cap"], 0) if lad["turn"] else "", "TURN_WH": fmt(lad["turn"]["wh"], 1) if lad["turn"] else "",
+        "TURN_ITL": fmt(lad["turn"]["itl"], 0) if lad["turn"] else "",
+    }.items()},
+    # two workloads (F30, D23)
+    "GPQA_ROWS": gpqa_table(), "GPQA_TOK_SENTENCE": gpqa_tok_sentence,
+    "GPQA_OUTR_MIN": f"{min(p['ratio_out'] for p in gpqa_pairs):.1f}", "GPQA_OUTR_MAX": f"{max(p['ratio_out'] for p in gpqa_pairs):.1f}",
+    "GPQA_TOK_MIN": f"{min(p['ratio_tok'] for p in gpqa_pairs):.2f}", "GPQA_TOK_MAX": f"{max(p['ratio_tok'] for p in gpqa_pairs):.2f}",
+    # to the meter (D4)
+    "SYS_NAME": _sys["system"], "SYS_KW": fmt(_sys["max_power_kw"], 1), "SYS_GPU_COUNT": str(_sys_n), "SYS_GPU_W": f"{_b200_w:,}",
+    "SYS_GPU_KW": fmt(gpu_kw_sys, 1), "SYS_RATIO": f"{sys_ratio:.2f}", "PUE_EXAMPLE": f"{PUE_EXAMPLE:g}",
+    "METER_WH": fmt(meter_wh, 0), "METER_TOKENS_B": fmt(meter_tokens_b, 1),
+    "GOOGLE_WH": f"{GOOGLE_2025['wh']:g}", "GOOGLE_ACCEL_PCT": f"{GOOGLE_2025['accelerator_share'] * 100:.0f}",
+    "GOOGLE_NARROW_WH": f"{GOOGLE_2025['narrow_wh']:.2f}", "GOOGLE_G": f"{GOOGLE_2025['g_co2e']:g}", "GOOGLE_ML": f"{GOOGLE_2025['water_ml']:g}",
+    "GOOGLE_STACK_LO": f"{1 / GOOGLE_2025['accelerator_share']:.1f}", "GOOGLE_STACK_HI": f"{GOOGLE_2025['wh'] / GOOGLE_2025['narrow_wh']:.1f}",
+    "GOOGLE_URL": GOOGLE_2025["url"], "MISTRAL_URL": MISTRAL_2025["url"],
+    "MISTRAL_G": f"{MISTRAL_2025['g_co2e']:g}", "MISTRAL_ML": f"{MISTRAL_2025['water_ml']:g}", "MISTRAL_TOKENS": f"{MISTRAL_2025['tokens']:,}",
+    # grids (D6, F14)
+    "LISTED_GRID_COUNT": str(len(COUNTRIES)), "LISTED_GRID_WORD": "twenty-two" if len(COUNTRIES) == 22 else str(len(COUNTRIES)),
+    "GRID_MIN_NAME": grid_min["display_name"], "GRID_MIN_G": fmt(intensity[grid_min["iso3"]], 1),
+    "GRID_MAX_NAME": grid_max["display_name"], "GRID_MAX_G": fmt(intensity[grid_max["iso3"]], 1),
+    "GRID_SPREAD": f"{intensity[grid_max['iso3']] / intensity[grid_min['iso3']]:.1f}",
+    "GRID_2025_COUNT": str(grid_2025_count), "GRID_NO_2025": and_list(no_2025_listed),
+    "EMBER_BASIS": esc(EMBER_BASIS),
+    # SCI (F4)
+    "SCI_LIFE_YEARS": str(SCI_LIFE_YEARS), "SCI_G_PER_H": fmt(_sci_g_per_h, 1), "SCI_MODEL": _sci["model"],
+    "SCI_GPUS": f"{_sci['num_gpus']} × {_sci['gpu']}", "SCI_MTOK_PER_H": fmt(_sci_mtok_per_h, 1),
+    "SCI_M_PER_M": fmt(sci_m_per_m, 1), "SCI_EI_NOR": fmt(sci_ei_nor, 1),
+    # AI Energy Score (F9, F27, F28, F33)
+    "AIES_ALL_COUNT": str(len(per_query_rows)), "AIES_FIXED_TOKENS": word(AIES_FIXED_TOKENS),
+    "AIES_70B_FEB_WH": fmt(aies_70b_feb), "AIES_APERTUS_WH": fmt(aies_apertus),
+    **{f"AIES_{cl}_{k}": v for cl, d in aies_class.items() for k, v in {
+        "COUNT": str(d["count"]), "LO": fmt(d["lo"]), "HI": fmt(d["hi"]), "FIVE_UP_TO": fmt(d["five_star_up_to"])}.items()},
+    "AIES_HEAVY5_MODEL": aies_heavy5["model"], "AIES_HEAVY5_WH": fmt(aies_heavy5["wh_per_1000_queries"]),
+    "AIES_LIGHTB_MODEL": aies_light_b["model"], "AIES_LIGHTB_WH": fmt(aies_light_b["wh_per_1000_queries"]),
+    "AIES_LIGHTB_STARS": word(aies_light_b["score"]), "AIES_CROSS_RATIO": f"{aies_cross_ratio:.1f}",
+})
+
+if os.environ.get("LEADGREEN_REPORT"):
+    for k in sorted(subs):
+        v = subs[k]
+        if len(v) < 400 and "<tr" not in v:
+            print(f"{k} = {v}")
+    print("API_WH_EDGE", API_WH_EDGE, "REPEATED", sorted(REPEATED), "no_iso2", no_iso2)
 
 # ----------------------------------------------------------------- API documents
 ENDPOINTS = [

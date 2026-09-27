@@ -76,7 +76,7 @@
   <p class="eyebrow">Data API</p>
   <h1>Every table, as JSON</h1>
   <p class="stand">The index is published as static JSON files under <code>/api/v1/</code>. No key, no tracking, no rate limit beyond what a static host imposes. Fetch them from a browser, a spreadsheet, a notebook or a build pipeline. Version 1 only ever adds fields; it never renames or removes them.</p>
-  <p class="unit"><b>Base URL</b> https://leadgreen.ai/api/v1/ · <b>Updated</b> 26 September 2026 · <b>Licence</b> CC BY 4.0 for the compilation; sources keep theirs</p>
+  <p class="unit"><b>Base URL</b> https://leadgreen.ai/api/v1/ · <b>Updated</b> 27 September 2026 · <b>Licence</b> CC BY 4.0 for the compilation; sources keep theirs</p>
 </div>
 
 <section class="first" id="endpoints">
@@ -105,10 +105,10 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
   <h3>index.json, trimmed</h3>
 <pre><code>{
   &quot;version&quot;: &quot;1&quot;,
-  &quot;updated&quot;: &quot;2026-09-26&quot;,
+  &quot;updated&quot;: &quot;2026-09-27&quot;,
   &quot;unit&quot;: &quot;Wh per million output tokens&quot;,
   &quot;workload&quot;: &quot;text-conversation&quot;,
-  &quot;itl_deadline_ms&quot;: 400,
+  &quot;itl_deadline_ms&quot;: 500,
   &quot;selection&quot;: &quot;per model and GPU, the configuration with the lowest energy per token whose median inter-token latency is under itl_deadline_ms&quot;,
   &quot;reference_row&quot;: {
     &quot;model&quot;: &quot;Qwen 3 32B&quot;,
@@ -117,7 +117,7 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
   },
   &quot;source&quot;: {
     &quot;name&quot;: &quot;ML.ENERGY Leaderboard&quot;,
-    &quot;version&quot;: &quot;3.0, last updated 2026-09-23&quot;,
+    &quot;version&quot;: &quot;3.0 (released 2025-12-01); data compiled 2026-02-16&quot;,
     &quot;url&quot;: &quot;https://ml.energy/leaderboard/&quot;,
     &quot;...&quot;: &quot;...&quot;
   },
@@ -132,11 +132,14 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
       &quot;gpu&quot;: &quot;B200&quot;,
       &quot;num_gpus&quot;: 1,
       &quot;wh_per_million_output_tokens&quot;: 12.97,
-      &quot;joules_per_output_token&quot;: 0.0467,
+      &quot;joules_per_output_token&quot;: 0.0466958,
       &quot;median_itl_ms&quot;: 124.9,
       &quot;avg_requests_in_flight&quot;: 2042.9,
       &quot;gpu_power_watts_total&quot;: 691,
-      &quot;avg_output_tokens&quot;: 396
+      &quot;avg_output_tokens&quot;: 396,
+      &quot;avg_running_batch&quot;: 2042.9,
+      &quot;max_num_seqs&quot;: 2048,
+      &quot;row_id&quot;: &quot;llama-3-1-8b-instruct/B200/1/2048&quot;
     },
     {
       &quot;model&quot;: &quot;Qwen 3 8B&quot;,
@@ -148,11 +151,14 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
       &quot;gpu&quot;: &quot;B200&quot;,
       &quot;num_gpus&quot;: 1,
       &quot;wh_per_million_output_tokens&quot;: 14.74,
-      &quot;joules_per_output_token&quot;: 0.05306,
+      &quot;joules_per_output_token&quot;: 0.0530581,
       &quot;median_itl_ms&quot;: 91.2,
       &quot;avg_requests_in_flight&quot;: 1426.7,
       &quot;gpu_power_watts_total&quot;: 801,
-      &quot;avg_output_tokens&quot;: 649
+      &quot;avg_output_tokens&quot;: 649,
+      &quot;avg_running_batch&quot;: 1426.7,
+      &quot;max_num_seqs&quot;: 1536,
+      &quot;row_id&quot;: &quot;qwen-3-8b/B200/1/1536&quot;
     },
     &quot;... 30 more rows&quot;
   ]
@@ -178,14 +184,18 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
       &quot;max_num_seqs&quot;: 8,
       &quot;avg_requests_in_flight&quot;: 8.0,
       &quot;wh_per_million_output_tokens&quot;: 429.18,
-      &quot;joules_per_output_token&quot;: 1.54505,
+      &quot;joules_per_output_token&quot;: 1.5450541,
       &quot;median_itl_ms&quot;: 14.1,
       &quot;p90_itl_ms&quot;: 15.7,
       &quot;p99_itl_ms&quot;: 27.1,
       &quot;tokens_per_second&quot;: 556.4,
       &quot;gpu_power_watts_total&quot;: 860,
       &quot;avg_output_tokens&quot;: 646,
-      &quot;under_itl_deadline&quot;: true
+      &quot;under_itl_deadline&quot;: true,
+      &quot;avg_running_batch&quot;: 8.0,
+      &quot;p95_itl_ms&quot;: 17.3,
+      &quot;row_id&quot;: &quot;qwen-3-32b/B200/1/8&quot;,
+      &quot;repeat&quot;: 1
     },
     &quot;... 21 more configurations&quot;
   ],
@@ -213,14 +223,30 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
       &quot;name&quot;: &quot;Norway&quot;,
       &quot;area_type&quot;: &quot;country&quot;,
       &quot;continent&quot;: &quot;Europe&quot;,
-      &quot;g_co2e_per_kwh&quot;: 29.6
+      &quot;g_co2e_per_kwh&quot;: 29.6,
+      &quot;display_name&quot;: &quot;Norway&quot;,
+      &quot;iso2&quot;: &quot;NO&quot;,
+      &quot;years&quot;: {
+        &quot;2023&quot;: 30.4,
+        &quot;2024&quot;: 29.6,
+        &quot;2025&quot;: 28.1
+      },
+      &quot;latest_year&quot;: &quot;2025&quot;
     },
     {
       &quot;iso3&quot;: &quot;SRB&quot;,
       &quot;name&quot;: &quot;Serbia&quot;,
       &quot;area_type&quot;: &quot;country&quot;,
       &quot;continent&quot;: &quot;Europe&quot;,
-      &quot;g_co2e_per_kwh&quot;: 668.0
+      &quot;g_co2e_per_kwh&quot;: 668.0,
+      &quot;display_name&quot;: &quot;Serbia&quot;,
+      &quot;iso2&quot;: &quot;RS&quot;,
+      &quot;years&quot;: {
+        &quot;2023&quot;: 638.9,
+        &quot;2024&quot;: 668.0,
+        &quot;2025&quot;: 695.8
+      },
+      &quot;latest_year&quot;: &quot;2025&quot;
     },
     &quot;... 192 more areas&quot;
   ]
@@ -250,7 +276,7 @@ console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pr
       <tbody>
         <tr><th scope="row">wh_per_million_output_tokens</th><td>GPU energy per million output tokens, watt-hours. joules_per_output_token × 1,000,000 ÷ 3,600.</td></tr>
         <tr><th scope="row">joules_per_output_token</th><td>The source's figure: steady-state GPU energy per request divided by output tokens per request. Prompt processing is included.</td></tr>
-        <tr><th scope="row">median_itl_ms</th><td>Median inter-token latency in milliseconds at that configuration. Index rows are the best under 400 ms.</td></tr>
+        <tr><th scope="row">median_itl_ms</th><td>Median inter-token latency in milliseconds at that configuration. Index rows are the best under 500 ms.</td></tr>
         <tr><th scope="row">avg_requests_in_flight</th><td>Average batch the server was holding during the measurement. max_num_seqs is the configured cap.</td></tr>
         <tr><th scope="row">gpu_power_watts_total</th><td>Average power drawn, summed across every GPU in the configuration.</td></tr>
         <tr><th scope="row">tokens_per_second</th><td>Output throughput of the whole configuration.</td></tr>
@@ -286,7 +312,7 @@ console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pr
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 26 September 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 27 September 2026.</p>
   </footer>
 
 </div>

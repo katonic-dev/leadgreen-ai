@@ -94,7 +94,7 @@
 <p>For scale: a million output tokens is roughly three quarters of a million words of English. And the reference row below, 63.5 Wh, is a 2 kW kettle running for 1.9 minutes. The kettle is my assumption, not a source; the tokens are.</p>
 
 <h2>Where the numbers come from</h2>
-<p>The ML.ENERGY Leaderboard, run by the ML.ENERGY Initiative at the University of Michigan, serves open-weight models with vLLM on real H100 and B200 servers, measures GPU energy at steady state with its Zeus library, and publishes every configuration it ran as raw data under Apache 2.0. Version 3.0 was updated on 23 September 2026. I took its Text Conversation task, kept the 328 configurations it published, and for each model and GPU picked the one with the least energy per token that still keeps median inter-token latency under 400 ms. That gives 32 rows for 18 models. My recomputation matches the leaderboard's own displayed table, row for row.</p>
+<p>The ML.ENERGY Leaderboard, run by the ML.ENERGY Initiative at the University of Michigan, serves open-weight models with vLLM on real H100 and B200 servers, measures GPU energy at steady state with its Zeus library, and publishes every configuration it ran as raw data under Apache 2.0. Version 3.0 was updated on 23 September 2026. I took its Text Conversation task, kept the 328 configurations it published, and for each model and GPU picked the one with the least energy per token that still keeps median inter-token latency under 500 ms. That gives 32 rows for 18 models. My recomputation matches the leaderboard's own displayed table, row for row.</p>
 
 <h2>Three numbers</h2>
 <ul>
@@ -111,12 +111,15 @@
     <caption>Qwen 3 32B, BF16, 2 × H100. ML.ENERGY Leaderboard v3.0, Text Conversation.</caption>
     <thead><tr><th scope="col" class="num">Requests in flight</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead>
     <tbody>
-<tr><th scope="row" class="num">8</th><td class="num key">452.0</td><td class="num">15</td><td class="num">522</td><td class="num">850</td></tr>
-<tr><th scope="row" class="num">16</th><td class="num key">252.8</td><td class="num">16</td><td class="num">970</td><td class="num">883</td></tr>
-<tr><th scope="row" class="num">32</th><td class="num key">153.8</td><td class="num">18</td><td class="num">1,706</td><td class="num">944</td></tr>
-<tr><th scope="row" class="num">64</th><td class="num key">102.0</td><td class="num">22</td><td class="num">2,654</td><td class="num">974</td></tr>
-<tr><th scope="row" class="num">128</th><td class="num key">76.4</td><td class="num">30</td><td class="num">3,905</td><td class="num">1,074</td></tr>
-<tr><th scope="row" class="num">256</th><td class="num key">63.5</td><td class="num">44</td><td class="num">5,155</td><td class="num">1,178</td></tr>
+<tr><th scope="row" class="num">8</th><td class="num">8</td><td class="num key">452.0</td><td class="num">15</td><td class="num">522</td><td class="num">850</td></tr>
+<tr><th scope="row" class="num">16</th><td class="num">16</td><td class="num key">252.8</td><td class="num">16</td><td class="num">970</td><td class="num">883</td></tr>
+<tr><th scope="row" class="num">32</th><td class="num">32</td><td class="num key">153.8</td><td class="num">18</td><td class="num">1,706</td><td class="num">944</td></tr>
+<tr><th scope="row" class="num">64</th><td class="num">64</td><td class="num key">102.0</td><td class="num">22</td><td class="num">2,654</td><td class="num">974</td></tr>
+<tr><th scope="row" class="num">96</th><td class="num">96</td><td class="num key">84.6</td><td class="num">26</td><td class="num">3,356</td><td class="num">1,022</td></tr>
+<tr><th scope="row" class="num">128</th><td class="num">128</td><td class="num key">76.4</td><td class="num">30</td><td class="num">3,905</td><td class="num">1,074</td></tr>
+<tr><th scope="row" class="num">192</th><td class="num">192</td><td class="num key">69.0</td><td class="num">37</td><td class="num">4,601</td><td class="num">1,143</td></tr>
+<tr class="best"><th scope="row" class="num">256</th><td class="num">256</td><td class="num key">63.5</td><td class="num">44</td><td class="num">5,155</td><td class="num">1,178</td></tr>
+<tr><th scope="row" class="num">384</th><td class="num">340</td><td class="num key">64.6</td><td class="num">55</td><td class="num">5,071</td><td class="num">1,180</td></tr>
     </tbody>
   </table>
 </div>
@@ -138,9 +141,9 @@
 <div class="refs">
   <p class="eyebrow">References</p>
   <ol>
-    <li>ML.ENERGY Leaderboard v3.0, The ML.ENERGY Initiative, University of Michigan, last updated 23 September 2026, retrieved 26 September 2026. <a href="https://ml.energy/leaderboard/">ml.energy/leaderboard</a>. Raw task data in the leaderboard's public repository, Apache 2.0.</li>
-    <li>Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, 2024, CC BY 4.0, retrieved 26 September 2026. <a href="https://ember-energy.org/data/yearly-electricity-data/">ember-energy.org</a>.</li>
-    <li>OpenAI, What are tokens and how to count them, retrieved 26 September 2026, for the words-per-token rule of thumb.</li>
+    <li>ML.ENERGY Leaderboard v3.0, The ML.ENERGY Initiative, University of Michigan, last updated 23 September 2026, retrieved 27 September 2026. <a href="https://ml.energy/leaderboard/">ml.energy/leaderboard</a>. Raw task data in the leaderboard's public repository, Apache 2.0.</li>
+    <li>Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, 2024, CC BY 4.0, retrieved 27 September 2026. <a href="https://ember-energy.org/data/yearly-electricity-data/">ember-energy.org</a>.</li>
+    <li>OpenAI, What are tokens and how to count them, retrieved 27 September 2026, for the words-per-token rule of thumb.</li>
     <li>Full tables, method and sources: <a href="../../index/">the index</a>. Data: <a href="../../api/">the API</a>.</li>
   </ol>
 </div>
@@ -160,7 +163,7 @@
       <a href="../../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 26 September 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site belong to their original sources and may be reused with attribution to them. Site text and the compiled index are offered under CC BY 4.0; code under Apache 2.0. Updated 27 September 2026.</p>
   </footer>
 
 </div>

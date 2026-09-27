@@ -1,19 +1,31 @@
 {
   "version": "1",
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "unit": "Wh per million output tokens",
-  "itl_deadline_ms": 400,
+  "itl_deadline_ms": 500,
   "source": {
     "name": "ML.ENERGY Leaderboard",
-    "publisher": "The ML.ENERGY Initiative, University of Michigan",
+    "publisher": "The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)",
     "url": "https://ml.energy/leaderboard/",
     "data_url": "https://raw.githubusercontent.com/ml-energy/leaderboard/master/public/data/tasks/lm-arena-chat.json",
-    "version": "3.0, last updated 2026-09-23",
+    "version": "3.0 (released 2025-12-01); data compiled 2026-02-16",
+    "released": "2025-12-01",
+    "compiled": "2026-02-16",
+    "compiled_evidence": "the leaderboard's public/data/index.json last_updated, and the last commit to the task files, both 2026-02-16",
     "retrieved": "2026-09-26",
-    "licence": "Apache-2.0",
+    "licence": "Apache-2.0 per the ml-energy/benchmark-v3 dataset card",
+    "licence_evidence": [
+      "Hugging Face dataset ml-energy/benchmark-v3: tagged license:apache-2.0, ships a LICENSE file, and its dataset card's License section reads Apache-2.0",
+      "The ML.ENERGY Leaderboard web app's footer says Apache 2.0",
+      "The leaderboard repository (github.com/ml-energy/leaderboard) carries no licence file; its JSON files are reproduced here as published measurements until the ML.ENERGY team confirms that the dataset licence covers them"
+    ],
     "workload": "Text Conversation (lm-arena-chat)",
-    "method": "vLLM serving on H100 80GB HBM3 or B200 servers; steady-state GPU energy measured with Zeus; energy per output token = GPU energy per request / output tokens, so prompt processing is included.",
-    "used_for": "index, per-model configurations, concurrency curves, measured GPU power"
+    "method": "Energy per output token is steady-state GPU energy divided by the output tokens generated in the steady-state window (the benchmark's steady_state_energy_per_token), measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers. Energy per request is that figure multiplied by the average output length, not a separate measurement. Prompt processing is included.",
+    "selection": "Each index row is the lowest-energy configuration for its model and GPU whose median inter-token latency does not exceed 500 ms, the leaderboard's own default ceiling; no measured configuration reaches it.",
+    "cite": "Chung et al., The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371",
+    "cite_url": "https://arxiv.org/abs/2505.06371",
+    "used_for": "index, per-model configurations, concurrency curves, measured GPU power",
+    "configurations": "328 stable configurations: the leaderboard publishes the runs that passed its stability filter; every run, including the unstable ones, is in the gated Hugging Face dataset ml-energy/benchmark-v3"
   },
   "caveat": "GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.",
   "slug": "deepseek-v3-1",
@@ -36,14 +48,18 @@
       "max_num_seqs": 8,
       "avg_requests_in_flight": 8.0,
       "wh_per_million_output_tokens": 2379.32,
-      "joules_per_output_token": 8.56554,
+      "joules_per_output_token": 8.565539,
       "median_itl_ms": 16.8,
       "p90_itl_ms": 17.3,
       "p99_itl_ms": 18.1,
       "tokens_per_second": 449.9,
       "gpu_power_watts_total": 3854,
       "avg_output_tokens": 846,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 8.0,
+      "p95_itl_ms": 17.5,
+      "row_id": "deepseek-v3-1/B200/8/8",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -55,14 +71,18 @@
       "max_num_seqs": 16,
       "avg_requests_in_flight": 16.0,
       "wh_per_million_output_tokens": 1685.12,
-      "joules_per_output_token": 6.06642,
+      "joules_per_output_token": 6.0664183,
       "median_itl_ms": 20.3,
       "p90_itl_ms": 21.2,
       "p99_itl_ms": 109.7,
       "tokens_per_second": 728.9,
       "gpu_power_watts_total": 4422,
       "avg_output_tokens": 840,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 16.0,
+      "p95_itl_ms": 21.4,
+      "row_id": "deepseek-v3-1/B200/8/16",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -74,14 +94,18 @@
       "max_num_seqs": 32,
       "avg_requests_in_flight": 32.0,
       "wh_per_million_output_tokens": 1219.26,
-      "joules_per_output_token": 4.38935,
+      "joules_per_output_token": 4.389353,
       "median_itl_ms": 26.7,
       "p90_itl_ms": 28.5,
       "p99_itl_ms": 121.6,
       "tokens_per_second": 1091.4,
       "gpu_power_watts_total": 4791,
       "avg_output_tokens": 850,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 32.0,
+      "p95_itl_ms": 29.0,
+      "row_id": "deepseek-v3-1/B200/8/32",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -93,14 +117,18 @@
       "max_num_seqs": 64,
       "avg_requests_in_flight": 63.9,
       "wh_per_million_output_tokens": 811.02,
-      "joules_per_output_token": 2.91968,
+      "joules_per_output_token": 2.9196807,
       "median_itl_ms": 32.6,
       "p90_itl_ms": 35.8,
       "p99_itl_ms": 127.5,
       "tokens_per_second": 1776.1,
       "gpu_power_watts_total": 5186,
       "avg_output_tokens": 849,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 63.9,
+      "p95_itl_ms": 39.7,
+      "row_id": "deepseek-v3-1/B200/8/64",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -112,14 +140,18 @@
       "max_num_seqs": 128,
       "avg_requests_in_flight": 127.9,
       "wh_per_million_output_tokens": 537.88,
-      "joules_per_output_token": 1.93639,
+      "joules_per_output_token": 1.9363852,
       "median_itl_ms": 38.8,
       "p90_itl_ms": 45.5,
       "p99_itl_ms": 130.1,
       "tokens_per_second": 2906.8,
       "gpu_power_watts_total": 5629,
       "avg_output_tokens": 850,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 127.9,
+      "p95_itl_ms": 57.9,
+      "row_id": "deepseek-v3-1/B200/8/128",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -131,14 +163,18 @@
       "max_num_seqs": 256,
       "avg_requests_in_flight": 255.7,
       "wh_per_million_output_tokens": 363.64,
-      "joules_per_output_token": 1.30909,
+      "joules_per_output_token": 1.3090927,
       "median_itl_ms": 48.6,
       "p90_itl_ms": 62.1,
       "p99_itl_ms": 131.7,
       "tokens_per_second": 4534.0,
       "gpu_power_watts_total": 5935,
       "avg_output_tokens": 836,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 255.7,
+      "p95_itl_ms": 103.5,
+      "row_id": "deepseek-v3-1/B200/8/256",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -150,14 +186,18 @@
       "max_num_seqs": 512,
       "avg_requests_in_flight": 511.5,
       "wh_per_million_output_tokens": 267.63,
-      "joules_per_output_token": 0.96348,
+      "joules_per_output_token": 0.9634799,
       "median_itl_ms": 64.1,
       "p90_itl_ms": 128.6,
       "p99_itl_ms": 160.9,
       "tokens_per_second": 5587.9,
       "gpu_power_watts_total": 5384,
       "avg_output_tokens": 849,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 511.5,
+      "p95_itl_ms": 140.5,
+      "row_id": "deepseek-v3-1/B200/8/512",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -169,14 +209,18 @@
       "max_num_seqs": 768,
       "avg_requests_in_flight": 767.1,
       "wh_per_million_output_tokens": 251.3,
-      "joules_per_output_token": 0.9047,
+      "joules_per_output_token": 0.9046977,
       "median_itl_ms": 113.0,
       "p90_itl_ms": 162.2,
       "p99_itl_ms": 199.7,
       "tokens_per_second": 5820.5,
       "gpu_power_watts_total": 5266,
       "avg_output_tokens": 849,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 767.1,
+      "p95_itl_ms": 168.1,
+      "row_id": "deepseek-v3-1/B200/8/768",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -188,14 +232,18 @@
       "max_num_seqs": 1024,
       "avg_requests_in_flight": 1022.5,
       "wh_per_million_output_tokens": 214.46,
-      "joules_per_output_token": 0.77207,
+      "joules_per_output_token": 0.7720661,
       "median_itl_ms": 127.6,
       "p90_itl_ms": 167.9,
       "p99_itl_ms": 209.5,
       "tokens_per_second": 7298.1,
       "gpu_power_watts_total": 5635,
       "avg_output_tokens": 844,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 1022.5,
+      "p95_itl_ms": 175.6,
+      "row_id": "deepseek-v3-1/B200/8/1024",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -207,14 +255,18 @@
       "max_num_seqs": 2048,
       "avg_requests_in_flight": 2042.2,
       "wh_per_million_output_tokens": 175.04,
-      "joules_per_output_token": 0.63014,
+      "joules_per_output_token": 0.6301421,
       "median_itl_ms": 187.3,
       "p90_itl_ms": 241.3,
       "p99_itl_ms": 459.1,
       "tokens_per_second": 9302.0,
       "gpu_power_watts_total": 5862,
       "avg_output_tokens": 845,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 2042.2,
+      "p95_itl_ms": 267.3,
+      "row_id": "deepseek-v3-1/B200/8/2048",
+      "repeat": 1
     },
     {
       "gpu": "B200",
@@ -226,14 +278,18 @@
       "max_num_seqs": 3072,
       "avg_requests_in_flight": 3007.5,
       "wh_per_million_output_tokens": 168.43,
-      "joules_per_output_token": 0.60634,
+      "joules_per_output_token": 0.6063443,
       "median_itl_ms": 185.5,
       "p90_itl_ms": 331.1,
       "p99_itl_ms": 627.2,
       "tokens_per_second": 9021.1,
       "gpu_power_watts_total": 5470,
       "avg_output_tokens": 842,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 3007.5,
+      "p95_itl_ms": 357.3,
+      "row_id": "deepseek-v3-1/B200/8/3072",
+      "repeat": 1
     }
   ],
   "best": {
@@ -247,14 +303,18 @@
       "max_num_seqs": 3072,
       "avg_requests_in_flight": 3007.5,
       "wh_per_million_output_tokens": 168.43,
-      "joules_per_output_token": 0.60634,
+      "joules_per_output_token": 0.6063443,
       "median_itl_ms": 185.5,
       "p90_itl_ms": 331.1,
       "p99_itl_ms": 627.2,
       "tokens_per_second": 9021.1,
       "gpu_power_watts_total": 5470,
       "avg_output_tokens": 842,
-      "under_itl_deadline": true
+      "under_itl_deadline": true,
+      "avg_running_batch": 3007.5,
+      "p95_itl_ms": 357.3,
+      "row_id": "deepseek-v3-1/B200/8/3072",
+      "repeat": 1
     }
   }
 }
