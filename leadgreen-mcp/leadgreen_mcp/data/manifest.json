@@ -38,7 +38,7 @@
     {
       "path": "per-query.json",
       "url": "https://leadgreen.ai/api/v1/per-query.json",
-      "description": "AI Energy Score text-generation rows: Wh per 1,000 queries at batch size 1 on one H100."
+      "description": "AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C)."
     },
     {
       "path": "openapi.json",

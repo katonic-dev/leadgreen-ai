@@ -28,7 +28,7 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - https://leadgreen.ai/api/v1/models/{slug}.json: One model: every measured configuration (concurrency, parallelism, latency, power) and the best row per GPU.
 - https://leadgreen.ai/api/v1/grid.json: Grid emissions intensity, gCO2e per kWh, 2024 annual average, 193 countries plus World.
 - https://leadgreen.ai/api/v1/hardware.json: Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure.
-- https://leadgreen.ai/api/v1/per-query.json: AI Energy Score text-generation rows: Wh per 1,000 queries at batch size 1 on one H100.
+- https://leadgreen.ai/api/v1/per-query.json: AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C).
 - https://leadgreen.ai/api/v1/openapi.json: OpenAPI 3.1 description of these endpoints.
 
 ## Sources

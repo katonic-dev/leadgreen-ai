@@ -12,7 +12,7 @@ author: Prem Naraindas
 <p>For scale: a million output tokens is roughly three quarters of a million words of English. And the reference row below, {{REF_WH_1}} Wh, is a {{KETTLE_KW}} kW kettle running for {{KETTLE_MINUTES_REF}} minutes. The kettle is my assumption, not a source; the tokens are.</p>
 
 <h2>Where the numbers come from</h2>
-<p>The ML.ENERGY Leaderboard, run by the ML.ENERGY Initiative at the University of Michigan, serves open-weight models with vLLM on real H100 and B200 servers, measures GPU energy at steady state with its Zeus library, and publishes every configuration it ran as raw data under Apache 2.0. Version 3.0 was updated on 23 September 2026. I took its Text Conversation task, kept the {{CONFIG_COUNT}} configurations it published, and for each model and GPU picked the one with the least energy per token at or under a median inter-token latency of {{ITL}} ms, the leaderboard's own default. None of them comes near it. That gives {{ROW_COUNT}} rows for {{MODEL_COUNT}} models. My recomputation matches the leaderboard's own displayed table, row for row.</p>
+<p>The ML.ENERGY Leaderboard, run by the ML.ENERGY Initiative (it started at SymbioticLab, University of Michigan), serves open-weight models with vLLM on real H100 and B200 servers and measures GPU energy at steady state with its Zeus library. It publishes every stable configuration it ran ({{CONFIG_COUNT}} for this task) as JSON in its repository, and every run including the unstable ones in a gated Hugging Face dataset whose card declares Apache 2.0. Version 3.0 was released on {{MLE_RELEASED_LONG}}; the data I use was compiled on {{MLE_COMPILED_LONG}}. I took its Text Conversation task, kept the {{CONFIG_COUNT}} configurations it published, and for each model and GPU picked the one with the least energy per token at or under a median inter-token latency of {{ITL}} ms, the leaderboard's own default. None of them comes near it. That gives {{ROW_COUNT}} rows for {{MODEL_COUNT}} models. My {{ROW_COUNT}} rows match the leaderboard's table when one GPU is selected at a time; at its default view it shows one row per model, {{MODEL_COUNT}} rows.</p>
 
 <h2>Three numbers</h2>
 <ul>
@@ -51,7 +51,7 @@ author: Prem Naraindas
 <div class="refs">
   <p class="eyebrow">References</p>
   <ol>
-    <li>ML.ENERGY Leaderboard v3.0, The ML.ENERGY Initiative, University of Michigan, last updated 23 September 2026, retrieved {{UPDATED_LONG}}. <a href="https://ml.energy/leaderboard/">ml.energy/leaderboard</a>. Raw task data in the leaderboard's public repository, Apache 2.0.</li>
+    <li>{{MLE_BLOCK}}</li>
     <li>Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, {{EMBER_YEAR}}, CC BY 4.0, retrieved {{UPDATED_LONG}}. <a href="https://ember-energy.org/data/yearly-electricity-data/">ember-energy.org</a>.</li>
     <li>OpenAI, What are tokens and how to count them, retrieved {{UPDATED_LONG}}, for the words-per-token rule of thumb.</li>
     <li>Full tables, method and sources: <a href="{{ROOT}}index/">the index</a>. Data: <a href="{{ROOT}}api/">the API</a>.</li>

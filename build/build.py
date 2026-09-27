@@ -980,7 +980,7 @@ ENDPOINTS = [
     ("models/{slug}.json", "One model: every measured configuration (concurrency, parallelism, latency, power) and the best row per GPU."),
     ("grid.json", f"Grid emissions intensity, gCO2e per kWh, {EMBER_YEAR} annual average, {grid_count} countries plus World."),
     ("hardware.json", "Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure."),
-    ("per-query.json", "AI Energy Score text-generation rows: Wh per 1,000 queries at batch size 1 on one H100."),
+    ("per-query.json", "AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C)."),
     ("openapi.json", "OpenAPI 3.1 description of these endpoints."),
 ]
 api_docs: dict[str, dict] = {}
@@ -1019,10 +1019,14 @@ api_docs["grid.json"] = {
 api_docs["hardware.json"] = {"version": "1", "updated": UPDATED, **hw}
 api_docs["per-query.json"] = {
     "version": "1", "updated": UPDATED, "unit": "Wh per 1,000 queries", "round": "December 2025",
-    "setup": "text generation, 1,000 queries one at a time (batch size 1), one NVIDIA H100, GPU energy only",
-    "classes": {"A": "fits one consumer GPU", "B": "fits one H100", "C": "needs more than one H100"},
-    "score": "1 to 5 stars, relative within the hardware class",
-    "note": "The February 2025 round is not comparable with this one and is not included. Output lengths are not published, so these values cannot be converted to Wh per million tokens.",
+    "setup": ("text generation, 1,000 queries one at a time (batch size 1) on NVIDIA H100 80GB GPUs: one card for class A and B models, "
+              "several cards for class C; output length fixed at " + str(AIES_FIXED_TOKENS) + " tokens for non-reasoning runs; the score averages ten passes; GPU energy only"),
+    "classes": {"A": "fits one consumer GPU", "B": "fits one H100 (single cloud GPU)", "C": "needs more than one H100 (multiple cloud GPUs)"},
+    "score": "1 to 5 stars within a class for this round: the class's energy range is cut into five equal bands and the lowest band is five stars; stars do not compare across classes",
+    "note": ("Only the December 2025 round is included: the benchmark harness changed between rounds (Optimum Benchmark in February 2025, "
+             "Neuralwatt's AI Energy Benchmarks in December 2025); the project treats watt-hour values as stable across rounds and recalibrates only the stars. "
+             "A query is a controlled probe with a fixed ten-token response, not a serving workload, so these values are not converted to Wh per million tokens. "
+             "source_label keeps the model string exactly as the source CSV gives it; model carries the clean Hugging Face id."),
     "source": SRC_AIES, "rows": per_query_rows,
 }
 api_docs["openapi.json"] = {
