@@ -24,7 +24,7 @@ export type Manifest = {
     entity: string;
     registration: string;
     jurisdiction: string;
-    address: null;
+    address: string | null;
     contact: string;
     response_working_days: number;
   };

@@ -1369,6 +1369,8 @@ def infer_schema(values: list, path: str = "", doc: str = "") -> dict:
             types.append(t)
     if "integer" in types and "number" in types:
         types.remove("integer")
+    if path in ("publisher.address",) and types == ["null"]:
+        types = ["string", "null"]   # null only until the registered office is confirmed
     sch: dict = {"type": types[0] if len(types) == 1 else types}
     desc = FIELD_DOCS.get(doc, {}).get(path) or FIELD_DOCS["*"].get(path)
     if desc:
