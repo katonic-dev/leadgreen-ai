@@ -949,7 +949,7 @@ subs.update({
     "MISTRAL_G": f"{MISTRAL_2025['g_co2e']:g}", "MISTRAL_ML": f"{MISTRAL_2025['water_ml']:g}", "MISTRAL_TOKENS": f"{MISTRAL_2025['tokens']:,}",
     # grids (D6, F14)
     "LISTED_GRID_COUNT": str(len(COUNTRIES)), "LISTED_GRID_WORD": word(len(COUNTRIES)),
-    "MARKET_GRID_WORD": word(len(COUNTRIES) - len(REFERENCE_GRIDS)), "REFERENCE_GRID_WORD": word(len(REFERENCE_GRIDS)),
+    "MARKET_GRID_COUNT": str(len(COUNTRIES) - len(REFERENCE_GRIDS)), "REFERENCE_GRID_WORD": word(len(REFERENCE_GRIDS)),
     "GRID_MIN_NAME": grid_min["display_name"], "GRID_MIN_G": fmt(intensity[grid_min["iso3"]], 1),
     "GRID_MAX_NAME": grid_max["display_name"], "GRID_MAX_G": fmt(intensity[grid_max["iso3"]], 1),
     "GRID_SPREAD": f"{intensity[grid_max['iso3']] / intensity[grid_min['iso3']]:.1f}",

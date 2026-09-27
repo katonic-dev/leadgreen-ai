@@ -1,6 +1,6 @@
 <!--meta
 title: {{INDEX_NAME}}: GPU energy per million output tokens | Lead Green
-description: GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: {{ROW_COUNT}} rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated {{UPDATED_LONG}}.
+description: GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: {{ROW_COUNT}} rows, two GPU generations, the concurrency ladder, grid carbon for {{LISTED_GRID_COUNT}} grids, hardware ceilings, method and sources. Updated {{UPDATED_LONG}}.
 og_type: website
 -->
 <div class="title">
@@ -187,7 +187,7 @@ og_type: website
       </tbody>
     </table>
   </div>
-  <p class="note"><b>Which grids.</b> The {{LISTED_GRID_WORD}} grids are markets Katonic sells in or expects to ({{MARKET_GRID_WORD}}), plus {{REFERENCE_GRID_WORD}} reference grids. Ember's {{EMBER_YEAR}} figures run from {{GRID_MIN_NAME}} at {{GRID_MIN_G}} to {{GRID_MAX_NAME}} at {{GRID_MAX_G}} gCO2e per kWh, a spread of {{GRID_SPREAD}}×; all {{GRID_COUNT}} areas plus World are in <a href="{{ROOT}}api/v1/grid.json"><code>grid.json</code></a>. Area names are shortened from Ember's labels.</p>
+  <p class="note"><b>Which grids.</b> The {{LISTED_GRID_COUNT}} grids are {{MARKET_GRID_COUNT}} markets Katonic sells in or expects to, plus {{REFERENCE_GRID_WORD}} reference grids. Ember's {{EMBER_YEAR}} figures run from {{GRID_MIN_NAME}} at {{GRID_MIN_G}} to {{GRID_MAX_NAME}} at {{GRID_MAX_G}} gCO2e per kWh, a spread of {{GRID_SPREAD}}×; all {{GRID_COUNT}} areas plus World are in <a href="{{ROOT}}api/v1/grid.json"><code>grid.json</code></a>. Area names are shortened from Ember's labels.</p>
   <p class="note"><b>What the figure is.</b> Grid figures are Ember's yearly emissions intensity (CC BY 4.0), September 2026 release. {{EMBER_BASIS}} The table is location-based in the ESRS E1-6 sense, so what it prices belongs in the Scope 2 location-based line of E1-6, not in the E1-5 energy line. The other method, market-based, nets the buyer's contracted supply (certificates and power purchase agreements) and needs the buyer's own contracts.</p>
   <p class="note"><b>Why {{EMBER_YEAR}}.</b> It is the latest year with a value for every grid listed. {{GRID_2025_COUNT}} of Ember's {{GRID_COUNT}} areas already have a 2025 value, but {{GRID_NO_2025}} do not yet; <code>grid.json</code> carries 2023 to 2025 per area where present, with the latest year named. <b>A flat load.</b> A GPU server draws much the same power around the clock, while an annual average weights each hour by how much was generated in it, so on a grid whose clean supply peaks at midday a flat load sees a higher figure than the average, and on one with steady clean supply much the same. Hourly intensity, contracted supply, on-site generation and facility overhead are not counted here. Multiply any row of the index by the grid figure and divide by 1,000 to price a different model.</p>
 </section>

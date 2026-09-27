@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Green Tokens: GPU energy per million output tokens | Lead Green</title>
-<meta name="description" content="GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 27 September 2026.">
+<meta name="description" content="GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for 22 grids, hardware ceilings, method and sources. Updated 27 September 2026.">
 <link rel="canonical" href="https://leadgreen.ai/index/">
 <meta property="og:site_name" content="Lead Green">
 <meta property="og:title" content="Green Tokens: GPU energy per million output tokens | Lead Green">
-<meta property="og:description" content="GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 27 September 2026.">
+<meta property="og:description" content="GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for 22 grids, hardware ceilings, method and sources. Updated 27 September 2026.">
 <meta property="og:url" content="https://leadgreen.ai/index/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
@@ -28,7 +28,7 @@
  "@context": "https://schema.org",
  "@type": "Dataset",
  "name": "Green Tokens: GPU energy per million output tokens",
- "description": "GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for twenty-two grids, hardware ceilings, method and sources. Updated 27 September 2026.",
+ "description": "GPU watt-hours per million output tokens, by model, GPU and configuration, from public measurements: 32 rows, two GPU generations, the concurrency ladder, grid carbon for 22 grids, hardware ceilings, method and sources. Updated 27 September 2026.",
  "url": "https://leadgreen.ai/index/",
  "license": "https://creativecommons.org/licenses/by/4.0/",
  "creator": {
@@ -412,7 +412,7 @@
       </tbody>
     </table>
   </div>
-  <p class="note"><b>Which grids.</b> The 22 grids are markets Katonic sells in or expects to (15), plus seven reference grids. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2 gCO2e per kWh, a spread of 55.6×; all 193 areas plus World are in <a href="../api/v1/grid.json"><code>grid.json</code></a>. Area names are shortened from Ember's labels.</p>
+  <p class="note"><b>Which grids.</b> The 22 grids are 15 markets Katonic sells in or expects to, plus seven reference grids. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2 gCO2e per kWh, a spread of 55.6×; all 193 areas plus World are in <a href="../api/v1/grid.json"><code>grid.json</code></a>. Area names are shortened from Ember's labels.</p>
   <p class="note"><b>What the figure is.</b> Grid figures are Ember's yearly emissions intensity (CC BY 4.0), September 2026 release. Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported. The table is location-based in the ESRS E1-6 sense, so what it prices belongs in the Scope 2 location-based line of E1-6, not in the E1-5 energy line. The other method, market-based, nets the buyer's contracted supply (certificates and power purchase agreements) and needs the buyer's own contracts.</p>
   <p class="note"><b>Why 2024.</b> It is the latest year with a value for every grid listed. 93 of Ember's 193 areas already have a 2025 value, but Saudi Arabia, United Arab Emirates and Hong Kong do not yet; <code>grid.json</code> carries 2023 to 2025 per area where present, with the latest year named. <b>A flat load.</b> A GPU server draws much the same power around the clock, while an annual average weights each hour by how much was generated in it, so on a grid whose clean supply peaks at midday a flat load sees a higher figure than the average, and on one with steady clean supply much the same. Hourly intensity, contracted supply, on-site generation and facility overhead are not counted here. Multiply any row of the index by the grid figure and divide by 1,000 to price a different model.</p>
 </section>
