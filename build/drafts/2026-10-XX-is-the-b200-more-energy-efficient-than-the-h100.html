@@ -1,0 +1,51 @@
+<!--meta
+title: Is the B200 more energy-efficient than the H100?
+description: Yes on {{PAIR_WINS_PHRASE}} models measured on both cards: the H100 row uses {{PAIR_MIN_RATIO}}× to {{PAIR_MAX_RATIO}}× the B200 row's energy per token, median {{PAIR_MEDIAN}}×. How much is the silicon.
+date: 2026-10-XX
+slug: is-the-b200-more-energy-efficient-than-the-h100
+author: Prem Naraindas
+-->
+<p>Look, this question usually arrives with a quote attached. Somebody has a B200 price on the desk, the H100s are two years old, and the board wants to know whether the new card is worth it on energy. The public data says yes, on {{PAIR_WINS_PHRASE}} models the ML.ENERGY Leaderboard measured on both cards: the H100's index row uses from {{PAIR_MAX_RATIO}}× the B200 row's energy per output token ({{PAIR_MAX_MODEL}}) down to {{PAIR_MIN_RATIO}}× ({{PAIR_MIN_MODEL}}), with a median of {{PAIR_MEDIAN}}×. So the short answer is yes. The longer answer is that the number is smaller than the headline, part of it is not the silicon, and it is the second lever, not the first.</p>
+
+<h2>The {{PAIR_COUNT}} pairs</h2>
+<div class="table-scroll">
+  <table>
+    <caption>Index rows paired by model, sorted by the gap. ML.ENERGY Leaderboard v3.0, Text Conversation.</caption>
+    <thead><tr><th scope="col">Model</th><th scope="col" class="num">H100 configuration</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">B200 configuration</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">B200 advantage</th></tr></thead>
+    <tbody>
+{{PAIR_ROWS}}
+    </tbody>
+  </table>
+</div>
+<p>Each pair is a model's index row on each card: the lowest-energy configuration the leaderboard measured, at or under {{ITL}} ms median inter-token latency. The ratio is the H100 row over the B200 row. The reference model, {{REF_MODEL}}, goes from {{REF_WH_1}} Wh/M on {{REF_GPUS}} to {{REF_B200_WH}} on {{REF_B200_CARDS_WORD}} B200, {{REF_PAIR_RATIO}}×, with one card doing the work of two: a million output tokens takes {{REF_PAIR_H_GPUH}} card-hours on the H100 pair and {{REF_PAIR_B_GPUH}} on the single B200.</p>
+
+<h2>How much of it is the silicon</h2>
+<p>See, the leaderboard sweeps each card on its own terms. It picks the configurations it runs per GPU, and the B200's memory holds a model on fewer cards, so on {{PAIR_FEWER_WORD}} of the {{PAIR_COUNT}} pairs the B200 row has fewer cards than the H100 row, and the running batches differ too. The widest gap shows what that does to the number. The {{PAIR_MAX_RATIO}}× pair compares an H100 row that {{PAIR_MAX_H_SWEEP}} with a B200 row holding {{PAIR_MAX_B_BATCH}} requests on {{PAIR_MAX_B_CARDS}} cards. Re-cut the pair at the same cap of {{PAIR_MATCH_CAP}} and the B200 row reads {{PAIR_MATCH_B_WH}} Wh/M against the H100's {{PAIR_MATCH_H_WH}}: a gap of {{PAIR_MATCH_RATIO}}×, not {{PAIR_MAX_RATIO}}×. The rest was the batch. {{NEMO_NOTE}}</p>
+<p>Tighten the latency and the picture moves again. At a {{PAIR50_MS}} ms ceiling, {{PAIR50_COUNT}} models still have a row on both cards, and {{PAIR50_CLAUSE}}. I think the honest reading is this: on a busy server the generation is worth about the median, {{PAIR_MEDIAN}}×, and on a server that is not busy it is worth less than that, because the concurrency ladder does not care which card is sitting idle.</p>
+
+<h2>Power against energy</h2>
+<p>The B200 draws more. NVIDIA rates the H100 SXM at {{H100_TDP_LABEL}} and the B200 as {{B200_TDP_LABEL}}, and on these index rows the cards averaged {{H100_AVG_W}} W per H100 and {{B200_AVG_W}} W per B200. It uses less energy per token because it produces more tokens in every second of that draw. The distinction matters to the facility. An eight-GPU {{SYS_NAME}} is rated at about {{SYS_KW}} kW, {{SYS_RATIO}}× what its cards draw, so a B200 fleet is a bigger feed that produces more tokens per kilowatt-hour, and the envelope decides how many boxes you can stand up before the tokens do. Power sizes the feed. Energy per token tells you what the feed produced.</p>
+
+<h2>The second lever</h2>
+<p>Here is the part I would put in the memo. The widest generation gap on the table is {{PAIR_MAX_RATIO}}×. The same model on the same H100 cards moves {{L32_RATIO}}× in energy per token between a running batch of {{L32_FIRST_BATCH}} and {{L32_BEST_BATCH}}, and that lever costs nothing in hardware. A department that serves a handful of people at a time and buys B200s has bought a faster car for a road where it never gets out of second gear. In the deployments I see, that is the usual order of events: the card gets upgraded, the utilisation does not, and the energy per token barely moves. Consolidate first. Then the generation change is worth its median, and the new card carries the load on fewer cards, which is also fewer boxes to power and cool.</p>
+
+<h2>What I am not telling you</h2>
+<p>Two cards, one benchmark. The leaderboard ran {{GPU_LIST}} and nothing else, so there is nothing here about the H200, the GB200 or anyone else's silicon. On the index, {{H100_ONLY_WORD}} models have an H100 row and no B200 row ({{H100_ONLY_LIST}}), and {{B200_ONLY_WORD}} have the reverse ({{B200_ONLY_LIST}}), so the {{PAIR_COUNT}} pairs are the models that happen to have both. A TDP is a rating, not a reading; the measured draws above are the ones to plan on. And every row is a floor at high load: your fleet sits above it on both cards, and the question is by how much on each.</p>
+
+<h2>What to do with it</h2>
+<ul>
+  <li><b>Ask for both cards at your running batch and your latency.</b> The pairs above can be re-cut at a matched cap or a matched running batch from the <a href="{{ROOT}}api/">API</a>; ask the vendor to do the same with the configuration they are quoting, and refuse a ratio that comes without its two running batches.</li>
+  <li><b>Count cards, not only watts.</b> On {{PAIR_FEWER_WORD}} of the {{PAIR_COUNT}} pairs the B200 holds the model on fewer cards. Fewer cards is fewer boxes, and that saving sits outside the GPU-only figure on this site; the <a href="{{ROOT}}index/#method">method</a> takes a figure to the meter.</li>
+  <li><b>Size the feed on the rating, judge the kit on the energy.</b> A rating of {{B200_TDP_LABEL}} per card is what the electrical engineer plans for; {{B200_AVG_W}} W per card is what the benchmark saw on these rows; watt-hours per million tokens is what you are buying.</li>
+  <li><b>Fix the utilisation before the purchase order.</b> The <a href="{{ROOT}}blog/why-an-idle-gpu-wastes-energy/">concurrency ladder</a> is the bigger lever and the cheaper one.</li>
+</ul>
+<p>The full comparison, with every pair and the questions people ask about it, is on the <a href="{{ROOT}}h100-vs-b200/">H100 vs B200 page</a>; every configuration behind it is on the <a href="{{ROOT}}models/">model pages</a>.</p>
+
+<div class="refs">
+  <p class="eyebrow">References</p>
+  <ol>
+    <li>{{MLE_BLOCK}}</li>
+    <li>The pairs: for each model with an index row on both cards, the H100 row's Wh/M over the B200 row's. The matched-cap figure re-cuts the widest pair at the H100 row's cap (vLLM's <code>max_num_seqs</code>) using the B200 configuration at that cap. The {{PAIR50_MS}} ms figures take each card's lowest-energy configuration at or under that median inter-token latency. Card-hours per million output tokens = cards × 1,000,000 ÷ output tokens per second ÷ 3,600. Every pair and configuration: <a href="{{ROOT}}h100-vs-b200/">the comparison page</a> and <a href="{{ROOT}}api/">the API</a>.</li>
+    <li>NVIDIA product specifications for the <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a> and the <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a>, and the <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">HGX B200 product carbon footprint summary</a> (July 2025), retrieved {{RETRIEVED_LONG}}, for the TDP ratings and the system power rating. Average power per card is the benchmark's measured draw on the index rows, divided by the card count.</li>
+  </ol>
+</div>
