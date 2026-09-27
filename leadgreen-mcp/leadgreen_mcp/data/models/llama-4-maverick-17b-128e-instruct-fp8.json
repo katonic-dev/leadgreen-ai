@@ -28,6 +28,7 @@
     "configurations": "328 stable configurations: the leaderboard publishes the runs that passed its stability filter; every run, including the unstable ones, is in the gated Hugging Face dataset ml-energy/benchmark-v3"
   },
   "caveat": "GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.",
+  "boundary": "gpu_only",
   "slug": "llama-4-maverick-17b-128e-instruct-fp8",
   "name": "Llama 4 Maverick 17B 128E Instruct FP8",
   "model_id": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",

@@ -228,6 +228,12 @@
           "caveat": {
             "type": "string"
           },
+          "boundary": {
+            "type": "string",
+            "enum": [
+              "gpu_only"
+            ]
+          },
           "rows": {
             "type": "array",
             "items": {

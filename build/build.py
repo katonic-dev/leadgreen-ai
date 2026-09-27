@@ -85,6 +85,7 @@ MEASUREMENT_SCHEMA = HERE / "schema" / "measurement.schema.json"
 
 ITL_DEADLINE_MS = 500          # D5: the leaderboard's default for every LLM task (tasks.ts defaultItlDeadlineMs, the slider's start)
 GPQA_DEADLINE_MS = 500         # D5: the same default; rows at or under the ceiling are kept, as the leaderboard keeps them
+BOUNDARY = "gpu_only"             # D4: carried beside caveat; host, network, cooling and idle are outside it
 SENSITIVITY_MS = (250, 100, 50)  # D5: tighter ceilings reported under Method; none of them is applied to the index
 EMBER_YEAR = "2024"            # latest year with every listed grid present
 REFERENCE = ("Qwen 3 32B", "H100")   # the row the carbon table is priced on
@@ -991,14 +992,14 @@ api_docs["manifest.json"] = {
     "sources": [SRC_MLE, SRC_MLE_GPQA, SRC_EMBER, {**hw["sources"][0], "licence": "cited, not redistributed"},
                 {**hw["sources"][1], "licence": "cited, not redistributed"}, {**hw["sources"][2], "licence": "cited, not redistributed"},
                 SRC_AIES, SRC_OPENAI_TOKENS],
-    "licence": LICENCE_TEXT, "caveat": CAVEAT,
+    "licence": LICENCE_TEXT, "caveat": CAVEAT, "boundary": BOUNDARY,
     "publisher": {"name": "Lead Green", "parent": "Katonic", "url": SITE},
 }
 api_docs["index.json"] = {
     "version": "1", "updated": UPDATED, "unit": "Wh per million output tokens", "workload": "text-conversation",
     "itl_deadline_ms": ITL_DEADLINE_MS, "selection": "per model and GPU, the configuration with the lowest energy per token whose median inter-token latency does not exceed itl_deadline_ms (the leaderboard's default ceiling; no measured configuration reaches it)",
     "reference_row": {"model": ref["model"], "gpu": ref["gpu"], "num_gpus": ref["num_gpus"]},
-    "source": SRC_MLE, "caveat": CAVEAT, "rows": [{k: v for k, v in r.items() if not k.startswith("_")} for r in index_rows],
+    "source": SRC_MLE, "caveat": CAVEAT, "boundary": BOUNDARY, "rows": [{k: v for k, v in r.items() if not k.startswith("_")} for r in index_rows],
 }
 api_docs["models.json"] = {
     "version": "1", "updated": UPDATED, "source": SRC_MLE,
@@ -1008,7 +1009,7 @@ api_docs["models.json"] = {
 }
 for m in models.values():
     api_docs[f"models/{m['slug']}.json"] = {"version": "1", "updated": UPDATED, "unit": "Wh per million output tokens",
-                                            "itl_deadline_ms": ITL_DEADLINE_MS, "source": SRC_MLE, "caveat": CAVEAT, **m}
+                                            "itl_deadline_ms": ITL_DEADLINE_MS, "source": SRC_MLE, "caveat": CAVEAT, "boundary": BOUNDARY, **m}
 api_docs["grid.json"] = {
     "version": "1", "updated": UPDATED, "year": EMBER_YEAR, "unit": "gCO2e per kWh",
     "basis": EMBER_BASIS + " Annual averages: hourly intensity, contracted supply and self-generation are not reflected.",
@@ -1056,7 +1057,7 @@ api_docs["openapi.json"] = {
         "Index": {"type": "object", "properties": {
             "version": {"type": "string"}, "updated": {"type": "string", "format": "date"}, "unit": {"type": "string"},
             "workload": {"type": "string"}, "itl_deadline_ms": {"type": "integer"}, "source": {"type": "object"},
-            "caveat": {"type": "string"}, "rows": {"type": "array", "items": {"$ref": "#/components/schemas/IndexRow"}}}},
+            "caveat": {"type": "string"}, "boundary": {"type": "string", "enum": ["gpu_only"]}, "rows": {"type": "array", "items": {"$ref": "#/components/schemas/IndexRow"}}}},
     }},
 }
 

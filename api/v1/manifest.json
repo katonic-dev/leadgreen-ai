@@ -154,6 +154,7 @@
   ],
   "licence": "Compilation and site text: CC BY 4.0. Code: Apache 2.0. Third-party figures remain subject to their sources' terms, listed per source.",
   "caveat": "GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.",
+  "boundary": "gpu_only",
   "publisher": {
     "name": "Lead Green",
     "parent": "Katonic",

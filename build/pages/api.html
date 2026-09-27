@@ -64,6 +64,7 @@ console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pr
         <tr><th scope="row">num_gpus, tensor_parallel, data_parallel, expert_parallel</th><td>How many cards and how the model is split across them.</td></tr>
         <tr><th scope="row">params_b, active_params_b, precision</th><td>Total and activated parameters in billions (they differ for mixture-of-experts models) and the weight precision.</td></tr>
         <tr><th scope="row">g_co2e_per_kwh</th><td>Grid emissions intensity of total generation, annual average, from Ember. The year is in the document.</td></tr>
+        <tr><th scope="row">boundary</th><td><code>gpu_only</code>: the figures cover GPU energy and nothing else. Host, network, storage, cooling and idle time are outside it. To reach the facility meter, multiply by a system-to-GPU power ratio and the site's PUE (see the index <a href="{{ROOT}}index/#method">method</a>).</td></tr>
         <tr><th scope="row">caveat</th><td>Carried on every document that has index rows. Please carry it into whatever you build.</td></tr>
       </tbody>
     </table>

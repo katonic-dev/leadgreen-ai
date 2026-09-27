@@ -34,8 +34,8 @@ og_type: article
   <p class="eyebrow">2</p>
   <h2>Power is the ceiling</h2>
   <div class="prose">
-    <p>A data hall, a sovereign site or a telco exchange has a fixed power envelope long before it has a fixed GPU count. Energy per token converts that envelope into capacity. One megawatt-hour serves <b>{{TOKENS_PER_MWH_REF_B}} billion output tokens</b> at the reference row ({{REF_WH_1}} Wh/M). At the top of the concurrency ladder, {{LADDER_32_FIRST}} Wh/M, the same megawatt-hour serves <b>{{TOKENS_PER_MWH_TOP_B}} billion</b>.</p>
-    <p>An eight-GPU DGX B200 is rated at about {{DGX_B200_KW}} kW, and each B200 can be configured up to {{B200_TDP}} W. Those are the numbers a facility engineer works with. What they buy depends entirely on the Wh/M the platform achieves, which is why the figure belongs in the capacity plan and not only in the sustainability report.</p>
+    <p>A data hall, a sovereign site or a telco exchange has a fixed power envelope long before it has a fixed GPU count. Energy per token converts that envelope into capacity. One megawatt-hour of GPU energy serves <b>{{TOKENS_PER_MWH_REF_B}} billion output tokens</b> at the reference row ({{REF_WH_1}} Wh/M). At the top of the concurrency ladder, {{LADDER_32_FIRST}} Wh/M, the same megawatt-hour serves <b>{{TOKENS_PER_MWH_TOP_B}} billion</b>.</p>
+    <p>An eight-GPU DGX B200 is rated at about {{DGX_B200_KW}} kW, and each B200 can be configured up to {{B200_TDP}} W. Those are the numbers a facility engineer works with. What they buy depends entirely on the Wh/M the platform achieves, which is why the figure belongs in the capacity plan and not only in the sustainability report. To take a GPU figure to the facility meter, multiply by the system-to-GPU power ratio and the site's PUE; the <a href="{{ROOT}}index/#method">method</a> works one example.</p>
     <p class="fn">Sources: ML.ENERGY Leaderboard v3.0 for the rows; NVIDIA DGX B200 product page and the HGX B200 product carbon footprint summary (July 2025) for the ceilings.</p>
   </div>
 </section>

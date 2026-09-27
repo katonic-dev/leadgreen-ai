@@ -28,6 +28,7 @@
     "configurations": "328 stable configurations: the leaderboard publishes the runs that passed its stability filter; every run, including the unstable ones, is in the gated Hugging Face dataset ml-energy/benchmark-v3"
   },
   "caveat": "GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.",
+  "boundary": "gpu_only",
   "slug": "qwen-3-30b-a3b-instruct",
   "name": "Qwen 3 30B A3B Instruct",
   "model_id": "Qwen/Qwen3-30B-A3B-Instruct-2507",
