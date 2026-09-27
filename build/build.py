@@ -1660,7 +1660,10 @@ for p in sorted(POSTS.glob("*.html")):
         if k not in meta:
             raise SystemExit(f"{p.name}: post meta is missing '{k}'")
     s = meta.get("slug") or slug(re.sub(r"^\d{4}-\d{2}-\d{2}-", "", p.stem))
-    posts.append({**meta, "slug": s, "author": meta.get("author", EDITOR), "body": body, "file": p.name})
+    # a post's title and description may carry placeholders (the drafts do); fill them once here so the blog list,
+    # the RSS feed and the Markdown copies see the same text as the post page
+    posts.append({**meta, "title": fill(meta["title"], subs), "description": fill(meta["description"], subs),
+                  "slug": s, "author": meta.get("author", EDITOR), "body": body, "file": p.name})
 posts.sort(key=lambda x: x["date"], reverse=True)
 for post in posts:
     out_rel = f"blog/{post['slug']}/index.html"
