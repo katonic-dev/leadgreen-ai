@@ -82,6 +82,7 @@
     <li><a href="#cheap">7 Cheap</a></li>
     <li><a href="#mig">8 Sliced GPUs</a></li>
     <li><a href="#monday">9 Monday</a></li>
+    <li><a href="#hosted">Hosted API</a></li>
   </ul>
 </div>
 
@@ -175,7 +176,7 @@
   <h2>What to do on Monday</h2>
   <div class="prose">
     <ol>
-      <li><b>Ask the vendor for Wh per million output tokens at your concurrency.</b> Not at theirs. Name the model, the precision, the GPU count, the workload and the latency limit, and ask for the average running batch the figure was measured at (the number of requests the server was decoding at once, not the queue). Workload matters as much as load: on the same leaderboard, the Problem Solving task costs 3 to 41 times the energy per response of Text Conversation for the same model on the same GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464, and because the long outputs cut the batch the server can hold, so energy per token itself is 2.2 to 3.3 times the Text Conversation figure for the Qwen and DeepSeek pairs, and 0.7 to 1.0 times it for the four Nemotron pairs. If the vendor cannot answer, the index gives you the floor to hold them to.</li>
+      <li><b>Ask the vendor for Wh per million output tokens at your concurrency.</b> Not at theirs. If you buy tokens from a hosted API rather than run GPUs, the concurrency is the provider's, not yours: send the questions in the <a href="#hosted">hosted API section</a> instead. Name the model, the precision, the GPU count, the workload and the latency limit, and ask for the average running batch the figure was measured at (the number of requests the server was decoding at once, not the queue). Workload matters as much as load: on the same leaderboard, the Problem Solving task costs 3 to 41 times the energy per response of Text Conversation for the same model on the same GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464, and because the long outputs cut the batch the server can hold, so energy per token itself is 2.2 to 3.3 times the Text Conversation figure for the Qwen and DeepSeek pairs, and 0.7 to 1.0 times it for the four Nemotron pairs. If the vendor cannot answer, the index gives you the floor to hold them to.</li>
       <li><b>Measure your own.</b> NVIDIA DCGM or <code>nvidia-smi</code> report GPU power; sample it at one hertz through a steady load, divide the energy by the output tokens served, and you have your own row. The <a href="../contribute/#protocol">measurement protocol</a> is short and the result can be listed beside the public ones.</li>
       <li><b>Put the number in the RFP.</b> One clause, below, turns a marketing conversation into a comparable figure across every bidder.</li>
     </ol>
@@ -186,6 +187,31 @@
     <p>"The bidder shall state the GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state with the proposed serving engine on the proposed hardware, at an average of [N] concurrent requests and with median inter-token latency not exceeding [T] ms, on a conversational workload with prompts and outputs representative of the buyer's use. The bidder shall name the measurement method, the sampling tool, the software versions and the date, and shall state whether host, network and cooling energy are included. Figures for sliced (MIG) configurations shall be measured on the sliced configuration and not derived from whole-card figures."</p>
   </div>
   <p class="note">Fill [N] with the concurrency you expect in production and [T] with the latency your users will accept. The index uses 500 ms, the leaderboard's default, which no measured configuration reaches; choose [T] from what your users will tolerate. Everything else in the clause is there so that two bidders' numbers can be compared.</p>
+</section>
+
+<section id="hosted">
+  <p class="eyebrow">Hosted API</p>
+  <h2>If you buy tokens from a hosted API</h2>
+  <div class="prose">
+    <p>The index cannot measure a hosted API. The benchmark behind it serves open-weight models on GPUs it controls, at a load it sets. A hosted provider's fleet is closed to outsiders, its batches mix every customer's traffic, and it states no concurrency, so there is no configuration to measure and no row to compare, and "at your concurrency" has no meaning. What a buyer can do is ask the provider in writing for the figures below, then use the index to judge whether the first answer is plausible.</p>
+    <p>The reporting line differs too. On GPUs you run, the electricity is your own consumption: it goes into your ESRS E1-5 energy total, and its emissions into your Scope 2. When you buy tokens from a hosted API, the same electricity is part of the provider's operations: it is the provider's Scope 2 and your Scope 3 category 1 (purchased goods and services), and it sits outside your E1-5 total. Wh/M is the forecasting unit in both cases. Only the line it lands on differs.</p>
+    <p><b>Ask the provider, in writing:</b></p>
+    <ol>
+      <li>The fleet-average GPU energy per million output tokens for the model and tier you buy, at the fleet's real utilisation over the period and not a best case, with the boundary stated: GPU only, or with host, network and cooling included.</li>
+      <li>The regions that serve your traffic, and the grid or contracted supply behind each.</li>
+      <li>The power usage effectiveness (PUE) of those sites, and the host-to-GPU power ratio of the serving systems.</li>
+      <li>The carbon factor: its source, its year, whether it is combustion-only or lifecycle, and any market-based instruments netted off, stated separately from the location-based figure.</li>
+      <li>The rule that allocates a shared fleet's energy to your account.</li>
+      <li>A restatement of these figures every quarter for the term of the contract.</li>
+      <li>For any per-prompt figure the provider publishes, the output length, the concurrency and the boundary behind it.</li>
+    </ol>
+    <p>Together they give the supplier-specific figure your Scope 3 category 1 line needs, and the index tells you whether the first number is plausible.</p>
+  </div>
+  <div class="callout">
+    <p class="eyebrow">RFP clause, hosted or shared inference service</p>
+    <p>"For a hosted or shared inference service, the bidder shall state, for each proposed model and service tier, the fleet-average GPU energy per million output tokens (Wh/M) over the preceding quarter at the fleet's actual utilisation, and shall state whether host, network and cooling energy are included; where they are measured they shall be reported as separate figures and not folded in. The bidder shall name the facilities and grid regions that will serve the buyer's traffic and the grid or contracted supply behind each, shall state their power usage effectiveness and the host-to-GPU power ratio of the serving systems, and shall state the rule by which the energy of a shared fleet is allocated to the buyer. Any carbon figure quoted shall name the grid, the emission factor source and year, whether the factor is combustion-only or lifecycle, and whether any market-based instruments have been applied, with the location-based figure stated in all cases. Any per-prompt or per-request figure offered shall state the output length, the concurrency and the boundary behind it. The bidder shall restate these figures to the buyer every quarter for the term of the contract. A bidder that cannot state the fleet figure shall say so; that answer is scored as not stated, not compared."</p>
+  </div>
+  <p class="note">Use it as the second lot beside the on-premise clause above, so a tender with both lots scores both. The cannot-measure and confidential rules in "Scoring the answers" apply to it too.</p>
 </section>
 
   </main>
