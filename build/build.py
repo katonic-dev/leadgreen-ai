@@ -94,6 +94,11 @@ KETTLE_KW = 2.0                      # stated assumption in one worked example
 PROTO_MIN_MINUTES = 5                # protocol: steady-state window at least this long after warm-up
 PROTO_MIN_REQUESTS = 1000            # protocol: at least this many requests in the window
 REPEAT_THRESHOLD_PCT = 5             # protocol: two runs further apart than this need a reason or a third run
+REVIEW_DECISION_DAYS = 30           # D19: a decision on a contributed row within this many days
+MLE_PROMPT_REQUESTS = 1024          # D19: the benchmark's request count (run doc: --workload.num-requests 1024)
+MLE_MAX_BATCHED_TOKENS = 8192       # D19: the benchmark's vLLM flags
+MLE_MAX_MODEL_LEN = 20480
+PROTOCOL_VERSION = "0.2"
 CHALLENGE_TOLERANCE_PCT = 10         # D12: an answer this far below the floor is challenged
 EED_MIN_KW = 500                     # D7: Delegated Regulation (EU) 2024/1364, Article 1: installed IT power demand of at least 500 kW
 GPAI_MODIFY_SHARE = "a third"        # D7: Commission GPAI guidelines, July 2025: a modifier becomes a provider above about a third of the original training compute
@@ -684,6 +689,88 @@ l8 = ladder("Llama 3.1 8B Instruct", "H100", 1)
 _q14 = sorted((c for c in cfgs if c["nickname"] == "Qwen 3 14B" and c["gpu_model"] == "H100" and c["num_gpus"] == 1), key=lambda c: c["max_num_seqs"])
 _q32 = sorted((c for c in cfgs if c["nickname"] == "Qwen 3 32B" and c["gpu_model"] == "H100" and c["num_gpus"] == 1), key=lambda c: c["max_num_seqs"])
 assert _q14 and _q32
+
+# ----------------------------------------------------------------- D19: contributed measurements
+MEAS_SCHEMA = json.loads(MEASUREMENT_SCHEMA.read_text(encoding="utf-8"))
+_JTYPES = {"string": str, "integer": int, "number": (int, float), "boolean": bool, "object": dict, "array": list, "null": type(None)}
+
+
+def _check(v, sch: dict, path: str, errs: list) -> None:
+    """The subset of JSON Schema the measurement schema uses: type, enum, minimum, exclusiveMinimum,
+    required, properties, additionalProperties false, items, minItems."""
+    t = sch.get("type")
+    if t:
+        ts = t if isinstance(t, list) else [t]
+        if not any(isinstance(v, _JTYPES[x]) and not (x in ("integer", "number") and isinstance(v, bool)) for x in ts):
+            errs.append(f"{path}: expected {t}, got {type(v).__name__}")
+            return
+    if "enum" in sch and v not in sch["enum"]:
+        errs.append(f"{path}: {v!r} is not one of {sch['enum']}")
+    if isinstance(v, (int, float)) and not isinstance(v, bool):
+        if "minimum" in sch and v < sch["minimum"]:
+            errs.append(f"{path}: below {sch['minimum']}")
+        if "exclusiveMinimum" in sch and v <= sch["exclusiveMinimum"]:
+            errs.append(f"{path}: must be above {sch['exclusiveMinimum']}")
+    if isinstance(v, dict):
+        for k in sch.get("required", []):
+            if k not in v:
+                errs.append(f"{path}.{k}: required")
+        props = sch.get("properties", {})
+        for k, x in v.items():
+            if k in props:
+                _check(x, props[k], f"{path}.{k}", errs)
+            elif sch.get("additionalProperties") is False:
+                errs.append(f"{path}.{k}: not in the schema")
+    if isinstance(v, list):
+        if len(v) < sch.get("minItems", 0):
+            errs.append(f"{path}: needs at least {sch['minItems']} items")
+        if "items" in sch:
+            for i, x in enumerate(v):
+                _check(x, sch["items"], f"{path}[{i}]", errs)
+
+
+measurement_rows: list[dict] = []
+_meas_errs: list[str] = []
+for mp in sorted(MEASUREMENTS.glob("*.json")) if MEASUREMENTS.exists() else []:
+    m = json.loads(mp.read_text(encoding="utf-8"))
+    errs: list[str] = []
+    _check(m, MEAS_SCHEMA, mp.name, errs)
+    if not errs:   # the rules a schema cannot state
+        if abs(m["joules_per_output_token"] * 1_000_000 / 3600 - m["wh_per_million_output_tokens"]) > 0.01:
+            errs.append(f"{mp.name}: wh_per_million_output_tokens is not joules_per_output_token x 1,000,000 / 3,600")
+        if (m["mig_profile"] is None) != (m["slice_count"] is None) or m["slices_loaded"] != m["slice_count"]:
+            errs.append(f"{mp.name}: a sliced row needs mig_profile, slice_count and slices_loaded, with every slice loaded")
+        _runs = [r["joules_per_output_token"] for r in m["runs"]]
+        if abs(sum(_runs) / len(_runs) - m["joules_per_output_token"]) > 1e-6:
+            errs.append(f"{mp.name}: joules_per_output_token is not the mean of the runs")
+        if (max(_runs) / min(_runs) - 1) * 100 > REPEAT_THRESHOLD_PCT and not m["notes"].strip():
+            errs.append(f"{mp.name}: runs differ by more than {REPEAT_THRESHOLD_PCT} percent and the notes give no reason")
+        if not mp.name.startswith(m["measured_on"]):
+            errs.append(f"{mp.name}: file name must start with measured_on")
+    _meas_errs += errs
+    if not errs and not m["example"]:
+        measurement_rows.append({**m, "source_file": mp.name, "comparable": m["median_itl_ms"] <= ITL_DEADLINE_MS})
+if _meas_errs:
+    sys.exit("REFUSING TO BUILD, contributed measurements fail the schema:\n  " + "\n  ".join(_meas_errs))
+
+
+def _contributed_table() -> str:
+    if not measurement_rows:
+        return "<p class=\"lead\">None yet.</p>"
+    out = ["<div class=\"table-scroll\"><table><caption>Contributed measurements, protocol v" + PROTOCOL_VERSION + "</caption>",
+           "<thead><tr><th scope=\"col\">Model</th><th scope=\"col\" class=\"num\">GPUs</th><th scope=\"col\" class=\"num\">Wh / M</th>"
+           "<th scope=\"col\" class=\"num\">Median ITL (ms)</th><th scope=\"col\" class=\"num\">Running batch (avg)</th><th scope=\"col\">Contributor</th></tr></thead><tbody>"]
+    for r in sorted(measurement_rows, key=lambda r: r["wh_per_million_output_tokens"]):
+        gpus = f"{r['num_gpus']} × {esc(r['gpu'])}" + (f", {r['slices_loaded']} × {esc(r['mig_profile'])}" if r["mig_profile"] else "")
+        flag = "" if r["comparable"] else f" <span class=\"muted\">(above {ITL_DEADLINE_MS} ms)</span>"
+        out.append(f"<tr><th scope=\"row\">{esc(r['model'])}, {r['precision']}</th><td class=\"num\">{gpus}</td>"
+                   f"<td class=\"num key\">{fmt(r['wh_per_million_output_tokens'])}</td><td class=\"num\">{fmt(r['median_itl_ms'], 0)}{flag}</td>"
+                   f"<td class=\"num\">{fmt(r['avg_running_batch'], 0)}</td><td>{esc(r['contributor'])}, {r['measured_on']}</td></tr>")
+    out.append("</tbody></table></div>")
+    return "\n".join(out)
+
+
+contributed_html = _contributed_table()
 ref_wh = wh_per_million(ref_j)                     # raw, for the page tables and prose
 ref_wh_api = ref["wh_per_million_output_tokens"]   # the two-decimal value the API and MCP server return
 tokens_per_mwh_ref_b = 1_000_000 / ref_wh / 1000          # million Wh ÷ Wh per million tokens = million tokens; ÷1000 = billions
@@ -916,6 +1003,9 @@ subs.update({
     "Q14_FIRST_WH": fmt(cfg_wh(_q14[0])), "Q14_FIRST_CAP": fmt(_q14[0]["max_num_seqs"], 0),
     "Q14_LAST_WH": fmt(cfg_wh(_q14[-1])), "Q14_LAST_CAP": fmt(_q14[-1]["max_num_seqs"], 0),
     "Q32_1GPU_WH_LIST": and_list([fmt(cfg_wh(c)) for c in _q32]),
+    "REVIEW_DECISION_DAYS": str(REVIEW_DECISION_DAYS), "MLE_PROMPT_REQUESTS": fmt(MLE_PROMPT_REQUESTS, 0),
+    "MLE_MAX_BATCHED_TOKENS": str(MLE_MAX_BATCHED_TOKENS), "MLE_MAX_MODEL_LEN": str(MLE_MAX_MODEL_LEN), "PROTOCOL_VERSION": PROTOCOL_VERSION,
+    "MEASUREMENT_COUNT": str(len(measurement_rows)), "CONTRIBUTED_ROWS": contributed_html,
     "RECUSAL": (f"While Katonic is a bidder in a tender that cites the index, the editor changes no row for a model Katonic proposes. "
                 f"Rows change only when a source publishes a dated release, and those changes are applied by {esc(OUTSIDE_REVIEWER)}, "
                 "who has no Katonic affiliation. " if OUTSIDE_REVIEWER else
@@ -1022,6 +1112,8 @@ ENDPOINTS = [
     ("hardware.json", "Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure."),
     ("per-query.json", "AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C)."),
     ("openapi.json", "OpenAPI 3.1 description of these endpoints."),
+    ("measurements.json", "Contributed measurements accepted under the protocol, with contributor, affiliation, date, versions and MIG profile; never merged into index.json."),
+    ("schema/measurement.schema.json", "JSON Schema for a contributed measurement file (protocol v0.2); the build validates every submission against it."),
     ("releases/index.json", "Every dated release of api/v1, each kept unchanged at releases/<date>/ with a zip of the whole release, for citation."),
 ]
 api_docs: dict[str, dict] = {}
@@ -1074,6 +1166,15 @@ api_docs["per-query.json"] = {
              "source_label keeps the model string exactly as the source CSV gives it; model carries the clean Hugging Face id."),
     "source": SRC_AIES, "rows": per_query_rows,
 }
+api_docs["measurements.json"] = {
+    "version": "1", "updated": UPDATED, "unit": "Wh per million output tokens", "protocol_version": PROTOCOL_VERSION,
+    "schema": f"{SITE}/api/v1/schema/measurement.schema.json", "itl_deadline_ms": ITL_DEADLINE_MS,
+    "note": ("Rows contributed under the measurement protocol and accepted by two reviewers. They are never merged into index.json. "
+             "comparable is false for a row whose median inter-token latency exceeds itl_deadline_ms; such rows are shown and flagged."),
+    "caveat": CAVEAT, "boundary": BOUNDARY, "rows": measurement_rows,
+}
+api_docs["schema/measurement.schema.json"] = MEAS_SCHEMA
+
 api_docs["openapi.json"] = {
     "openapi": "3.1.0",
     "info": {"title": f"Lead Green {INDEX_NAME} API", "version": "1", "summary": "GPU energy per million output tokens, grid carbon, GPU hardware.",

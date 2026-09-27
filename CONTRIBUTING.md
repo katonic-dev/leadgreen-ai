@@ -10,13 +10,13 @@ Thank you. The site's value is the number of independent, reproducible measureme
 - **A translation** of the index or the "why" page, checked by a second speaker.
 - **Code**: the build script, the API, the MCP server.
 
-Open an issue first if you want to discuss scope. Otherwise send a pull request.
+Open an issue first if you want to discuss scope. Otherwise send a pull request, with a Developer Certificate of Origin line (`Signed-off-by`) on each commit. Until the repository is public, email the file and logs to hello@leadgreen.ai.
 
 ## Submitting a measurement
 
-1. Follow the protocol on `/contribute/#protocol` (vLLM, named hardware and versions, a published prompt set, fixed concurrency held to steady state, GPU power sampled at 1 Hz through DCGM or `nvidia-smi`, output tokens from the engine's metrics, two runs).
-2. Put the result in `build/data/measurements/<YYYY-MM-DD>-<contributor>-<model>-<hardware>.json` using the configuration fields of `api/v1/models/<slug>.json` (`gpu`, `num_gpus`, `tensor_parallel`, `max_num_seqs`, `avg_running_batch` (vLLM's `num_requests_running` averaged over the steady-state window, not the queue), `joules_per_output_token`, `median_itl_ms`, `p90_itl_ms`, `p99_itl_ms`, `tokens_per_second`, `gpu_power_watts_total`, `avg_output_tokens`) plus `mig_profile` (or null), `engine`, `engine_version`, `driver_version`, `cuda_version`, `prompt_set` (URL or file), `measured_on` (date), `contributor`, `vendor_affiliation` (or null), `notes`.
-3. Attach the power log and the engine log in the same folder, or link to them if they are large.
+1. Follow protocol v0.2 on `/contribute/#protocol` (vLLM, named hardware, precision and versions, a published prompt set, a fixed cap held through the benchmark's steady-state window, GPU energy read from the DCGM energy counter, latency from a streaming client, output and prompt tokens from the engine's metrics, two runs).
+2. Put the result in `build/data/measurements/<YYYY-MM-DD>-<contributor>-<model>-<hardware>.json`, valid against `build/schema/measurement.schema.json` (served at `/api/v1/schema/measurement.schema.json`). The example `build/data/measurements/2026-09-26-example-qwen-3-14b-h100-3g40gb-x2.json` has every field filled: `gpu`, `num_gpus`, `tensor_parallel`, `data_parallel`, `expert_parallel`, `precision` (required), `max_num_seqs`, `avg_running_batch` (vLLM's `num_requests_running` averaged over the window, not the queue), `joules_per_output_token`, `wh_per_million_output_tokens`, `median_itl_ms`, `p90_itl_ms`, `p99_itl_ms`, `tokens_per_second`, `gpu_power_watts_total`, `avg_output_tokens`, `avg_prompt_tokens` (required), `window_seconds`, `requests_in_window`, `runs`, `mig_profile` (or null), `slice_count`, `slices_loaded`, `engine`, `engine_version`, `driver_version`, `cuda_version`, `energy_source`, `prompt_set` (URL or file), `measured_on` (date), `contributor`, `affiliation`, `vendor_affiliation` (or null), optional `host_power_watts`, `site_pue` and `site_wue_l_per_kwh` (never folded in), `logs`, `notes`. `python build/build.py` validates every file and refuses to build if one fails.
+3. Attach the power log and the engine's metrics log in the same folder, or link to them if they are large. Strip request bodies from engine logs.
 4. Say in the pull request how the number was computed. A reviewer will recompute it from your logs.
 
 Rows measured by or paid for by a hardware, cloud or model vendor are welcome and are labelled and shown separately.

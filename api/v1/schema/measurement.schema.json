@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://leadgreen.ai/api/v1/schema/measurement.schema.json",
+  "title": "Lead Green contributed measurement, protocol v0.2",
+  "description": "One measured serving configuration, submitted under the measurement protocol at leadgreen.ai/contribute/#protocol. Field names match the configurations in api/v1/models/<slug>.json where they exist. GPU energy only; host, facility and water figures are separate optional fields and are never folded into wh_per_million_output_tokens.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "example",
+    "model",
+    "model_id",
+    "gpu",
+    "num_gpus",
+    "tensor_parallel",
+    "data_parallel",
+    "expert_parallel",
+    "precision",
+    "max_num_seqs",
+    "avg_running_batch",
+    "joules_per_output_token",
+    "wh_per_million_output_tokens",
+    "median_itl_ms",
+    "p90_itl_ms",
+    "p99_itl_ms",
+    "tokens_per_second",
+    "gpu_power_watts_total",
+    "avg_output_tokens",
+    "avg_prompt_tokens",
+    "window_seconds",
+    "requests_in_window",
+    "runs",
+    "mig_profile",
+    "slice_count",
+    "slices_loaded",
+    "engine",
+    "engine_version",
+    "driver_version",
+    "cuda_version",
+    "energy_source",
+    "prompt_set",
+    "measured_on",
+    "contributor",
+    "affiliation",
+    "vendor_affiliation",
+    "logs",
+    "notes"
+  ],
+  "properties": {
+    "protocol_version": {
+      "type": "string",
+      "enum": [
+        "0.2"
+      ]
+    },
+    "example": {
+      "type": "boolean",
+      "description": "true only for the example file; example rows are never published"
+    },
+    "model": {
+      "type": "string",
+      "description": "display name, as on the index where the model is on it"
+    },
+    "model_id": {
+      "type": "string",
+      "description": "Hugging Face id"
+    },
+    "gpu": {
+      "type": "string",
+      "description": "GPU model, e.g. H100 80GB HBM3 SXM"
+    },
+    "num_gpus": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "tensor_parallel": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "data_parallel": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expert_parallel": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "precision": {
+      "type": "string",
+      "enum": [
+        "BF16",
+        "FP16",
+        "FP8",
+        "INT8",
+        "INT4",
+        "MXFP4",
+        "other"
+      ],
+      "description": "weight precision; required, because it decides whether a sliced row is like-for-like"
+    },
+    "max_num_seqs": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "the configured cap"
+    },
+    "avg_running_batch": {
+      "type": "number",
+      "minimum": 0,
+      "description": "mean of vllm:num_requests_running over the window, scraped every second; queued requests are not counted"
+    },
+    "joules_per_output_token": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "wh_per_million_output_tokens": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "joules_per_output_token x 1,000,000 / 3,600"
+    },
+    "median_itl_ms": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "p90_itl_ms": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "p99_itl_ms": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "p95_itl_ms": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "ttft_median_ms": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "median time to first token, if recorded"
+    },
+    "tokens_per_second": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "gpu_power_watts_total": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "average board power summed across every card, or every card holding a loaded slice"
+    },
+    "avg_output_tokens": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "avg_prompt_tokens": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "window_seconds": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "requests_in_window": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "runs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "joules_per_output_token"
+        ],
+        "properties": {
+          "joules_per_output_token": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        }
+      },
+      "description": "every run's joules per output token; the row carries their mean"
+    },
+    "mig_profile": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "e.g. 3g.40gb, or null for a whole card"
+    },
+    "slice_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "slices_loaded": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "description": "must equal slice_count: every slice serves the workload at once"
+    },
+    "engine": {
+      "type": "string"
+    },
+    "engine_version": {
+      "type": "string"
+    },
+    "driver_version": {
+      "type": "string"
+    },
+    "cuda_version": {
+      "type": "string"
+    },
+    "energy_source": {
+      "type": "string",
+      "enum": [
+        "dcgm_total_energy",
+        "nvidia_smi_power_integrated",
+        "other"
+      ],
+      "description": "how GPU energy was read"
+    },
+    "prompt_set": {
+      "type": "string",
+      "description": "URL or file name of the published prompt set"
+    },
+    "measured_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "contributor": {
+      "type": "string"
+    },
+    "affiliation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "vendor_affiliation": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "set when a hardware, cloud or model vendor made or paid for the measurement"
+    },
+    "host_power_watts": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "optional, separate; never folded in"
+    },
+    "site_pue": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "optional, separate; ISO/IEC 30134-2"
+    },
+    "site_wue_l_per_kwh": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "description": "optional site water, ISO/IEC 30134-9; never folded into Wh/M"
+    },
+    "logs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "power log and engine metrics log, request bodies stripped"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

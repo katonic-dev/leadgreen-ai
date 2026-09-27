@@ -110,6 +110,16 @@
   {
    "@type": "DataDownload",
    "encodingFormat": "application/json",
+   "contentUrl": "https://leadgreen.ai/api/v1/measurements.json"
+  },
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "application/json",
+   "contentUrl": "https://leadgreen.ai/api/v1/schema/measurement.schema.json"
+  },
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "application/json",
    "contentUrl": "https://leadgreen.ai/api/v1/releases/index.json"
   }
  ]
@@ -155,6 +165,7 @@
     <li><a href="#per-query">Per query</a></li>
     <li><a href="#method">Method</a></li>
     <li><a href="#own">Own measurements</a></li>
+    <li><a href="#contributed">Contributed</a></li>
     <li><a href="#cite">Cite as</a></li>
     <li><a href="#sources">Sources</a></li>
     <li><a href="#changes">Changes</a></li>
@@ -550,6 +561,13 @@
   <div class="prose">
     <p>Lead Green has not published a measurement of its own. The first will be Qwen 3 14B in BF16 on one H100: the whole card, then the same card split into two 3g.40gb slices, each serving its own BF16 copy under the same load at the same time, with GPU power sampled through NVIDIA DCGM on a server Katonic operates. It is like-for-like on precision and will sit beside the public 1 × H100 BF16 rows for the same model (196.1 Wh/M at a cap of 8 down to 31.1 at a cap of 256). The second will be Qwen 3 32B: the whole card in BF16, then two 3g.40gb slices each serving an FP8 or INT4 copy under the same load. It is not like-for-like on precision and will be labelled so, beside the public 1 × H100 rows (479.4, 267.0 and 173.3 Wh/M). MIG exposes no per-slice power and NCCL does not run across slices, so both read the card's energy as a whole with every slice loaded. It will be labelled as ours, with hardware, driver, serving engine and prompt set named, and it will sit beside the public figures rather than in place of them. The protocol it will follow is on the <a href="../contribute/#protocol">contribute page</a>, and anyone with a GPU can follow it too.</p>
   </div>
+</section>
+
+<section id="contributed">
+  <p class="eyebrow">Contributed measurements</p>
+  <h2>Rows measured by volunteers</h2>
+<p class="lead">None yet.</p>
+  <p class="note">Rows measured under the <a href="../contribute/#protocol">protocol</a> and accepted by two reviewers appear here with the contributor's name, and in <a href="../api/v1/measurements.json"><code>measurements.json</code></a>. They are never merged into the index table above.</p>
 </section>
 
 <section id="cite">

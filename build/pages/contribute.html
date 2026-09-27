@@ -16,7 +16,7 @@ description: How to add a measurement, review a claim or write for Lead Green. V
     <div class="card"><span class="k">Reviewers</span><h3>Check the working</h3><p>You can read a benchmark's method, recompute a figure from its raw file, and say whether a claim on the site survives contact with its source.</p></div>
     <div class="card"><span class="k">Writers</span><h3>Explain one question</h3><p>You can take one of the upcoming blog topics, or propose one, and write it with the working shown and every figure sourced.</p></div>
     <div class="card"><span class="k">Translators</span><h3>Carry it across</h3><p>The carbon table was chosen for readers in the Gulf, South Asia, South-East Asia and Central Europe. Translations of the index and the "why" page, checked by a second speaker, are welcome.</p></div>
-    <div class="card"><span class="k">Developers</span><h3>API and MCP</h3><p>The build script, the JSON API and the MCP server are small Python. A hosted MCP endpoint, a per-model comparison tool, tighter OpenAPI schemas and a spreadsheet export are all open.</p></div>
+    <div class="card"><span class="k">Developers</span><h3>API and MCP</h3><p>The build script, the JSON API and the MCP server are small Python. A hosted MCP endpoint and a per-model comparison tool are open.</p></div>
   </div>
 </section>
 
@@ -24,23 +24,23 @@ description: How to add a measurement, review a claim or write for Lead Green. V
   <p class="eyebrow">How</p>
   <h2>Issues and pull requests</h2>
   <div class="prose">
-    <p>Everything lives in {{REPO_LINK}}: the page sources, the build script, the dated data snapshots, the API and the MCP server. Propose a change as a pull request, or open an issue if you want to discuss it first. A measurement is submitted as a JSON file in the row schema below plus the logs it was computed from; a correction is submitted with a link to the primary source. There is no mailing list to join and no form to fill.</p>
+    <p>Everything lives in {{REPO_LINK}}: the page sources, the build script, the dated data snapshots, the API and the MCP server. Propose a change as a pull request, or open an issue if you want to discuss it first. A measurement is submitted as a JSON file in the <a href="{{ROOT}}api/v1/schema/measurement.schema.json">measurement schema</a> plus the logs it was computed from; a correction is submitted with a link to the primary source. The repository opens {{SUBMISSIONS_OPEN_PHRASE}}. Until then, send a measurement or a correction to {{CONTACT_LINK}}; it will be moved into the repository under your name when the repository opens.</p>
     <p>Contributors are credited by name on the change record and, for measurements, on the row itself. Bylines on blog posts are the author's own.</p>
   </div>
 </section>
 
 <section id="protocol">
-  <p class="eyebrow">Measurement protocol v0.1</p>
+  <p class="eyebrow">Measurement protocol v{{PROTOCOL_VERSION}}</p>
   <h2>How to produce a row that can sit beside the public ones</h2>
   <ol class="steps">
-    <li><div><b>Serving engine.</b> vLLM, the engine the public benchmark uses, so rows are comparable. Record the exact version. Other engines are welcome as clearly labelled separate rows.</div></li>
-    <li><div><b>Hardware.</b> Name the GPU model, memory, form factor (SXM, PCIe, NVL), count, and any MIG profile. Name the driver and CUDA versions and the host. If the card is shared with anything else, say so.</div></li>
-    <li><div><b>Prompt set.</b> A fixed, published prompt set with a stated average prompt length. The public benchmark uses an LM Arena conversation sample; a link or a file is required so another measurer can repeat it.</div></li>
-    <li><div><b>Load.</b> A fixed concurrency (max sequences), held long enough to reach steady state: at least five minutes after warm-up and at least 1,000 requests. Record the average running batch the server actually held (vLLM's <code>num_requests_running</code>, averaged over the window), not only the cap.</div></li>
-    <li><div><b>Power.</b> Sample GPU power at 1 Hz through NVIDIA DCGM (<code>DCGM_FI_DEV_POWER_USAGE</code>) or <code>nvidia-smi --query-gpu=power.draw</code>, for every card in the configuration. Integrate over the steady-state window for energy in joules.</div></li>
-    <li><div><b>Tokens.</b> Count output tokens served in the same window from the engine's own metrics, and record the average output length.</div></li>
-    <li><div><b>Report.</b> Joules per output token (energy ÷ output tokens), Wh per million (× 1,000,000 ÷ 3,600), median and p99 inter-token latency, tokens per second, average power summed across cards, and the fields above, in the JSON row schema used by <a href="{{ROOT}}api/#fields">the API</a>. Attach the raw power log and the engine log.</div></li>
-    <li><div><b>Repeat.</b> Two runs; report both and the mean. If they differ by more than 5 percent, say why or run a third.</div></li>
+    <li><div><b>Serving engine.</b> vLLM, the engine the public benchmark uses, so rows are comparable. Record the exact version. Other engines are welcome as clearly labelled separate rows. The public rows were made with vLLM 0.11.1 and the server flags in the benchmark's configs (max-num-batched-tokens {{MLE_MAX_BATCHED_TOKENS}}, max-model-len {{MLE_MAX_MODEL_LEN}}, dtype bfloat16); record yours.</div></li>
+    <li><div><b>Hardware.</b> Name the GPU model, memory, form factor (SXM, PCIe, NVL), count, any MIG profile and the weight precision (BF16, FP8, INT4). Name the driver and CUDA versions and the host. If the card is shared with anything else, say so.</div></li>
+    <li><div><b>Prompt set.</b> A fixed, published prompt set with a stated average prompt length, linked or attached so another measurer can repeat it. To match the public rows, use the benchmark's own sample: lmarena-ai/arena-human-preference-100k (train), field conversation_a, one request per turn with the full history as the prompt, {{MLE_PROMPT_REQUESTS}} requests, seed 0, as in the benchmark's datasets.py; for Qwen 3 pass chat_template_kwargs enable_thinking false. Or run the <a href="https://github.com/ml-energy/benchmark">benchmark harness</a> itself and submit its output.</div></li>
+    <li><div><b>Load.</b> Send at least {{PROTO_MIN_REQUESTS}} requests with the server's max_num_seqs as the only cap. The window starts when max_num_seqs requests have returned a first token and ends when all but max_num_seqs + 1 requests have finished (the public benchmark's rule); it must last at least {{PROTO_MIN_MINUTES}} minutes, so send more requests at high concurrency. Record the average running batch the server actually held (vLLM's <code>num_requests_running</code>, scraped every second inside the window and averaged), not only the cap.</div></li>
+    <li><div><b>Energy.</b> Read the GPU energy counter at the start and end of the window for every card (DCGM field 156, <code>DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION</code>, millijoules); it is the counter the public benchmark reads through Zeus. Also log board power (field 155, <code>DCGM_FI_DEV_BOARD_POWER_WATTS</code>) every second for the average power column. If you only have <code>nvidia-smi</code>, sample <code>power.draw</code> every second, integrate, and say so.</div></li>
+    <li><div><b>Latency and tokens.</b> Use a client that records the time of every streamed token, such as <code>vllm bench serve</code> with <code>--save-result</code>, which reports median and p99 inter-token latency, and attach its JSON. Read <code>vllm:generation_tokens_total</code> at both ends of the window, and record the average output length and the average prompt length.</div></li>
+    <li><div><b>Report.</b> Joules per output token (energy ÷ output tokens), Wh per million (× 1,000,000 ÷ 3,600), median and p99 inter-token latency, tokens per second, average power summed across cards, and the fields above, in the <a href="{{ROOT}}api/v1/schema/measurement.schema.json">measurement schema</a>; the example file <code>build/data/measurements/2026-09-26-example-qwen-3-14b-h100-3g40gb-x2.json</code> has every field filled. The build validates every file against the schema and refuses to publish one that fails. Attach the power log and the engine's metrics log; strip request bodies from engine logs, or link the prompt set instead of reproducing it. A row is comparable with the index only if its median inter-token latency is at or under {{ITL}} ms.</div></li>
+    <li><div><b>Repeat.</b> Two runs; report both and the mean. If joules per output token differ by more than {{REPEAT_THRESHOLD_PCT}} percent between runs, say why or run a third.</div></li>
   </ol>
   <p class="note">The protocol measures GPU energy only, like the index. If you also have facility or host power, report it as separate fields; do not fold it in. The same goes for water: if you know the site's water use, report it in the optional site water field as water usage effectiveness (litres per kWh of IT energy, ISO/IEC 30134-9), never folded into Wh/M. Power for a sliced card is the whole card's; no tool reports power per slice. Load every slice with the same workload at the same time, read the card's energy exactly as for an unsliced card, and report Wh/M for the card with <code>mig_profile</code>, <code>slice_count</code> and <code>slices_loaded</code>. Never divide the card's power by the slice count, and never report a slice measured while the other slices sit idle. Compare a sliced run with the same person's whole-card run on the same card in the same session; the public 1 × H100 rows are the reference.</p>
 </section>
@@ -50,7 +50,8 @@ description: How to add a measurement, review a claim or write for Lead Green. V
   <h2>What it takes to land on the index</h2>
   <div class="prose">
     <ul>
-      <li><b>Two reviewers</b> for a new row or a changed figure, one of whom recomputes the number from the attached logs or the source file. The reviewers are {{REVIEWERS_PHRASE}}. Any row Katonic measures is also checked by {{OUTSIDE_REVIEWER_PHRASE}}.</li>
+      <li><b>Two reviewers</b> for a new row or a changed figure, one of whom recomputes the number from the attached logs or the source file. The reviewers are {{REVIEWERS_PHRASE}}. Any row Katonic measures is also checked by {{OUTSIDE_REVIEWER_PHRASE}}. A decision within {{REVIEW_DECISION_DAYS}} days.</li>
+      <li><b>Where accepted rows go.</b> Accepted rows are served at <a href="{{ROOT}}api/v1/measurements.json"><code>/api/v1/measurements.json</code></a> with contributor, affiliation, measured_on, engine_version, driver_version and mig_profile on each row, and listed on the index under <a href="{{ROOT}}index/#contributed">Contributed measurements</a> with the contributor's name. They are never merged into the index table. A contributed row states its median inter-token latency; rows above {{ITL}} ms are shown and flagged.</li>
       <li><b>Source snapshot.</b> Every public figure is taken from a dated copy of the source file, kept with the site, so it can be recomputed later even if the source moves.</li>
       <li><b>Claims ledger.</b> Every figure on every page has a source and a retrieval date in the sources list. If it cannot be sourced, it does not ship.</li>
       <li><b>Corrections</b> are made in the open: the change record on the index names what changed, when and why, and a corrected blog post keeps a note at the top.</li>
@@ -64,7 +65,7 @@ description: How to add a measurement, review a claim or write for Lead Green. V
   <p class="eyebrow">Needed first</p>
   <h2>The gaps, in order</h2>
   <ol class="steps">
-    <li><div><b>MIG slices.</b> Any model on a 1g, 2g or 3g slice of an H100 or H200, against the whole card. Nothing public exists.</div></li>
+    <li><div><b>MIG slices.</b> Any model on a 1g, 2g or 3g slice of an H100 or H200, against the same model on the same whole card, measured by the same person in the same session with the same engine, driver and prompt set. Nothing public exists. The API's 1 × H100 rows are the public reference: for Qwen 3 14B in BF16, {{Q14_FIRST_WH}} Wh/M at a cap of {{Q14_FIRST_CAP}} down to {{Q14_LAST_WH}} at {{Q14_LAST_CAP}}.</div></li>
     <li><div><b>Other GPUs.</b> A100, H200, L40S, and AMD MI300X. The index has H100 and B200 only.</div></li>
     <li><div><b>Hourly grid data.</b> Annual averages hide a lot. Hourly intensity for the grids on the carbon table, from a source whose licence allows republishing.</div></li>
     <li><div><b>Translations.</b> Arabic, Serbian, Traditional Chinese, Tagalog and Sinhala first, for the readers the carbon table was built for.</div></li>
@@ -77,6 +78,6 @@ description: How to add a measurement, review a claim or write for Lead Green. V
   <p class="eyebrow">Licences</p>
   <h2>What you give and what you get</h2>
   <div class="prose">
-    <p>Code (the build script, the API generator, the MCP server) is Apache 2.0. Data and text (the compiled index, derived figures, page text, blog posts) are CC BY 4.0. By contributing you agree your contribution is offered under the same terms. Public sources keep their own licences, which are listed per source and never overridden.</p>
+    <p>Code (the build script, the API generator, the MCP server) is Apache 2.0. Data and text (the compiled index, derived figures, page text, blog posts) are CC BY 4.0. By contributing you agree your contribution is offered under the same terms: your row and your logs are CC BY 4.0, and prompt sets keep their own licence. Sign commits with a Developer Certificate of Origin line (<code>Signed-off-by</code>). Public sources keep their own licences, which are listed per source and never overridden.</p>
   </div>
 </section>
