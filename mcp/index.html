@@ -81,7 +81,20 @@
 <pre><code>pip install https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl</code></pre>
   <div class="prose"><p>Or run it without installing, with <a href="https://docs.astral.sh/uv/">uv</a>:</p></div>
 <pre><code>uvx --from https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl leadgreen-mcp</code></pre>
-  <p class="note">Python 3.10 or later. The server works with the <code>mcp</code> Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline.</p>
+  <p class="note">Python 3.10 or later. The server works with the <code>mcp</code> Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline. Every response says which it used.</p>
+</section>
+
+<section id="network">
+  <p class="eyebrow">What it sends, and where</p>
+  <h2>GET requests to one host, and nothing else</h2>
+  <div class="prose">
+    <ul>
+      <li><b>Where.</b> Only to <code>https://leadgreen.ai/api/v1/</code>, or to the base you set in <code>LEADGREEN_API_BASE</code>. Plain HTTPS GET requests for the published JSON files, once per file per session.</li>
+      <li><b>What never leaves your machine.</b> Your questions, your token counts, your country and anything else you pass to a tool. The arithmetic happens locally.</li>
+      <li><b>No network at all.</b> Point <code>LEADGREEN_API_BASE</code> at a local folder holding the API files and the server makes no requests.</li>
+      <li><b>When the site cannot be reached.</b> After the first failed fetch the server stops trying for the rest of the session, prints one line to stderr, and answers from the snapshot bundled in the package. Every response carries <code>data_source</code> (<code>live</code>, <code>local folder</code> or <code>bundled snapshot</code>) and <code>data_updated</code>, so a session left open for a month says how old its figures are.</li>
+    </ul>
+  </div>
 </section>
 
 <section id="configure">
@@ -96,6 +109,7 @@
 }</code></pre>
   <h3>Claude Code</h3>
 <pre><code>claude mcp add leadgreen -- leadgreen-mcp</code></pre>
+  <p class="note">Claude Desktop started from the Finder or the Start menu may not see the folder pip installed into. If the server does not appear, use the full path that <code>which leadgreen-mcp</code> (macOS, Linux) or <code>where leadgreen-mcp</code> (Windows) prints as the command, or run <code>python -m leadgreen_mcp.server</code>.</p>
   <h3>Cursor</h3>
   <div class="prose"><p>Add the same block to <code>.cursor/mcp.json</code> in the project, or to the global file from Cursor Settings, MCP.</p>
   <p>If you run it with uv rather than installing it, use <code>"command": "uvx", "args": ["--from", "https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl", "leadgreen-mcp"]</code> instead.</p></div>
@@ -111,16 +125,16 @@
       <tbody>
         <tr><th scope="row">list_models</th><td>Every model on the index, with slugs, ids, parameter counts and measured GPUs</td><td>"Which models does Lead Green have energy figures for?"</td></tr>
         <tr><th scope="row">energy_per_million_tokens</th><td>The index rows for one model, optionally one GPU</td><td>"What is the energy per million tokens for Llama 3.1 70B on H100?"</td></tr>
-        <tr><th scope="row">estimate</th><td>Wh and kWh for a token count, with kg CO2e for a country, optionally at a given concurrency</td><td>"How much energy would 50 million tokens of Qwen 3 32B use on H100s, and what is the carbon in Serbia?"</td></tr>
+        <tr><th scope="row">estimate</th><td>Wh and kWh for a token count, with kg CO2e for a country; optionally at a given running batch and card count, under a latency ceiling, and at the meter with your PUE and system-to-GPU power ratio</td><td>"How much energy would 50 million tokens of Qwen 3 32B use on H100s, and what is the carbon in Serbia?"</td></tr>
         <tr><th scope="row">compare_gpus</th><td>H100 against B200 for a model, with the ratio</td><td>"How much does B200 save over H100 for DeepSeek V3.1?"</td></tr>
         <tr><th scope="row">concurrency_curve</th><td>Energy per token at every measured concurrency</td><td>"Show me how energy per token changes with load for Qwen 3 8B on B200"</td></tr>
-        <tr><th scope="row">grid_intensity</th><td>Annual average gCO2e per kWh for a country or World</td><td>"What is the grid carbon intensity of the Philippines?"</td></tr>
+        <tr><th scope="row">grid_intensity</th><td>Annual average gCO2e per kWh for a country or World, with 2023 to 2025 where Ember has them. Accepts names, ISO codes and common short forms (UK, US, Korea)</td><td>"What is the grid carbon intensity of the UK?"</td></tr>
         <tr><th scope="row">gpu_hardware</th><td>Max TDP, memory and MIG profiles</td><td>"What MIG slices can an H200 be split into?"</td></tr>
         <tr><th scope="row">sources</th><td>Every source, version, retrieval date, licence and endpoint</td><td>"Where do these numbers come from?"</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="note">The resource <code>leadgreen://manifest</code> returns the same manifest as a document. Every tool response carries a <code>caveat</code> field; a well-behaved assistant repeats it.</p>
+  <p class="note">The resource <code>leadgreen://manifest</code> returns the same manifest as a document. Every tool response carries <code>caveat</code>, <code>boundary</code> (<code>gpu_only</code>), <code>data_source</code> and <code>data_updated</code>. The caveat is the same string the API documents carry; a well-behaved assistant repeats it.</p>
 </section>
 
 <section id="example">
@@ -132,7 +146,8 @@
       <li>Energy: 63.47 Wh/M × 50 M = <b>3,173.5 Wh</b>, or 3.1735 kWh.</li>
       <li>Carbon: 3.1735 kWh × 668 g ÷ 1,000 = <b>2.12 kg CO2e</b>.</li>
     </ul>
-    <p>Pass <code>running_batch</code> (<code>requests_in_flight</code> is still accepted as an alias) and the tool switches from the best row to the measured configuration nearest that running batch, which for a lightly loaded server can multiply the answer several times. That is the honest number for most enterprise deployments.</p>
+    <p>Add <code>pue</code> and <code>system_power_ratio</code> and the answer also carries energy at the meter: GPU energy times the system-to-GPU power ratio times the PUE, labelled as such. Both are your figures, not the index's; the <a href="../index/#method">method</a> gives the DGX B200 ratio of 1.79 as an example.</p>
+    <p>Pass <code>running_batch</code> (<code>requests_in_flight</code> is still accepted as an alias) and the tool switches from the best row to the measured configuration on the same card count nearest that running batch (pass <code>num_gpus</code> for another count; the <code>basis</code> field names the row it used), which for a lightly loaded server can multiply the answer several times. That is the honest number for most enterprise deployments.</p>
   </div>
 </section>
 
