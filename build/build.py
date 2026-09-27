@@ -879,8 +879,34 @@ for rel, doc in api_docs.items():
     p = API_DIR / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(jdump(doc), encoding="utf-8", newline="\n")
-shutil.rmtree(MCP_DATA, ignore_errors=True)
-shutil.copytree(API_DIR, MCP_DATA)
+def sync_tree(src: Path, dst: Path, skip: tuple[str, ...] = ()) -> None:
+    """Make dst an exact copy of src, updating in place. rmtree then copytree
+    fails inside OneDrive, which keeps handles on emptied folders."""
+    keep = set()
+    for p in sorted(src.rglob("*")):
+        rel = p.relative_to(src)
+        if rel.parts and rel.parts[0] in skip:
+            continue
+        keep.add(rel)
+        q = dst / rel
+        if p.is_dir():
+            q.mkdir(parents=True, exist_ok=True)
+        else:
+            q.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(p, q)
+    for q in sorted(dst.rglob("*"), key=lambda x: len(x.parts), reverse=True):
+        if q.relative_to(dst) in keep:
+            continue
+        if q.is_dir():
+            try:
+                q.rmdir()
+            except OSError:
+                pass
+        else:
+            q.unlink()
+
+
+sync_tree(API_DIR, MCP_DATA)
 
 wheel = ROOT / "dist" / WHEEL_NAME
 print(f"wrote {len(outputs)} pages/files and {len(api_docs)} API documents; {len(index_rows)} index rows from {len(cfgs)} configurations; "
