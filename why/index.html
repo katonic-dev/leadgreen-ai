@@ -111,17 +111,20 @@
   <div class="prose">
     <p>Under the European Sustainability Reporting Standards, disclosure E1-5 asks for total energy consumption in MWh from own operations, split by fossil, nuclear and renewable sources. AI served on GPUs the company runs is a new and growing line inside that total, and its electricity lands in Scope 2. Tokens bought from a hosted API are different: that electricity is the provider's Scope 2 and the buyer's Scope 3 category 1 (purchased goods and services), and it sits outside the buyer's E1-5 MWh. A company that cannot say how many MWh its assistants used last quarter, or how many they will use next year as adoption grows, cannot fill in the line with a method it can defend.</p>
     <p>Energy per million tokens is the forecasting unit in both cases. Tokens served next year multiplied by Wh/M gives the MWh. Without the first factor the second is a guess.</p>
-    <p class="fn">Sources: Commission Delegated Regulation (EU) 2023/2772, ESRS E1-5 "Energy consumption and mix" (energy consumption related to own operations) and E1-6 (Scope 2, location-based and market-based); GHG Protocol Scope 3, category 1, purchased goods and services.</p>
+    <p class="fn">Sources: <a href="https://eur-lex.europa.eu/eli/reg_del/2023/2772/oj">Commission Delegated Regulation (EU) 2023/2772</a>, ESRS E1-5 "Energy consumption and mix", paragraph 37 (energy consumption related to own operations), carried into ESRS (2026) for financial years from 2027, and E1-6 (Scope 2, location-based and market-based); GHG Protocol Scope 3, category 1, purchased goods and services.</p>
+    <p class="fn">Regulatory summaries on this site are as at 27 September 2026, for orientation, and are not legal advice.</p>
   </div>
 </section>
 
 <section id="regulator">
   <p class="eyebrow">4</p>
-  <h2>The regulator already asks model providers</h2>
+  <h2>What the regulator asks, and what it does not</h2>
   <div class="prose">
-    <p>The EU AI Act (Regulation 2024/1689) requires providers of general-purpose AI models to keep technical documentation, and Annex XI lists what it must contain. Section 1, point 2(e) names the "known or estimated energy consumption of the model", and adds that where it is unknown it may be based on the computational resources used. The duty sits with the model provider, not with the company deploying the model.</p>
-    <p>That is the point. Once a property is documented upstream, buyers start asking for it downstream. A deployer choosing between two models, or between a hosted API and its own cluster, will want the energy figure at their own load and not the provider's. The index is a public baseline to check that answer against.</p>
-    <p class="fn">Source: Regulation (EU) 2024/1689, Article 53(1)(a) and Annex XI, Section 1, point 2(e).</p>
+    <p>The EU AI Act (<a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">Regulation (EU) 2024/1689</a>) requires providers of general-purpose AI models to keep technical documentation, and Annex XI lists what it must contain. Section 1, point 2(e) names the "known or estimated energy consumption of the model", and adds that where it is unknown it may be based on the computational resources used. The duty sits with the model provider, not with the company deploying the model.</p>
+    <p>Two limits apply. Article 53(2) lifts this duty from models released under a free and open-source licence with public weights, unless the model carries systemic risk. Every model on this index is open-weight, though whether each licence and model qualifies is for its provider to show. Article 111(3) gives models placed on the market before 2 August 2025 until 2 August 2027 to comply. So for many rows on this index no energy documentation is yet required by law.</p>
+    <p>That documentation stays between the provider and the AI Office. Annex XII, the information a provider must give downstream, has no energy item, and the Code of Practice's Model Documentation Form marks its energy fields for the AI Office and national authorities only, asks for training energy in megawatt-hours, and records inference as compute in floating-point operations. So the Act does not put a serving energy figure in a buyer's hands. Lead Green expects buyers to ask for one anyway, at their own load, and the index is the public baseline for that question.</p>
+    <p class="fn">Source: <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">Regulation (EU) 2024/1689</a>, Article 53(1)(a) and (2), Article 111(3), Annex XI, Section 1, point 2(e), and Annex XII; General-Purpose AI Code of Practice, Model Documentation Form.</p>
+    <p class="fn">Legal texts are summarised as at 27 September 2026 for orientation and are not legal advice. ESRS (2026), adopted 3 July 2026, keeps E1-5 and applies to financial years from 1 January 2027. Regulation (EU) 2026/1744, in force 27 July 2026, moved the high-risk dates to 2 December 2027 and 2 August 2028 and left the general-purpose model duties unchanged.</p>
   </div>
 </section>
 
