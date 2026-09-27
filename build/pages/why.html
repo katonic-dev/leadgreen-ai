@@ -86,7 +86,7 @@ og_type: article
   <h2>Electricity per token is cheap. That is exactly why the number matters.</h2>
   <div class="prose">
     <p>At the reference row, a million output tokens takes {{REF_WH_1}} Wh, which at USD {{ELECTRICITY_PRICE}} per kWh is <b>{{CENTS_PER_M_REF}} US cents</b>. A billion tokens is about USD {{USD_PER_B_REF}}. Nobody will make a decision on that bill.</p>
-    <p>But the bill is not the point. Energy per token is the power a GPU draws multiplied by the time it spends on the tokens. Watt-hours per token track GPU-hours per token, and GPU-hours are the real cost of serving, whether they are rented at cloud rates or depreciated on a balance sheet. A configuration that halves Wh/M has halved the GPU-hours per token. The electricity figure is the cheapest instrument you can put on the most expensive thing in the room.</p>
+    <p>But the bill is not the point. Energy per token is the power a GPU draws multiplied by the time it spends on the tokens. Watt-hours per token track GPU-hours per token, and GPU-hours are the real cost of serving, whether they are rented at cloud rates or depreciated on a balance sheet. A configuration that halves Wh/M has halved the GPU-hours per token. The electricity figure is a cheap instrument to put on an expensive thing.</p>
     <p class="fn">Working: {{REF_WH_1}} Wh per million tokens is {{REF_KWH_PER_B}} kWh per billion; at USD {{ELECTRICITY_PRICE}} per kWh that is USD {{USD_PER_B_REF}} per billion tokens, or {{CENTS_PER_M_REF}} cents per million. The electricity price is an assumption for the worked example, not a source figure.</p>
   </div>
 </section>
@@ -96,7 +96,7 @@ og_type: article
   <h2>Sliced GPUs are unmeasured</h2>
   <div class="prose">
     <p>Multi-Instance GPU lets one A100, H100, H200 or B200 be split into up to seven isolated slices, and it is how many enterprise and telco platforms serve several small models from one card. NVIDIA publishes the slice shapes. It does not publish power draw per slice, and neither of the two public benchmarks on the index has measured a sliced card. So the configuration a great many production deployments actually run in has no public energy figure at all.</p>
-    <p>That is the first gap Lead Green intends to close with a measurement of its own: a 32B model on two MIG slices against a whole card, GPU power sampled through NVIDIA DCGM, with hardware, driver, engine and prompt set named. Until it is published, the honest answer for a sliced deployment is "unknown, and above the index".</p>
+    <p>That is the first gap Lead Green intends to close with a measurement of its own: a 32B model on two MIG slices against a whole card, GPU power sampled through NVIDIA DCGM, with hardware, driver, engine and prompt set named. Until it is published, Lead Green's working answer for a sliced deployment is "unknown, and in our view above the index".</p>
     <p class="fn">Source: NVIDIA Multi-Instance GPU User Guide, supported MIG profiles, last updated 11 September 2026. Profiles on <a href="{{ROOT}}index/#hardware">the index</a>.</p>
   </div>
 </section>

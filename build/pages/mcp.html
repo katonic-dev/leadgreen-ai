@@ -81,7 +81,7 @@ description: An MCP server that gives Claude, Cursor and other AI assistants the
       <li>Carbon: {{EST_50M_KWH}} kWh × {{SRB_G}} g ÷ 1,000 = <b>{{EST_50M_KG_SRB}} kg CO2e</b>.</li>
     </ul>
     <p>Add <code>pue</code> and <code>system_power_ratio</code> and the answer also carries energy at the meter: GPU energy times the system-to-GPU power ratio times the PUE, labelled as such. Both are your figures, not the index's; the <a href="{{ROOT}}index/#method">method</a> gives the {{SYS_NAME}} ratio of {{SYS_RATIO}} as an example.</p>
-    <p>Pass <code>running_batch</code> (<code>requests_in_flight</code> is still accepted as an alias) and the tool switches from the best row to the measured configuration on the same card count nearest that running batch (pass <code>num_gpus</code> for another count; the <code>basis</code> field names the row it used), which for a lightly loaded server can multiply the answer several times. That is the honest number for most enterprise deployments.</p>
+    <p>Pass <code>running_batch</code> (<code>requests_in_flight</code> is still accepted as an alias) and the tool switches from the best row to the measured configuration on the same card count nearest that running batch (pass <code>num_gpus</code> for another count; the <code>basis</code> field names the row it used), which for a lightly loaded server can multiply the answer several times. In the deployments the editor sees, that is the number that applies.</p>
   </div>
 </section>
 
