@@ -68,7 +68,7 @@ Preview: the Browser pane config `leadgreen-site-static` in `.claude/launch.json
 3. Settings, Pages, Custom domain: `leadgreen.ai` (the `CNAME` file carries it). Tick "Enforce HTTPS" once the certificate is issued.
 4. At the registrar, replace the site-builder DNS with GitHub Pages: `A` records for the apex pointing at 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153; `AAAA` records 2606:50c0:8000::153, 2606:50c0:8001::153, 2606:50c0:8002::153, 2606:50c0:8003::153; `CNAME` for `www` pointing at `<github-user>.github.io`. Check the current list in GitHub's docs ("Managing a custom domain for your GitHub Pages site") before entering them.
 5. Cancel or park the site-builder plan that serves the "Launching Soon" page, so its contact form stops accepting messages into an unmonitored mailbox.
-6. After the first deploy, fetch `https://leadgreen.ai/api/v1/manifest.json` and `https://leadgreen.ai/dist/leadgreen_mcp-0.1.0-py3-none-any.whl` once to confirm both are served, then run the MCP install line from the `/mcp/` page.
+6. After the first deploy, fetch `https://leadgreen.ai/api/v1/manifest.json` and `https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl` once to confirm both are served, then run the MCP install line from the `/mcp/` page.
 
 ## Logo
 

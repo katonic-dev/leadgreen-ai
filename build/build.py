@@ -61,6 +61,8 @@ NEWSLETTER_SIGNUP_URL = ""             # D2: set when the email provider is chos
 MCP_VERSION = "0.2.0"
 WHEEL_NAME = f"leadgreen_mcp-{MCP_VERSION}-py3-none-any.whl"
 WHEEL_URL = f"{SITE}/dist/{WHEEL_NAME}"
+_wheel_file = Path(__file__).resolve().parent.parent / "dist" / WHEEL_NAME   # theme 10: the install line carries the wheel hash
+WHEEL_SHA256 = hashlib.sha256(_wheel_file.read_bytes()).hexdigest() if _wheel_file.exists() else ""
 # D16 publisher block. The address is typed only from the DIFC registry extract, after Prem confirms it.
 PUBLISHER_ENTITY = "Katonic AI Technology Ltd"
 PUBLISHER_REGISTRATION = "CL9944"
@@ -798,7 +800,9 @@ subs = {
     # the MCP worked example reproduces what the tool returns, so it uses the API's two-decimal values
     "EST_50M_WH": fmt(ref_wh_api * 50, 1), "EST_50M_KWH": fmt(ref_wh_api * 50 / 1000, 4),
     "EST_50M_KG_SRB": fmt(ref_wh_api * 50 / 1000 * round(intensity["SRB"], 1) / 1000, 2),
-    "REPO_INSTALL": (f"pip install \"git+{REPO_URL}#subdirectory=leadgreen-mcp\"" if REPO_URL else f"pip install {WHEEL_URL}"),
+    "REPO_INSTALL": (f"pip install \"git+{REPO_URL}#subdirectory=leadgreen-mcp\"" if REPO_URL else
+                     f"pip install {WHEEL_URL}#sha256={WHEEL_SHA256}" if WHEEL_SHA256 else f"pip install {WHEEL_URL}"),
+    "WHEEL_SHA256": WHEEL_SHA256 or "not built yet",
     "REPO_UVX": (f"uvx --from \"git+{REPO_URL}#subdirectory=leadgreen-mcp\" leadgreen-mcp" if REPO_URL else f"uvx --from {WHEEL_URL} leadgreen-mcp"),
     "NEWSLETTER_CTA": (
         f"<div class=\"actions\"><a class=\"cta solid\" href=\"{NEWSLETTER_SIGNUP_URL}\">Subscribe by email</a>"
