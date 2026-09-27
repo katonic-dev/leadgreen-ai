@@ -85,6 +85,7 @@ export type Models = {
     active_params_b: number;
     gpus: Array<string>;
     url: string;
+    page: string;
   }>;
 };
 

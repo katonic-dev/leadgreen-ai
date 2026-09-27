@@ -1,0 +1,19 @@
+<!--meta
+title: Models: GPU energy per million output tokens, by model | Lead Green
+description: One page per model on the {{INDEX_NAME}} index: GPU watt-hours per million output tokens on H100 and B200, every measured load, and carbon by grid.
+-->
+<div class="title">
+  <p class="eyebrow">Models</p>
+  <h1>{{MODEL_COUNT}} open-weight models, one page each</h1>
+  <p class="stand">Every model on the {{INDEX_NAME}} index has its own page: the index row per GPU, every measured configuration from a running batch of eight upward, H100 against B200 where both were measured, carbon on a spread of grids, and the questions people ask about it. Every figure comes from the same dated snapshot as <a href="{{ROOT}}index/">the index</a>.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated {{UPDATED_LONG}}.</p>
+</div>
+
+<section class="first" id="models">
+  <p class="eyebrow">Lowest index row first</p>
+  <h2>Pick a model</h2>
+  <div class="cards">
+{{MODEL_CARDS}}
+  </div>
+  <p class="note">The figure on each card is the model's lowest index row across the GPUs it was measured on. Closed-weight models served over an API cannot be measured from outside and are not here. Source: {{MLE_SHORT}}, Text Conversation, {{CONFIG_COUNT}} stable configurations, retrieved {{RETRIEVED_LONG}}.</p>
+</section>

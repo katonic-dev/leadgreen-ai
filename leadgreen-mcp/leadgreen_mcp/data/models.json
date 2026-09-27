@@ -36,7 +36,8 @@
       "gpus": [
         "B200"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/deepseek-v3-1.json"
+      "url": "https://leadgreen.ai/api/v1/models/deepseek-v3-1.json",
+      "page": "https://leadgreen.ai/models/deepseek-v3-1/"
     },
     {
       "slug": "gemma-3-12b",
@@ -48,7 +49,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/gemma-3-12b.json"
+      "url": "https://leadgreen.ai/api/v1/models/gemma-3-12b.json",
+      "page": "https://leadgreen.ai/models/gemma-3-12b/"
     },
     {
       "slug": "gemma-3-27b",
@@ -60,7 +62,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/gemma-3-27b.json"
+      "url": "https://leadgreen.ai/api/v1/models/gemma-3-27b.json",
+      "page": "https://leadgreen.ai/models/gemma-3-27b/"
     },
     {
       "slug": "llama-3-1-405b-instruct",
@@ -71,7 +74,8 @@
       "gpus": [
         "B200"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct.json"
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-3-1-405b-instruct/"
     },
     {
       "slug": "llama-3-1-405b-instruct-fp8",
@@ -83,7 +87,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct-fp8.json"
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct-fp8.json",
+      "page": "https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/"
     },
     {
       "slug": "llama-3-1-70b-instruct",
@@ -95,7 +100,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-70b-instruct.json"
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-70b-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-3-1-70b-instruct/"
     },
     {
       "slug": "llama-3-1-8b-instruct",
@@ -107,7 +113,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-8b-instruct.json"
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-8b-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-3-1-8b-instruct/"
     },
     {
       "slug": "llama-3-3-70b-instruct",
@@ -119,7 +126,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/llama-3-3-70b-instruct.json"
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-3-70b-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-3-3-70b-instruct/"
     },
     {
       "slug": "llama-4-maverick-17b-128e-instruct-fp8",
@@ -130,7 +138,8 @@
       "gpus": [
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/llama-4-maverick-17b-128e-instruct-fp8.json"
+      "url": "https://leadgreen.ai/api/v1/models/llama-4-maverick-17b-128e-instruct-fp8.json",
+      "page": "https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/"
     },
     {
       "slug": "llama-4-scout-17b-16e-instruct",
@@ -141,7 +150,8 @@
       "gpus": [
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json"
+      "url": "https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/"
     },
     {
       "slug": "nvidia-nemotron-nano-12b-v2",
@@ -153,7 +163,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-12b-v2.json"
+      "url": "https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-12b-v2.json",
+      "page": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/"
     },
     {
       "slug": "nvidia-nemotron-nano-9b-v2",
@@ -165,7 +176,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-9b-v2.json"
+      "url": "https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-9b-v2.json",
+      "page": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/"
     },
     {
       "slug": "qwen-3-14b",
@@ -177,7 +189,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/qwen-3-14b.json"
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-14b.json",
+      "page": "https://leadgreen.ai/models/qwen-3-14b/"
     },
     {
       "slug": "qwen-3-235b-a22b-instruct",
@@ -189,7 +202,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json"
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json",
+      "page": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/"
     },
     {
       "slug": "qwen-3-235b-a22b-instruct-fp8",
@@ -201,7 +215,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct-fp8.json"
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct-fp8.json",
+      "page": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/"
     },
     {
       "slug": "qwen-3-30b-a3b-instruct",
@@ -213,7 +228,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/qwen-3-30b-a3b-instruct.json"
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-30b-a3b-instruct.json",
+      "page": "https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/"
     },
     {
       "slug": "qwen-3-32b",
@@ -225,7 +241,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/qwen-3-32b.json"
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-32b.json",
+      "page": "https://leadgreen.ai/models/qwen-3-32b/"
     },
     {
       "slug": "qwen-3-8b",
@@ -237,7 +254,8 @@
         "B200",
         "H100"
       ],
-      "url": "https://leadgreen.ai/api/v1/models/qwen-3-8b.json"
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-8b.json",
+      "page": "https://leadgreen.ai/models/qwen-3-8b/"
     }
   ]
 }

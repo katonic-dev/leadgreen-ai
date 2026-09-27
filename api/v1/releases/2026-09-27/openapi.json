@@ -718,6 +718,10 @@
                 "url": {
                   "type": "string",
                   "description": "URL of models/<slug>.json."
+                },
+                "page": {
+                  "type": "string",
+                  "description": "URL of the model's page on the site."
                 }
               },
               "required": [
@@ -727,7 +731,8 @@
                 "params_b",
                 "active_params_b",
                 "gpus",
-                "url"
+                "url",
+                "page"
               ]
             }
           }
@@ -796,7 +801,7 @@
           },
           "architecture": {
             "type": "string",
-            "description": "dense or moe."
+            "description": "The source's label: Dense Transformer, MoE or Mamba-Transformer Hybrid."
           },
           "gpus": {
             "type": "array",

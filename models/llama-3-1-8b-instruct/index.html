@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Llama 3.1 8B Instruct: energy per million output tokens | Lead Green</title>
+<meta name="description" content="GPU watt-hours per million output tokens for Llama 3.1 8B Instruct: 20 measured configurations, load curve and carbon by grid. From ML.ENERGY v3.0.">
+<link rel="canonical" href="https://leadgreen.ai/models/llama-3-1-8b-instruct/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Llama 3.1 8B Instruct: energy per million output tokens | Lead Green">
+<meta property="og:description" content="GPU watt-hours per million output tokens for Llama 3.1 8B Instruct: 20 measured configurations, load curve and carbon by grid. From ML.ENERGY v3.0.">
+<meta property="og:url" content="https://leadgreen.ai/models/llama-3-1-8b-instruct/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://leadgreen.ai/models/llama-3-1-8b-instruct/",
+   "name": "Llama 3.1 8B Instruct: energy per million output tokens | Lead Green",
+   "description": "GPU watt-hours per million output tokens for Llama 3.1 8B Instruct: 20 measured configurations, load curve and carbon by grid. From ML.ENERGY v3.0.",
+   "url": "https://leadgreen.ai/models/llama-3-1-8b-instruct/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-09-27",
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/"
+   },
+   "about": {
+    "@type": "SoftwareApplication",
+    "name": "Llama 3.1 8B Instruct",
+    "identifier": "meta-llama/Llama-3.1-8B-Instruct",
+    "url": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct",
+    "applicationCategory": "Large language model"
+   },
+   "mainEntity": {
+    "@type": "Dataset",
+    "name": "Llama 3.1 8B Instruct: GPU energy per million output tokens",
+    "description": "GPU watt-hours per million output tokens for Llama 3.1 8B Instruct: 20 measured configurations, load curve and carbon by grid. From ML.ENERGY v3.0.",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "creator": {
+     "@type": "Organization",
+     "name": "Lead Green",
+     "url": "https://leadgreen.ai/",
+     "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+     "parentOrganization": {
+      "@type": "Organization",
+      "name": "Katonic",
+      "url": "https://www.katonic.ai"
+     }
+    },
+    "dateModified": "2026-09-27",
+    "isBasedOn": "https://ml.energy/leaderboard/",
+    "variableMeasured": "GPU watt-hours per million output tokens",
+    "distribution": [
+     {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://leadgreen.ai/api/v1/models/llama-3-1-8b-instruct.json"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How much energy does Llama 3.1 8B Instruct use per million output tokens?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Llama 3.1 8B Instruct uses 13.0 Wh of GPU energy per million output tokens on 1 × B200 and 19.5 Wh of GPU energy per million output tokens on 1 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026). Host, network, cooling and idle time are not counted, so it is a floor."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is Llama 3.1 8B Instruct more energy-efficient on B200 or H100?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "On the index rows, the H100 configuration uses 1.50× the energy per token of the B200 configuration: 19.5 Wh/M on 1 × H100 against 13.0 Wh/M on 1 × B200. Both are floors at high load."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much does load change the energy per token of Llama 3.1 8B Instruct?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "On 1 × H100, energy per token falls 6.5× between a running batch of 8 (126.3 Wh/M) and 511 (19.5 Wh/M), because the cards' power rises only 41 percent while throughput rises 9.2×. A server holding a handful of requests at a time sits at the top of that range."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the carbon footprint of a billion tokens of Llama 3.1 8B Instruct?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A billion output tokens of Llama 3.1 8B Instruct on 1 × B200 at its index row carries about 9.0 kg CO2e of GPU-side emissions on the Saudi grid (692 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). Multiply the Wh/M figure by your own grid's intensity and divide by 1,000 for kilograms per billion tokens."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is this the energy my Llama 3.1 8B Instruct deployment will use?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Every figure here is the lowest-energy configuration under the leaderboard's 500 ms median inter-token latency ceiling, on a busy server, GPU only. Your deployment sits above it, often several times above it; the configuration table shows how far. To get your own figure, follow the measurement protocol on the contribute page."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Where do these figures come from?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 20 stable configurations of Llama 3.1 8B Instruct measured with Zeus under vLLM on H100 80GB and B200 servers. Grid intensities are Ember's 2024 yearly figures. Lead Green recomputes every number from dated snapshots."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Lead Green",
+     "item": "https://leadgreen.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Models",
+     "item": "https://leadgreen.ai/models/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Llama 3.1 8B Instruct",
+     "item": "https://leadgreen.ai/models/llama-3-1-8b-instruct/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models" aria-current="page">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow"><a href="../../models/">Models</a> · B200 and H100</p>
+  <h1>Llama 3.1 8B Instruct: GPU energy per million output tokens</h1>
+  <p class="stand">Llama 3.1 8B Instruct serves a million output tokens for <b>13.0 Wh/M</b> on 1 × B200 (running batch 2,043, median inter-token latency 125 ms) and <b>19.5 Wh/M</b> on 1 × H100 (running batch 511, median inter-token latency 47 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.</p>
+  <p class="unit"><b>Model</b> <a href="https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct">meta-llama/Llama-3.1-8B-Instruct</a>, a dense transformer, weights in BF16. <b>Measured</b> 20 configurations on B200 and H100. <b>Data</b> <a href="../../api/v1/models/llama-3-1-8b-instruct.json">models/llama-3-1-8b-instruct.json</a>. Updated 27 September 2026.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#configurations">Every configuration</a></li><li><a href="#generations">Two generations</a></li><li><a href="#carbon">Carbon</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+<div class="tiles auto n2" role="group" aria-label="Index rows"><div class="tile"><span class="lbl">Index row, B200</span><span class="val">13.0<small>Wh/M</small></span><span class="sub">1 × B200, BF16. Running batch 2,043, median ITL 125 ms, 691 W across the cards, 14,799 tokens a second.</span></div><div class="tile"><span class="lbl">Index row, H100</span><span class="val">19.5<small>Wh/M</small></span><span class="sub">1 × H100, BF16. Running batch 511, median ITL 47 ms, 688 W across the cards, 9,806 tokens a second.</span></div></div>
+<p class="after-tiles">GPU only, busy server. Every row is a floor. The number a buyer should ask for is the one measured on their own server at their own load. Unit: watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token.</p>
+
+<section id="configurations" class="first">
+  <p class="eyebrow">Every configuration</p>
+  <h2>Llama 3.1 8B Instruct at every measured load</h2>
+  <p class="lead">On 1 × H100, Llama 3.1 8B Instruct runs from <b>126.3 Wh/M</b> at a running batch of 8 to <b>19.5 Wh/M</b> at 511, a fall of 6.5×, while the cards' draw rises 41 percent (from 486 to 688 W) and throughput rises 9.2× (from 1,070 to 9,806 tokens a second). Median inter-token latency stays at 47 ms or under up to the best row. Past it, at a cap of 768, the same cards read 19.8 Wh/M at 63 ms.</p>
+  <div class="stack">
+<div class="table-scroll"><table><caption>Llama 3.1 8B Instruct, BF16, 1 × B200: nine measured configurations</caption><thead><tr><th scope="col" class="num">Cap</th><th scope="col" class="num">Running batch (avg)</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead><tbody>
+<tr><th scope="row" class="num">8</th><td class="num">8</td><td class="num key">108.5</td><td class="num">5</td><td class="num">1,637</td><td class="num">639</td></tr>
+<tr><th scope="row" class="num">16</th><td class="num">16</td><td class="num key">67.3</td><td class="num">5</td><td class="num">2,751</td><td class="num">667</td></tr>
+<tr><th scope="row" class="num">32</th><td class="num">32</td><td class="num key">42.0</td><td class="num">6</td><td class="num">3,810</td><td class="num">576</td></tr>
+<tr><th scope="row" class="num">64</th><td class="num">64</td><td class="num key">30.6</td><td class="num">9</td><td class="num">5,589</td><td class="num">617</td></tr>
+<tr><th scope="row" class="num">128</th><td class="num">128</td><td class="num key">27.3</td><td class="num">27</td><td class="num">4,570</td><td class="num">449</td></tr>
+<tr><th scope="row" class="num">256</th><td class="num">255</td><td class="num key">19.6</td><td class="num">32</td><td class="num">7,664</td><td class="num">540</td></tr>
+<tr><th scope="row" class="num">512</th><td class="num">511</td><td class="num key">16.7</td><td class="num">50</td><td class="num">9,571</td><td class="num">577</td></tr>
+<tr><th scope="row" class="num">1,024</th><td class="num">1,021</td><td class="num key">15.3</td><td class="num">87</td><td class="num">10,922</td><td class="num">600</td></tr>
+<tr class="best"><th scope="row" class="num">2,048</th><td class="num">2,043</td><td class="num key">13.0</td><td class="num">125</td><td class="num">14,799</td><td class="num">691</td></tr>
+</tbody></table></div>
+<div class="table-scroll"><table><caption>Llama 3.1 8B Instruct, BF16, 1 × H100: eleven measured configurations</caption><thead><tr><th scope="col" class="num">Cap</th><th scope="col" class="num">Running batch (avg)</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead><tbody>
+<tr><th scope="row" class="num">8</th><td class="num">8</td><td class="num key">126.3</td><td class="num">7</td><td class="num">1,070</td><td class="num">486</td></tr>
+<tr><th scope="row" class="num">16</th><td class="num">16</td><td class="num key">73.0</td><td class="num">8</td><td class="num">1,954</td><td class="num">513</td></tr>
+<tr><th scope="row" class="num">32</th><td class="num">32</td><td class="num key">45.8</td><td class="num">9</td><td class="num">3,391</td><td class="num">560</td></tr>
+<tr><th scope="row" class="num">64</th><td class="num">64</td><td class="num key">32.9</td><td class="num">12</td><td class="num">5,147</td><td class="num">610</td></tr>
+<tr><th scope="row" class="num">96</th><td class="num">96</td><td class="num key">28.6</td><td class="num">14</td><td class="num">6,260</td><td class="num">644</td></tr>
+<tr><th scope="row" class="num">128</th><td class="num">128</td><td class="num key">26.4</td><td class="num">16</td><td class="num">7,037</td><td class="num">669</td></tr>
+<tr><th scope="row" class="num">192</th><td class="num">192</td><td class="num key">23.2</td><td class="num">21</td><td class="num">8,223</td><td class="num">688</td></tr>
+<tr><th scope="row" class="num">256</th><td class="num">255</td><td class="num key">21.3</td><td class="num">26</td><td class="num">9,010</td><td class="num">691</td></tr>
+<tr><th scope="row" class="num">384</th><td class="num">383</td><td class="num key">20.6</td><td class="num">38</td><td class="num">9,248</td><td class="num">687</td></tr>
+<tr class="best"><th scope="row" class="num">512</th><td class="num">511</td><td class="num key">19.5</td><td class="num">47</td><td class="num">9,806</td><td class="num">688</td></tr>
+<tr><th scope="row" class="num">768</th><td class="num">691</td><td class="num key">19.8</td><td class="num">63</td><td class="num">9,603</td><td class="num">685</td></tr>
+</tbody></table></div>
+  </div>
+  <p class="note">Cap is the configured maximum batch (vLLM's <code>max_num_seqs</code>). Running batch (avg) is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>); queued requests are not counted. The highlighted row is the index row for that GPU. Wh/M is derived from the source's joules per output token; prompt processing is included.</p>
+</section>
+<section id="generations"><p class="eyebrow">Two generations</p><h2>H100 against B200</h2><p class="lead">On the index rows, the H100 configuration uses 1.50× the energy per token of the B200 configuration: 19.5 Wh/M on 1 × H100 against 13.0 Wh/M on 1 × B200. The two rows were not swept alike: the H100 row holds a running batch of 511 on 1 card and the B200 row 2,043 on 1, so part of the gap is the sweep, not the silicon. The full comparison across 14 models is on <a href="../../index/#generations">the index</a>.</p></section>
+<section id="carbon"><p class="eyebrow">Carbon</p><h2>Same tokens, different grid</h2><p class="lead">A billion output tokens of Llama 3.1 8B Instruct on 1 × B200 at its index row carries about 9.0 kg CO2e of GPU-side emissions on the Saudi grid (692 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). Energy per token does not change with geography; carbon per token does.</p><div class="table-scroll"><table><caption>Llama 3.1 8B Instruct, 1 × B200 index row (13.0 Wh/M), priced on 2024 annual grid averages, location-based</caption><thead><tr><th scope="col">Grid</th><th scope="col" class="num">g CO2e per kWh</th><th scope="col" class="num">kg CO2e per billion output tokens</th></tr></thead><tbody>
+<tr><th scope="row">India</th><td class="num">707</td><td class="num key">9.2</td></tr>
+<tr><th scope="row">Saudi Arabia</th><td class="num">692</td><td class="num key">9.0</td></tr>
+<tr><th scope="row">Hong Kong</th><td class="num">676</td><td class="num key">8.8</td></tr>
+<tr><th scope="row">Serbia</th><td class="num">668</td><td class="num key">8.7</td></tr>
+<tr><th scope="row">World</th><td class="num">474</td><td class="num key">6.1</td></tr>
+<tr><th scope="row">Germany</th><td class="num">340</td><td class="num key">4.4</td></tr>
+<tr><th scope="row">Norway</th><td class="num">30</td><td class="num key">0.4</td></tr>
+</tbody></table></div><p class="note">Wh/M × gCO2e per kWh ÷ 1,000. Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported. All 193 grids are in <a href="../../api/v1/grid.json">grid.json</a>; the <a href="../../mcp/">MCP server</a> prices any model on any grid.</p></section>
+
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about Llama 3.1 8B Instruct</h2><div class="prose faq"><h3>How much energy does Llama 3.1 8B Instruct use per million output tokens?</h3><p>Llama 3.1 8B Instruct uses 13.0 Wh of GPU energy per million output tokens on 1 × B200 and 19.5 Wh of GPU energy per million output tokens on 1 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026). Host, network, cooling and idle time are not counted, so it is a floor.</p><h3>Is Llama 3.1 8B Instruct more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.50× the energy per token of the B200 configuration: 19.5 Wh/M on 1 × H100 against 13.0 Wh/M on 1 × B200. Both are floors at high load.</p><h3>How much does load change the energy per token of Llama 3.1 8B Instruct?</h3><p>On 1 × H100, energy per token falls 6.5× between a running batch of 8 (126.3 Wh/M) and 511 (19.5 Wh/M), because the cards&#x27; power rises only 41 percent while throughput rises 9.2×. A server holding a handful of requests at a time sits at the top of that range.</p><h3>What is the carbon footprint of a billion tokens of Llama 3.1 8B Instruct?</h3><p>A billion output tokens of Llama 3.1 8B Instruct on 1 × B200 at its index row carries about 9.0 kg CO2e of GPU-side emissions on the Saudi grid (692 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). Multiply the Wh/M figure by your own grid&#x27;s intensity and divide by 1,000 for kilograms per billion tokens.</p><h3>Is this the energy my Llama 3.1 8B Instruct deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. Your deployment sits above it, often several times above it; the configuration table shows how far. To get your own figure, follow the measurement protocol on the contribute page.</p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 20 stable configurations of Llama 3.1 8B Instruct measured with Zeus under vLLM on H100 80GB and B200 servers. Grid intensities are Ember&#x27;s 2024 yearly figures. Lead Green recomputes every number from dated snapshots.</p></div></section>
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, September 2026 release, 2024 (CC BY 4.0). Model card: <a href="https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct">Hugging Face</a>.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+  <p class="note">This page is generated from the same dated snapshot as <a href="../../index/">the index</a> and <a href="../../api/v1/models/llama-3-1-8b-instruct.json">the API</a>; no figure on it is typed by hand. Ask the <a href="../../mcp/">MCP server</a> for Llama 3.1 8B Instruct on your own grid and load.</p>
+</section>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 27 September 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

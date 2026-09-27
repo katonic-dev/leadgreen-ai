@@ -58,6 +58,7 @@
       <ul class="nav">
         <li><a href="../why/" data-nav="why">Why it matters</a></li>
         <li><a href="../index/" data-nav="index">The index</a></li>
+        <li><a href="../models/" data-nav="models">Models</a></li>
         <li><a href="../api/" data-nav="api" aria-current="page">Data API</a></li>
         <li><a href="../mcp/" data-nav="mcp">MCP</a></li>
         <li><a href="../blog/" data-nav="blog">Blog</a></li>
@@ -327,7 +328,7 @@ print(index["caveat"])</code></pre>
 <tr><th scope="row">rows[].max_num_seqs</th><td>The configured cap on sequences decoded at once (vLLM max_num_seqs).</td></tr>
 <tr><th scope="row">rows[].row_id</th><td>Stable identifier, &lt;slug&gt;/&lt;gpu&gt;/&lt;num_gpus&gt;/&lt;max_num_seqs&gt;, with /r2 on a repeated run. It survives re-sorting and new rows.</td></tr>
 </tbody></table></div></details>
-<details class="fields"><summary><code>models.json</code>, 8 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
+<details class="fields"><summary><code>models.json</code>, 9 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
 <tr><th scope="row">models</th><td>Every model on the index.</td></tr>
 <tr><th scope="row">models[].slug</th><td>Model key.</td></tr>
 <tr><th scope="row">models[].name</th><td>Display name.</td></tr>
@@ -336,6 +337,7 @@ print(index["caveat"])</code></pre>
 <tr><th scope="row">models[].active_params_b</th><td>Parameters active per token, billions.</td></tr>
 <tr><th scope="row">models[].gpus</th><td>GPUs measured.</td></tr>
 <tr><th scope="row">models[].url</th><td>URL of models/&lt;slug&gt;.json.</td></tr>
+<tr><th scope="row">models[].page</th><td>URL of the model&#x27;s page on the site.</td></tr>
 </tbody></table></div></details>
 <details class="fields"><summary><code>models/{slug}.json</code>, 52 fields</summary><div class="table-scroll"><table class="spec"><thead><tr><th scope="col">Field</th><th scope="col">Meaning</th></tr></thead><tbody>
 <tr><th scope="row">slug</th><td>Model key.</td></tr>
@@ -343,7 +345,7 @@ print(index["caveat"])</code></pre>
 <tr><th scope="row">model_id</th><td>Hugging Face id.</td></tr>
 <tr><th scope="row">params_b</th><td>Total parameters, billions.</td></tr>
 <tr><th scope="row">active_params_b</th><td>Parameters active per token, billions.</td></tr>
-<tr><th scope="row">architecture</th><td>dense or moe.</td></tr>
+<tr><th scope="row">architecture</th><td>The source&#x27;s label: Dense Transformer, MoE or Mamba-Transformer Hybrid.</td></tr>
 <tr><th scope="row">gpus</th><td>GPUs the model was measured on.</td></tr>
 <tr><th scope="row">configurations</th><td>Every stable configuration the source measured for this model.</td></tr>
 <tr><th scope="row">configurations[].gpu</th><td>GPU model: H100 (H100 80GB HBM3) or B200.</td></tr>

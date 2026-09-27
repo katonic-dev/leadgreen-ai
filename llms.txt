@@ -17,12 +17,33 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - [Home](https://leadgreen.ai/): what Lead Green is, why it exists, who it is for
 - [Why it matters](https://leadgreen.ai/why/): nine reasons the number belongs in procurement, operations and reporting, with an RFP clause
 - [The index](https://leadgreen.ai/index/): the full tables, method, sources ledger and change record
+- [Models](https://leadgreen.ai/models/): one page per model, with every measured configuration, H100 against B200 and carbon by grid
 - [Data API](https://leadgreen.ai/api/): read-only JSON, CORS open, CC BY 4.0
 - [MCP server](https://leadgreen.ai/mcp/): tools for AI assistants (list_models, energy_per_million_tokens, estimate, compare_gpus, concurrency_curve, grid_intensity, gpu_hardware, sources)
 - [Blog](https://leadgreen.ai/blog/): RSS at https://leadgreen.ai/feed.xml
 - [Newsletter](https://leadgreen.ai/newsletter/)
 - [Contribute](https://leadgreen.ai/contribute/): volunteer roles and the measurement protocol
 - [About](https://leadgreen.ai/about/)
+
+## Models (one page each; the figure is the lowest index row, GPU only, a floor)
+- [Llama 3.1 8B Instruct](https://leadgreen.ai/models/llama-3-1-8b-instruct/): 13.0 Wh/M on B200
+- [Qwen 3 8B](https://leadgreen.ai/models/qwen-3-8b/): 14.7 Wh/M on B200
+- [Qwen 3 14B](https://leadgreen.ai/models/qwen-3-14b/): 15.2 Wh/M on B200
+- [Qwen 3 30B A3B Instruct](https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/): 15.7 Wh/M on B200
+- [Gemma 3 12B](https://leadgreen.ai/models/gemma-3-12b/): 26.5 Wh/M on B200
+- [Qwen 3 32B](https://leadgreen.ai/models/qwen-3-32b/): 39.1 Wh/M on B200
+- [NVIDIA Nemotron Nano 12B V2](https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/): 39.4 Wh/M on B200
+- [NVIDIA Nemotron Nano 9B V2](https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/): 40.9 Wh/M on B200
+- [Gemma 3 27B](https://leadgreen.ai/models/gemma-3-27b/): 49.1 Wh/M on B200
+- [Llama 3.1 70B Instruct](https://leadgreen.ai/models/llama-3-1-70b-instruct/): 52.4 Wh/M on B200
+- [Llama 3.3 70B Instruct](https://leadgreen.ai/models/llama-3-3-70b-instruct/): 60.7 Wh/M on B200
+- [Qwen 3 235B A22B Instruct](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/): 66.7 Wh/M on B200
+- [Llama 4 Scout 17B 16E Instruct](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/): 93.4 Wh/M on H100
+- [Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/): 134.5 Wh/M on H100
+- [Qwen 3 235B A22B Instruct FP8](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/): 139.1 Wh/M on B200
+- [DeepSeek V3.1](https://leadgreen.ai/models/deepseek-v3-1/): 168.4 Wh/M on B200
+- [Llama 3.1 405B Instruct](https://leadgreen.ai/models/llama-3-1-405b-instruct/): 282.0 Wh/M on B200
+- [Llama 3.1 405B Instruct FP8](https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/): 318.5 Wh/M on B200
 
 ## Data API (JSON)
 - https://leadgreen.ai/api/v1/manifest.json: Sources, versions, retrieval dates, licences and this endpoint list.

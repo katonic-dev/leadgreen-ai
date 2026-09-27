@@ -420,7 +420,7 @@ def index_table() -> str:
         pct = wh / wh_max * 100
         out.append(
             "<tr>"
-            f"<th scope=\"row\"><span class=\"model\" title=\"{esc(r['model_id'])}\">{esc(r['model'])}</span></th>"
+            f"<th scope=\"row\"><a class=\"model\" href=\"{{{{ROOT}}}}models/{r['slug']}/\" title=\"{esc(r['model_id'])}\">{esc(r['model'])}</a></th>"
             f"<td class=\"num soft\">{params_cell(r)} <span class=\"muted\">· {r['precision']}</span></td>"
             f"<td class=\"num\">{r['num_gpus']} × <span class=\"chip chip-{r['gpu'].lower()}\">{r['gpu']}</span></td>"
             f"<td class=\"num key\" title=\"{c['energy_per_token_joules']:.4f} J per token\"><span class=\"bar\" aria-hidden=\"true\"><i style=\"width:{pct:.1f}%\"></i></span>{fmt(wh)}</td>"
@@ -1150,7 +1150,8 @@ api_docs["index.json"] = {
 api_docs["models.json"] = {
     "version": "1", "updated": UPDATED, "source": SRC_MLE,
     "models": [{"slug": m["slug"], "name": m["name"], "model_id": m["model_id"], "params_b": m["params_b"],
-                "active_params_b": m["active_params_b"], "gpus": m["gpus"], "url": f"{SITE}/api/v1/models/{m['slug']}.json"}
+                "active_params_b": m["active_params_b"], "gpus": m["gpus"], "url": f"{SITE}/api/v1/models/{m['slug']}.json",
+                "page": f"{SITE}/models/{m['slug']}/"}
                for m in sorted(models.values(), key=lambda m: m["name"])],
 }
 for m in models.values():
@@ -1274,14 +1275,14 @@ FIELD_DOCS = {
                    "rows[].model_id": "Hugging Face id.", "rows[].params_b": "Total parameters, billions.", "rows[].active_params_b": "Parameters active per token, billions (they differ for mixture-of-experts models).",
                    **{f"rows[].{k}": v for k, v in _CFG.items()}},
     "models/{slug}.json": {"slug": "Model key.", "name": "Display name.", "model_id": "Hugging Face id.", "params_b": "Total parameters, billions.",
-                           "active_params_b": "Parameters active per token, billions.", "architecture": "dense or moe.", "gpus": "GPUs the model was measured on.",
+                           "active_params_b": "Parameters active per token, billions.", "architecture": "The source's label: Dense Transformer, MoE or Mamba-Transformer Hybrid.", "gpus": "GPUs the model was measured on.",
                            "configurations": "Every stable configuration the source measured for this model.",
                            **{f"configurations[].{k}": v for k, v in _CFG.items()},
                            "best": "The index row per GPU, keyed by GPU; each value has the configuration fields.",
                            **{f"best.<key>.{k}": v for k, v in _CFG.items()}, "best.<key>": "The configuration the index row uses for that GPU."},
     "models.json": {"models": "Every model on the index.", "models[].slug": "Model key.", "models[].name": "Display name.", "models[].model_id": "Hugging Face id.",
                     "models[].params_b": "Total parameters, billions.", "models[].active_params_b": "Parameters active per token, billions.",
-                    "models[].gpus": "GPUs measured.", "models[].url": "URL of models/<slug>.json."},
+                    "models[].gpus": "GPUs measured.", "models[].url": "URL of models/<slug>.json.", "models[].page": "URL of the model's page on the site."},
     "grid.json": {"year": f"The year g_co2e_per_kwh is taken from ({EMBER_YEAR}, the latest with every listed grid).", "basis": "What the figure is: lifecycle, location-based, production-based.",
                   "world": "The World figure for year.", "areas": "Every area Ember covers, plus the World row (iso3 WLD, area_type world); filter on area_type == country.",
                   "areas[].iso3": "ISO 3166-1 alpha-3 code (WLD for World).", "areas[].iso2": "ISO 3166-1 alpha-2 code; null for World and for Kosovo, which has none.",
@@ -1539,6 +1540,22 @@ def jsonld_for(kind: str, title: str, desc: str, url: str, post: dict | None = N
                    "datePublished": post["date"], "dateModified": post.get("updated", post["date"]),
                    "author": PERSON, "publisher": ORG, "mainEntityOfPage": url, "url": url, "inLanguage": "en",
                    "license": "https://creativecommons.org/licenses/by/4.0/", "isAccessibleForFree": True})
+    if kind == "model" and post:
+        m = post["model"]
+        return ld({"@context": "https://schema.org", "@graph": [
+            {"@type": "WebPage", "@id": url, "name": title, "description": desc, "url": url, "publisher": ORG, "inLanguage": "en",
+             "dateModified": UPDATED, "license": "https://creativecommons.org/licenses/by/4.0/", "isPartOf": {"@type": "WebSite", "name": "Lead Green", "url": SITE + "/"},
+             "about": {"@type": "SoftwareApplication", "name": m["name"], "identifier": m["model_id"], "url": f"https://huggingface.co/{m['model_id']}", "applicationCategory": "Large language model"},
+             "mainEntity": {"@type": "Dataset", "name": f"{m['name']}: GPU energy per million output tokens", "description": desc,
+                            "license": "https://creativecommons.org/licenses/by/4.0/", "creator": ORG, "dateModified": UPDATED, "isBasedOn": SRC_MLE["url"],
+                            "variableMeasured": "GPU watt-hours per million output tokens",
+                            "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": f"{SITE}/api/v1/models/{m['slug']}.json"}]}},
+            {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in post["faq"]]},
+            {"@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Lead Green", "item": SITE + "/"},
+                {"@type": "ListItem", "position": 2, "name": "Models", "item": SITE + "/models/"},
+                {"@type": "ListItem", "position": 3, "name": m["name"], "item": url}]},
+        ]})
     return ld({"@context": "https://schema.org", "@type": "WebPage", "name": title, "description": desc, "url": url,
                "publisher": ORG, "inLanguage": "en"})
 
@@ -1613,6 +1630,205 @@ for name, out_rel, nav, kind in PAGE_SPECS:
             raise SystemExit(f"pages/{name}.html: meta is missing '{k}'")
     render(out_rel, nav, fill(meta["title"], subs), fill(meta["description"], subs), meta.get("og_type", "website"), kind, body)
 
+# ----------------------------------------------------------------- model pages: one page per model, generated from the data (SEO / AEO)
+MODEL_CARBON_GRIDS = ["SAU", "IND", "HKG", "SRB", "DEU", "NOR"]   # a spread of the listed grids; World is added
+_country_name = dict(COUNTRIES)
+
+
+def _gpu_groups(name: str) -> list[tuple[str, int, list]]:
+    """(gpu, num_gpus, configurations) for one model, H100 first, fewest cards first."""
+    groups: dict[tuple[str, int], list] = {}
+    for c in cfgs:
+        if c["nickname"] == name:
+            groups.setdefault((c["gpu_model"], c["num_gpus"]), []).append(c)
+    return [(g, n, sorted(v, key=lambda c: c["max_num_seqs"])) for (g, n), v in sorted(groups.items())]
+
+
+def _pct(a: float, b: float) -> str:
+    return f"{(a / b - 1) * 100:.0f}"
+
+
+def model_page(m: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
+    """Returns (title, description, body html, faq) for one model."""
+    name, s = m["name"], m["slug"]
+    bests = {g: best[(name, g)] for g in m["gpus"]}            # raw source rows
+    groups = _gpu_groups(name)
+    n_cfg = sum(len(v) for _, _, v in groups)
+    gpus_word = and_list(m["gpus"])
+    arch = {"Dense Transformer": "a dense transformer", "Mamba-Transformer Hybrid": "a Mamba-Transformer hybrid"}.get(
+        m["architecture"], f"a mixture-of-experts model ({m['active_params_b']:g} B of {m['params_b']:g} B parameters active per token)")
+    prec = sorted({precision_label(c["weight_precision"]) for _, _, v in groups for c in v})
+
+    # the direct answer
+    parts = []
+    for g in m["gpus"]:
+        b = bests[g]
+        parts.append(f"<b>{fmt(cfg_wh(b))} Wh/M</b> on {b['num_gpus']} × {g} (running batch {fmt(b['avg_batch_size'], 0)}, median inter-token latency {fmt(b['median_itl_ms'], 0)} ms)")
+    answer = (f"{esc(name)} serves a million output tokens for " + and_list(parts) + f", GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. "
+              f"That is the floor: a lightly loaded server sits above it.")
+
+    # tiles, one per GPU
+    tiles = []
+    for g in m["gpus"]:
+        b = bests[g]
+        tiles.append(f"<div class=\"tile\"><span class=\"lbl\">Index row, {g}</span><span class=\"val\">{fmt(cfg_wh(b))}<small>Wh/M</small></span>"
+                     f"<span class=\"sub\">{b['num_gpus']} × {g}, {precision_label(b['weight_precision'])}. Running batch {fmt(b['avg_batch_size'], 0)}, median ITL {fmt(b['median_itl_ms'], 0)} ms, "
+                     f"{fmt(b['avg_power_watts'], 0)} W across the cards, {fmt(b['output_throughput_tokens_per_sec'], 0)} tokens a second.</span></div>")
+    tiles_html = f"<div class=\"tiles auto n{len(tiles)}\" role=\"group\" aria-label=\"Index rows\">" + "".join(tiles) + "</div>"
+
+    # every configuration, one table per GPU and card count
+    tables, ladder_facts = [], []
+    for g, n, v in groups:
+        lad = ladder(name, g, n)
+        cap = f"{esc(name)}, {precision_label(v[0]['weight_precision'])}, {n} × {g}: {word(len(v))} measured configuration{'s' if len(v) != 1 else ''}"
+        tables.append(
+            "<div class=\"table-scroll\"><table><caption>" + cap + "</caption><thead><tr>"
+            "<th scope=\"col\" class=\"num\">Cap</th><th scope=\"col\" class=\"num\">Running batch (avg)</th><th scope=\"col\" class=\"num\">Wh / M</th>"
+            "<th scope=\"col\" class=\"num\">Median ITL (ms)</th><th scope=\"col\" class=\"num\">Tokens / s</th><th scope=\"col\" class=\"num\">GPU power (W)</th>"
+            "</tr></thead><tbody>\n" + lad["rows"] + "\n</tbody></table></div>")
+        if len(v) >= 3:
+            ladder_facts.append({"gpu": g, "n": n, **lad})
+    ladder_facts.sort(key=lambda d: -d["count"])
+    load_para = ""
+    if ladder_facts:
+        L = ladder_facts[0]
+        load_para = (f"<p class=\"lead\">On {L['n']} × {L['gpu']}, {esc(name)} runs from <b>{fmt(L['first'])} Wh/M</b> at a running batch of {fmt(L['first_batch'], 0)} to "
+                     f"<b>{fmt(L['best'])} Wh/M</b> at {fmt(L['best_batch'], 0)}, a fall of {L['ratio']:.1f}×, while the cards' draw rises {L['power_pct']:.0f} percent "
+                     f"(from {fmt(L['first_w'], 0)} to {fmt(L['best_w'], 0)} W) and throughput rises {L['tps_ratio']:.1f}× (from {fmt(L['first_tps'], 0)} to {fmt(L['best_tps'], 0)} tokens a second). "
+                     f"Median inter-token latency stays at {fmt(L['max_itl_to_best'], 0)} ms or under up to the best row."
+                     + (f" Past it, at a cap of {fmt(L['turn']['cap'], 0)}, the same cards read {fmt(L['turn']['wh'])} Wh/M at {fmt(L['turn']['itl'], 0)} ms." if L["turn"] else "") + "</p>")
+
+    # two generations
+    compare_html, compare_fact = "", ""
+    if "H100" in bests and "B200" in bests:
+        h, b = bests["H100"], bests["B200"]
+        ratio = cfg_wh(h) / cfg_wh(b)
+        compare_fact = (f"On the index rows, the H100 configuration uses {ratio:.2f}× the energy per token of the B200 configuration: "
+                        f"{fmt(cfg_wh(h))} Wh/M on {h['num_gpus']} × H100 against {fmt(cfg_wh(b))} Wh/M on {b['num_gpus']} × B200.")
+        note = ""
+        if h["num_gpus"] != b["num_gpus"] or abs(h["avg_batch_size"] - b["avg_batch_size"]) / max(h["avg_batch_size"], b["avg_batch_size"]) > 0.25:
+            note = (f" The two rows were not swept alike: the H100 row holds a running batch of {fmt(h['avg_batch_size'], 0)} on {h['num_gpus']} card{'s' if h['num_gpus'] != 1 else ''} "
+                    f"and the B200 row {fmt(b['avg_batch_size'], 0)} on {b['num_gpus']}, so part of the gap is the sweep, not the silicon.")
+        compare_html = (f"<section id=\"generations\"><p class=\"eyebrow\">Two generations</p><h2>H100 against B200</h2>"
+                        f"<p class=\"lead\">{compare_fact}{note} The full comparison across {{{{PAIR_COUNT}}}} models is on <a href=\"{{{{ROOT}}}}index/#generations\">the index</a>.</p></section>")
+
+    # carbon on a spread of grids, for the lowest index row
+    ref_gpu = min(bests, key=lambda g: cfg_wh(bests[g]))
+    rb = bests[ref_gpu]
+    rows = [(_country_name[iso], intensity[iso]) for iso in MODEL_CARBON_GRIDS] + [("World", world)]
+    rows.sort(key=lambda t: -t[1])
+    carbon_rows = "\n".join(f"<tr><th scope=\"row\">{esc(n_)}</th><td class=\"num\">{fmt(g_, 0)}</td><td class=\"num key\">{fmt(kg_per_billion(cfg_wh(rb), g_))}</td></tr>" for n_, g_ in rows)
+    sau, nor = intensity["SAU"], intensity["NOR"]
+    carbon_fact = (f"A billion output tokens of {esc(name)} on {rb['num_gpus']} × {ref_gpu} at its index row carries about {fmt(kg_per_billion(cfg_wh(rb), sau))} kg CO2e of GPU-side emissions "
+                   f"on the Saudi grid ({fmt(sau, 0)} gCO2e per kWh, Ember {EMBER_YEAR}) and {fmt(kg_per_billion(cfg_wh(rb), nor))} kg on the Norwegian grid ({fmt(nor, 0)}).")
+    carbon_html = (f"<section id=\"carbon\"><p class=\"eyebrow\">Carbon</p><h2>Same tokens, different grid</h2><p class=\"lead\">{carbon_fact} Energy per token does not change with geography; carbon per token does.</p>"
+                   f"<div class=\"table-scroll\"><table><caption>{esc(name)}, {rb['num_gpus']} × {ref_gpu} index row ({fmt(cfg_wh(rb))} Wh/M), priced on {EMBER_YEAR} annual grid averages, location-based</caption>"
+                   "<thead><tr><th scope=\"col\">Grid</th><th scope=\"col\" class=\"num\">g CO2e per kWh</th><th scope=\"col\" class=\"num\">kg CO2e per billion output tokens</th></tr></thead><tbody>\n"
+                   + carbon_rows + "\n</tbody></table></div>"
+                   f"<p class=\"note\">Wh/M × gCO2e per kWh ÷ 1,000. {{{{EMBER_BASIS}}}} All {{{{GRID_COUNT}}}} grids are in <a href=\"{{{{ROOT}}}}api/v1/grid.json\">grid.json</a>; the <a href=\"{{{{ROOT}}}}mcp/\">MCP server</a> prices any model on any grid.</p></section>")
+
+    # two tasks
+    task_html, task_fact = "", ""
+    tp = [p for p in gpqa_pairs if p["model"] == name]
+    if tp:
+        bits = [f"{times(p['ratio'])} the energy per response and {times(p['ratio_tok'], 2)} the energy per token on {p['num_gpus']} × {p['gpu']} "
+                f"(answers of {fmt(p['out_gpqa'], 0)} tokens against {fmt(p['out_chat'], 0)}; running batch {fmt(p['batch_gpqa'], 0)} against {fmt(p['batch_chat'], 0)})" for p in tp]
+        task_fact = f"On the leaderboard's Problem Solving task, {esc(name)} costs " + and_list(bits) + ", compared with Text Conversation."
+        task_html = (f"<section id=\"workloads\"><p class=\"eyebrow\">Two tasks</p><h2>Long answers cost more per token too</h2><p class=\"lead\">{task_fact} "
+                     f"The long answers cut the batch the server can hold, which is why energy per token itself moves. All {{{{GPQA_PAIRS}}}} pairs are on <a href=\"{{{{ROOT}}}}index/#workloads\">the index</a>.</p></section>")
+
+    # FAQ, visible text and structured data from the same list
+    faq: list[tuple[str, str]] = []
+    faq.append((f"How much energy does {name} use per million output tokens?",
+                re.sub(r"<[^>]+>", "", f"{name} uses " + and_list([f"{fmt(cfg_wh(bests[g]))} Wh of GPU energy per million output tokens on {bests[g]['num_gpus']} × {g}" for g in m["gpus"]])
+                       + f" at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled {long_date(SRC_MLE['compiled'])}). "
+                       "Host, network, cooling and idle time are not counted, so it is a floor.")))
+    if compare_fact:
+        faq.append((f"Is {name} more energy-efficient on B200 or H100?", re.sub(r"<[^>]+>", "", compare_fact + " Both are floors at high load.")))
+    if ladder_facts:
+        L = ladder_facts[0]
+        faq.append((f"How much does load change the energy per token of {name}?",
+                    f"On {L['n']} × {L['gpu']}, energy per token falls {L['ratio']:.1f}× between a running batch of {fmt(L['first_batch'], 0)} ({fmt(L['first'])} Wh/M) and {fmt(L['best_batch'], 0)} ({fmt(L['best'])} Wh/M), "
+                    f"because the cards' power rises only {L['power_pct']:.0f} percent while throughput rises {L['tps_ratio']:.1f}×. A server holding a handful of requests at a time sits at the top of that range."))
+    faq.append((f"What is the carbon footprint of a billion tokens of {name}?", re.sub(r"<[^>]+>", "", carbon_fact) + " Multiply the Wh/M figure by your own grid's intensity and divide by 1,000 for kilograms per billion tokens."))
+    if task_fact:
+        faq.append((f"Does {name} use more energy for reasoning or problem-solving tasks?", re.sub(r"<[^>]+>", "", task_fact)))
+    faq.append((f"Is this the energy my {name} deployment will use?",
+                f"No. Every figure here is the lowest-energy configuration under the leaderboard's {ITL_DEADLINE_MS} ms median inter-token latency ceiling, on a busy server, GPU only. "
+                "Your deployment sits above it, often several times above it; the configuration table shows how far. To get your own figure, follow the measurement protocol on the contribute page."))
+    faq.append(("Where do these figures come from?",
+                f"The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released {long_date(SRC_MLE['released'])}, data compiled {long_date(SRC_MLE['compiled'])}, retrieved {long_date(RETRIEVED)}: "
+                f"{n_cfg} stable configurations of {name} measured with Zeus under vLLM on H100 80GB and B200 servers. Grid intensities are Ember's {EMBER_YEAR} yearly figures. Lead Green recomputes every number from dated snapshots."))
+    faq_html = "<section id=\"faq\"><p class=\"eyebrow\">Questions</p><h2>Asked about " + esc(name) + "</h2><div class=\"prose faq\">" + "".join(
+        f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq) + "</div></section>"
+
+    toc = ["<li><a href=\"#configurations\">Every configuration</a></li>"]
+    if compare_html:
+        toc.append("<li><a href=\"#generations\">Two generations</a></li>")
+    toc.append("<li><a href=\"#carbon\">Carbon</a></li>")
+    if task_html:
+        toc.append("<li><a href=\"#workloads\">Two tasks</a></li>")
+    toc += ["<li><a href=\"#faq\">Questions</a></li>", "<li><a href=\"#sources\">Sources</a></li>"]
+
+    body = f"""<div class="title">
+  <p class="eyebrow"><a href="{{{{ROOT}}}}models/">Models</a> · {esc(gpus_word)}</p>
+  <h1>{esc(name)}: GPU energy per million output tokens</h1>
+  <p class="stand">{answer}</p>
+  <p class="unit"><b>Model</b> <a href="https://huggingface.co/{esc(m['model_id'])}">{esc(m['model_id'])}</a>, {arch}, weights in {esc(and_list(prec))}. <b>Measured</b> {n_cfg} configurations on {esc(gpus_word)}. <b>Data</b> <a href="{{{{ROOT}}}}api/v1/models/{s}.json">models/{s}.json</a>. Updated {{{{UPDATED_LONG}}}}.</p>
+  <ul class="toc" aria-label="On this page">{"".join(toc)}</ul>
+</div>
+{tiles_html}
+<p class="after-tiles">GPU only, busy server. Every row is a floor. The number a buyer should ask for is the one measured on their own server at their own load. Unit: watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token.</p>
+
+<section id="configurations" class="first">
+  <p class="eyebrow">Every configuration</p>
+  <h2>{esc(name)} at every measured load</h2>
+  {load_para}
+  <div class="stack">
+{chr(10).join(tables)}
+  </div>
+  <p class="note">Cap is the configured maximum batch (vLLM's <code>max_num_seqs</code>). Running batch (avg) is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>); queued requests are not counted. The highlighted row is the index row for that GPU. Wh/M is derived from the source's joules per output token; prompt processing is included.</p>
+</section>
+{compare_html}
+{carbon_html}
+{task_html}
+{faq_html}
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note">{{{{MLE_BLOCK}}}}</p>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, September 2026 release, {EMBER_YEAR} (CC BY 4.0). Model card: <a href="https://huggingface.co/{esc(m['model_id'])}">Hugging Face</a>.</p>
+  <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
+  <p class="note">This page is generated from the same dated snapshot as <a href="{{{{ROOT}}}}index/">the index</a> and <a href="{{{{ROOT}}}}api/v1/models/{s}.json">the API</a>; no figure on it is typed by hand. Ask the <a href="{{{{ROOT}}}}mcp/">MCP server</a> for {esc(name)} on your own grid and load.</p>
+</section>"""
+    title = f"{name}: energy per million output tokens | Lead Green"
+    for desc in (f"GPU watt-hours per million output tokens for {name} on {gpus_word}: {n_cfg} measured configurations, the load curve, H100 vs B200 and carbon by grid. From ML.ENERGY v3.0.",
+                 f"GPU watt-hours per million output tokens for {name} on {gpus_word}: {n_cfg} measured configurations, load curve and carbon by grid. From ML.ENERGY v3.0.",
+                 f"GPU watt-hours per million output tokens for {name}: {n_cfg} measured configurations, load curve and carbon by grid. From ML.ENERGY v3.0.",
+                 f"{name}: GPU watt-hours per million output tokens at every measured load, with carbon by grid. ML.ENERGY v3.0 data.",
+                 f"{name}: GPU energy per million output tokens, every measured load. ML.ENERGY v3.0 data."):
+        if len(desc) <= 155:
+            break
+    return title, desc, body, faq
+
+
+model_cards = []
+for s_, m_ in sorted(models.items(), key=lambda kv: min(cfg_wh(best[(kv[1]["name"], g)]) for g in kv[1]["gpus"])):
+    t_, d_, b_, faq_ = model_page(m_)
+    render(f"models/{s_}/index.html", "models", t_, d_, "article", "model", b_,
+           {"date": UPDATED, "faq": faq_, "model": m_, "name": m_["name"]})
+    lo_ = min(m_["gpus"], key=lambda g: cfg_wh(best[(m_["name"], g)]))
+    lb_ = best[(m_["name"], lo_)]
+    params_ = f"{m_['params_b']:g} B parameters" + (f", {m_['active_params_b']:g} B active" if m_["architecture"] == "MoE" else "")
+    model_cards.append(
+        f"<div class=\"card\"><span class=\"k\">{esc(and_list(m_['gpus']))}</span><h3><a href=\"{{{{ROOT}}}}models/{s_}/\">{esc(m_['name'])}</a></h3>"
+        f"<span class=\"n\">{fmt(cfg_wh(lb_))}<small>Wh/M, {lb_['num_gpus']} × {lo_}</small></span>"
+        f"<p>{params_}; "
+        f"{sum(1 for c in cfgs if c['nickname'] == m_['name'])} measured configurations.</p></div>")
+subs["MODEL_CARDS"] = "\n".join(model_cards)
+meta_, body_ = read_body(PAGES / "models.html")
+render("models/index.html", "models", fill(meta_["title"], subs), fill(meta_["description"], subs), "website", "page", body_)
+
 # ----------------------------------------------------------------- feed, sitemap, robots, llms.txt
 def rfc822(iso: str) -> str:
     d = date.fromisoformat(iso)
@@ -1660,12 +1876,18 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - [Home]({SITE}/): what Lead Green is, why it exists, who it is for
 - [Why it matters]({SITE}/why/): nine reasons the number belongs in procurement, operations and reporting, with an RFP clause
 - [The index]({SITE}/index/): the full tables, method, sources ledger and change record
+- [Models]({SITE}/models/): one page per model, with every measured configuration, H100 against B200 and carbon by grid
 - [Data API]({SITE}/api/): read-only JSON, CORS open, CC BY 4.0
 - [MCP server]({SITE}/mcp/): tools for AI assistants (list_models, energy_per_million_tokens, estimate, compare_gpus, concurrency_curve, grid_intensity, gpu_hardware, sources)
 - [Blog]({SITE}/blog/): RSS at {SITE}/feed.xml
 - [Newsletter]({SITE}/newsletter/)
 - [Contribute]({SITE}/contribute/): volunteer roles and the measurement protocol
 - [About]({SITE}/about/)
+
+## Models (one page each; the figure is the lowest index row, GPU only, a floor)
+""" + "\n".join(
+    f"- [{m['name']}]({SITE}/models/{s}/): {fmt(min(cfg_wh(best[(m['name'], g)]) for g in m['gpus']))} Wh/M on {min(m['gpus'], key=lambda g: cfg_wh(best[(m['name'], g)]))}"
+    for s, m in sorted(models.items(), key=lambda kv: min(cfg_wh(best[(kv[1]['name'], g)]) for g in kv[1]['gpus']))) + f"""
 
 ## Data API (JSON)
 """ + "\n".join(f"- {SITE}/api/v1/{p}: {d}" for p, d in ENDPOINTS) + f"""
