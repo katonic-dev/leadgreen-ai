@@ -2153,6 +2153,214 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 {LICENCE_TEXT} Code: Apache 2.0.
 """
 
+# ----------------------------------------------------------------- Markdown copies of every page (for crawlers and assistants), and IndexNow bookkeeping
+from html.parser import HTMLParser
+from urllib.parse import urljoin
+
+
+class _MD(HTMLParser):
+    """Turn the site's own <main> HTML into Markdown. Covers the tags the pages use: headings, paragraphs,
+    lists, tables with captions, details/summary, pre, inline code, bold, italics, links, line breaks."""
+    BLOCK = {"p", "h1", "h2", "h3", "li", "caption", "summary", "pre", "div", "section", "ul", "ol", "table", "thead", "tbody", "tr", "article", "details", "main"}
+    SKIP = {"svg", "script", "style", "button", "nav", "header", "footer"}
+
+    def __init__(self, base_url: str):
+        super().__init__(convert_charrefs=True)
+        self.base, self.out, self.skip, self.stack = base_url, [], 0, []
+        self.in_main = False
+        self.table = None      # {"caption": str, "rows": [[cells]], "head": bool}
+        self.cell = None
+        self.li_stack: list[tuple[str, int]] = []
+        self.pre = False
+        self.href = None
+        self.cls: list[tuple[str, str]] = []   # (tag, class) for p, span and div, so end tags close what start tags opened
+
+    def _emit(self, s: str) -> None:
+        if self.cell is not None:
+            self.cell.append(s)
+        else:
+            self.out.append(s)
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "main":
+            self.in_main = True
+            return
+        if not self.in_main:
+            return
+        if tag in self.SKIP:
+            self.skip += 1
+            return
+        if self.skip:
+            return
+        if tag == "table":
+            self.table = {"caption": "", "rows": [], "head": False}
+        elif tag == "caption" and self.table is not None:
+            self.cell = []
+        elif tag == "thead":
+            self.table["head"] = True
+        elif tag == "tr" and self.table is not None:
+            self.table["rows"].append([])
+        elif tag in ("th", "td") and self.table is not None and self.table["rows"]:
+            self.cell = []
+        elif tag in ("h1", "h2", "h3"):
+            self._emit("\n\n" + "#" * int(tag[1]) + " ")
+        elif tag == "p":
+            self.cls.append((tag, a.get("class", "")))
+            self._emit("\n\n*" if "eyebrow" in a.get("class", "") else "\n\n")
+        elif tag == "div":
+            self.cls.append((tag, a.get("class", "")))
+            if "tile" in a.get("class", "").split():
+                self._emit("\n- ")
+        elif tag == "span":
+            c = a.get("class", "")
+            self.cls.append((tag, c))
+            if c == "lbl":
+                self._emit("**")
+        elif tag in ("ul", "ol"):
+            self.li_stack.append((tag, 0))
+            self._emit("\n")
+        elif tag == "li" and self.li_stack:
+            t, n = self.li_stack[-1]
+            self.li_stack[-1] = (t, n + 1)
+            self._emit("\n" + ("  " * (len(self.li_stack) - 1)) + ("- " if t == "ul" else f"{n + 1}. "))
+        elif tag == "summary":
+            self._emit("\n\n**")
+        elif tag == "pre":
+            self.pre = True
+            self._emit("\n\n```\n")
+        elif tag == "code" and not self.pre:
+            self._emit("`")
+        elif tag in ("b", "strong"):
+            self._emit("**")
+        elif tag == "i" or tag == "em":
+            self._emit("*")
+        elif tag == "a" and a.get("href"):
+            self.href = urljoin(self.base, a["href"])
+            self._emit("[")
+        elif tag == "br":
+            self._emit("  \n" if self.cell is None else " ")
+        elif tag == "small":
+            self._emit(" ")
+
+    def handle_endtag(self, tag):
+        if tag == "main":
+            self.in_main = False
+            return
+        if not self.in_main:
+            return
+        if tag in self.SKIP:
+            self.skip = max(0, self.skip - 1)
+            return
+        if self.skip:
+            return
+        if tag == "caption" and self.table is not None:
+            self.table["caption"] = "".join(self.cell).strip()
+            self.cell = None
+        elif tag in ("th", "td") and self.cell is not None and self.table is not None:
+            self.table["rows"][-1].append(re.sub(r"\s+", " ", "".join(self.cell)).strip().replace("|", "\\|"))
+            self.cell = None
+        elif tag == "table" and self.table is not None:
+            rows = [r for r in self.table["rows"] if r]
+            if rows:
+                width = max(len(r) for r in rows)
+                rows = [r + [""] * (width - len(r)) for r in rows]
+                head, body = (rows[0], rows[1:]) if self.table["head"] else ([""] * width, rows)
+                lines = ["| " + " | ".join(head) + " |", "|" + "---|" * width] + ["| " + " | ".join(r) + " |" for r in body]
+                self.out.append("\n\n" + (f"*{self.table['caption']}*\n\n" if self.table["caption"] else "") + "\n".join(lines))
+            self.table = None
+        elif tag in ("ul", "ol") and self.li_stack:
+            self.li_stack.pop()
+            self._emit("\n")
+        elif tag == "summary":
+            self._emit("**")
+        elif tag in ("p", "div", "span"):
+            c = ""
+            for i in range(len(self.cls) - 1, -1, -1):
+                if self.cls[i][0] == tag:
+                    c = self.cls.pop(i)[1]
+                    break
+            if tag == "p" and "eyebrow" in c:
+                self._emit("*")
+            elif tag == "span" and c == "lbl":
+                self._emit(":** ")
+            elif tag == "span" and c == "val":
+                self._emit(" ")
+        elif tag == "pre":
+            self.pre = False
+            self._emit("\n```\n")
+        elif tag == "code" and not self.pre:
+            self._emit("`")
+        elif tag in ("b", "strong"):
+            self._emit("**")
+        elif tag in ("i", "em"):
+            self._emit("*")
+        elif tag == "a" and self.href:
+            self._emit(f"]({self.href})")
+            self.href = None
+
+    def handle_data(self, data):
+        if not self.in_main or self.skip:
+            return
+        if self.pre:
+            self._emit(data)
+        else:
+            self._emit(re.sub(r"[ \t\r\n]+", " ", data))
+
+    def text(self) -> str:
+        s = "".join(self.out)
+        s = re.sub(r"\*\*\s*\*\*", "", s)          # empty bold from icon-only spans
+        s = re.sub(r"(?<!\*)\*\s*\*(?!\*)", "", s)   # empty italics
+        s = re.sub(r"[ \t]+\n", "\n", s)
+        s = re.sub(r"\n{3,}", "\n\n", s)
+        s = re.sub(r"^\s*(#+ )", r"\1", s, count=1)
+        return s.strip() + "\n"
+
+
+def to_markdown(page_html: str, url: str, title: str, desc: str) -> str:
+    p = _MD(url)
+    p.feed(page_html)
+    body = p.text()
+    head = (f"> {desc}\n>\n> Lead Green, a Katonic project. Canonical page: {url} (this file: {url}index.md). Updated {long_date(UPDATED)}, data version {DATA_VERSION}. "
+            f"Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. {CAVEAT} Machine-readable data: {SITE}/api/v1/ (see llms.txt).\n\n")
+    m = re.search(r"^# .+$", body, re.M)
+    if m:
+        first = m.group(0)
+        body = re.sub(r"\n{3,}", "\n\n", body[:m.start()] + body[m.end():]).strip("\n") + "\n"
+        return first + "\n\n" + head + body
+    return f"# {title}\n\n" + head + body
+
+
+_md_urls = []
+for _rel in sorted(k for k in list(outputs) if k.endswith("index.html")):
+    _url = f"{SITE}/{_rel[:-len('index.html')]}"
+    _html = outputs[_rel]
+    _t = html.unescape(re.search(r"<title>(.*?)</title>", _html, re.S).group(1))
+    _d = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', _html).group(1))
+    outputs[_rel[:-len("index.html")] + "index.md"] = to_markdown(_html, _url, _t, _d)
+    _md_urls.append(_url + "index.md")
+outputs["llms.txt"] += "\n## Markdown copies\nEvery page has a Markdown copy at its URL followed by index.md, generated from the same build and linked from the page head (rel=alternate, text/markdown).\n" + "\n".join(f"- {u}" for u in _md_urls) + "\n"
+
+# IndexNow: the build cannot ping (the URLs and the key file must be live), so it records what changed and build/indexnow.py pings after a deploy.
+INDEXNOW_KEY_FILE = HERE / "indexnow-key.txt"
+if not INDEXNOW_KEY_FILE.exists():
+    import secrets as _secrets
+    INDEXNOW_KEY_FILE.write_text(_secrets.token_hex(16) + "\n", encoding="utf-8")
+INDEXNOW_KEY = INDEXNOW_KEY_FILE.read_text(encoding="utf-8").strip()
+outputs[f"{INDEXNOW_KEY}.txt"] = INDEXNOW_KEY + "\n"      # IndexNow verifies ownership by fetching <site>/<key>.txt
+_url_hashes = {}
+for _rel, _text in outputs.items():
+    if _rel.endswith("index.html"):
+        _url_hashes[f"{SITE}/{_rel[:-len('index.html')]}"] = hashlib.sha256(_text.encode("utf-8")).hexdigest()
+for _rel in api_docs:
+    if "{" not in _rel:
+        _url_hashes[f"{SITE}/api/v1/{_rel}"] = hashlib.sha256(jdump(api_docs[_rel]).encode("utf-8")).hexdigest()
+_state_file = HERE / "indexnow-state.json"
+_state = json.loads(_state_file.read_text(encoding="utf-8")) if _state_file.exists() else {}
+_changed = sorted(u for u, h in _url_hashes.items() if _state.get(u) != h)
+(HERE / "indexnow-current.json").write_text(jdump(_url_hashes), encoding="utf-8", newline="\n")
+(HERE / "indexnow-changed.txt").write_text("\n".join(_changed) + ("\n" if _changed else ""), encoding="utf-8", newline="\n")
+
 # ----------------------------------------------------------------- validate, then write
 PLACEHOLDER = re.compile(r"\{\{[A-Za-z0-9_]+\}\}")
 problems = []

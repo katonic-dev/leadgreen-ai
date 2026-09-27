@@ -74,3 +74,59 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 
 ## Licence
 Compilation and site text: CC BY 4.0. Code: Apache 2.0. Third-party figures remain subject to their sources' terms, listed per source. Code: Apache 2.0.
+
+## Markdown copies
+Every page has a Markdown copy at its URL followed by index.md, generated from the same build and linked from the page head (rel=alternate, text/markdown).
+- https://leadgreen.ai/about/index.md
+- https://leadgreen.ai/api/index.md
+- https://leadgreen.ai/blog/index.md
+- https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md
+- https://leadgreen.ai/contribute/index.md
+- https://leadgreen.ai/grids/australia/index.md
+- https://leadgreen.ai/grids/bulgaria/index.md
+- https://leadgreen.ai/grids/france/index.md
+- https://leadgreen.ai/grids/germany/index.md
+- https://leadgreen.ai/grids/hong-kong/index.md
+- https://leadgreen.ai/grids/hungary/index.md
+- https://leadgreen.ai/grids/index.md
+- https://leadgreen.ai/grids/india/index.md
+- https://leadgreen.ai/grids/ireland/index.md
+- https://leadgreen.ai/grids/japan/index.md
+- https://leadgreen.ai/grids/new-zealand/index.md
+- https://leadgreen.ai/grids/norway/index.md
+- https://leadgreen.ai/grids/qatar/index.md
+- https://leadgreen.ai/grids/saudi-arabia/index.md
+- https://leadgreen.ai/grids/serbia/index.md
+- https://leadgreen.ai/grids/singapore/index.md
+- https://leadgreen.ai/grids/slovakia/index.md
+- https://leadgreen.ai/grids/sri-lanka/index.md
+- https://leadgreen.ai/grids/taiwan/index.md
+- https://leadgreen.ai/grids/the-philippines/index.md
+- https://leadgreen.ai/grids/united-arab-emirates/index.md
+- https://leadgreen.ai/grids/united-kingdom/index.md
+- https://leadgreen.ai/grids/united-states/index.md
+- https://leadgreen.ai/h100-vs-b200/index.md
+- https://leadgreen.ai/index.md
+- https://leadgreen.ai/index/index.md
+- https://leadgreen.ai/mcp/index.md
+- https://leadgreen.ai/models/deepseek-v3-1/index.md
+- https://leadgreen.ai/models/gemma-3-12b/index.md
+- https://leadgreen.ai/models/gemma-3-27b/index.md
+- https://leadgreen.ai/models/index.md
+- https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/index.md
+- https://leadgreen.ai/models/llama-3-1-405b-instruct/index.md
+- https://leadgreen.ai/models/llama-3-1-70b-instruct/index.md
+- https://leadgreen.ai/models/llama-3-1-8b-instruct/index.md
+- https://leadgreen.ai/models/llama-3-3-70b-instruct/index.md
+- https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/index.md
+- https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/index.md
+- https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/index.md
+- https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/index.md
+- https://leadgreen.ai/models/qwen-3-14b/index.md
+- https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/index.md
+- https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/index.md
+- https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/index.md
+- https://leadgreen.ai/models/qwen-3-32b/index.md
+- https://leadgreen.ai/models/qwen-3-8b/index.md
+- https://leadgreen.ai/newsletter/index.md
+- https://leadgreen.ai/why/index.md
