@@ -225,3 +225,5 @@ tr.best > th, tr.best > td { background: var(--accent-soft); }
 tr.best > td.key { color: var(--accent-ink); font-weight: 600; }
 /* D23: keep model names on one line in the six-column two-task table; it scrolls on a phone */
 #workloads tbody th .model { white-space: nowrap; }
+/* phone width: long inline code (hashes, URLs) wraps instead of widening the page */
+p code, li code, td code, .unit code { overflow-wrap: anywhere; }
