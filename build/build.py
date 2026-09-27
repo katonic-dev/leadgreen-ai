@@ -93,6 +93,7 @@ EMBER_YEAR = "2024"            # latest year with every listed grid present
 REFERENCE = ("Qwen 3 32B", "H100")   # the row the carbon table is priced on
 ELECTRICITY_USD_PER_KWH = 0.10       # stated assumption in one worked example
 KETTLE_KW = 2.0                      # stated assumption in one worked example
+LED_W = 10                           # stated assumption in the per-answer illustration (a 10 W LED bulb)
 PROTO_MIN_MINUTES = 5                # protocol: steady-state window at least this long after warm-up
 PROTO_MIN_REQUESTS = 1000            # protocol: at least this many requests in the window
 REPEAT_THRESHOLD_PCT = 5             # protocol: two runs further apart than this need a reason or a third run
@@ -485,7 +486,7 @@ def ladder(name, gpu, num_gpus):
         "max_itl_to_best": max(c["median_itl_ms"] for c in rows[: i + 1]),
         "first_tps": first["output_throughput_tokens_per_sec"], "best_tps": best_c["output_throughput_tokens_per_sec"],
         "tps_ratio": best_c["output_throughput_tokens_per_sec"] / first["output_throughput_tokens_per_sec"],
-        "first_batch": first["avg_batch_size"], "best_batch": best_c["avg_batch_size"],
+        "first_batch": first["avg_batch_size"], "best_batch": best_c["avg_batch_size"], "first_out": first["avg_output_len"],
         "first_cap": first["max_num_seqs"], "best_cap": best_c["max_num_seqs"],
         # aliases kept while pages still say "last": the last row the old pages showed was the best row
         "last": wh_per_million(best_c["energy_per_token_joules"]), "last_w": best_c["avg_power_watts"],
@@ -693,6 +694,7 @@ l8 = ladder("Llama 3.1 8B Instruct", "H100", 1)
 _q14 = sorted((c for c in cfgs if c["nickname"] == "Qwen 3 14B" and c["gpu_model"] == "H100" and c["num_gpus"] == 1), key=lambda c: c["max_num_seqs"])
 _q32 = sorted((c for c in cfgs if c["nickname"] == "Qwen 3 32B" and c["gpu_model"] == "H100" and c["num_gpus"] == 1), key=lambda c: c["max_num_seqs"])
 assert _q14 and _q32
+_hicfg = max(cfgs, key=lambda c: c["energy_per_token_joules"])   # the highest measured configuration, above every index row
 
 # ----------------------------------------------------------------- D19: contributed measurements
 MEAS_SCHEMA = json.loads(MEASUREMENT_SCHEMA.read_text(encoding="utf-8"))
@@ -1012,6 +1014,19 @@ subs.update({
     "REVIEW_DECISION_DAYS": str(REVIEW_DECISION_DAYS), "MLE_PROMPT_REQUESTS": fmt(MLE_PROMPT_REQUESTS, 0),
     "MLE_MAX_BATCHED_TOKENS": str(MLE_MAX_BATCHED_TOKENS), "MLE_MAX_MODEL_LEN": str(MLE_MAX_MODEL_LEN), "PROTOCOL_VERSION": PROTOCOL_VERSION,
     "MEASUREMENT_COUNT": str(len(measurement_rows)), "CONTRIBUTED_ROWS": contributed_html,
+    # per-answer figures for the blog (energy for one answer of the row's own average output length)
+    "REF_OUT_TOKENS": fmt(ref["_cfg"]["avg_output_len"], 0),
+    "REF_WH_PER_ANSWER": f"{cfg_wh(ref['_cfg']) * ref['_cfg']['avg_output_len'] / 1e6:.3f}",
+    "REF_ANSWERS_PER_KWH": fmt(round(1000 / (cfg_wh(ref["_cfg"]) * ref["_cfg"]["avg_output_len"] / 1e6), -2), 0),
+    "REF_ANSWER_LED_SECONDS": fmt(cfg_wh(ref["_cfg"]) * ref["_cfg"]["avg_output_len"] / 1e6 / LED_W * 3600, 0), "LED_W": str(LED_W),
+    "L32_FIRST_WH_PER_ANSWER": f"{l32['first'] * l32['first_out'] / 1e6:.2f}",
+    "GOOGLE_ACCEL_WH": f"{GOOGLE_2025['wh'] * GOOGLE_2025['accelerator_share']:.2f}",
+    "GOOGLE_VS_REF": f"{GOOGLE_2025['wh'] / (cfg_wh(ref['_cfg']) * ref['_cfg']['avg_output_len'] / 1e6):.0f}",
+    "GOOGLE_ACCEL_VS_REF": f"{GOOGLE_2025['wh'] * GOOGLE_2025['accelerator_share'] / (cfg_wh(ref['_cfg']) * ref['_cfg']['avg_output_len'] / 1e6):.1f}",
+    "HIGHEST_CFG_MODEL": _hicfg["nickname"], "HIGHEST_CFG_GPUS": f"{_hicfg['num_gpus']} × {_hicfg['gpu_model']}", "HIGHEST_CFG_BATCH": fmt(_hicfg["avg_batch_size"], 0),
+    "HIGHEST_CFG_WH": fmt(cfg_wh(_hicfg), 0), "HIGHEST_CFG_WH_PER_ANSWER": f"{cfg_wh(_hicfg) * _hicfg['avg_output_len'] / 1e6:.1f}",
+    "HIGHEST_CFG_VS_TILE": f"{cfg_wh(_hicfg) / raw_wh(high):.1f}", "LOW_OUT_TOKENS": fmt(low["_cfg"]["avg_output_len"], 0),
+    "LOW_WH_PER_ANSWER": f"{raw_wh(low) * low['_cfg']['avg_output_len'] / 1e6:.3f}",
     "RECUSAL": (f"While Katonic is a bidder in a tender that cites the index, the editor changes no row for a model Katonic proposes. "
                 f"Rows change only when a source publishes a dated release, and those changes are applied by {esc(OUTSIDE_REVIEWER)}, "
                 "who has no Katonic affiliation. " if OUTSIDE_REVIEWER else

@@ -1,0 +1,40 @@
+<!--meta
+title: How much energy does an AI query use?
+description: The public measurements put one answer from a busy 32B model at about {{REF_WH_PER_ANSWER}} Wh of GPU energy. Google says 0.24 Wh for a median prompt. Both are right, and here is why.
+date: 2026-10-XX
+slug: how-much-energy-does-an-ai-query-use
+author: Prem Naraindas
+-->
+<p>Look, this is the question I get asked most, usually by someone who has just signed off a token budget. "How much energy does one of these queries actually use?" And the honest first answer is that nobody who quotes a single figure is telling you the whole story, because the number depends on four things: which model, on which GPUs, how busy the server was, and how long the answer ran. So here is the number the public measurements give, with those four things stated, and then the two figures the vendors have published, and why they are different without either being wrong.</p>
+
+<h2>The number</h2>
+<p>On the index's reference row, {{REF_MODEL}} on {{REF_GPUS}}, a busy server produces a million output tokens for {{REF_WH_1}} Wh of GPU energy. The benchmark's answers on that row averaged {{REF_OUT_TOKENS}} tokens, so one answer costs about <b>{{REF_WH_PER_ANSWER}} Wh</b>. That is a kilowatt-hour for roughly {{REF_ANSWERS_PER_KWH}} answers. A {{LED_W}} W LED bulb uses the same energy in about {{REF_ANSWER_LED_SECONDS}} seconds. The bulb is my assumption, not a source; the tokens are.</p>
+<p>Three qualifications, and they are not fine print. It is GPU energy only: the host, the network, the cooling and the building are outside it. It was measured with the server running {{REF_BATCH}} requests at once, which is a busy server. And it is one model on one card count. Change any of those and the number moves, sometimes by a lot.</p>
+
+<h2>What Google and Mistral published</h2>
+<p>In August 2025 Google put the median Gemini Apps text prompt at <b>{{GOOGLE_WH}} Wh</b>, {{GOOGLE_G}} g of CO2e and {{GOOGLE_ML}} mL of water. In July 2025 Mistral put a {{MISTRAL_TOKENS}}-token reply from its large model at {{MISTRAL_G}} g of CO2e and {{MISTRAL_ML}} mL of water, without a watt-hour figure. Those are the only two per-prompt disclosures from model vendors I know of, and I am glad they exist.</p>
+<p>Google's {{GOOGLE_WH}} Wh is about {{GOOGLE_VS_REF}}× my {{REF_WH_PER_ANSWER}} Wh. See, that gap is the interesting part, and it is mostly boundary. Google counts the whole stack: the accelerators are {{GOOGLE_ACCEL_PCT}} percent of its figure, so about {{GOOGLE_ACCEL_WH}} Wh, with the host machines, idle capacity held for peaks, and the data centre's overhead making up the rest. Google also reports a narrow, accelerator-only figure of {{GOOGLE_NARROW_WH}} Wh, which is the boundary this index uses. So on a like-for-like boundary its number is {{GOOGLE_ACCEL_VS_REF}}× mine, and the rest of the difference is a different model, a different prompt length, and a fleet running at whatever utilisation Google's traffic gives it rather than a benchmark holding a server full.</p>
+<p>None of that makes either figure wrong. They answer different questions. Google's tells you what a prompt costs a hyperscaler across its whole estate. The index tells you what a named model on named GPUs costs at a stated load, which is the figure you can hold a vendor to, because you can measure it yourself.</p>
+
+<h2>What moves it most: how busy the server is</h2>
+<p>Take the same {{REF_MODEL}} on the same {{REF_GPUS}} and run it with {{L32_FIRST_BATCH}} requests at once instead of {{L32_BEST_BATCH}}. Energy per million tokens goes from {{L32_BEST}} to {{L32_FIRST}} Wh, and one answer goes from {{REF_WH_PER_ANSWER}} Wh to about <b>{{L32_FIRST_WH_PER_ANSWER}} Wh</b>. Same model, same cards, same prompts, {{L32_RATIO}}× the energy, because the cards draw nearly the same power whether they are serving eight people or two hundred and fifty, and at eight they are mostly waiting.</p>
+<p>Think of a bakery oven. It costs about the same gas to run whether there are two loaves in it or forty. The gas per loaf is a different matter. In the deployments I see, most enterprise assistants are the oven with two loaves in it: a department, a few dozen users, a handful of requests at any moment. Their energy per answer is at the top of that range, not the bottom, and nothing on their invoice says so.</p>
+
+<h2>The range</h2>
+<p>Across the whole index, the lowest row is {{LOW_MODEL}} on {{LOW_GPUS}} at {{LOW_WH_1}} Wh per million tokens, which is about {{LOW_WH_PER_ANSWER}} Wh for one of its {{LOW_OUT_TOKENS}}-token answers. The highest configuration the benchmark measured at all, not an index row but a real run, is {{HIGHEST_CFG_MODEL}} on {{HIGHEST_CFG_GPUS}} holding {{HIGHEST_CFG_BATCH}} requests: {{HIGHEST_CFG_WH}} Wh per million tokens, about {{HIGHEST_CFG_WH_PER_ANSWER}} Wh an answer, {{HIGHEST_CFG_VS_TILE}}× the highest index row. So "how much energy does an AI query use" has a defensible answer somewhere between a few thousandths of a watt-hour and a couple of watt-hours, and the four things above decide where.</p>
+
+<h2>What I am not telling you</h2>
+<p>Closed models served over an API. Nobody outside the operator can measure them, so I say nothing about them beyond what the operator publishes, which for most of them is nothing. Water: the index measures electricity and not water; Google and Mistral both publish a water figure and I think that is the right thing to do, but neither is per million tokens at a stated load, so it stays out of the tables. And the meter: to get from a GPU figure to what the building draws, multiply by the system's host-to-GPU ratio and the site's PUE, which only the operator knows. The <a href="{{ROOT}}index/#method">method</a> works one example.</p>
+
+<h2>What to do with it</h2>
+<p>If you buy tokens from a hosted API, the concurrency is theirs and you cannot measure it; ask the provider the <a href="{{ROOT}}why/#hosted">seven questions</a> instead. If you run the GPUs, ask your vendor for watt-hours per million output tokens at your running batch, not theirs, and hold the answer against the <a href="{{ROOT}}models/{{REF_SLUG}}/">model's page</a>. Or ask the <a href="{{ROOT}}mcp/">MCP server</a> in plain words; it will give you the row, the source and the caveat, which is more than most invoices do.</p>
+
+<div class="refs">
+  <p class="eyebrow">References</p>
+  <ol>
+    <li>{{MLE_BLOCK}}</li>
+    <li>Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, August 2025: {{GOOGLE_WH}} Wh, {{GOOGLE_G}} gCO2e and {{GOOGLE_ML}} mL per median Gemini Apps text prompt; accelerators {{GOOGLE_ACCEL_PCT}} percent; narrow boundary {{GOOGLE_NARROW_WH}} Wh. <a href="{{GOOGLE_URL}}">arXiv 2508.15734</a>.</li>
+    <li>Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): {{MISTRAL_G}} gCO2e and {{MISTRAL_ML}} mL per {{MISTRAL_TOKENS}}-token reply. <a href="{{MISTRAL_URL}}">mistral.ai</a>.</li>
+    <li>Per-answer figures are Wh per million output tokens multiplied by the row's own average output length; the LED bulb ({{LED_W}} W) is a stated assumption. Every row: <a href="{{ROOT}}index/">the index</a> and <a href="{{ROOT}}api/">the API</a>.</li>
+  </ol>
+</div>
