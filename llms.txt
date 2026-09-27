@@ -18,6 +18,8 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - [Why it matters](https://leadgreen.ai/why/): nine reasons the number belongs in procurement, operations and reporting, with an RFP clause
 - [The index](https://leadgreen.ai/index/): the full tables, method, sources ledger and change record
 - [Models](https://leadgreen.ai/models/): one page per model, with every measured configuration, H100 against B200 and carbon by grid
+- [H100 vs B200](https://leadgreen.ai/h100-vs-b200/): the 14 models measured on both cards, the gap per model and how much of it is the sweep
+- [Grids](https://leadgreen.ai/grids/): one page per listed grid, the whole index priced on it, the trend since 2023 and the reporting line
 - [Data API](https://leadgreen.ai/api/): read-only JSON, CORS open, CC BY 4.0
 - [MCP server](https://leadgreen.ai/mcp/): tools for AI assistants (list_models, energy_per_million_tokens, estimate, compare_gpus, concurrency_curve, grid_intensity, gpu_hardware, sources)
 - [Blog](https://leadgreen.ai/blog/): RSS at https://leadgreen.ai/feed.xml

@@ -1,0 +1,19 @@
+<!--meta
+title: Grids: the carbon of AI inference by country | Lead Green
+description: One page per grid for {{LISTED_GRID_COUNT}} countries: Ember's carbon intensity, what a billion AI output tokens cost in CO2e there, every index model priced on it.
+-->
+<div class="title">
+  <p class="eyebrow">Grids</p>
+  <h1>{{LISTED_GRID_COUNT}} grids, one page each</h1>
+  <p class="stand">Energy per token does not change with geography; carbon per token does. Each page prices the whole index on one country's grid, shows the grid's trend since 2023, and says which reporting line the figure belongs on. The {{LISTED_GRID_COUNT}} grids are {{MARKET_GRID_COUNT}} markets Katonic sells in or expects to, plus seven reference grids; all {{GRID_COUNT}} areas Ember covers are in <a href="{{ROOT}}api/v1/grid.json">grid.json</a>.</p>
+  <p class="unit"><b>Basis</b> Ember yearly emissions intensity, {{EMBER_YEAR}}, lifecycle, location-based, gCO2e per kWh. Ember's {{EMBER_YEAR}} figures run from {{GRID_MIN_NAME}} at {{GRID_MIN_G}} to {{GRID_MAX_NAME}} at {{GRID_MAX_G}}, a spread of {{GRID_SPREAD}}×. Updated {{UPDATED_LONG}}.</p>
+</div>
+
+<section class="first" id="grids">
+  <p class="eyebrow">Highest intensity first</p>
+  <h2>Pick a grid</h2>
+  <div class="cards">
+{{GRID_CARDS}}
+  </div>
+  <p class="note">The kilogram figure on each card prices the index's reference row ({{REF_MODEL}}, {{REF_GPUS}}, {{REF_WH_1}} Wh/M, GPU only, a floor). Source: Ember, Yearly electricity data, September 2026 release (CC BY 4.0), retrieved {{RETRIEVED_LONG}}. {{EMBER_BASIS}}</p>
+</section>

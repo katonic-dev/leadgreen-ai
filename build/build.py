@@ -1540,6 +1540,18 @@ def jsonld_for(kind: str, title: str, desc: str, url: str, post: dict | None = N
                    "datePublished": post["date"], "dateModified": post.get("updated", post["date"]),
                    "author": PERSON, "publisher": ORG, "mainEntityOfPage": url, "url": url, "inLanguage": "en",
                    "license": "https://creativecommons.org/licenses/by/4.0/", "isAccessibleForFree": True})
+    if kind == "answer" and post:   # a generated answer page: the page, its FAQ, a breadcrumb and, where given, the dataset it draws on
+        page = {"@type": "WebPage", "@id": url, "name": title, "description": desc, "url": url, "publisher": ORG, "inLanguage": "en",
+                "dateModified": UPDATED, "license": "https://creativecommons.org/licenses/by/4.0/", "isPartOf": {"@type": "WebSite", "name": "Lead Green", "url": SITE + "/"}}
+        if post.get("dataset"):
+            ds = post["dataset"]
+            page["mainEntity"] = {"@type": "Dataset", "name": ds["name"], "description": desc, "license": "https://creativecommons.org/licenses/by/4.0/",
+                                  "creator": ORG, "dateModified": UPDATED, "isBasedOn": ds["isBasedOn"],
+                                  "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": ds["distribution"]}]}
+        crumbs = [("Lead Green", SITE + "/")] + post.get("crumbs", []) + [(post["name"], url)]
+        return ld({"@context": "https://schema.org", "@graph": [page,
+            {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in post["faq"]]},
+            {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": u} for i, (n, u) in enumerate(crumbs)]}]})
     if kind == "model" and post:
         m = post["model"]
         return ld({"@context": "https://schema.org", "@graph": [
@@ -1829,6 +1841,241 @@ subs["MODEL_CARDS"] = "\n".join(model_cards)
 meta_, body_ = read_body(PAGES / "models.html")
 render("models/index.html", "models", fill(meta_["title"], subs), fill(meta_["description"], subs), "website", "page", body_)
 
+# ----------------------------------------------------------------- grid pages: one per listed grid, and the H100 vs B200 page (SEO / AEO)
+_area_by_iso = {a["iso3"]: a for a in areas}
+_country_rank = {a["iso3"]: i + 1 for i, a in enumerate(sorted(countries_only, key=lambda a: intensity[a["iso3"]]))}   # 1 = cleanest
+_model_lowest = sorted(((m_["name"], min(m_["gpus"], key=lambda g: cfg_wh(best[(m_["name"], g)])), s_) for s_, m_ in models.items()),
+                       key=lambda t: cfg_wh(best[(t[0], t[1])]))
+ref_wh_raw, low_wh_raw, high_wh_raw = raw_wh(ref), raw_wh(low), raw_wh(high)
+
+
+def ordinal(n: int) -> str:
+    suf = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n:,}{suf}"
+
+
+def grid_slug(iso: str) -> str:
+    return slug(_area_by_iso[iso]["display_name"])
+
+
+def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
+    a = _area_by_iso[iso]
+    name = a["display_name"]
+    g = intensity[iso]
+    yrs = a["years"]
+    latest = a["latest_year"]
+    rank = _country_rank[iso]
+    role = "a reference grid" if iso in REFERENCE_GRIDS else "a market Katonic sells in or expects to"
+    vs_world = g / world
+    where = f"{vs_world:.1f}× the world average of {fmt(world, 0)}" if vs_world >= 1.05 else (f"{1 / vs_world:.1f}× cleaner than the world average of {fmt(world, 0)}" if vs_world <= 0.95 else f"close to the world average of {fmt(world, 0)}")
+    kg_ref, kg_low, kg_high = (kg_per_billion(w, g) for w in (ref_wh_raw, low_wh_raw, high_wh_raw))
+    answer = (f"{esc(name)}'s grid ran at <b>{fmt(g, 0)} gCO2e per kWh</b> in {EMBER_YEAR} on Ember's yearly figures, {where}, and {ordinal(rank)} of the {grid_count} countries Ember covers, counting from the cleanest. "
+              f"A billion output tokens of the index's reference row ({esc(REF_MODEL_NAME)}, {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh/M) served on it carries about <b>{fmt(kg_ref)} kg CO2e</b> of GPU-side emissions; "
+              f"the index's lowest row carries {fmt(kg_low)} kg and its highest {fmt(kg_high)} kg. Energy per token does not change with geography; carbon per token does.")
+    # trend
+    trend = ""
+    if len(yrs) >= 2:
+        y0, v0 = min(yrs), yrs[min(yrs)]
+        v1 = yrs[latest]
+        chg = (v1 / v0 - 1) * 100
+        verb = "fell" if chg < -0.5 else ("rose" if chg > 0.5 else "was flat")
+        trend = (f"From {y0} to {latest} the intensity {verb}" + (f" {abs(chg):.0f} percent, from {fmt(v0)} to {fmt(v1)} gCO2e per kWh" if verb != "was flat" else f" at about {fmt(v1)} gCO2e per kWh") + ". "
+                 + (f"The table uses {EMBER_YEAR}, the latest year with a value for every listed grid; on the {latest} figure the reference row would carry {fmt(kg_per_billion(ref_wh_raw, v1))} kg per billion tokens." if latest != EMBER_YEAR else f"{EMBER_YEAR} is the latest year Ember publishes for {esc(name)}."))
+    years_rows = "\n".join(f"<tr><th scope=\"row\">{y}</th><td class=\"num key\">{fmt(v)}</td><td class=\"num\">{fmt(kg_per_billion(ref_wh_raw, v))}</td></tr>" for y, v in sorted(yrs.items()))
+    tiles = (f"<div class=\"tiles auto n3\" role=\"group\" aria-label=\"Headline readings\">"
+             f"<div class=\"tile\"><span class=\"lbl\">Grid intensity, {EMBER_YEAR}</span><span class=\"val\">{fmt(g, 0)}<small>gCO2e/kWh</small></span><span class=\"sub\">Ember yearly data, lifecycle, location-based. World: {fmt(world, 0)}.</span></div>"
+             f"<div class=\"tile ref\"><span class=\"lbl\">Reference row, per billion tokens</span><span class=\"val\">{fmt(kg_ref)}<small>kg CO2e</small></span><span class=\"sub\">{esc(REF_MODEL_NAME)}, {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh/M, GPU only, a floor.</span></div>"
+             f"<div class=\"tile\"><span class=\"lbl\">Rank</span><span class=\"val\">{rank}<small>of {grid_count}</small></span><span class=\"sub\">1 is the cleanest grid Ember covers ({esc(grid_min['display_name'])}, {fmt(intensity[grid_min['iso3']], 0)}); {grid_count} the highest ({esc(grid_max['display_name'])}, {fmt(intensity[grid_max['iso3']], 0)}).</span></div></div>")
+    # every model on this grid
+    model_rows = "\n".join(
+        f"<tr><th scope=\"row\"><a class=\"model\" href=\"{{{{ROOT}}}}models/{s_}/\">{esc(mn)}</a></th><td class=\"num\">{best[(mn, gp)]['num_gpus']} × {gp}</td>"
+        f"<td class=\"num\">{fmt(cfg_wh(best[(mn, gp)]))}</td><td class=\"num key\">{fmt(kg_per_billion(cfg_wh(best[(mn, gp)]), g))}</td></tr>"
+        for mn, gp, s_ in _model_lowest)
+    faq = [
+        (f"What is the grid carbon intensity of {name}?",
+         f"{fmt(g, 0)} gCO2e per kWh in {EMBER_YEAR}, on Ember's yearly electricity data: a lifecycle, location-based figure for the country's own generation, {where}. "
+         + (f"Ember's {latest} figure is {fmt(yrs[latest])}." if latest != EMBER_YEAR else "")),
+        (f"How much CO2 does a million AI tokens produce in {name}?",
+         f"At the index's reference row ({REF_MODEL_NAME} on {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh per million output tokens, GPU only), about {fmt(kg_ref)} grams of CO2e per million tokens, or {fmt(kg_ref)} kg per billion, "
+         f"on {name}'s {EMBER_YEAR} grid. Across the index the range is {fmt(kg_low)} to {fmt(kg_high)} kg per billion tokens. A lightly loaded server sits above these floors, and host, network and cooling are not counted."),
+        (f"Is running AI in {name} cleaner than the world average?",
+         f"{name}'s {EMBER_YEAR} intensity of {fmt(g, 0)} gCO2e per kWh is {where} ({fmt(world, 0)} gCO2e per kWh). The same tokens on the same GPUs produce the same energy figure anywhere; only the carbon figure moves with the grid."),
+        (f"Can I use this figure for my Scope 2 report in {name}?",
+         "As a comparison, not as a filing. Ember's intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. "
+         "Tokens bought from a hosted API land in your Scope 3 category 1, not your Scope 2. The why page explains both."),
+        ("Where do these figures come from?",
+         f"Grid intensity: Ember, Yearly electricity data, September 2026 release ({EMBER_YEAR}; {', '.join(sorted(yrs))} shown), CC BY 4.0, retrieved {long_date(RETRIEVED)}. Energy per token: the ML.ENERGY Leaderboard v3.0 (data compiled {long_date(SRC_MLE['compiled'])}). Carbon is Wh/M × gCO2e per kWh ÷ 1,000."),
+    ]
+    faq_html = "<section id=\"faq\"><p class=\"eyebrow\">Questions</p><h2>Asked about AI carbon in " + esc(name) + "</h2><div class=\"prose faq\">" + "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq) + "</div></section>"
+    body = f"""<div class="title">
+  <p class="eyebrow"><a href="{{{{ROOT}}}}grids/">Grids</a> · {esc(a['continent'])} · {role}</p>
+  <h1>{esc(name)}: the carbon of AI inference per billion tokens</h1>
+  <p class="stand">{answer}</p>
+  <p class="unit"><b>Area</b> {esc(a['name'])} ({iso}{', ' + a['iso2'] if a['iso2'] else ''}). <b>Basis</b> lifecycle, location-based, annual average. <b>Data</b> <a href="{{{{ROOT}}}}api/v1/grid.json">grid.json</a>. Updated {{{{UPDATED_LONG}}}}.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#trend">Trend</a></li><li><a href="#models">Every model</a></li><li><a href="#reporting">Reporting</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+{tiles}
+<p class="after-tiles">Carbon per token is energy per token times the grid. The energy figures here are GPU-only floors from a busy server; a lightly loaded deployment sits above them, and so does anything that includes the host, the network and the cooling. Wh/M × gCO2e per kWh ÷ 1,000 gives kg CO2e per billion output tokens.</p>
+
+<section id="trend" class="first">
+  <p class="eyebrow">Trend</p>
+  <h2>{esc(name)}'s grid, year by year</h2>
+  <p class="lead">{trend}</p>
+  <div class="table-scroll"><table><caption>Ember yearly emissions intensity for {esc(name)}, and the reference row priced on each year</caption>
+  <thead><tr><th scope="col">Year</th><th scope="col" class="num">g CO2e per kWh</th><th scope="col" class="num">kg CO2e per billion tokens, reference row</th></tr></thead><tbody>
+{years_rows}
+  </tbody></table></div>
+  <p class="note">{{{{EMBER_BASIS}}}} A GPU server draws much the same power around the clock, while an annual average weights each hour by its generation, so on a grid whose clean supply peaks at midday a flat load sees a higher figure than the average.</p>
+</section>
+
+<section id="models">
+  <p class="eyebrow">Every model</p>
+  <h2>The index priced on {esc(name)}'s grid</h2>
+  <p class="lead">Each model's lowest index row, GPU only, at the most energy-efficient configuration measured, multiplied by {fmt(g, 0)} gCO2e per kWh. The spread from the lowest row to the highest is {fmt(high_wh_raw / low_wh_raw, 0)}×, and it is entirely the model, the GPU and the load; the grid multiplies all of them alike.</p>
+  <div class="table-scroll"><table><caption>Lowest index row per model, priced on {esc(name)}, {EMBER_YEAR}</caption>
+  <thead><tr><th scope="col">Model</th><th scope="col" class="num">GPUs</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">kg CO2e per billion output tokens</th></tr></thead><tbody>
+{model_rows}
+  </tbody></table></div>
+  <p class="note">Every configuration of every model, not only the lowest row, is on <a href="{{{{ROOT}}}}models/">the model pages</a>; the <a href="{{{{ROOT}}}}mcp/">MCP server</a> prices any of them on {esc(name)}'s grid for a token count you give it.</p>
+</section>
+
+<section id="reporting">
+  <p class="eyebrow">Reporting</p>
+  <h2>Which line it goes on</h2>
+  <div class="prose">
+    <p>For GPUs you run in {esc(name)}, the electricity is your own consumption: it goes into your ESRS E1-5 energy total and its emissions into E1-6 as Scope 2, location-based, which is the method this page's figure matches. The market-based figure nets your contracted supply and needs your own contracts. Tokens bought from a hosted API are the provider's Scope 2 and your Scope 3 category 1, and sit outside your E1-5 line; <a href="{{{{ROOT}}}}why/#hosted">the why page</a> lists what to ask the provider. Ember's figure is a lifecycle intensity for comparing places, not a Scope 2 combustion factor to file as reported.</p>
+  </div>
+</section>
+{faq_html}
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, September 2026 release, emissions intensity of total generation, {', '.join(sorted(yrs))} (CC BY 4.0), retrieved {{{{RETRIEVED_LONG}}}}. Energy per token: {{{{MLE_BLOCK}}}}</p>
+  <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
+  <p class="note">This page is generated from the same dated snapshots as <a href="{{{{ROOT}}}}index/#carbon">the index</a>; no figure on it is typed by hand. All {{{{GRID_COUNT}}}} areas are in <a href="{{{{ROOT}}}}api/v1/grid.json">grid.json</a>; the {{{{LISTED_GRID_COUNT}}}} with a page are the markets Katonic sells in or expects to, plus seven reference grids.</p>
+</section>"""
+    title = f"{name}: carbon of AI inference per billion tokens | Lead Green"
+    for desc in (f"{name}'s grid at {fmt(g, 0)} gCO2e/kWh ({EMBER_YEAR}, Ember): what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend since {min(yrs)}.",
+                 f"{name}'s grid at {fmt(g, 0)} gCO2e/kWh: what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend.",
+                 f"{name}: grid carbon intensity and the CO2e of AI inference per billion output tokens, every index model priced on it."):
+        if len(desc) <= 155:
+            break
+    return title, desc, body, faq
+
+
+REF_MODEL_NAME = ref["model"]
+grid_cards = []
+for iso_, _n in sorted(COUNTRIES, key=lambda t: -intensity[t[0]]):
+    t_, d_, b_, faq_ = grid_page(iso_)
+    a_ = _area_by_iso[iso_]
+    render(f"grids/{grid_slug(iso_)}/index.html", "", t_, d_, "article", "answer", b_,
+           {"date": UPDATED, "faq": faq_, "name": a_["display_name"], "crumbs": [("Grids", f"{SITE}/grids/")],
+            "dataset": {"name": f"{a_['display_name']}: grid carbon intensity and AI inference carbon", "distribution": f"{SITE}/api/v1/grid.json", "isBasedOn": SRC_EMBER["url"]}})
+    grid_cards.append(f"<div class=\"card\"><span class=\"k\">{esc(a_['continent'])}{' · reference' if iso_ in REFERENCE_GRIDS else ''}</span><h3><a href=\"{{{{ROOT}}}}grids/{grid_slug(iso_)}/\">{esc(a_['display_name'])}</a></h3>"
+                      f"<span class=\"n\">{fmt(intensity[iso_], 0)}<small>gCO2e/kWh, {EMBER_YEAR}</small></span><p>{fmt(kg_per_billion(ref_wh_raw, intensity[iso_]))} kg CO2e per billion tokens at the reference row; rank {_country_rank[iso_]} of {grid_count}.</p></div>")
+subs["GRID_CARDS"] = "\n".join(grid_cards)
+meta_, body_ = read_body(PAGES / "grids.html")
+render("grids/index.html", "", fill(meta_["title"], subs), fill(meta_["description"], subs), "website", "page", body_)
+
+
+# ---- H100 vs B200
+def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
+    ratios = sorted(r for _, _, _, r in pairs)
+    med = ratios[len(ratios) // 2] if len(ratios) % 2 else (ratios[len(ratios) // 2 - 1] + ratios[len(ratios) // 2]) / 2
+    wins = sum(1 for r in ratios if r > 1)
+    pm, ph, pb, pr = pairs[0]
+    lm, lh, lb, lr = pairs[-1]
+    h100_w = [h["_cfg"]["avg_power_watts"] / h["_cfg"]["num_gpus"] for _, h, _, _ in pairs]
+    b200_w = [b["_cfg"]["avg_power_watts"] / b["_cfg"]["num_gpus"] for _, _, b, _ in pairs]
+    fewer = sum(1 for _, h, b, _ in pairs if b["_cfg"]["num_gpus"] < h["_cfg"]["num_gpus"])
+    answer = (f"On the index rows, the B200 uses less GPU energy per output token than the H100 for <b>{'all ' + str(len(pairs)) if wins == len(pairs) else f'{wins} of the {len(pairs)}'} models</b> measured on both cards. "
+              f"The H100 row uses from <b>{pr:.2f}×</b> the energy of the B200 row ({esc(pm)}) down to <b>{lr:.2f}×</b> ({esc(lm)}), with a median of {med:.2f}×. "
+              f"Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on {word(fewer)} of the {len(pairs)} pairs the B200 row holds the model on fewer cards.")
+    tiles = (f"<div class=\"tiles auto n3\" role=\"group\" aria-label=\"Headline readings\">"
+             f"<div class=\"tile\"><span class=\"lbl\">Widest gap</span><span class=\"val\">{pr:.2f}<small>×</small></span><span class=\"sub\">{esc(pm)}: {fmt(raw_wh(ph))} Wh/M on {ph['num_gpus']} × H100 against {fmt(raw_wh(pb))} on {pb['num_gpus']} × B200.</span></div>"
+             f"<div class=\"tile ref\"><span class=\"lbl\">Median gap, {len(pairs)} pairs</span><span class=\"val\">{med:.2f}<small>×</small></span><span class=\"sub\">H100 row energy per token over B200 row energy per token, at each model's index rows.</span></div>"
+             f"<div class=\"tile\"><span class=\"lbl\">Narrowest gap</span><span class=\"val\">{lr:.2f}<small>×</small></span><span class=\"sub\">{esc(lm)}: {fmt(raw_wh(lh))} Wh/M on {lh['num_gpus']} × H100 against {fmt(raw_wh(lb))} on {lb['num_gpus']} × B200.</span></div></div>")
+    rows = "\n".join(
+        f"<tr><th scope=\"row\"><a class=\"model\" href=\"{{{{ROOT}}}}models/{h['slug']}/\">{esc(m)}</a></th>"
+        f"<td class=\"num\">{h['num_gpus']} × H100</td><td class=\"num\">{fmt(h['_cfg']['avg_batch_size'], 0)}</td><td class=\"num\">{fmt(raw_wh(h))}</td>"
+        f"<td class=\"num\">{b['num_gpus']} × B200</td><td class=\"num\">{fmt(b['_cfg']['avg_batch_size'], 0)}</td><td class=\"num\">{fmt(raw_wh(b))}</td>"
+        f"<td class=\"num key\">{r:.2f}×</td></tr>" for m, h, b, r in pairs)
+    tdp = {(t["gpu"], t["form"]): t for t in hw["tdp"]}
+    h_sxm = tdp.get(("H100", "SXM")); b_row = next(t for t in hw["tdp"] if t["gpu"] == "B200")
+    power_para = (f"A B200 card draws more power than an H100: NVIDIA rates the H100 SXM at {h_sxm['tdp_label']} and the B200 {b_row['tdp_label']}, and on these index rows the cards averaged "
+                  f"{fmt(sum(h100_w) / len(h100_w), 0)} W per H100 and {fmt(sum(b200_w) / len(b200_w), 0)} W per B200. It uses less energy per token because it finishes more tokens in each second of that draw. "
+                  f"Power tells you the size of the feed; energy per token tells you what the feed produced.")
+    faq = [
+        ("Is the B200 more energy-efficient than the H100 for LLM inference?",
+         f"On the ML.ENERGY Leaderboard's index rows, yes for {'all' if wins == len(pairs) else wins} {len(pairs)} models measured on both: " if wins == len(pairs) else f"On the ML.ENERGY Leaderboard's index rows, yes for {wins} of the {len(pairs)} models measured on both: "
+         f"the H100 row uses {pr:.2f}× the GPU energy per output token of the B200 row for {pm} and {lr:.2f}× for {lm}, median {med:.2f}×. "
+         "These are floors at high load, GPU only, and part of each gap comes from the two rows being swept differently."),
+        ("How much energy does a B200 save over an H100 per million tokens?",
+         f"It depends on the model: for the reference model, {ref['model']}, the index rows are {fmt(raw_wh(ref))} Wh/M on {ref['num_gpus']} × H100 against {fmt(raw_wh(next(b for m, h, b, r in pairs if m == ref['model'])))} Wh/M on {next(b for m, h, b, r in pairs if m == ref['model'])['num_gpus']} × B200. The table on this page gives all {len(pairs)} pairs."),
+        ("Does the B200 draw more power than the H100?", power_para),
+        ("Should I buy B200s to cut the energy of AI inference?",
+         f"Not first. The same model on the same H100 cards moves {subs['L32_RATIO']}× in energy per token between a running batch of {subs['L32_FIRST_BATCH']} and {subs['L32_BEST_BATCH']}, which is more than the widest generation gap here ({pr:.2f}×). Consolidating traffic onto fewer, busier cards costs nothing in hardware; the generation change comes after."),
+        ("Why do the two rows of a pair have different card counts?",
+         f"The leaderboard picks each GPU's configurations separately; a B200 has more memory, so a model that needs eight H100s can fit fewer B200s. On {fewer} of the {len(pairs)} pairs the B200 row holds the model on fewer cards, and the running batches differ too, so the ratio compares the best measured row on each card, not like for like."),
+        ("Where do these figures come from?",
+         f"The ML.ENERGY Leaderboard v3.0 (data compiled {long_date(SRC_MLE['compiled'])}, retrieved {long_date(RETRIEVED)}), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration at or under {ITL_DEADLINE_MS} ms median inter-token latency. TDP figures are NVIDIA's published specifications."),
+    ]
+    faq_html = "<section id=\"faq\"><p class=\"eyebrow\">Questions</p><h2>Asked about H100 against B200</h2><div class=\"prose faq\">" + "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq) + "</div></section>"
+    body = f"""<div class="title">
+  <p class="eyebrow">Two generations · {len(pairs)} models</p>
+  <h1>H100 vs B200: GPU energy per million output tokens</h1>
+  <p class="stand">{answer}</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="{{{{ROOT}}}}api/v1/index.json">index.json</a>. Updated {{{{UPDATED_LONG}}}}.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#pairs">The {len(pairs)} pairs</a></li><li><a href="#sweep">The sweep</a></li><li><a href="#power">Power against energy</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+{tiles}
+<p class="after-tiles">Each pair compares a model's index row on the H100 with its index row on the B200: the lowest-energy configuration the leaderboard measured on each card, at or under {{{{ITL}}}} ms median inter-token latency. The ratio is the H100 row's energy per token over the B200 row's.</p>
+
+<section id="pairs" class="first">
+  <p class="eyebrow">The pairs</p>
+  <h2>Every model measured on both cards</h2>
+  <div class="table-scroll"><table><caption>Index rows paired by model, with card count and running batch, sorted by the gap</caption>
+  <thead><tr><th scope="col">Model</th><th scope="col" class="num">H100</th><th scope="col" class="num">Running batch</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">B200</th><th scope="col" class="num">Running batch</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">H100 ÷ B200</th></tr></thead><tbody>
+{rows}
+  </tbody></table></div>
+  <p class="note">Running batch (avg) is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>). Model names link to every measured configuration of that model.</p>
+</section>
+
+<section id="sweep">
+  <p class="eyebrow">The sweep</p>
+  <h2>How much of the gap is the silicon</h2>
+  <p class="lead">{{{{PAIR_SWEEP_SENTENCE}}}}</p>
+  <p class="lead">{{{{PAIR50_SENTENCE}}}}</p>
+  <p class="note">Every configuration behind these rows is on <a href="{{{{ROOT}}}}models/">the model pages</a> and in the <a href="{{{{ROOT}}}}api/">API</a>, so any pair can be re-cut at a matched cap or a matched running batch.</p>
+</section>
+
+<section id="power">
+  <p class="eyebrow">Power against energy</p>
+  <h2>The card that draws more can use less</h2>
+  <div class="prose"><p>{power_para} An eight-GPU {{{{SYS_NAME}}}} is rated at about {{{{SYS_KW}}}} kW against {{{{SYS_GPU_KW}}}} kW for its GPUs, so the system draws {{{{SYS_RATIO}}}}× what the cards do; the <a href="{{{{ROOT}}}}index/#method">method</a> takes a GPU figure to the facility meter.</p></div>
+  <div class="table-scroll"><table class="spec"><caption>Maximum thermal design power, as published by NVIDIA</caption>
+  <thead><tr><th scope="col">GPU</th><th scope="col">Form</th><th scope="col" class="num">Max TDP</th><th scope="col" class="num">Memory</th></tr></thead><tbody>
+{{{{TDP_ROWS}}}}
+  </tbody></table></div>
+</section>
+{faq_html}
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note">{{{{MLE_BLOCK}}}}</p>
+  <p class="note">TDP and memory: NVIDIA product specifications for <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a> and <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a>, and the <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">HGX B200 product carbon footprint summary</a> (July 2025), retrieved {{{{RETRIEVED_LONG}}}}.</p>
+  <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
+</section>"""
+    title = f"H100 vs B200: GPU energy per million output tokens, {len(pairs)} models | Lead Green"
+    desc = f"H100 against B200 on GPU energy per output token, {len(pairs)} open-weight models: the gap runs from {pr:.2f}× to {lr:.2f}×, and how much is the sweep. ML.ENERGY v3.0."
+    return title, desc, body, faq
+
+
+ct_, cd_, cb_, cfaq_ = compare_page()
+render("h100-vs-b200/index.html", "", ct_, cd_, "article", "answer", cb_,
+       {"date": UPDATED, "faq": cfaq_, "name": "H100 vs B200", "crumbs": [("The index", f"{SITE}/index/")],
+        "dataset": {"name": "H100 vs B200: GPU energy per million output tokens", "distribution": f"{SITE}/api/v1/index.json", "isBasedOn": SRC_MLE["url"]}})
+
 # ----------------------------------------------------------------- feed, sitemap, robots, llms.txt
 def rfc822(iso: str) -> str:
     d = date.fromisoformat(iso)
@@ -1877,6 +2124,8 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - [Why it matters]({SITE}/why/): nine reasons the number belongs in procurement, operations and reporting, with an RFP clause
 - [The index]({SITE}/index/): the full tables, method, sources ledger and change record
 - [Models]({SITE}/models/): one page per model, with every measured configuration, H100 against B200 and carbon by grid
+- [H100 vs B200]({SITE}/h100-vs-b200/): the {len(pairs)} models measured on both cards, the gap per model and how much of it is the sweep
+- [Grids]({SITE}/grids/): one page per listed grid, the whole index priced on it, the trend since 2023 and the reporting line
 - [Data API]({SITE}/api/): read-only JSON, CORS open, CC BY 4.0
 - [MCP server]({SITE}/mcp/): tools for AI assistants (list_models, energy_per_million_tokens, estimate, compare_gpus, concurrency_curve, grid_intensity, gpu_hardware, sources)
 - [Blog]({SITE}/blog/): RSS at {SITE}/feed.xml

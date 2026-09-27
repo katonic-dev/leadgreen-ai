@@ -306,7 +306,7 @@
     </table>
   </div>
   <p class="note"><b>At a tighter ceiling.</b> At a 50 ms ceiling the comparison shifts: 14 models still have a row on both cards, and the H100 uses less energy per token than the B200 on two of them (Llama 3.1 8B Instruct, 19.5 Wh/M on 1 × H100 against 19.6 on 1 × B200; Qwen 3 235B A22B Instruct FP8, 306.7 Wh/M on 8 × H100 against 408.9 on 2 × B200).</p>
-  <p class="note">A card that draws more power can still use less energy per token, because it finishes more tokens per second. Power tells you the size of the feed. Energy per token tells you what the feed produced.</p>
+  <p class="note">A card that draws more power can still use less energy per token, because it finishes more tokens per second. Power tells you the size of the feed. Energy per token tells you what the feed produced. The pairs, with card counts and running batches, are on <a href="../h100-vs-b200/">the H100 vs B200 page</a>.</p>
 </section>
 
 <section id="concurrency">
@@ -451,7 +451,7 @@
       </tbody>
     </table>
   </div>
-  <p class="note"><b>Which grids.</b> The 22 grids are 15 markets Katonic sells in or expects to, plus seven reference grids. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2 gCO2e per kWh, a spread of 55.6×; all 193 areas plus World are in <a href="../api/v1/grid.json"><code>grid.json</code></a>. Area names are shortened from Ember's labels.</p>
+  <p class="note"><b>Which grids.</b> The 22 grids are 15 markets Katonic sells in or expects to, plus seven reference grids. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2 gCO2e per kWh, a spread of 55.6×; all 193 areas plus World are in <a href="../api/v1/grid.json"><code>grid.json</code></a>, and each listed grid has <a href="../grids/">its own page</a> with the whole index priced on it. Area names are shortened from Ember's labels.</p>
   <p class="note"><b>What the figure is.</b> Grid figures are Ember's yearly emissions intensity (CC BY 4.0), September 2026 release. Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported. The table is location-based in the ESRS E1-6 sense, so what it prices belongs in the Scope 2 location-based line of E1-6, not in the E1-5 energy line. The other method, market-based, nets the buyer's contracted supply (certificates and power purchase agreements) and needs the buyer's own contracts.</p>
   <p class="note"><b>Why 2024.</b> It is the latest year with a value for every grid listed. 93 of Ember's 193 areas already have a 2025 value, but Saudi Arabia, United Arab Emirates and Hong Kong do not yet; <code>grid.json</code> carries 2023 to 2025 per area where present, with the latest year named. <b>A flat load.</b> A GPU server draws much the same power around the clock, while an annual average weights each hour by how much was generated in it, so on a grid whose clean supply peaks at midday a flat load sees a higher figure than the average, and on one with steady clean supply much the same. Hourly intensity, contracted supply, on-site generation and facility overhead are not counted here. Multiply any row of the index by the grid figure and divide by 1,000 to price a different model.</p>
 </section>
