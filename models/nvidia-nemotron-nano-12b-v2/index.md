@@ -6,9 +6,9 @@
 
 *[Models](https://leadgreen.ai/models/) · B200 and H100*
 
-NVIDIA Nemotron Nano 12B V2 serves a million output tokens for 39.4 Wh/M on 1 × B200 (running batch 256, median inter-token latency 34 ms) and 50.1 Wh/M on 1 × H100 (running batch 241, median inter-token latency 46 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
+NVIDIA Nemotron Nano 12B V2 serves a million output tokens for **39.4 Wh/M** on 1 × B200 (running batch 256, median inter-token latency 34 ms) and **50.1 Wh/M** on 1 × H100 (running batch 241, median inter-token latency 46 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
 
-Model [nvidia/NVIDIA-Nemotron-Nano-12B-v2](https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2), a Mamba-Transformer hybrid, weights in BF16. Measured 14 configurations on B200 and H100. Data [models/nvidia-nemotron-nano-12b-v2.json](https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-12b-v2.json). Updated 27 September 2026.
+**Model** [nvidia/NVIDIA-Nemotron-Nano-12B-v2](https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2), a Mamba-Transformer hybrid, weights in BF16. **Measured** 14 configurations on B200 and H100. **Data** [models/nvidia-nemotron-nano-12b-v2.json](https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-12b-v2.json). Updated 27 September 2026.
 
 - [Every configuration](https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#configurations)
 - [Two generations](https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#generations)
@@ -17,8 +17,8 @@ Model [nvidia/NVIDIA-Nemotron-Nano-12B-v2](https://huggingface.co/nvidia/NVIDIA-
 - [Questions](https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#faq)
 - [Sources](https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#sources)
 
-- Index row, B200: 39.4 Wh/M 1 × B200, BF16. Running batch 256, median ITL 34 ms, 885 W across the cards, 6,233 tokens a second.
-- Index row, H100: 50.1 Wh/M 1 × H100, BF16. Running batch 241, median ITL 46 ms, 694 W across the cards, 3,847 tokens a second.
+- **Index row, B200:** 39.4 Wh/M 1 × B200, BF16. Running batch 256, median ITL 34 ms, 885 W across the cards, 6,233 tokens a second.
+- **Index row, H100:** 50.1 Wh/M 1 × H100, BF16. Running batch 241, median ITL 46 ms, 694 W across the cards, 3,847 tokens a second.
 
 GPU only, busy server. Every row is a floor. The number a buyer should ask for is the one measured on their own server at their own load. Unit: watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token.
 
@@ -26,7 +26,7 @@ GPU only, busy server. Every row is a floor. The number a buyer should ask for i
 
 ## NVIDIA Nemotron Nano 12B V2 at every measured load
 
-On 1 × H100, NVIDIA Nemotron Nano 12B V2 runs from 207.6 Wh/M at a running batch of 8 to 50.1 Wh/M at 241, a fall of 4.1×, while the cards' draw rises 39 percent (from 498 to 694 W) and throughput rises 5.8× (from 666 to 3,847 tokens a second). Median inter-token latency stays at 46 ms or under up to the best row.
+On 1 × H100, NVIDIA Nemotron Nano 12B V2 runs from **207.6 Wh/M** at a running batch of 8 to **50.1 Wh/M** at 241, a fall of 4.1×, while the cards' draw rises 39 percent (from 498 to 694 W) and throughput rises 5.8× (from 666 to 3,847 tokens a second). Median inter-token latency stays at 46 ms or under up to the best row.
 
 *NVIDIA Nemotron Nano 12B V2, BF16, 1 × B200: six measured configurations*
 
@@ -126,6 +126,6 @@ The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2
 
 Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2).
 
-Cite as. Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-12b-v2.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for NVIDIA Nemotron Nano 12B V2 on your own grid and load.

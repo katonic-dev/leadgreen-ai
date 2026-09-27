@@ -6,9 +6,9 @@
 
 *[Models](https://leadgreen.ai/models/) · B200 and H100*
 
-Gemma 3 12B serves a million output tokens for 26.5 Wh/M on 1 × B200 (running batch 487, median inter-token latency 44 ms) and 46.1 Wh/M on 1 × H100 (running batch 128, median inter-token latency 35 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
+Gemma 3 12B serves a million output tokens for **26.5 Wh/M** on 1 × B200 (running batch 487, median inter-token latency 44 ms) and **46.1 Wh/M** on 1 × H100 (running batch 128, median inter-token latency 35 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
 
-Model [google/gemma-3-12b-it](https://huggingface.co/google/gemma-3-12b-it), a dense transformer, weights in BF16. Measured 13 configurations on B200 and H100. Data [models/gemma-3-12b.json](https://leadgreen.ai/api/v1/models/gemma-3-12b.json). Updated 27 September 2026.
+**Model** [google/gemma-3-12b-it](https://huggingface.co/google/gemma-3-12b-it), a dense transformer, weights in BF16. **Measured** 13 configurations on B200 and H100. **Data** [models/gemma-3-12b.json](https://leadgreen.ai/api/v1/models/gemma-3-12b.json). Updated 27 September 2026.
 
 - [Every configuration](https://leadgreen.ai/models/gemma-3-12b/#configurations)
 - [Two generations](https://leadgreen.ai/models/gemma-3-12b/#generations)
@@ -16,8 +16,8 @@ Model [google/gemma-3-12b-it](https://huggingface.co/google/gemma-3-12b-it), a d
 - [Questions](https://leadgreen.ai/models/gemma-3-12b/#faq)
 - [Sources](https://leadgreen.ai/models/gemma-3-12b/#sources)
 
-- Index row, B200: 26.5 Wh/M 1 × B200, BF16. Running batch 487, median ITL 44 ms, 928 W across the cards, 9,733 tokens a second.
-- Index row, H100: 46.1 Wh/M 1 × H100, BF16. Running batch 128, median ITL 35 ms, 589 W across the cards, 3,546 tokens a second.
+- **Index row, B200:** 26.5 Wh/M 1 × B200, BF16. Running batch 487, median ITL 44 ms, 928 W across the cards, 9,733 tokens a second.
+- **Index row, H100:** 46.1 Wh/M 1 × H100, BF16. Running batch 128, median ITL 35 ms, 589 W across the cards, 3,546 tokens a second.
 
 GPU only, busy server. Every row is a floor. The number a buyer should ask for is the one measured on their own server at their own load. Unit: watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token.
 
@@ -25,7 +25,7 @@ GPU only, busy server. Every row is a floor. The number a buyer should ask for i
 
 ## Gemma 3 12B at every measured load
 
-On 1 × B200, Gemma 3 12B runs from 185.9 Wh/M at a running batch of 8 to 26.5 Wh/M at 487, a fall of 7.0×, while the cards' draw rises 39 percent (from 668 to 928 W) and throughput rises 9.8× (from 998 to 9,733 tokens a second). Median inter-token latency stays at 44 ms or under up to the best row.
+On 1 × B200, Gemma 3 12B runs from **185.9 Wh/M** at a running batch of 8 to **26.5 Wh/M** at 487, a fall of 7.0×, while the cards' draw rises 39 percent (from 668 to 928 W) and throughput rises 9.8× (from 998 to 9,733 tokens a second). Median inter-token latency stays at 44 ms or under up to the best row.
 
 *Gemma 3 12B, BF16, 1 × B200: seven measured configurations*
 
@@ -114,6 +114,6 @@ The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2
 
 Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/google/gemma-3-12b-it).
 
-Cite as. Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/gemma-3-12b.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Gemma 3 12B on your own grid and load.

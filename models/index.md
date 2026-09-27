@@ -8,7 +8,7 @@
 
 Every model on the Green Tokens index has its own page: the index row per GPU, every measured configuration from a running batch of eight upward, H100 against B200 where both were measured, carbon on a spread of grids, and the questions people ask about it. Every figure comes from the same dated snapshot as [the index](https://leadgreen.ai/index/).
 
-Unit watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 27 September 2026.
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 27 September 2026.
 
 *Lowest index row first*
 

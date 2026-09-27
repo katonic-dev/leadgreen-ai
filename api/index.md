@@ -8,7 +8,7 @@
 
 The index is published as static JSON files under `/api/v1/`. No key, no tracking, no rate limit beyond what a static host imposes. Fetch them from a browser, a spreadsheet, a notebook or a build pipeline. Version 1 only ever adds fields; it never renames or removes them.
 
-Base URL https://leadgreen.ai/api/v1/ · Updated 27 September 2026 · Licence CC BY 4.0 for the compilation; sources keep theirs
+**Base URL** https://leadgreen.ai/api/v1/ · **Updated** 27 September 2026 · **Licence** CC BY 4.0 for the compilation; sources keep theirs
 
 *Endpoints*
 
@@ -260,7 +260,7 @@ One table for the fields every document carries, then one per document. The buil
 | note | How to read the document. |
 | licence | Licence of the document or of its source, as stated. |
 
-`index.json`, 24 fields
+**`index.json`, 24 fields**
 
 | Field | Meaning |
 |---|---|
@@ -289,7 +289,7 @@ One table for the fields every document carries, then one per document. The buil
 | rows[].max_num_seqs | The configured cap on sequences decoded at once (vLLM max_num_seqs). |
 | rows[].row_id | Stable identifier, <slug>/<gpu>/<num_gpus>/<max_num_seqs>, with /r2 on a repeated run. It survives re-sorting and new rows. |
 
-`models.json`, 9 fields
+**`models.json`, 9 fields**
 
 | Field | Meaning |
 |---|---|
@@ -303,7 +303,7 @@ One table for the fields every document carries, then one per document. The buil
 | models[].url | URL of models/<slug>.json. |
 | models[].page | URL of the model's page on the site. |
 
-`models/{slug}.json`, 52 fields
+**`models/{slug}.json`, 52 fields**
 
 | Field | Meaning |
 |---|---|
@@ -360,7 +360,7 @@ One table for the fields every document carries, then one per document. The buil
 | best.<key>.row_id | Stable identifier, <slug>/<gpu>/<num_gpus>/<max_num_seqs>, with /r2 on a repeated run. It survives re-sorting and new rows. |
 | best.<key>.repeat | 1 for the first run of a configuration, 2 for the source's repeat of it (two Qwen 3 30B A3B configurations were run twice). |
 
-`grid.json`, 14 fields
+**`grid.json`, 14 fields**
 
 | Field | Meaning |
 |---|---|
@@ -379,7 +379,7 @@ One table for the fields every document carries, then one per document. The buil
 | areas[].latest_year | The newest year in years. |
 | areas[].continent | Ember's continent label. |
 
-`hardware.json`, 26 fields
+**`hardware.json`, 26 fields**
 
 | Field | Meaning |
 |---|---|
@@ -410,7 +410,7 @@ One table for the fields every document carries, then one per document. The buil
 | embodied.published | Publication date. |
 | sources | The NVIDIA documents, with their terms. |
 
-`per-query.json`, 12 fields
+**`per-query.json`, 12 fields**
 
 | Field | Meaning |
 |---|---|
@@ -427,7 +427,7 @@ One table for the fields every document carries, then one per document. The buil
 | rows[].source_label | The model string exactly as the source gives it. |
 | rows[].note | A note on the row, where there is one. |
 
-`manifest.json`, 22 fields
+**`manifest.json`, 22 fields**
 
 | Field | Meaning |
 |---|---|
@@ -454,7 +454,7 @@ One table for the fields every document carries, then one per document. The buil
 | releases.index | The list of releases. |
 | releases.pattern | URL pattern of a release. |
 
-`measurements.json`, 3 fields
+**`measurements.json`, 3 fields**
 
 | Field | Meaning |
 |---|---|
@@ -462,7 +462,7 @@ One table for the fields every document carries, then one per document. The buil
 | schema | URL of the measurement schema. |
 | rows | Contributed rows: the measurement schema's fields plus source_file and comparable (median ITL at or under itl_deadline_ms). |
 
-`changes.json`, 6 fields
+**`changes.json`, 6 fields**
 
 | Field | Meaning |
 |---|---|
@@ -477,16 +477,16 @@ One table for the fields every document carries, then one per document. The buil
 
 ## Additive only
 
-Caching and limits. The files are served by GitHub Pages, which sends `Cache-Control: max-age=600`, an ETag and Last-Modified. Poll with `If-None-Match`, no more than hourly, and mirror the files rather than fetching them for each of your users: the host has a soft bandwidth limit of 100 GB a month and does not allow software-as-a-service use. There is no uptime promise. The data is refreshed when a source publishes a new release, checked monthly; the date is in every document and in [`changes.json`](https://leadgreen.ai/api/v1/changes.json).
+**Caching and limits.** The files are served by GitHub Pages, which sends `Cache-Control: max-age=600`, an ETag and Last-Modified. Poll with `If-None-Match`, no more than hourly, and mirror the files rather than fetching them for each of your users: the host has a soft bandwidth limit of 100 GB a month and does not allow software-as-a-service use. There is no uptime promise. The data is refreshed when a source publishes a new release, checked monthly; the date is in every document and in [`changes.json`](https://leadgreen.ai/api/v1/changes.json).
 
-Version 1. Fields are added, never renamed or removed. A new source or a re-measurement changes values, `data_version` and the `updated` date, and the change is recorded in [`changes.json`](https://leadgreen.ai/api/v1/changes.json) and on [the index's change list](https://leadgreen.ai/index/#changes). `row_id` identifies a row across releases. A breaking change would ship as `/api/v2/` with v1 left in place.
+**Version 1.** Fields are added, never renamed or removed. A new source or a re-measurement changes values, `data_version` and the `updated` date, and the change is recorded in [`changes.json`](https://leadgreen.ai/api/v1/changes.json) and on [the index's change list](https://leadgreen.ai/index/#changes). `row_id` identifies a row across releases. A breaking change would ship as `/api/v2/` with v1 left in place.
 
-Licence. The compilation, the derived figures and the site text are offered under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): use them, credit Lead Green and the underlying source. Each source keeps its own licence, stated per source in `manifest.json` with the evidence. ML.ENERGY: The leaderboard repository the JSON comes from carries no licence file; the benchmark data is published under Apache 2.0 on the dataset card and in the NeurIPS 2025 paper, and the JSON is reproduced here as published measurements on that basis while the ML.ENERGY team is asked to confirm that the licence covers it. Ember's data is CC BY 4.0. AI Energy Score: Apache-2.0 as tagged on the Hugging Face Space; the project states no separate licence for the results file, which is reproduced as facts with attribution. NVIDIA's figures are reproduced as facts with attribution; NVIDIA grants no licence and none is claimed. The Apache License 2.0 text is in [`LICENSE`](https://leadgreen.ai/LICENSE), and `build/data/NOTICE.md` records each snapshot's source, retrieval date and terms.
+**Licence.** The compilation, the derived figures and the site text are offered under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): use them, credit Lead Green and the underlying source. Each source keeps its own licence, stated per source in `manifest.json` with the evidence. ML.ENERGY: The leaderboard repository the JSON comes from carries no licence file; the benchmark data is published under Apache 2.0 on the dataset card and in the NeurIPS 2025 paper, and the JSON is reproduced here as published measurements on that basis while the ML.ENERGY team is asked to confirm that the licence covers it. Ember's data is CC BY 4.0. AI Energy Score: Apache-2.0 as tagged on the Hugging Face Space; the project states no separate licence for the results file, which is reproduced as facts with attribution. NVIDIA's figures are reproduced as facts with attribution; NVIDIA grants no licence and none is claimed. The Apache License 2.0 text is in [`LICENSE`](https://leadgreen.ai/LICENSE), and `build/data/NOTICE.md` records each snapshot's source, retrieval date and terms.
 
-Cite as. Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
-Attribution. If you republish the data, this line covers the CC BY 4.0 credit (it is also the `attribution` field in `manifest.json`): Green Tokens index, Lead Green, a Katonic project, https://leadgreen.ai/api/v1/, CC BY 4.0. Contains data from the ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled 2026-02-16, retrieved 2026-09-26) and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe].
+**Attribution.** If you republish the data, this line covers the CC BY 4.0 credit (it is also the `attribution` field in `manifest.json`): Green Tokens index, Lead Green, a Katonic project, https://leadgreen.ai/api/v1/, CC BY 4.0. Contains data from the ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled 2026-02-16, retrieved 2026-09-26) and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe].
 
-Releases. Every dated release is kept unchanged at `https://leadgreen.ai/api/v1/releases/<date>/` with a zip of the whole release; [`releases/index.json`](https://leadgreen.ai/api/v1/releases/index.json) lists them with each zip's SHA-256. Cite a release, not the live files.
+**Releases.** Every dated release is kept unchanged at `https://leadgreen.ai/api/v1/releases/<date>/` with a zip of the whole release; [`releases/index.json`](https://leadgreen.ai/api/v1/releases/index.json) lists them with each zip's SHA-256. Cite a release, not the live files.
 
-OpenAPI. A machine-readable description is at [`openapi.json`](https://leadgreen.ai/api/v1/openapi.json). The [MCP server](https://leadgreen.ai/mcp/) is built on these same files.
+**OpenAPI.** A machine-readable description is at [`openapi.json`](https://leadgreen.ai/api/v1/openapi.json). The [MCP server](https://leadgreen.ai/mcp/) is built on these same files.

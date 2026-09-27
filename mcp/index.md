@@ -8,7 +8,7 @@
 
 The Model Context Protocol (MCP) is an open standard that lets an AI assistant call tools a server exposes. Lead Green ships a small MCP server so that Claude, Cursor or any MCP-capable client can answer questions about the index with the row, the source and the caveat attached, instead of guessing.
 
-Package leadgreen-mcp 0.2.0 · Transport stdio · Data the live API, with a bundled snapshot as fallback · Licence Apache 2.0 · Wheel SHA-256 `b47948b9b23259a94759821a7584dd1174c64593276ce826b3b1ed01fb10957b`
+**Package** leadgreen-mcp 0.2.0 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `b47948b9b23259a94759821a7584dd1174c64593276ce826b3b1ed01fb10957b`
 
 *Install*
 
@@ -30,10 +30,10 @@ pip checks the wheel against the SHA-256 in the line above and refuses a file th
 
 ## GET requests to one host, and nothing else
 
-- Where. Only to `https://leadgreen.ai/api/v1/`, or to the base you set in `LEADGREEN_API_BASE`. Plain HTTPS GET requests for the published JSON files, once per file per session.
-- What never leaves your machine. Your questions, your token counts, your country and anything else you pass to a tool. The arithmetic happens locally.
-- No network at all. Point `LEADGREEN_API_BASE` at a local folder holding the API files and the server makes no requests.
-- When the site cannot be reached. After the first failed fetch the server stops trying for the rest of the session, prints one line to stderr, and answers from the snapshot bundled in the package. Every response carries `data_source` (`live`, `local folder` or `bundled snapshot`) and `data_updated`, so a session left open for a month says how old its figures are.
+- **Where.** Only to `https://leadgreen.ai/api/v1/`, or to the base you set in `LEADGREEN_API_BASE`. Plain HTTPS GET requests for the published JSON files, once per file per session.
+- **What never leaves your machine.** Your questions, your token counts, your country and anything else you pass to a tool. The arithmetic happens locally.
+- **No network at all.** Point `LEADGREEN_API_BASE` at a local folder holding the API files and the server makes no requests.
+- **When the site cannot be reached.** After the first failed fetch the server stops trying for the rest of the session, prints one line to stderr, and answers from the snapshot bundled in the package. Every response carries `data_source` (`live`, `local folder` or `bundled snapshot`) and `data_updated`, so a session left open for a month says how old its figures are.
 
 *Configure*
 
@@ -90,8 +90,8 @@ The resource `leadgreen://manifest` returns the same manifest as a document. Eve
 
 The estimate tool for Qwen 3 32B on H100, 50,000,000 output tokens, country Serbia, uses the index's best H100 row (63.47 Wh/M, the API's two-decimal value) and Ember's 2024 figure for Serbia (668 gCO2e per kWh):
 
-- Energy: 63.47 Wh/M × 50 M = 3,173.5 Wh, or 3.1735 kWh.
-- Carbon: 3.1735 kWh × 668 g ÷ 1,000 = 2.12 kg CO2e.
+- Energy: 63.47 Wh/M × 50 M = **3,173.5 Wh**, or 3.1735 kWh.
+- Carbon: 3.1735 kWh × 668 g ÷ 1,000 = **2.12 kg CO2e**.
 
 Add `pue` and `system_power_ratio` and the answer also carries energy at the meter: GPU energy times the system-to-GPU power ratio times the PUE, labelled as such. Both are your figures, not the index's; the [method](https://leadgreen.ai/index/#method) gives the DGX B200 ratio of 1.79 as an example.
 

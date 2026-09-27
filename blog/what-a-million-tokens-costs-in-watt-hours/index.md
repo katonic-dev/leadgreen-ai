@@ -22,9 +22,9 @@ The ML.ENERGY Leaderboard, run by the ML.ENERGY Initiative (it started at Symbio
 
 ## Three numbers
 
-- Lowest: 13.0 Wh/M. Llama 3.1 8B Instruct on 1 × B200. A small model on the newest card, kept busy.
-- Reference: 63.5 Wh/M. Qwen 3 32B on 2 × H100, at a running batch of 256 and 44 ms median inter-token latency, the two cards drawing 1,178 W between them. I use this row for every carbon calculation on the site, because, in the deployments I see, a 32B dense model on two H100s is what a serious enterprise deployment looks like today.
-- Highest: 572.9 Wh/M. Llama 3.1 405B Instruct FP8 on 8 × H100. Eight cards to hold the weights, and every token pays for all eight.
+- **Lowest: 13.0 Wh/M.** Llama 3.1 8B Instruct on 1 × B200. A small model on the newest card, kept busy.
+- **Reference: 63.5 Wh/M.** Qwen 3 32B on 2 × H100, at a running batch of 256 and 44 ms median inter-token latency, the two cards drawing 1,178 W between them. I use this row for every carbon calculation on the site, because, in the deployments I see, a 32B dense model on two H100s is what a serious enterprise deployment looks like today.
+- **Highest: 572.9 Wh/M.** Llama 3.1 405B Instruct FP8 on 8 × H100. Eight cards to hold the weights, and every token pays for all eight.
 
 The span from lowest to highest is 44×. That is model size and hardware generation, and it is what people expect the story to be. It is not the interesting part.
 

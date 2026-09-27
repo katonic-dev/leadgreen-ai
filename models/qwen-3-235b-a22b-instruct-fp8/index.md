@@ -6,9 +6,9 @@
 
 *[Models](https://leadgreen.ai/models/) · B200 and H100*
 
-Qwen 3 235B A22B Instruct FP8 serves a million output tokens for 139.1 Wh/M on 2 × B200 (running batch 256, median inter-token latency 64 ms) and 206.0 Wh/M on 8 × H100 (running batch 511, median inter-token latency 76 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
+Qwen 3 235B A22B Instruct FP8 serves a million output tokens for **139.1 Wh/M** on 2 × B200 (running batch 256, median inter-token latency 64 ms) and **206.0 Wh/M** on 8 × H100 (running batch 511, median inter-token latency 76 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
 
-Model [Qwen/Qwen3-235B-A22B-Instruct-2507-FP8](https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507-FP8), a mixture-of-experts model (22 B of 235 B parameters active per token), weights in FP8. Measured 23 configurations on B200 and H100. Data [models/qwen-3-235b-a22b-instruct-fp8.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct-fp8.json). Updated 27 September 2026.
+**Model** [Qwen/Qwen3-235B-A22B-Instruct-2507-FP8](https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507-FP8), a mixture-of-experts model (22 B of 235 B parameters active per token), weights in FP8. **Measured** 23 configurations on B200 and H100. **Data** [models/qwen-3-235b-a22b-instruct-fp8.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct-fp8.json). Updated 27 September 2026.
 
 - [Every configuration](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#generations)
@@ -16,8 +16,8 @@ Model [Qwen/Qwen3-235B-A22B-Instruct-2507-FP8](https://huggingface.co/Qwen/Qwen3
 - [Questions](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#faq)
 - [Sources](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#sources)
 
-- Index row, B200: 139.1 Wh/M 2 × B200, FP8. Running batch 256, median ITL 64 ms, 1,891 W across the cards, 3,776 tokens a second.
-- Index row, H100: 206.0 Wh/M 8 × H100, FP8. Running batch 511, median ITL 76 ms, 3,961 W across the cards, 5,342 tokens a second.
+- **Index row, B200:** 139.1 Wh/M 2 × B200, FP8. Running batch 256, median ITL 64 ms, 1,891 W across the cards, 3,776 tokens a second.
+- **Index row, H100:** 206.0 Wh/M 8 × H100, FP8. Running batch 511, median ITL 76 ms, 3,961 W across the cards, 5,342 tokens a second.
 
 GPU only, busy server. Every row is a floor. The number a buyer should ask for is the one measured on their own server at their own load. Unit: watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token.
 
@@ -25,7 +25,7 @@ GPU only, busy server. Every row is a floor. The number a buyer should ask for i
 
 ## Qwen 3 235B A22B Instruct FP8 at every measured load
 
-On 8 × H100, Qwen 3 235B A22B Instruct FP8 runs from 3,163.8 Wh/M at a running batch of 8 to 206.0 Wh/M at 511, a fall of 15.4×, while the cards' draw rises 10 percent (from 3,596 to 3,961 W) and throughput rises 16.9× (from 316 to 5,342 tokens a second). Median inter-token latency stays at 76 ms or under up to the best row.
+On 8 × H100, Qwen 3 235B A22B Instruct FP8 runs from **3,163.8 Wh/M** at a running batch of 8 to **206.0 Wh/M** at 511, a fall of 15.4×, while the cards' draw rises 10 percent (from 3,596 to 3,961 W) and throughput rises 16.9× (from 316 to 5,342 tokens a second). Median inter-token latency stays at 76 ms or under up to the best row.
 
 *Qwen 3 235B A22B Instruct FP8, FP8, 2 × B200: six measured configurations*
 
@@ -129,6 +129,6 @@ The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2
 
 Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507-FP8).
 
-Cite as. Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct-fp8.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Qwen 3 235B A22B Instruct FP8 on your own grid and load.

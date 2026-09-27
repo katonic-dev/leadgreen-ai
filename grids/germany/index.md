@@ -6,9 +6,9 @@
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a reference grid*
 
-Germany's grid ran at 340 gCO2e per kWh in 2024 on Ember's yearly figures, 1.4× cleaner than the world average of 474, and 73rd of the 193 countries Ember covers, counting from the cleanest. A billion output tokens of the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) served on it carries about 21.6 kg CO2e of GPU-side emissions; the index's lowest row carries 4.4 kg and its highest 194.7 kg. Energy per token does not change with geography; carbon per token does.
+Germany's grid ran at **340 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× cleaner than the world average of 474, and 73rd of the 193 countries Ember covers, counting from the cleanest. A billion output tokens of the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) served on it carries about **21.6 kg CO2e** of GPU-side emissions; the index's lowest row carries 4.4 kg and its highest 194.7 kg. Energy per token does not change with geography; carbon per token does.
 
-Area Germany (DEU, DE). Basis lifecycle, location-based, annual average. Data [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 27 September 2026.
+**Area** Germany (DEU, DE). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 27 September 2026.
 
 - [Trend](https://leadgreen.ai/grids/germany/#trend)
 - [Every model](https://leadgreen.ai/grids/germany/#models)
@@ -16,9 +16,9 @@ Area Germany (DEU, DE). Basis lifecycle, location-based, annual average. Data [g
 - [Questions](https://leadgreen.ai/grids/germany/#faq)
 - [Sources](https://leadgreen.ai/grids/germany/#sources)
 
-- Grid intensity, 2024: 340 gCO2e/kWh Ember yearly data, lifecycle, location-based. World: 474.
-- Reference row, per billion tokens: 21.6 kg CO2e Qwen 3 32B, 2 × H100, 63.5 Wh/M, GPU only, a floor.
-- Rank: 73 of 193 1 is the cleanest grid Ember covers (Ethiopia, 23); 193 the highest (Turkmenistan, 1,306).
+- **Grid intensity, 2024:** 340 gCO2e/kWh Ember yearly data, lifecycle, location-based. World: 474.
+- **Reference row, per billion tokens:** 21.6 kg CO2e Qwen 3 32B, 2 × H100, 63.5 Wh/M, GPU only, a floor.
+- **Rank:** 73 of 193 1 is the cleanest grid Ember covers (Ethiopia, 23); 193 the highest (Turkmenistan, 1,306).
 
 Carbon per token is energy per token times the grid. The energy figures here are GPU-only floors from a busy server; a lightly loaded deployment sits above them, and so does anything that includes the host, the network and the cooling. Wh/M × gCO2e per kWh ÷ 1,000 gives kg CO2e per billion output tokens.
 
@@ -105,6 +105,6 @@ Grid intensity: Ember, Yearly electricity data, September 2026 release (2024; 20
 
 Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, emissions intensity of total generation, 2023, 2024, 2025 (CC BY 4.0), retrieved 26 September 2026. Energy per token: [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
 
-Cite as. Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshots as [the index](https://leadgreen.ai/index/#carbon); no figure on it is typed by hand. All 193 areas are in [grid.json](https://leadgreen.ai/api/v1/grid.json); the 22 with a page are the markets Katonic sells in or expects to, plus seven reference grids.

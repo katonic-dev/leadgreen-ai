@@ -8,7 +8,7 @@
 
 Energy per token does not change with geography; carbon per token does. Each page prices the whole index on one country's grid, shows the grid's trend since 2023, and says which reporting line the figure belongs on. The 22 grids are 15 markets Katonic sells in or expects to, plus seven reference grids; all 193 areas Ember covers are in [grid.json](https://leadgreen.ai/api/v1/grid.json).
 
-Basis Ember yearly emissions intensity, 2024, lifecycle, location-based, gCO2e per kWh. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2, a spread of 55.6×. Updated 27 September 2026.
+**Basis** Ember yearly emissions intensity, 2024, lifecycle, location-based, gCO2e per kWh. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2, a spread of 55.6×. Updated 27 September 2026.
 
 *Highest intensity first*
 

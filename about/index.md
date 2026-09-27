@@ -20,10 +20,10 @@ Lead Green is not a separate company and not a product. It is a project with an 
 
 ## Who publishes it, and how to reach them
 
-- Publisher. Katonic AI Technology Ltd, a company registered in the Dubai International Financial Centre, registration CL9944. Registered office: to be added, word for word from the DIFC registry extract, before launch. Jurisdiction: Dubai International Financial Centre (DIFC), United Arab Emirates.
-- Corrections, contributions and data requests. [hello@leadgreen.ai](mailto:hello@leadgreen.ai), answered within ten working days.
-- Cite as. Lead Green, Green Tokens index, release 2026-09-27, Katonic, https://leadgreen.ai/index/, retrieved [date]. The full block is on [the index](https://leadgreen.ai/index/#cite).
-- Archive. Every dated release of the API is kept unchanged at `https://leadgreen.ai/api/v1/releases/<date>/`, with a zip of the whole release, so a citation can be reproduced after the index changes. The list is [`releases/index.json`](https://leadgreen.ai/api/v1/releases/index.json).
+- **Publisher.** Katonic AI Technology Ltd, a company registered in the Dubai International Financial Centre, registration CL9944. Registered office: to be added, word for word from the DIFC registry extract, before launch. Jurisdiction: Dubai International Financial Centre (DIFC), United Arab Emirates.
+- **Corrections, contributions and data requests.** [hello@leadgreen.ai](mailto:hello@leadgreen.ai), answered within ten working days.
+- **Cite as.** Lead Green, Green Tokens index, release 2026-09-27, Katonic, https://leadgreen.ai/index/, retrieved [date]. The full block is on [the index](https://leadgreen.ai/index/#cite).
+- **Archive.** Every dated release of the API is kept unchanged at `https://leadgreen.ai/api/v1/releases/<date>/`, with a zip of the whole release, so a citation can be reproduced after the index changes. The list is [`releases/index.json`](https://leadgreen.ai/api/v1/releases/index.json).
 
 *Independence*
 
@@ -31,12 +31,12 @@ Lead Green is not a separate company and not a product. It is a project with an 
 
 Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. It takes no money from hardware, cloud or model vendors.
 
-- Funding. Katonic pays for the site and the editor's time. Katonic sells an AI platform for on-premise and sovereign deployments. Weigh that when the site argues for consolidation or for measuring your own cluster.
-- Public or reproducible only. Every figure comes from a public measurement or a manufacturer's specification, dated, linked and snapshotted, or from a Lead Green measurement published with its protocol and logs.
-- No money from other vendors. Lead Green takes no sponsorship, advertising or paid placement from hardware, cloud or model vendors.
-- Katonic gets no special treatment. Nothing on the site claims that the Katonic platform measures energy per token until it does, and when Katonic publishes a measurement of its own it is labelled as Katonic's, with the same protocol and review as anyone else's. Any row Katonic measures is checked by a named reviewer with no Katonic affiliation, to be named here before the first Katonic row is published.
-- Corrections in the open. Errors are fixed on the page and recorded on the index's change list. Tell us and we will look.
-- No superlatives. The word "green" in the name is a direction, not a verdict. The site does not rank anyone as green.
+- **Funding.** Katonic pays for the site and the editor's time. Katonic sells an AI platform for on-premise and sovereign deployments. Weigh that when the site argues for consolidation or for measuring your own cluster.
+- **Public or reproducible only.** Every figure comes from a public measurement or a manufacturer's specification, dated, linked and snapshotted, or from a Lead Green measurement published with its protocol and logs.
+- **No money from other vendors.** Lead Green takes no sponsorship, advertising or paid placement from hardware, cloud or model vendors.
+- **Katonic gets no special treatment.** Nothing on the site claims that the Katonic platform measures energy per token until it does, and when Katonic publishes a measurement of its own it is labelled as Katonic's, with the same protocol and review as anyone else's. Any row Katonic measures is checked by a named reviewer with no Katonic affiliation, to be named here before the first Katonic row is published.
+- **Corrections in the open.** Errors are fixed on the page and recorded on the index's change list. Tell us and we will look.
+- **No superlatives.** The word "green" in the name is a direction, not a verdict. The site does not rank anyone as green.
 
 *In a tender*
 

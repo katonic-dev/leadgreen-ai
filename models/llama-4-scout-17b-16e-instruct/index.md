@@ -6,16 +6,16 @@
 
 *[Models](https://leadgreen.ai/models/) · H100*
 
-Llama 4 Scout 17B 16E Instruct serves a million output tokens for 93.4 Wh/M on 4 × H100 (running batch 473, median inter-token latency 69 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
+Llama 4 Scout 17B 16E Instruct serves a million output tokens for **93.4 Wh/M** on 4 × H100 (running batch 473, median inter-token latency 69 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
 
-Model [meta-llama/Llama-4-Scout-17B-16E-Instruct](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct), a mixture-of-experts model (17 B of 109 B parameters active per token), weights in BF16. Measured 20 configurations on H100. Data [models/llama-4-scout-17b-16e-instruct.json](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json). Updated 27 September 2026.
+**Model** [meta-llama/Llama-4-Scout-17B-16E-Instruct](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct), a mixture-of-experts model (17 B of 109 B parameters active per token), weights in BF16. **Measured** 20 configurations on H100. **Data** [models/llama-4-scout-17b-16e-instruct.json](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json). Updated 27 September 2026.
 
 - [Every configuration](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#configurations)
 - [Carbon](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#carbon)
 - [Questions](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#faq)
 - [Sources](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#sources)
 
-- Index row, H100: 93.4 Wh/M 4 × H100, BF16. Running batch 473, median ITL 69 ms, 1,881 W across the cards, 5,596 tokens a second.
+- **Index row, H100:** 93.4 Wh/M 4 × H100, BF16. Running batch 473, median ITL 69 ms, 1,881 W across the cards, 5,596 tokens a second.
 
 GPU only, busy server. Every row is a floor. The number a buyer should ask for is the one measured on their own server at their own load. Unit: watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token.
 
@@ -23,7 +23,7 @@ GPU only, busy server. Every row is a floor. The number a buyer should ask for i
 
 ## Llama 4 Scout 17B 16E Instruct at every measured load
 
-On 4 × H100, Llama 4 Scout 17B 16E Instruct runs from 1,104.8 Wh/M at a running batch of 8 to 93.4 Wh/M at 473, a fall of 11.8×, while the cards' draw rises 47 percent (from 1,281 to 1,881 W) and throughput rises 17.4× (from 322 to 5,596 tokens a second). Median inter-token latency stays at 69 ms or under up to the best row.
+On 4 × H100, Llama 4 Scout 17B 16E Instruct runs from **1,104.8 Wh/M** at a running batch of 8 to **93.4 Wh/M** at 473, a fall of 11.8×, while the cards' draw rises 47 percent (from 1,281 to 1,881 W) and throughput rises 17.4× (from 322 to 5,596 tokens a second). Median inter-token latency stays at 69 ms or under up to the best row.
 
 *Llama 4 Scout 17B 16E Instruct, BF16, 4 × H100: ten measured configurations*
 
@@ -109,6 +109,6 @@ The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2
 
 Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct).
 
-Cite as. Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Llama 4 Scout 17B 16E Instruct on your own grid and load.

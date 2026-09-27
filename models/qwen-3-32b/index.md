@@ -6,9 +6,9 @@
 
 *[Models](https://leadgreen.ai/models/) · B200 and H100*
 
-Qwen 3 32B serves a million output tokens for 39.1 Wh/M on 1 × B200 (running batch 383, median inter-token latency 50 ms) and 63.5 Wh/M on 2 × H100 (running batch 256, median inter-token latency 44 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
+Qwen 3 32B serves a million output tokens for **39.1 Wh/M** on 1 × B200 (running batch 383, median inter-token latency 50 ms) and **63.5 Wh/M** on 2 × H100 (running batch 256, median inter-token latency 44 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
 
-Model [Qwen/Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B), a dense transformer, weights in BF16. Measured 22 configurations on B200 and H100. Data [models/qwen-3-32b.json](https://leadgreen.ai/api/v1/models/qwen-3-32b.json). Updated 27 September 2026.
+**Model** [Qwen/Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B), a dense transformer, weights in BF16. **Measured** 22 configurations on B200 and H100. **Data** [models/qwen-3-32b.json](https://leadgreen.ai/api/v1/models/qwen-3-32b.json). Updated 27 September 2026.
 
 - [Every configuration](https://leadgreen.ai/models/qwen-3-32b/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-32b/#generations)
@@ -17,8 +17,8 @@ Model [Qwen/Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B), a dense transform
 - [Questions](https://leadgreen.ai/models/qwen-3-32b/#faq)
 - [Sources](https://leadgreen.ai/models/qwen-3-32b/#sources)
 
-- Index row, B200: 39.1 Wh/M 1 × B200, BF16. Running batch 383, median ITL 50 ms, 972 W across the cards, 6,912 tokens a second.
-- Index row, H100: 63.5 Wh/M 2 × H100, BF16. Running batch 256, median ITL 44 ms, 1,178 W across the cards, 5,155 tokens a second.
+- **Index row, B200:** 39.1 Wh/M 1 × B200, BF16. Running batch 383, median ITL 50 ms, 972 W across the cards, 6,912 tokens a second.
+- **Index row, H100:** 63.5 Wh/M 2 × H100, BF16. Running batch 256, median ITL 44 ms, 1,178 W across the cards, 5,155 tokens a second.
 
 GPU only, busy server. Every row is a floor. The number a buyer should ask for is the one measured on their own server at their own load. Unit: watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token.
 
@@ -26,7 +26,7 @@ GPU only, busy server. Every row is a floor. The number a buyer should ask for i
 
 ## Qwen 3 32B at every measured load
 
-On 1 × B200, Qwen 3 32B runs from 429.2 Wh/M at a running batch of 8 to 39.1 Wh/M at 383, a fall of 11.0×, while the cards' draw rises 13 percent (from 860 to 972 W) and throughput rises 12.4× (from 556 to 6,912 tokens a second). Median inter-token latency stays at 50 ms or under up to the best row. Past it, at a cap of 512, the same cards read 41.9 Wh/M at 58 ms.
+On 1 × B200, Qwen 3 32B runs from **429.2 Wh/M** at a running batch of 8 to **39.1 Wh/M** at 383, a fall of 11.0×, while the cards' draw rises 13 percent (from 860 to 972 W) and throughput rises 12.4× (from 556 to 6,912 tokens a second). Median inter-token latency stays at 50 ms or under up to the best row. Past it, at a cap of 512, the same cards read 41.9 Wh/M at 58 ms.
 
 *Qwen 3 32B, BF16, 1 × B200: ten measured configurations*
 
@@ -139,6 +139,6 @@ The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2
 
 Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/Qwen/Qwen3-32B).
 
-Cite as. Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/qwen-3-32b.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Qwen 3 32B on your own grid and load.

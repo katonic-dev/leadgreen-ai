@@ -2174,6 +2174,7 @@ class _MD(HTMLParser):
         self.pre = False
         self.href = None
         self.cls: list[tuple[str, str]] = []   # (tag, class) for p, span and div, so end tags close what start tags opened
+        self.i_skip: list[bool] = []            # the bar chart <i style=...> elements carry no text and are skipped
 
     def _emit(self, s: str) -> None:
         if self.cell is not None:
@@ -2233,7 +2234,13 @@ class _MD(HTMLParser):
             self._emit("`")
         elif tag in ("b", "strong"):
             self._emit("**")
-        elif tag == "i" or tag == "em":
+        elif tag == "i":
+            self.i_skip.append("style" in a)
+            if "style" in a:
+                self.skip += 1
+            else:
+                self._emit("*")
+        elif tag == "em":
             self._emit("*")
         elif tag == "a" and a.get("href"):
             self.href = urljoin(self.base, a["href"])
@@ -2293,7 +2300,12 @@ class _MD(HTMLParser):
             self._emit("`")
         elif tag in ("b", "strong"):
             self._emit("**")
-        elif tag in ("i", "em"):
+        elif tag == "i":
+            if self.i_skip and self.i_skip.pop():
+                self.skip = max(0, self.skip - 1)
+            else:
+                self._emit("*")
+        elif tag == "em":
             self._emit("*")
         elif tag == "a" and self.href:
             self._emit(f"]({self.href})")
@@ -2310,7 +2322,6 @@ class _MD(HTMLParser):
     def text(self) -> str:
         s = "".join(self.out)
         s = re.sub(r"\*\*\s*\*\*", "", s)          # empty bold from icon-only spans
-        s = re.sub(r"(?<!\*)\*\s*\*(?!\*)", "", s)   # empty italics
         s = re.sub(r"[ \t]+\n", "\n", s)
         s = re.sub(r"\n{3,}", "\n\n", s)
         s = re.sub(r"^\s*(#+ )", r"\1", s, count=1)

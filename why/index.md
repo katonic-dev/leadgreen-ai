@@ -23,7 +23,7 @@ The number is small, cheap to buy and easy to ignore. It is also the only figure
 
 ## It is a utilisation meter
 
-Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from 452 Wh/M at a running batch of 8 to 63.5 Wh/M at 256. That is 7.1× on the same hardware. The cards' draw rises 39 percent, from 850 W to 1,178 W, while the tokens they produce each second rise 9.9×, and median inter-token latency stays at 44 ms or under.
+Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from **452 Wh/M** at a running batch of 8 to **63.5 Wh/M** at 256. That is 7.1× on the same hardware. The cards' draw rises 39 percent, from 850 W to 1,178 W, while the tokens they produce each second rise 9.9×, and median inter-token latency stays at 44 ms or under.
 
 Read it the other way round. A high energy per token does not mean the GPU is working hard. It means the GPU is drawing close to full power and producing few tokens, which is what an under-used server looks like from the wall socket. Energy per token is the utilisation rate expressed in a unit finance can see. If yours is high, you are paying for silicon that is waiting.
 
@@ -33,7 +33,7 @@ Source: [ML.ENERGY Leaderboard v3.0](https://ml.energy/leaderboard/), Text Conve
 
 ## Power is the ceiling
 
-A data hall, a sovereign site or a telco exchange has a fixed power envelope long before it has a fixed GPU count. Energy per token converts that envelope into capacity. One megawatt-hour of GPU energy serves 15.8 billion output tokens at the reference row (63.5 Wh/M). At the top of the concurrency ladder, 452 Wh/M, the same megawatt-hour serves 2.2 billion.
+A data hall, a sovereign site or a telco exchange has a fixed power envelope long before it has a fixed GPU count. Energy per token converts that envelope into capacity. One megawatt-hour of GPU energy serves **15.8 billion output tokens** at the reference row (63.5 Wh/M). At the top of the concurrency ladder, 452 Wh/M, the same megawatt-hour serves **2.2 billion**.
 
 An eight-GPU DGX B200 is rated at about 14.3 kW, and each B200 can be configured up to 1,000 W. Those are the numbers a facility engineer works with. What they buy depends entirely on the Wh/M the platform achieves, which is why the figure belongs in the capacity plan and not only in the sustainability report. To take a GPU figure to the facility meter, multiply by the system-to-GPU power ratio and the site's PUE; the [method](https://leadgreen.ai/index/#method) works one example.
 
@@ -71,7 +71,7 @@ Legal texts are summarised as at 27 September 2026 for orientation and are not l
 
 ## Location changes carbon 23×, and not energy
 
-Energy per token is a property of the model, the hardware and the load. Carbon per token adds the grid. On Ember's 2024 annual averages, Saudi Arabia's grid runs at 692 gCO2e per kWh and Norway's at 30. The reference row priced against them gives 43.9 kg CO2e per billion tokens in one place and 1.9 kg in the other, for identical tokens on identical GPUs.
+Energy per token is a property of the model, the hardware and the load. Carbon per token adds the grid. On Ember's 2024 annual averages, Saudi Arabia's grid runs at 692 gCO2e per kWh and Norway's at 30. The reference row priced against them gives **43.9 kg CO2e per billion tokens** in one place and **1.9 kg** in the other, for identical tokens on identical GPUs.
 
 So a sovereign or in-country deployment changes the carbon figure with no change to the energy figure, in either direction. Which is why the two numbers should be reported separately, and why a claim about one should never be dressed as a claim about the other.
 
@@ -93,7 +93,7 @@ Sources: [ISO/IEC 21031:2024](https://www.iso.org/standard/86612.html), Informat
 
 ## Electricity per token is cheap. That is exactly why the number matters.
 
-At the reference row, a million output tokens takes 63.5 Wh, which at USD 0.10 per kWh is 0.6 US cents. A billion tokens is about USD 6.35. Nobody will make a decision on that bill.
+At the reference row, a million output tokens takes 63.5 Wh, which at USD 0.10 per kWh is **0.6 US cents**. A billion tokens is about USD 6.35. Nobody will make a decision on that bill.
 
 But the bill is not the point. Energy per token is the power a GPU draws multiplied by the time it spends on the tokens. Watt-hours per token track GPU-hours per token, and GPU-hours are the real cost of serving, whether they are rented at cloud rates or depreciated on a balance sheet. A configuration that halves Wh/M has halved the GPU-hours per token. The electricity figure is a cheap instrument to put on an expensive thing.
 
@@ -113,9 +113,9 @@ Source: [NVIDIA Multi-Instance GPU User Guide, supported MIG profiles](https://d
 
 ## What to do on Monday
 
-1. Ask the vendor for Wh per million output tokens at your concurrency. Not at theirs. Name the model, the precision, the GPU count, the workload and the latency limit, and ask for the average running batch the figure was measured at (the number of requests the server was decoding at once, not the queue). Workload matters as much as load: on the same leaderboard, the Problem Solving task costs 3 to 41 times the energy per response of Text Conversation for the same model on the same GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464, and because the long outputs cut the batch the server can hold, so energy per token itself is 2.2 to 3.3 times the Text Conversation figure for the Qwen and DeepSeek pairs, and 0.7 to 1.0 times it for the four Nemotron pairs. If the vendor cannot answer, the index gives you the floor to hold them to. If you buy tokens from a hosted API rather than run GPUs, the concurrency is the provider's, not yours: send the questions in the [hosted API section](https://leadgreen.ai/why/#hosted) instead.
-2. Measure your own. NVIDIA DCGM reports the GPU's energy counter; read it at the start and end of a steady load, divide the energy by the output tokens served, and you have your own row. The [measurement protocol](https://leadgreen.ai/contribute/#protocol) is short and the result can be listed beside the public ones.
-3. Put the number in the RFP. One clause, below, turns a marketing conversation into a comparable figure across every bidder.
+1. **Ask the vendor for Wh per million output tokens at your concurrency.** Not at theirs. Name the model, the precision, the GPU count, the workload and the latency limit, and ask for the average running batch the figure was measured at (the number of requests the server was decoding at once, not the queue). Workload matters as much as load: on the same leaderboard, the Problem Solving task costs 3 to 41 times the energy per response of Text Conversation for the same model on the same GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464, and because the long outputs cut the batch the server can hold, so energy per token itself is 2.2 to 3.3 times the Text Conversation figure for the Qwen and DeepSeek pairs, and 0.7 to 1.0 times it for the four Nemotron pairs. If the vendor cannot answer, the index gives you the floor to hold them to. If you buy tokens from a hosted API rather than run GPUs, the concurrency is the provider's, not yours: send the questions in the [hosted API section](https://leadgreen.ai/why/#hosted) instead.
+2. **Measure your own.** NVIDIA DCGM reports the GPU's energy counter; read it at the start and end of a steady load, divide the energy by the output tokens served, and you have your own row. The [measurement protocol](https://leadgreen.ai/contribute/#protocol) is short and the result can be listed beside the public ones.
+3. **Put the number in the RFP.** One clause, below, turns a marketing conversation into a comparable figure across every bidder.
 
 Source for the workload comparison: ML.ENERGY Leaderboard v3.0, Problem Solving (gpqa) against Text Conversation, energy-optimal rows at or under a 500 ms median inter-token latency, the leaderboard's own default for both tasks; no measured configuration exceeds 326 ms, so the limit changes no row; 11 model and GPU pairs measured on both.
 
@@ -125,13 +125,13 @@ Source for the workload comparison: ML.ENERGY Leaderboard v3.0, Problem Solving 
 
 *Scoring the answers*
 
-1. Gate. An answer counts only if it carries the figure, the cap and the average running batch held, median and p99 inter-token latency, average output tokens per response, output tokens per second, average GPU power summed across cards, the method, the tool, the versions, the date and the GPU-only statement. An answer missing any of them scores zero on this criterion and is not disqualified.
-2. Floor. For the same model and GPU, the floor is the configuration in `models/<slug>.json` with the smallest average running batch at or above [N] whose median inter-token latency is at or under [T] ms; if there is none, the configuration with the highest measured running batch.
-3. Tolerance. An answer more than 10 percent below the floor is challenged, and the bidder supplies the raw power and engine logs. The protocol's own repeat threshold is 5 percent.
-4. Consistency. Wh/M must equal average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. On the reference row: 1,177.9 W ÷ 5,155.5 tokens per second × 1,000,000 ÷ 3,600 = 63.47 Wh/M. An answer that fails the check beyond rounding is treated as not stated.
-5. Cannot measure. An answer that declares it cannot measure, as the clause provides, is scored as not stated, not compared.
-6. Confidential. A figure withheld as confidential is scored as not stated. Logs may be confidential; the figure, method, running batch, latency and inclusion statement may not.
-7. Where Katonic bids. Lead Green is a Katonic project. In a tender where Katonic may bid, take floor values from the ML.ENERGY rows directly and disclose the compilation, using the wording in [Using the index in a tender](https://leadgreen.ai/about/#tender).
+1. **Gate.** An answer counts only if it carries the figure, the cap and the average running batch held, median and p99 inter-token latency, average output tokens per response, output tokens per second, average GPU power summed across cards, the method, the tool, the versions, the date and the GPU-only statement. An answer missing any of them scores zero on this criterion and is not disqualified.
+2. **Floor.** For the same model and GPU, the floor is the configuration in `models/<slug>.json` with the smallest average running batch at or above [N] whose median inter-token latency is at or under [T] ms; if there is none, the configuration with the highest measured running batch.
+3. **Tolerance.** An answer more than 10 percent below the floor is challenged, and the bidder supplies the raw power and engine logs. The protocol's own repeat threshold is 5 percent.
+4. **Consistency.** Wh/M must equal average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. On the reference row: 1,177.9 W ÷ 5,155.5 tokens per second × 1,000,000 ÷ 3,600 = 63.47 Wh/M. An answer that fails the check beyond rounding is treated as not stated.
+5. **Cannot measure.** An answer that declares it cannot measure, as the clause provides, is scored as not stated, not compared.
+6. **Confidential.** A figure withheld as confidential is scored as not stated. Logs may be confidential; the figure, method, running batch, latency and inclusion statement may not.
+7. **Where Katonic bids.** Lead Green is a Katonic project. In a tender where Katonic may bid, take floor values from the ML.ENERGY rows directly and disclose the compilation, using the wording in [Using the index in a tender](https://leadgreen.ai/about/#tender).
 
 Fill [N] with the running batch you expect in production and [T] and [T99] with the latency your users will accept. The index uses 500 ms, the leaderboard's default, as a benchmark ceiling, not a recommendation, and no measured configuration reaches it. For an interactive assistant set [T] where your users would notice, and use the same [N] and [T] for every bidder. Everything else in the clause is there so that two bidders' numbers can be compared.
 
@@ -143,7 +143,7 @@ The index cannot measure a hosted API. The benchmark behind it serves open-weigh
 
 The reporting line differs too. On GPUs you run, the electricity is your own consumption: it goes into your ESRS E1-5 energy total, and its emissions into your Scope 2. When you buy tokens from a hosted API, the same electricity is part of the provider's operations: it is the provider's Scope 2 and your Scope 3 category 1 (purchased goods and services), and it sits outside your E1-5 total. Wh/M is the forecasting unit in both cases. Only the line it lands on differs.
 
-Ask the provider, in writing:
+**Ask the provider, in writing:**
 
 1. The fleet-average GPU energy per million output tokens for the model and tier you buy, at the fleet's real utilisation over the period and not a best case, with the boundary stated: GPU only, or with host, network and cooling included.
 2. The regions that serve your traffic, and the grid or contracted supply behind each.

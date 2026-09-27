@@ -6,9 +6,9 @@
 
 *Two generations · 14 models*
 
-On the index rows, the B200 uses less GPU energy per output token than the H100 for all 14 models measured on both cards. The H100 row uses from 4.55× the energy of the B200 row (Qwen 3 235B A22B Instruct) down to 1.05× (NVIDIA Nemotron Nano 9B V2), with a median of 1.63×. Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.
+On the index rows, the B200 uses less GPU energy per output token than the H100 for **all 14 models** measured on both cards. The H100 row uses from **4.55×** the energy of the B200 row (Qwen 3 235B A22B Instruct) down to **1.05×** (NVIDIA Nemotron Nano 9B V2), with a median of 1.63×. Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.
 
-Unit watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Data [index.json](https://leadgreen.ai/api/v1/index.json). Updated 27 September 2026.
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [index.json](https://leadgreen.ai/api/v1/index.json). Updated 27 September 2026.
 
 - [The 14 pairs](https://leadgreen.ai/h100-vs-b200/#pairs)
 - [The sweep](https://leadgreen.ai/h100-vs-b200/#sweep)
@@ -16,9 +16,9 @@ Unit watt-hours per million output tokens (Wh/M). GPU only, busy server. Every r
 - [Questions](https://leadgreen.ai/h100-vs-b200/#faq)
 - [Sources](https://leadgreen.ai/h100-vs-b200/#sources)
 
-- Widest gap: 4.55 × Qwen 3 235B A22B Instruct: 303.5 Wh/M on 8 × H100 against 66.7 on 4 × B200.
-- Median gap, 14 pairs: 1.63 × H100 row energy per token over B200 row energy per token, at each model's index rows.
-- Narrowest gap: 1.05 × NVIDIA Nemotron Nano 9B V2: 43.1 Wh/M on 1 × H100 against 40.9 on 1 × B200.
+- **Widest gap:** 4.55 × Qwen 3 235B A22B Instruct: 303.5 Wh/M on 8 × H100 against 66.7 on 4 × B200.
+- **Median gap, 14 pairs:** 1.63 × H100 row energy per token over B200 row energy per token, at each model's index rows.
+- **Narrowest gap:** 1.05 × NVIDIA Nemotron Nano 9B V2: 43.1 Wh/M on 1 × H100 against 40.9 on 1 × B200.
 
 Each pair compares a model's index row on the H100 with its index row on the B200: the lowest-energy configuration the leaderboard measured on each card, at or under 500 ms median inter-token latency. The ratio is the H100 row's energy per token over the B200 row's.
 
@@ -111,4 +111,4 @@ The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 Sep
 
 TDP and memory: NVIDIA product specifications for [H100](https://www.nvidia.com/en-us/data-center/h100/) and [DGX B200](https://www.nvidia.com/en-us/data-center/dgx-b200/), and the [HGX B200 product carbon footprint summary](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf) (July 2025), retrieved 26 September 2026.
 
-Cite as. Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
