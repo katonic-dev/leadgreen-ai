@@ -904,6 +904,19 @@ subs.update({
     "CONTACT_EMAIL": CONTACT_EMAIL, "CONTACT_LINK": f"<a href=\"mailto:{CONTACT_EMAIL}\">{CONTACT_EMAIL}</a>",
     "RESPONSE_DAYS": word(RESPONSE_DAYS), "PUBLISHER_ENTITY": PUBLISHER_ENTITY, "PUBLISHER_REGISTRATION": PUBLISHER_REGISTRATION,
     "PUBLISHER_JURISDICTION": PUBLISHER_JURISDICTION, "RELEASES_URL": f"{SITE}/api/v1/releases/",
+    # D13: the recusal reads as the dated-release rule alone until the outside reviewer is named
+    "RECUSAL": (f"While Katonic is a bidder in a tender that cites the index, the editor changes no row for a model Katonic proposes. "
+                f"Rows change only when a source publishes a dated release, and those changes are applied by {esc(OUTSIDE_REVIEWER)}, "
+                "who has no Katonic affiliation. " if OUTSIDE_REVIEWER else
+                "While Katonic is a bidder in a tender that cites the index, rows change only when a source publishes a dated release. ")
+               + f"Tenders cite a dated release, kept at <code>{SITE}/api/v1/releases/&lt;date&gt;/</code>, so no later change can move a cited figure.",
+    "CITE_AS": (f"Lead Green, a Katonic project. {INDEX_NAME}: GPU energy per million output tokens. {SITE}/index/, release {DATA_VERSION}, "
+                f"retrieved [date]. © 2026 {esc(PUBLISHER_ENTITY)}. Licensed <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>, "
+                "offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 "
+                "(The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, "
+                "NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); "
+                "AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced "
+                "as facts from the documents named in the sources ledger."),
     "PUBLISHER_ADDRESS": (esc(PUBLISHER_ADDRESS) if PUBLISHER_ADDRESS else "to be added, word for word from the DIFC registry extract, before launch"),
     "REVIEWED_LINE": (f" Reviewed by {and_list([esc(n) for n in REVIEWERS])}; recomputed from the snapshots." if REVIEWERS else ""),
     "REVIEWERS_PHRASE": (and_list([esc(n) for n in REVIEWERS]) if REVIEWERS else "two named reviewers, listed here before the first contributed row is accepted"),
