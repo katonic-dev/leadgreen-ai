@@ -186,7 +186,7 @@
           <th scope="col" class="num">GPUs</th>
           <th scope="col" class="num">Wh / M tokens</th>
           <th scope="col" class="num">Median ITL (ms)</th>
-          <th scope="col" class="num">Requests in flight</th>
+          <th scope="col" class="num">Running batch (avg)</th>
           <th scope="col" class="num">GPU power, all cards (W)</th>
         </tr>
       </thead>
@@ -226,7 +226,7 @@
       </tbody>
     </table>
   </div>
-  <p class="note">Wh/M is derived from the source's joules per output token (hover a value to see it). Prompt processing is included: the benchmark divides steady-state GPU energy by output tokens. "Requests in flight" is the average batch the server was holding when the measurement was taken. GPU power is the average draw summed across every card in the configuration. The bar is linear, scaled to the highest row.</p>
+  <p class="note">Wh/M is derived from the source's joules per output token (hover a value to see it). Prompt processing is included: the benchmark divides steady-state GPU energy by output tokens. <b>Running batch (avg)</b> is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>); queued requests are not counted, and the benchmark keeps a queue at all times. GPU power is the average draw summed across every card in the configuration. The bar is linear, scaled to the highest row.</p>
   <p class="note">Source: ML.ENERGY Leaderboard v3.0, University of Michigan, last updated 23 September 2026, retrieved 27 September 2026. 328 configurations were examined; the table shows the best per model and GPU. Every configuration is in the <a href="../api/">API</a>.</p>
 </section>
 
@@ -271,14 +271,15 @@
 <section id="concurrency">
   <p class="eyebrow">Concurrency</p>
   <h2>The idle server is the expensive one</h2>
-  <p class="lead">Energy per token depends on how many requests the server is handling at once. Below is the same Qwen 3 32B on the same two H100 cards, from 8 requests in flight to 256. Energy per token falls <b>7.1×</b>, from 452 to 63 Wh/M, while median inter-token latency stays under 50 ms. The cards draw roughly the same power either way. What changes is how many tokens that power produces.</p>
+  <p class="lead">Energy per token depends on how many requests the server is handling at once. Below is the same Qwen 3 32B on the same two H100 cards, from a running batch of 8 to 256. Energy per token falls <b>7.1×</b>, from 452 to 63 Wh/M, while median inter-token latency stays under 50 ms. The cards draw roughly the same power either way. What changes is how many tokens that power produces.</p>
   <div class="stack">
     <div class="table-scroll">
       <table>
         <caption>Qwen 3 32B, BF16, 2 × H100</caption>
         <thead>
           <tr>
-            <th scope="col" class="num">Requests in flight</th>
+            <th scope="col" class="num">Cap</th>
+            <th scope="col" class="num">Running batch (avg)</th>
             <th scope="col" class="num">Wh / M</th>
             <th scope="col" class="num">Median ITL (ms)</th>
             <th scope="col" class="num">Tokens / s</th>
@@ -303,7 +304,8 @@
         <caption>Llama 3.1 8B Instruct, BF16, 1 × H100</caption>
         <thead>
           <tr>
-            <th scope="col" class="num">Requests in flight</th>
+            <th scope="col" class="num">Cap</th>
+            <th scope="col" class="num">Running batch (avg)</th>
             <th scope="col" class="num">Wh / M</th>
             <th scope="col" class="num">Median ITL (ms)</th>
             <th scope="col" class="num">Tokens / s</th>
@@ -327,6 +329,7 @@
     </div>
   </div>
   <p class="note">A departmental deployment that serves a handful of people at a time lives at the top of these tables, not the bottom. Consolidating traffic onto fewer, busier cards is the largest single lever an operator controls, and it costs nothing in hardware.</p>
+  <p class="note">Cap is the configured maximum batch (vLLM's <code>max_num_seqs</code>). Running batch (avg) is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>); queued requests are not counted, and the benchmark keeps a queue at all times. The highlighted row is the index row.</p>
   <p class="note">Same source and workload as the index. Each row is one benchmarked configuration; the index takes the best of them. Every model's full curve is in its <a href="../api/">API document</a>.</p>
 </section>
 

@@ -6,7 +6,7 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - Lowest on the index: 13.0 Wh/M (Llama 3.1 8B Instruct, 1 × B200)
 - Reference row: 63.5 Wh/M (Qwen 3 32B, 2 × H100)
 - Highest on the index: 572.9 Wh/M (Llama 3.1 405B Instruct FP8, 8 × H100)
-- The index spans 44x. The same model on the same GPUs moves 7.1x with concurrency (452 to 63 Wh/M for Qwen 3 32B on 2 x H100, 8 to 256 requests in flight).
+- The index spans 44x. The same model on the same GPUs moves 7.1x with concurrency (452 to 63 Wh/M for Qwen 3 32B on 2 x H100, running batch 8 to 256). Running batch = the average number of requests the server was decoding at once (vLLM num_requests_running); queued requests are not counted.
 - Carbon: multiply Wh/M by the grid's gCO2e/kWh and divide by 1,000 for kg CO2e per billion tokens. Saudi Arabia 692, Serbia 668, Norway 30, World 474 gCO2e/kWh (Ember, 2024).
 - Caveat: GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.
 

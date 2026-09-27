@@ -66,7 +66,7 @@ description: An MCP server that gives Claude, Cursor and other AI assistants the
       <li>Energy: {{REF_WH_2}} Wh/M × 50 M = <b>{{EST_50M_WH}} Wh</b>, or {{EST_50M_KWH}} kWh.</li>
       <li>Carbon: {{EST_50M_KWH}} kWh × {{SRB_G}} g ÷ 1,000 = <b>{{EST_50M_KG_SRB}} kg CO2e</b>.</li>
     </ul>
-    <p>Pass <code>requests_in_flight</code> and the tool switches from the best row to the measured configuration nearest that concurrency, which for a lightly loaded server can multiply the answer several times. That is the honest number for most enterprise deployments.</p>
+    <p>Pass <code>running_batch</code> (<code>requests_in_flight</code> is still accepted as an alias) and the tool switches from the best row to the measured configuration nearest that running batch, which for a lightly loaded server can multiply the answer several times. That is the honest number for most enterprise deployments.</p>
   </div>
 </section>
 

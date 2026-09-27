@@ -19,8 +19,8 @@ description: The {{INDEX_NAME}} newsletter: one number from the index, one note 
   <h2>What an edition looks like</h2>
   <div class="callout">
     <p class="eyebrow">Sample, built from the current index</p>
-    <p><b>The number.</b> {{REF_WH_1}} Wh per million output tokens: {{REF_MODEL}} on {{REF_GPUS}}, the index's reference row, at {{REF_BATCH}} requests in flight and {{REF_ITL}} ms median inter-token latency.</p>
-    <p><b>The note.</b> The same model on the same cards reads {{LADDER_32_FIRST}} Wh/M at {{LADDER_32_FIRST_BATCH}} requests in flight. The {{LADDER_32_RATIO}}× between those two rows is not the model and not the hardware. It is how busy the server was.</p>
+    <p><b>The number.</b> {{REF_WH_1}} Wh per million output tokens: {{REF_MODEL}} on {{REF_GPUS}}, the index's reference row, at a running batch of {{REF_BATCH}} and {{REF_ITL}} ms median inter-token latency.</p>
+    <p><b>The note.</b> The same model on the same cards reads {{LADDER_32_FIRST}} Wh/M at a running batch of {{LADDER_32_FIRST_BATCH}}. The {{LADDER_32_RATIO}}× between those two rows is not the model and not the hardware. It is how busy the server was.</p>
     <p><b>The pointer.</b> ML.ENERGY Leaderboard v3.0, Text Conversation tab, sorted by energy per token, with the About tab open beside it for the method.</p>
   </div>
   <div class="prose">

@@ -97,7 +97,7 @@
 <h2>Three numbers</h2>
 <ul>
   <li><b>Lowest: 13.0 Wh/M.</b> Llama 3.1 8B Instruct on 1 × B200. A small model on the newest card, kept busy.</li>
-  <li><b>Reference: 63.5 Wh/M.</b> Qwen 3 32B on 2 × H100, at 256 requests in flight and 44 ms median inter-token latency, the two cards drawing 1,178 W between them. I use this row for every carbon calculation on the site, because a 32B dense model on two H100s is what a serious enterprise deployment looks like today.</li>
+  <li><b>Reference: 63.5 Wh/M.</b> Qwen 3 32B on 2 × H100, at a running batch of 256 and 44 ms median inter-token latency, the two cards drawing 1,178 W between them. I use this row for every carbon calculation on the site, because a 32B dense model on two H100s is what a serious enterprise deployment looks like today.</li>
   <li><b>Highest: 572.9 Wh/M.</b> Llama 3.1 405B Instruct FP8 on 8 × H100. Eight cards to hold the weights, and every token pays for all eight.</li>
 </ul>
 <p>The span from lowest to highest is 44×. That is model size and hardware generation, and it is what people expect the story to be. It is not the interesting part.</p>
@@ -107,7 +107,7 @@
 <div class="table-scroll">
   <table>
     <caption>Qwen 3 32B, BF16, 2 × H100. ML.ENERGY Leaderboard v3.0, Text Conversation.</caption>
-    <thead><tr><th scope="col" class="num">Requests in flight</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead>
+    <thead><tr><th scope="col" class="num">Cap</th><th scope="col" class="num">Running batch (avg)</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead>
     <tbody>
 <tr><th scope="row" class="num">8</th><td class="num">8</td><td class="num key">452.0</td><td class="num">15</td><td class="num">522</td><td class="num">850</td></tr>
 <tr><th scope="row" class="num">16</th><td class="num">16</td><td class="num key">252.8</td><td class="num">16</td><td class="num">970</td><td class="num">883</td></tr>
@@ -123,7 +123,7 @@
 </div>
 <p>From 452 to 63 Wh/M. 7.1× on the same model, the same two cards, the same prompts. The power draw barely moves: 850 W at the top of the table, 1,178 W at the bottom. What moves is how many tokens that power produces, from 522 a second to 5,155. Median latency goes from 15 ms to 44 ms, which no user will notice.</p>
 <p>See, this is the part the invoice hides. A GPU is a bus. The diesel per trip is about the same whether it carries eight people or two hundred and fifty; the diesel per passenger is not. An enterprise assistant that serves a handful of people at a time is the bus with eight people on it, and it is by far the most common deployment I see.</p>
-<p>The same ladder for a small model on one card: Llama 3.1 8B Instruct on 1 × H100 goes from 126 Wh/M at 8 requests in flight to 19.5 at 511, a 6.5× drop.</p>
+<p>The same ladder for a small model on one card: Llama 3.1 8B Instruct on 1 × H100 goes from 126 Wh/M at a running batch of 8 to 19.5 at 511, a 6.5× drop.</p>
 
 <h2>What that does to the bill, and to the carbon</h2>
 <p>Electricity first, because people always ask and the answer is small. 63.5 Wh per million tokens is 63.5 kWh per billion. At USD 0.10 per kWh, my assumption and not a source figure, a billion tokens is USD 6.35 of electricity, or 0.6 cents per million. Nobody will change a decision over that. The number matters because it tracks GPU-hours, and GPU-hours are where the money actually goes. Halve the watt-hours per token and you have halved the GPU time per token, on the same kit.</p>

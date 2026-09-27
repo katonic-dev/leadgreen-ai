@@ -1242,7 +1242,7 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - Lowest on the index: {subs['TILE_LOW_WH']} Wh/M ({subs['TILE_LOW_LABEL']})
 - Reference row: {subs['REF_WH_1']} Wh/M ({subs['TILE_REF_LABEL']})
 - Highest on the index: {subs['TILE_HIGH_WH']} Wh/M ({subs['TILE_HIGH_LABEL']})
-- The index spans {subs['SPAN']}x. The same model on the same GPUs moves {subs['LADDER_32_RATIO']}x with concurrency ({subs['LADDER_32_FIRST']} to {subs['LADDER_32_LAST']} Wh/M for Qwen 3 32B on 2 x H100, {subs['LADDER_32_FIRST_BATCH']} to {subs['LADDER_32_LAST_BATCH']} requests in flight).
+- The index spans {subs['SPAN']}x. The same model on the same GPUs moves {subs['LADDER_32_RATIO']}x with concurrency ({subs['LADDER_32_FIRST']} to {subs['LADDER_32_LAST']} Wh/M for Qwen 3 32B on 2 x H100, running batch {subs['LADDER_32_FIRST_BATCH']} to {subs['LADDER_32_LAST_BATCH']}). Running batch = the average number of requests the server was decoding at once (vLLM num_requests_running); queued requests are not counted.
 - Carbon: multiply Wh/M by the grid's gCO2e/kWh and divide by 1,000 for kg CO2e per billion tokens. Saudi Arabia {subs['SAU_G']}, Serbia {subs['SRB_G']}, Norway {subs['NOR_G']}, World {subs['WORLD_G']} gCO2e/kWh (Ember, {EMBER_YEAR}).
 - Caveat: {CAVEAT}
 

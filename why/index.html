@@ -89,7 +89,7 @@
   <p class="eyebrow">1</p>
   <h2>It is a utilisation meter</h2>
   <div class="prose">
-    <p>Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from <b>452 Wh/M</b> at 8 requests in flight to <b>63 Wh/M</b> at 256. That is 7.1× on the same hardware, while the cards draw 850 to 1,178 W either way and median inter-token latency stays at 44 ms or under.</p>
+    <p>Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from <b>452 Wh/M</b> at a running batch of 8 to <b>63 Wh/M</b> at 256. That is 7.1× on the same hardware, while the cards draw 850 to 1,178 W either way and median inter-token latency stays at 44 ms or under.</p>
     <p>Read it the other way round. A high energy per token does not mean the GPU is working hard. It means the GPU is drawing close to full power and producing few tokens, which is what an under-used server looks like from the wall socket. Energy per token is the utilisation rate expressed in a unit finance can see. If yours is high, you are paying for silicon that is waiting.</p>
     <p class="fn">Source: ML.ENERGY Leaderboard v3.0, Text Conversation, all measured configurations of Qwen 3 32B on 2 × H100. Full ladder on <a href="../index/#concurrency">the index</a>.</p>
   </div>
@@ -170,7 +170,7 @@
   <h2>What to do on Monday</h2>
   <div class="prose">
     <ol>
-      <li><b>Ask the vendor for Wh per million output tokens at your concurrency.</b> Not at theirs. Name the model, the precision, the GPU count, the workload and the latency limit, and ask for the average requests in flight the figure was measured at. Workload matters as much as load: on the same leaderboard, the Problem Solving task costs 3 to 41 times the energy per response of Text Conversation for the same model on the same GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464. If the vendor cannot answer, the index gives you the floor to hold them to.</li>
+      <li><b>Ask the vendor for Wh per million output tokens at your concurrency.</b> Not at theirs. Name the model, the precision, the GPU count, the workload and the latency limit, and ask for the average running batch the figure was measured at (the number of requests the server was decoding at once, not the queue). Workload matters as much as load: on the same leaderboard, the Problem Solving task costs 3 to 41 times the energy per response of Text Conversation for the same model on the same GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464. If the vendor cannot answer, the index gives you the floor to hold them to.</li>
       <li><b>Measure your own.</b> NVIDIA DCGM or <code>nvidia-smi</code> report GPU power; sample it at one hertz through a steady load, divide the energy by the output tokens served, and you have your own row. The <a href="../contribute/#protocol">measurement protocol</a> is short and the result can be listed beside the public ones.</li>
       <li><b>Put the number in the RFP.</b> One clause, below, turns a marketing conversation into a comparable figure across every bidder.</li>
     </ol>

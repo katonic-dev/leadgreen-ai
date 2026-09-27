@@ -17,7 +17,7 @@ author: Prem Naraindas
 <h2>Three numbers</h2>
 <ul>
   <li><b>Lowest: {{LOW_WH_1}} Wh/M.</b> {{LOW_MODEL}} on {{LOW_GPUS}}. A small model on the newest card, kept busy.</li>
-  <li><b>Reference: {{REF_WH_1}} Wh/M.</b> {{REF_MODEL}} on {{REF_GPUS}}, at {{REF_BATCH}} requests in flight and {{REF_ITL}} ms median inter-token latency, the two cards drawing {{REF_W}} W between them. I use this row for every carbon calculation on the site, because a 32B dense model on two H100s is what a serious enterprise deployment looks like today.</li>
+  <li><b>Reference: {{REF_WH_1}} Wh/M.</b> {{REF_MODEL}} on {{REF_GPUS}}, at a running batch of {{REF_BATCH}} and {{REF_ITL}} ms median inter-token latency, the two cards drawing {{REF_W}} W between them. I use this row for every carbon calculation on the site, because a 32B dense model on two H100s is what a serious enterprise deployment looks like today.</li>
   <li><b>Highest: {{HIGH_WH_1}} Wh/M.</b> {{HIGH_MODEL}} on {{HIGH_GPUS}}. Eight cards to hold the weights, and every token pays for all eight.</li>
 </ul>
 <p>The span from lowest to highest is {{SPAN}}×. That is model size and hardware generation, and it is what people expect the story to be. It is not the interesting part.</p>
@@ -27,7 +27,7 @@ author: Prem Naraindas
 <div class="table-scroll">
   <table>
     <caption>{{REF_MODEL}}, BF16, {{REF_GPUS}}. ML.ENERGY Leaderboard v3.0, Text Conversation.</caption>
-    <thead><tr><th scope="col" class="num">Requests in flight</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead>
+    <thead><tr><th scope="col" class="num">Cap</th><th scope="col" class="num">Running batch (avg)</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead>
     <tbody>
 {{LADDER_32_ROWS}}
     </tbody>
@@ -35,7 +35,7 @@ author: Prem Naraindas
 </div>
 <p>From {{LADDER_32_FIRST}} to {{LADDER_32_LAST}} Wh/M. {{LADDER_32_RATIO}}× on the same model, the same two cards, the same prompts. The power draw barely moves: {{LADDER_32_FIRST_W}} W at the top of the table, {{LADDER_32_LAST_W}} W at the bottom. What moves is how many tokens that power produces, from {{LADDER_32_FIRST_TPS}} a second to {{LADDER_32_LAST_TPS}}. Median latency goes from {{LADDER_32_FIRST_ITL}} ms to {{LADDER_32_LAST_ITL}} ms, which no user will notice.</p>
 <p>See, this is the part the invoice hides. A GPU is a bus. The diesel per trip is about the same whether it carries eight people or two hundred and fifty; the diesel per passenger is not. An enterprise assistant that serves a handful of people at a time is the bus with eight people on it, and it is by far the most common deployment I see.</p>
-<p>The same ladder for a small model on one card: Llama 3.1 8B Instruct on 1 × H100 goes from {{LADDER_8_FIRST}} Wh/M at {{LADDER_8_FIRST_BATCH}} requests in flight to {{LADDER_8_LAST}} at {{LADDER_8_LAST_BATCH}}, a {{LADDER_8_RATIO}}× drop.</p>
+<p>The same ladder for a small model on one card: Llama 3.1 8B Instruct on 1 × H100 goes from {{LADDER_8_FIRST}} Wh/M at a running batch of {{LADDER_8_FIRST_BATCH}} to {{LADDER_8_LAST}} at {{LADDER_8_LAST_BATCH}}, a {{LADDER_8_RATIO}}× drop.</p>
 
 <h2>What that does to the bill, and to the carbon</h2>
 <p>Electricity first, because people always ask and the answer is small. {{REF_WH_1}} Wh per million tokens is {{REF_KWH_PER_B}} kWh per billion. At USD {{ELECTRICITY_PRICE}} per kWh, my assumption and not a source figure, a billion tokens is USD {{USD_PER_B_REF}} of electricity, or {{CENTS_PER_M_REF}} cents per million. Nobody will change a decision over that. The number matters because it tracks GPU-hours, and GPU-hours are where the money actually goes. Halve the watt-hours per token and you have halved the GPU time per token, on the same kit.</p>
