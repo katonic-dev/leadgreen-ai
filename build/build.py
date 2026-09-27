@@ -456,6 +456,9 @@ def pairs_table():
     return "\n".join(out), rows
 
 
+LADDER_MID_CAP = 64   # the row the concurrency post reads as 'a modest load': most of the drop is in by here
+
+
 def ladder(name, gpu, num_gpus):
     rows = sorted((c for c in cfgs if c["nickname"] == name and c["gpu_model"] == gpu and c["num_gpus"] == num_gpus),
                   key=lambda c: (c["max_num_seqs"], RUN_NO[id(c)]))
@@ -476,6 +479,8 @@ def ladder(name, gpu, num_gpus):
     first = rows[0]
     i = rows.index(best_c)
     turn = rows[i + 1] if i + 1 < len(rows) else None
+    mid = next((c for c in rows if c["max_num_seqs"] == LADDER_MID_CAP and c is not best_c), None)
+    first_wh, best_wh = wh_per_million(first["energy_per_token_joules"]), wh_per_million(best_c["energy_per_token_joules"])
     return {
         "rows": "\n".join(out), "count": len(rows),
         "ratio": first["energy_per_token_joules"] / best_c["energy_per_token_joules"],
@@ -494,7 +499,18 @@ def ladder(name, gpu, num_gpus):
         "last_batch": best_c["avg_batch_size"],
         "turn": None if turn is None else {
             "cap": turn["max_num_seqs"], "wh": wh_per_million(turn["energy_per_token_joules"]),
-            "itl": turn["median_itl_ms"], "batch": turn["avg_batch_size"]},
+            "itl": turn["median_itl_ms"], "batch": turn["avg_batch_size"], "p99": turn["p99_itl_ms"]},
+        "first_p99": first["p99_itl_ms"], "best_p99": best_c["p99_itl_ms"],
+        "model": name, "gpus": f"{num_gpus} × {gpu}", "precision": precision_label(first["weight_precision"]),
+        # GPU-hours per million output tokens: cards x seconds per million tokens / 3,600
+        "first_gpuh": num_gpus * 1e6 / first["output_throughput_tokens_per_sec"] / 3600,
+        "best_gpuh": num_gpus * 1e6 / best_c["output_throughput_tokens_per_sec"] / 3600,
+        "mid": None if mid is None else {
+            "cap": mid["max_num_seqs"], "batch": mid["avg_batch_size"], "wh": wh_per_million(mid["energy_per_token_joules"]),
+            "itl": mid["median_itl_ms"], "w": mid["avg_power_watts"],
+            "ratio": first["energy_per_token_joules"] / mid["energy_per_token_joules"],
+            # share of the whole first-to-best drop already achieved at the mid row
+            "drop_pct": (first_wh - wh_per_million(mid["energy_per_token_joules"])) / (first_wh - best_wh) * 100},
     }
 
 
@@ -690,6 +706,7 @@ def mig_table() -> str:
 pairs_html, pairs = pairs_table()
 l32 = ladder("Qwen 3 32B", "H100", 2)
 l8 = ladder("Llama 3.1 8B Instruct", "H100", 1)
+assert l32["mid"] and l32["turn"] and l8["mid"] and l8["turn"], "an exhibit ladder lost its cap-64 or past-best row; the concurrency post reads both"
 # D18: the public comparators for the two MIG measurements (1 x H100, BF16)
 _q14 = sorted((c for c in cfgs if c["nickname"] == "Qwen 3 14B" and c["gpu_model"] == "H100" and c["num_gpus"] == 1), key=lambda c: c["max_num_seqs"])
 _q32 = sorted((c for c in cfgs if c["nickname"] == "Qwen 3 32B" and c["gpu_model"] == "H100" and c["num_gpus"] == 1), key=lambda c: c["max_num_seqs"])
@@ -1078,6 +1095,15 @@ subs.update({
         "BEST_W": fmt(lad["best_w"], 0), "BEST_TPS": fmt(lad["best_tps"], 0), "BEST_ITL": fmt(lad["best_itl"], 0),
         "MAX_ITL": fmt(lad["max_itl_to_best"], 0), "POWER_PCT": fmt(lad["power_pct"], 0), "TPS_RATIO": f"{lad['tps_ratio']:.1f}",
         "RATIO": f"{lad['ratio']:.1f}",
+        # blog post 3 (the concurrency ladder)
+        "MODEL": lad["model"], "GPUS": lad["gpus"], "PRECISION": lad["precision"],
+        "FIRST_P99": fmt(lad["first_p99"], 0), "BEST_P99": fmt(lad["best_p99"], 0),
+        "FIRST_GPUH": f"{lad['first_gpuh']:.2f}", "BEST_GPUH": f"{lad['best_gpuh']:.2f}",
+        "TURN_BATCH": fmt(lad["turn"]["batch"], 0) if lad["turn"] else "", "TURN_P99": fmt(lad["turn"]["p99"], 0) if lad["turn"] else "",
+        "MID_CAP": fmt(lad["mid"]["cap"], 0) if lad["mid"] else "", "MID_BATCH": fmt(lad["mid"]["batch"], 0) if lad["mid"] else "",
+        "MID_WH": fmt(lad["mid"]["wh"], 1) if lad["mid"] else "", "MID_ITL": fmt(lad["mid"]["itl"], 0) if lad["mid"] else "",
+        "MID_W": fmt(lad["mid"]["w"], 0) if lad["mid"] else "", "MID_RATIO": f"{lad['mid']['ratio']:.1f}" if lad["mid"] else "",
+        "MID_DROP_PCT": fmt(lad["mid"]["drop_pct"], 0) if lad["mid"] else "",
         "TURN_CAP": fmt(lad["turn"]["cap"], 0) if lad["turn"] else "", "TURN_WH": fmt(lad["turn"]["wh"], 1) if lad["turn"] else "",
         "TURN_ITL": fmt(lad["turn"]["itl"], 0) if lad["turn"] else "",
     }.items()},
