@@ -223,3 +223,5 @@ details.fields[open] > summary { margin-bottom: .5rem; }
 /* D3 F7: the ladder row the index uses */
 tr.best > th, tr.best > td { background: var(--accent-soft); }
 tr.best > td.key { color: var(--accent-ink); font-weight: 600; }
+/* D23: keep model names on one line in the six-column two-task table; it scrolls on a phone */
+#workloads tbody th .model { white-space: nowrap; }
