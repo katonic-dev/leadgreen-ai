@@ -1,6 +1,6 @@
 <!--meta
 title: How much energy does an AI query use?
-description: The public measurements put one answer from a busy 32B model at about {{REF_WH_PER_ANSWER}} Wh of GPU energy. Google says 0.24 Wh for a median prompt. Both are right, and here is why.
+description: One answer from a busy 32B model costs about {{REF_WH_PER_ANSWER}} Wh of GPU energy; Google says 0.24 Wh per median prompt. Both are right. Here is why.
 date: 2026-10-XX
 slug: how-much-energy-does-an-ai-query-use
 author: Prem Naraindas
@@ -17,7 +17,7 @@ author: Prem Naraindas
 <p>None of that makes either figure wrong. They answer different questions. Google's tells you what a prompt costs a hyperscaler across its whole estate. The index tells you what a named model on named GPUs costs at a stated load, which is the figure you can hold a vendor to, because you can measure it yourself.</p>
 
 <h2>What moves it most: how busy the server is</h2>
-<p>Take the same {{REF_MODEL}} on the same {{REF_GPUS}} and run it with {{L32_FIRST_BATCH}} requests at once instead of {{L32_BEST_BATCH}}. Energy per million tokens goes from {{L32_BEST}} to {{L32_FIRST}} Wh, and one answer goes from {{REF_WH_PER_ANSWER}} Wh to about <b>{{L32_FIRST_WH_PER_ANSWER}} Wh</b>. Same model, same cards, same prompts, {{L32_RATIO}}× the energy, because the cards draw nearly the same power whether they are serving eight people or two hundred and fifty, and at eight they are mostly waiting.</p>
+<p>Take the same {{REF_MODEL}} on the same {{REF_GPUS}} and run it with {{L32_FIRST_BATCH}} requests at once instead of {{L32_BEST_BATCH}}. Energy per million tokens goes from {{L32_BEST}} to {{L32_FIRST}} Wh, and one answer goes from {{REF_WH_PER_ANSWER}} Wh to about <b>{{L32_FIRST_WH_PER_ANSWER}} Wh</b>. Same model, same cards, same prompts, {{L32_RATIO}}× the energy, because the cards draw only about {{L32_POWER_PCT}} percent more power serving two hundred and fifty people than eight, and at eight they are mostly waiting.</p>
 <p>Think of a bakery oven. It costs about the same gas to run whether there are two loaves in it or forty. The gas per loaf is a different matter. In the deployments I see, most enterprise assistants are the oven with two loaves in it: a department, a few dozen users, a handful of requests at any moment. Their energy per answer is at the top of that range, not the bottom, and nothing on their invoice says so.</p>
 
 <h2>The range</h2>
