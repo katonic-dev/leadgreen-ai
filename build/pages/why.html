@@ -27,7 +27,7 @@ og_type: article
   <div class="prose">
     <p>Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from <b>{{L32_FIRST}} Wh/M</b> at a running batch of {{L32_FIRST_BATCH}} to <b>{{L32_BEST}} Wh/M</b> at {{L32_BEST_BATCH}}. That is {{L32_RATIO}}× on the same hardware. The cards' draw rises {{L32_POWER_PCT}} percent, from {{L32_FIRST_W}} W to {{L32_BEST_W}} W, while the tokens they produce each second rise {{L32_TPS_RATIO}}×, and median inter-token latency stays at {{L32_MAX_ITL}} ms or under.</p>
     <p>Read it the other way round. A high energy per token does not mean the GPU is working hard. It means the GPU is drawing close to full power and producing few tokens, which is what an under-used server looks like from the wall socket. Energy per token is the utilisation rate expressed in a unit finance can see. If yours is high, you are paying for silicon that is waiting.</p>
-    <p class="fn">Source: ML.ENERGY Leaderboard v3.0, Text Conversation, all {{L32_COUNT_WORD}} measured configurations of Qwen 3 32B on 2 × H100. Full ladder on <a href="{{ROOT}}index/#concurrency">the index</a>.</p>
+    <p class="fn">Source: <a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard v3.0</a>, Text Conversation, all {{L32_COUNT_WORD}} measured configurations of Qwen 3 32B on 2 × H100. Full ladder on <a href="{{ROOT}}index/#concurrency">the index</a>.</p>
   </div>
 </section>
 
@@ -37,7 +37,7 @@ og_type: article
   <div class="prose">
     <p>A data hall, a sovereign site or a telco exchange has a fixed power envelope long before it has a fixed GPU count. Energy per token converts that envelope into capacity. One megawatt-hour of GPU energy serves <b>{{TOKENS_PER_MWH_REF_B}} billion output tokens</b> at the reference row ({{REF_WH_1}} Wh/M). At the top of the concurrency ladder, {{LADDER_32_FIRST}} Wh/M, the same megawatt-hour serves <b>{{TOKENS_PER_MWH_TOP_B}} billion</b>.</p>
     <p>An eight-GPU DGX B200 is rated at about {{DGX_B200_KW}} kW, and each B200 can be configured up to {{B200_TDP}} W. Those are the numbers a facility engineer works with. What they buy depends entirely on the Wh/M the platform achieves, which is why the figure belongs in the capacity plan and not only in the sustainability report. To take a GPU figure to the facility meter, multiply by the system-to-GPU power ratio and the site's PUE; the <a href="{{ROOT}}index/#method">method</a> works one example.</p>
-    <p class="fn">Sources: ML.ENERGY Leaderboard v3.0 for the rows; NVIDIA DGX B200 product page and the HGX B200 product carbon footprint summary (July 2025) for the ceilings.</p>
+    <p class="fn">Sources: <a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard v3.0</a> for the rows; <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">NVIDIA DGX B200 product page</a> and the <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">HGX B200 product carbon footprint summary</a> (July 2025) for the ceilings.</p>
   </div>
 </section>
 
@@ -71,7 +71,7 @@ og_type: article
   <div class="prose">
     <p>Energy per token is a property of the model, the hardware and the load. Carbon per token adds the grid. On Ember's {{EMBER_YEAR}} annual averages, Saudi Arabia's grid runs at {{SAU_G}} gCO2e per kWh and Norway's at {{NOR_G}}. The reference row priced against them gives <b>{{REF_KG_SAU}} kg CO2e per billion tokens</b> in one place and <b>{{REF_KG_NOR}} kg</b> in the other, for identical tokens on identical GPUs.</p>
     <p>So a sovereign or in-country deployment changes the carbon figure with no change to the energy figure, in either direction. Which is why the two numbers should be reported separately, and why a claim about one should never be dressed as a claim about the other.</p>
-    <p class="fn">Source: Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, {{EMBER_YEAR}}: a lifecycle, generation-based figure for comparing places, not a Scope 2 combustion factor to file. {{GRID_COUNT}} countries in <a href="{{ROOT}}api/">the API</a>; {{LISTED_GRID_COUNT}} on <a href="{{ROOT}}index/#carbon">the index</a>.</p>
+    <p class="fn">Source: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, September 2026 release, emissions intensity of total generation, {{EMBER_YEAR}}: a lifecycle, generation-based figure for comparing places, not a Scope 2 combustion factor to file. {{GRID_COUNT}} countries in <a href="{{ROOT}}api/">the API</a>; {{LISTED_GRID_COUNT}} on <a href="{{ROOT}}index/#carbon">the index</a>.</p>
   </div>
 </section>
 
@@ -82,7 +82,7 @@ og_type: article
     <p>ISO/IEC 21031:2024 standardises the Software Carbon Intensity specification: SCI = ((E × I) + M) per R, where E is the energy consumed by the software, I the carbon intensity of that energy, M the embodied emissions of the hardware, and R the functional unit. For a language model, R is naturally a million output tokens. E is the energy of all the hardware reserved for the service; this index supplies the GPU part of it, which is a floor. I is the location-based grid intensity, which Ember supplies. M is an amortised share of the embodied emissions, not a total: TE × (TiR / EL) × (RR / ToR).</p>
     <p>NVIDIA's {{B200_EMBODIED_KG}} kg CO2e cradle-to-gate figure for an eight-GPU HGX B200 baseboard covers the baseboard only; it excludes the host, the use phase and end of life. As an illustration, spread over {{SCI_LIFE_YEARS}} years of continuous use it comes to {{SCI_G_PER_H}} g an hour. {{SCI_MODEL}} on {{SCI_GPUS}} serves {{SCI_MTOK_PER_H}} million output tokens an hour at its index row, so M is about {{SCI_M_PER_M}} g per million tokens, against E × I of {{SCI_EI_NOR}} g on the Norwegian grid. The {{SCI_LIFE_YEARS}}-year life is an assumption for the illustration, not a source figure.</p>
     <p>Anyone building an SCI score for an AI service needs the E. The index is a public place to get a baseline for its GPU part.</p>
-    <p class="fn">Sources: ISO/IEC 21031:2024, Information technology, Software Carbon Intensity (SCI) specification; NVIDIA, Product Carbon Footprint Summary for HGX B200, July 2025.</p>
+    <p class="fn">Sources: <a href="https://www.iso.org/standard/86612.html">ISO/IEC 21031:2024</a>, Information technology, Software Carbon Intensity (SCI) specification; <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">NVIDIA, Product Carbon Footprint Summary for HGX B200</a>, July 2025.</p>
   </div>
 </section>
 
@@ -102,7 +102,7 @@ og_type: article
   <div class="prose">
     <p>Multi-Instance GPU lets one A100, H100, H200 or B200 be split into up to seven isolated slices, and it is how many enterprise and telco platforms serve several small models from one card. NVIDIA publishes the slice shapes. It does not publish power draw per slice, and neither of the two public benchmarks on the index has measured a sliced card. So the configuration a great many production deployments actually run in has no public energy figure at all.</p>
     <p>That is the first gap Lead Green intends to close with a measurement of its own: a 32B model on two MIG slices against a whole card, GPU power sampled through NVIDIA DCGM, with hardware, driver, engine and prompt set named. Until it is published, Lead Green's working answer for a sliced deployment is "unknown, and in our view above the index".</p>
-    <p class="fn">Source: NVIDIA Multi-Instance GPU User Guide, supported MIG profiles, last updated 11 September 2026. Profiles on <a href="{{ROOT}}index/#hardware">the index</a>.</p>
+    <p class="fn">Source: <a href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA Multi-Instance GPU User Guide, supported MIG profiles</a>, last updated 11 September 2026. Profiles on <a href="{{ROOT}}index/#hardware">the index</a>.</p>
   </div>
 </section>
 

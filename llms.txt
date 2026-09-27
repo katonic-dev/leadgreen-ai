@@ -32,11 +32,14 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - https://leadgreen.ai/api/v1/hardware.json: Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure.
 - https://leadgreen.ai/api/v1/per-query.json: AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C).
 - https://leadgreen.ai/api/v1/openapi.json: OpenAPI 3.1 description of these endpoints.
+- https://leadgreen.ai/api/v1/releases/index.json: Every dated release of api/v1, each kept unchanged at releases/<date>/ with a zip of the whole release, for citation.
 
 ## Sources
 - ML.ENERGY Leaderboard (The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)), 3.0 (released 2025-12-01); data compiled 2026-02-16, Apache-2.0 per the ml-energy/benchmark-v3 dataset card: https://ml.energy/leaderboard/
 - Ember, Yearly electricity data, September 2026 release (file last modified 2026-09-22), CC-BY-4.0: https://ember-energy.org/data/yearly-electricity-data/
-- NVIDIA MIG profiles, product specifications and the HGX B200 product carbon footprint summary: https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html
+- NVIDIA Multi-Instance GPU User Guide, supported MIG profiles: https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html
+- NVIDIA product specifications: https://www.nvidia.com/en-us/data-center/a100/, https://www.nvidia.com/en-us/data-center/h100/, https://www.nvidia.com/en-us/data-center/h200/, https://www.nvidia.com/en-us/data-center/dgx-b200/
+- NVIDIA, Product Carbon Footprint Summary for HGX B200: https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf
 - AI Energy Score leaderboard (AI Energy Score (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University)), December 2025 round: https://huggingface.co/spaces/AIEnergyScore/Leaderboard
 
 ## Licence

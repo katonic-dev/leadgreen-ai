@@ -199,6 +199,8 @@ CAVEAT = ("GPU energy only, measured at steady state on a busy server (the most 
           "under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; "
           "a lightly used server sits well above it.")
 BOUNDARY = "gpu_only"
+NVIDIA_LABEL = "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
+PUBLISHED_RELEASES = DATA / "published-releases.txt"   # D16: dates listed here are frozen; the build refuses to change them
 FUNDING = ("Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the "
            "questions on this site. It takes no money from hardware, cloud or model vendors.")
 LICENCE_TEXT = ("Compilation and site text: CC BY 4.0. Code: Apache 2.0. Third-party figures remain subject to their sources' "
@@ -901,7 +903,7 @@ subs.update({
     # publisher, funding, contact (D1, D10, D13, D16)
     "CONTACT_EMAIL": CONTACT_EMAIL, "CONTACT_LINK": f"<a href=\"mailto:{CONTACT_EMAIL}\">{CONTACT_EMAIL}</a>",
     "RESPONSE_DAYS": word(RESPONSE_DAYS), "PUBLISHER_ENTITY": PUBLISHER_ENTITY, "PUBLISHER_REGISTRATION": PUBLISHER_REGISTRATION,
-    "PUBLISHER_JURISDICTION": PUBLISHER_JURISDICTION,
+    "PUBLISHER_JURISDICTION": PUBLISHER_JURISDICTION, "RELEASES_URL": f"{SITE}/api/v1/releases/",
     "PUBLISHER_ADDRESS": (esc(PUBLISHER_ADDRESS) if PUBLISHER_ADDRESS else "to be added, word for word from the DIFC registry extract, before launch"),
     "REVIEWED_LINE": (f" Reviewed by {and_list([esc(n) for n in REVIEWERS])}; recomputed from the snapshots." if REVIEWERS else ""),
     "REVIEWERS_PHRASE": (and_list([esc(n) for n in REVIEWERS]) if REVIEWERS else "two named reviewers, listed here before the first contributed row is accepted"),
@@ -996,17 +998,22 @@ ENDPOINTS = [
     ("hardware.json", "Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure."),
     ("per-query.json", "AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C)."),
     ("openapi.json", "OpenAPI 3.1 description of these endpoints."),
+    ("releases/index.json", "Every dated release of api/v1, each kept unchanged at releases/<date>/ with a zip of the whole release, for citation."),
 ]
 api_docs: dict[str, dict] = {}
 api_docs["manifest.json"] = {
     "version": "1", "updated": UPDATED, "site": SITE, "name": f"Lead Green {INDEX_NAME} API",
     "description": "GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity and GPU hardware reference data. Static JSON, GET only, CORS open.",
     "endpoints": [{"path": p, "url": f"{SITE}/api/v1/{p}", "description": d} for p, d in ENDPOINTS],
-    "sources": [SRC_MLE, SRC_MLE_GPQA, SRC_EMBER, {**hw["sources"][0], "licence": "cited, not redistributed"},
-                {**hw["sources"][1], "licence": "cited, not redistributed"}, {**hw["sources"][2], "licence": "cited, not redistributed"},
+    "sources": [SRC_MLE, SRC_MLE_GPQA, SRC_EMBER, {**hw["sources"][0], "licence": NVIDIA_LABEL},
+                {**hw["sources"][1], "licence": NVIDIA_LABEL}, {**hw["sources"][2], "licence": NVIDIA_LABEL},
                 SRC_AIES, SRC_OPENAI_TOKENS],
     "licence": LICENCE_TEXT, "caveat": CAVEAT, "boundary": BOUNDARY,
-    "publisher": {"name": "Lead Green", "parent": "Katonic", "url": SITE},
+    "publisher": {"name": "Lead Green", "parent": "Katonic", "url": SITE, "entity": PUBLISHER_ENTITY,
+                  "registration": PUBLISHER_REGISTRATION, "jurisdiction": PUBLISHER_JURISDICTION,
+                  "address": PUBLISHER_ADDRESS or None, "contact": CONTACT_EMAIL, "response_working_days": RESPONSE_DAYS},
+    "attribution": ATTRIBUTION, "data_version": DATA_VERSION,
+    "releases": {"index": f"{SITE}/api/v1/releases/index.json", "pattern": f"{SITE}/api/v1/releases/<date>/"},
 }
 api_docs["index.json"] = {
     "version": "1", "updated": UPDATED, "unit": "Wh per million output tokens", "workload": "text-conversation",
@@ -1283,7 +1290,9 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 ## Sources
 - {SRC_MLE['name']} ({SRC_MLE['publisher']}), {SRC_MLE['version']}, {SRC_MLE['licence']}: {SRC_MLE['url']}
 - {SRC_EMBER['name']}, {SRC_EMBER['version']}, {SRC_EMBER['licence']}: {SRC_EMBER['url']}
-- NVIDIA MIG profiles, product specifications and the HGX B200 product carbon footprint summary: {hw['sources'][0]['url']}
+- NVIDIA Multi-Instance GPU User Guide, supported MIG profiles: https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html
+- NVIDIA product specifications: https://www.nvidia.com/en-us/data-center/a100/, https://www.nvidia.com/en-us/data-center/h100/, https://www.nvidia.com/en-us/data-center/h200/, https://www.nvidia.com/en-us/data-center/dgx-b200/
+- NVIDIA, Product Carbon Footprint Summary for HGX B200: https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf
 - {SRC_AIES['name']} ({SRC_AIES['publisher']}), {SRC_AIES['version']}: {SRC_AIES['url']}
 
 ## Licence
@@ -1301,6 +1310,15 @@ for rel, text in outputs.items():
         problems.append(f"{rel}: contains an em or en dash")
 for rel, doc in api_docs.items():
     json.loads(jdump(doc))
+# D16: a dated release that has been published never changes
+RELEASES = API_DIR / "releases"
+frozen = ({l.strip() for l in PUBLISHED_RELEASES.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")}
+          if PUBLISHED_RELEASES.exists() else set())
+if DATA_VERSION in frozen:
+    for rel, doc in api_docs.items():
+        old = RELEASES / DATA_VERSION / rel
+        if not old.exists() or old.read_text(encoding="utf-8") != jdump(doc):
+            problems.append(f"release {DATA_VERSION} is published and frozen, but {rel} would change: bump UPDATED")
 if problems:
     sys.exit("REFUSING TO WRITE:\n  " + "\n  ".join(problems))
 
@@ -1339,7 +1357,31 @@ def sync_tree(src: Path, dst: Path, skip: tuple[str, ...] = ()) -> None:
             q.unlink()
 
 
-sync_tree(API_DIR, MCP_DATA)
+# D16 / D20: the dated release, its zip, and the list of releases
+rel_dir = RELEASES / DATA_VERSION
+for rel, doc in api_docs.items():
+    p = rel_dir / rel
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(jdump(doc), encoding="utf-8", newline="\n")
+_stamp = tuple(int(x) for x in DATA_VERSION.split("-")) + (0, 0, 0)
+zip_path = RELEASES / f"leadgreen-api-v1-{DATA_VERSION}.zip"
+with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+    for rel in sorted(api_docs):
+        info = zipfile.ZipInfo(f"leadgreen-api-v1-{DATA_VERSION}/{rel}", date_time=_stamp)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = 0o644 << 16
+        z.writestr(info, jdump(api_docs[rel]).encode("utf-8"))
+_releases = []
+for d in sorted((p.name for p in RELEASES.iterdir() if p.is_dir()), reverse=True):
+    _releases.append({"date": d, "url": f"{SITE}/api/v1/releases/{d}/", "zip": f"{SITE}/api/v1/releases/leadgreen-api-v1-{d}.zip",
+                      "sha256": hashlib.sha256((RELEASES / f"leadgreen-api-v1-{d}.zip").read_bytes()).hexdigest()
+                      if (RELEASES / f"leadgreen-api-v1-{d}.zip").exists() else None,
+                      "published": d in frozen})
+(RELEASES / "index.json").write_text(jdump({"version": "1", "updated": UPDATED, "current": DATA_VERSION,
+    "note": "A release listed as published never changes. Cite a release, not the live files.", "releases": _releases}),
+    encoding="utf-8", newline="\n")
+
+sync_tree(API_DIR, MCP_DATA, skip=("releases",))
 
 wheel = ROOT / "dist" / WHEEL_NAME
 print(f"wrote {len(outputs)} pages/files and {len(api_docs)} API documents; {len(index_rows)} index rows from {len(cfgs)} configurations; "

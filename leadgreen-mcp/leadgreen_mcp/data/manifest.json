@@ -44,6 +44,11 @@
       "path": "openapi.json",
       "url": "https://leadgreen.ai/api/v1/openapi.json",
       "description": "OpenAPI 3.1 description of these endpoints."
+    },
+    {
+      "path": "releases/index.json",
+      "url": "https://leadgreen.ai/api/v1/releases/index.json",
+      "description": "Every dated release of api/v1, each kept unchanged at releases/<date>/ with a zip of the whole release, for citation."
     }
   ],
   "sources": [
@@ -112,7 +117,7 @@
       "version": "last updated 2026-09-11",
       "retrieved": "2026-09-26",
       "used_for": "mig_profiles",
-      "licence": "cited, not redistributed"
+      "licence": "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
     },
     {
       "name": "NVIDIA product specifications: A100, H100, H200, DGX B200",
@@ -120,7 +125,7 @@
       "version": "as published on the retrieval date",
       "retrieved": "2026-09-26",
       "used_for": "tdp (A100, H100, H200), systems",
-      "licence": "cited, not redistributed"
+      "licence": "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
     },
     {
       "name": "NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200",
@@ -128,7 +133,7 @@
       "version": "July 2025",
       "retrieved": "2026-09-26",
       "used_for": "tdp (B200), embodied",
-      "licence": "cited, not redistributed"
+      "licence": "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
     },
     {
       "name": "AI Energy Score leaderboard",
@@ -158,6 +163,18 @@
   "publisher": {
     "name": "Lead Green",
     "parent": "Katonic",
-    "url": "https://leadgreen.ai"
+    "url": "https://leadgreen.ai",
+    "entity": "Katonic AI Technology Ltd",
+    "registration": "CL9944",
+    "jurisdiction": "Dubai International Financial Centre (DIFC), United Arab Emirates",
+    "address": null,
+    "contact": "hello@leadgreen.ai",
+    "response_working_days": 10
+  },
+  "attribution": "Green Tokens index, Lead Green, a Katonic project, https://leadgreen.ai/api/v1/, CC BY 4.0. Contains data from the ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled 2026-02-16, retrieved 2026-09-26) and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe].",
+  "data_version": "2026-09-27",
+  "releases": {
+    "index": "https://leadgreen.ai/api/v1/releases/index.json",
+    "pattern": "https://leadgreen.ai/api/v1/releases/<date>/"
   }
 }

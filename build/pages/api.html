@@ -77,6 +77,8 @@ console.log(best.model, best.gpu, best.wh_per_million_output_tokens);</code></pr
   <div class="prose">
     <p><b>Version 1.</b> Fields are added, never renamed or removed. A new source or a re-measurement changes values and the <code>updated</code> date, and the change is recorded on <a href="{{ROOT}}index/#changes">the index's change list</a>. A breaking change would ship as <code>/api/v2/</code> with v1 left in place.</p>
     <p><b>Licence.</b> The compilation, the derived figures and the site text are offered under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: use them, credit Lead Green and the underlying source. Each source keeps its own licence, stated per source in <code>manifest.json</code>: ML.ENERGY's data is Apache 2.0, Ember's is CC BY 4.0, the AI Energy Score space is Apache 2.0, and NVIDIA's figures are cited rather than redistributed.</p>
+    <p><b>Attribution.</b> If you republish the data, this line covers the CC BY 4.0 credit (it is also the <code>attribution</code> field in <code>manifest.json</code>): {{ATTRIBUTION}}</p>
+    <p><b>Releases.</b> Every dated release is kept unchanged at <code>{{RELEASES_URL}}&lt;date&gt;/</code> with a zip of the whole release; <a href="{{ROOT}}api/v1/releases/index.json"><code>releases/index.json</code></a> lists them with each zip's SHA-256. Cite a release, not the live files.</p>
     <p><b>OpenAPI.</b> A machine-readable description is at <a href="{{ROOT}}api/v1/openapi.json"><code>openapi.json</code></a>. The <a href="{{ROOT}}mcp/">MCP server</a> is built on these same files.</p>
   </div>
 </section>
