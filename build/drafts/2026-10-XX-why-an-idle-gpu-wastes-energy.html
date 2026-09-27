@@ -1,0 +1,64 @@
+<!--meta
+title: Why an idle GPU wastes energy: the concurrency ladder
+description: Same model, same two H100 cards: {{L32_RATIO}}× in GPU energy per token between a running batch of {{L32_FIRST_BATCH}} and {{L32_BEST_BATCH}}. Why the under-used card is the expensive one.
+date: 2026-10-XX
+slug: why-an-idle-gpu-wastes-energy
+author: Prem Naraindas
+-->
+<p>Look, when people want to cut the energy their AI uses, they reach for a smaller model or a newer card. Both work. But on the same model and the same cards there is a lever that moves the number further than a change of GPU generation does, and in the deployments I see it is the one nobody has looked at: how many requests the server is handling at once. So here is the exhibit: {{L32_MODEL}} on {{L32_GPUS}}, same weights, same prompts, measured by the ML.ENERGY Leaderboard at {{L32_COUNT_WORD}} different loads. At a running batch of {{L32_FIRST_BATCH}} it costs {{L32_FIRST}} Wh of GPU energy per million output tokens. At {{L32_BEST_BATCH}} it costs {{L32_BEST}} Wh. That is {{L32_RATIO}}× on hardware nobody touched.</p>
+
+<h2>The ladder</h2>
+<div class="table-scroll">
+  <table>
+    <caption>{{L32_MODEL}}, {{L32_PRECISION}}, {{L32_GPUS}}. ML.ENERGY Leaderboard v3.0, Text Conversation, all {{L32_COUNT_WORD}} measured configurations. The highlighted row is the index row.</caption>
+    <thead><tr><th scope="col" class="num">Cap</th><th scope="col" class="num">Running batch (avg)</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead>
+    <tbody>
+{{LADDER_32_ROWS}}
+    </tbody>
+  </table>
+</div>
+<p>The cap is how many requests the server was allowed to hold; the running batch is how many it actually held, on average, while it was decoding. Energy per token falls the whole way to the highlighted row. Power rises, but only {{L32_POWER_PCT}} percent, from {{L32_FIRST_W}} W to {{L32_BEST_W}} W across both cards. Tokens per second rise {{L32_TPS_RATIO}}×, from {{L32_FIRST_TPS}} to {{L32_BEST_TPS}}. Median inter-token latency goes from {{L32_FIRST_ITL}} ms to {{L32_BEST_ITL}} ms, and nobody reading an answer will notice either. Energy per token is power divided by throughput, so when throughput moves {{L32_TPS_RATIO}}× and power moves {{L32_POWER_PCT}} percent, energy per token moves {{L32_RATIO}}×.</p>
+
+<h2>Why the under-used card costs more</h2>
+<p>A model writes one token at a time, and to write each one it has to read its whole set of weights out of the cards' memory. In plain terms, for a dense model like this one, that read is the expensive part of every step, and it costs about the same whether the step produces one token for one user or {{L32_BEST_BATCH}} tokens for {{L32_BEST_BATCH}} users. The card is a lecturer. The lecture costs the same to give to {{L32_FIRST_BATCH}} people as to {{L32_BEST_BATCH}}; what changes is the cost per head. See, that is why the power column barely moves while the tokens column runs away: at a batch of {{L32_FIRST_BATCH}} the cards were already doing the heavy work, for very few people.</p>
+<p>One caveat on the word idle. The benchmark never measured an empty card: every row holds at least {{L32_FIRST_BATCH}} conversations, with a queue behind them. A departmental assistant with two or three requests in flight, the common case in the deployments I see, sits above the top row. Idle here means under-used, and if anything the ladder understates what under-used costs.</p>
+
+<h2>Most of the gain comes early</h2>
+<p>You do not need {{L32_BEST_BATCH}} requests in flight to get most of it. By a running batch of {{L32_MID_BATCH}} the same cards read {{L32_MID_WH}} Wh/M, {{L32_MID_RATIO}}× down from the top row, at {{L32_MID_ITL}} ms median latency and {{L32_MID_W}} W. That is {{L32_MID_DROP_PCT}} percent of the whole drop, at a load one busy business unit can generate. The rest of the ladder buys the remainder, and buys it more slowly.</p>
+
+<h2>Where it turns</h2>
+<p>More is not always better. At a cap of {{L32_TURN_CAP}} the two cards read {{L32_TURN_WH}} Wh/M, a little above the best row, at {{L32_TURN_ITL}} ms median latency, and the slowest token in a hundred now waits {{L32_TURN_P99}} ms against {{L32_BEST_P99}} ms one row up. The server was allowed {{L32_TURN_CAP}} and held {{L32_TURN_BATCH}}, which I read as the cards running out of memory for the conversations in flight: the engine starts juggling them, the users at the back feel it, and energy per token stops improving. The index takes the lowest-energy row at or under the leaderboard's {{ITL}} ms ceiling, the {{L32_BEST_BATCH}} row here, and the curve past it is why an index row is a floor and not a target.</p>
+
+<h2>A small model on one card does the same</h2>
+<div class="table-scroll">
+  <table>
+    <caption>{{L8_MODEL}}, {{L8_PRECISION}}, {{L8_GPUS}}. ML.ENERGY Leaderboard v3.0, Text Conversation, all {{L8_COUNT_WORD}} measured configurations. The highlighted row is the index row.</caption>
+    <thead><tr><th scope="col" class="num">Cap</th><th scope="col" class="num">Running batch (avg)</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Median ITL (ms)</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">GPU power (W)</th></tr></thead>
+    <tbody>
+{{LADDER_8_ROWS}}
+    </tbody>
+  </table>
+</div>
+<p>{{L8_MODEL}} on {{L8_GPUS}}: {{L8_FIRST}} to {{L8_BEST}} Wh/M, {{L8_RATIO}}× on one card, power up {{L8_POWER_PCT}} percent, throughput up {{L8_TPS_RATIO}}×. {{L8_MID_DROP_PCT}} percent of the drop is in by a batch of {{L8_MID_BATCH}}, and past the best row, at a cap of {{L8_TURN_CAP}}, it turns the same way, holding {{L8_TURN_BATCH}} of the {{L8_TURN_CAP}} it was allowed. A much smaller model, one card instead of two, the same shape. In my view the shape is the finding: it is a property of how these servers decode, not of one model, and every model's own ladder is on <a href="{{ROOT}}models/">its page</a>.</p>
+
+<h2>What it does to the bill</h2>
+<p>Electricity is the small part of this and I will not pretend otherwise. The number that moves a budget is GPU-hours, and the ladder is a GPU-hours table in disguise. At the top row a million output tokens takes {{L32_FIRST_GPUH}} GPU-hours on these two cards; at the best row, {{L32_BEST_GPUH}}. Same cards, same model, {{L32_TPS_RATIO}}× the tokens out of every hour of silicon you rent or own. Turn it round for the facility: one megawatt-hour of GPU energy serves {{TOKENS_PER_MWH_TOP_B}} billion output tokens at the top of the ladder and {{TOKENS_PER_MWH_REF_B}} billion at the index row, and a site with a fixed power envelope, which is every site, only gets to choose which of those two it is.</p>
+
+<h2>What to do with it</h2>
+<ul>
+  <li><b>Measure your running batch before you buy anything.</b> vLLM reports it as <code>num_requests_running</code>; average it over a busy hour. If it is in single figures you are at the top of the ladder, and no change of card on the <a href="{{ROOT}}h100-vs-b200/">comparison page</a> moves the number as far as filling the cards you have.</li>
+  <li><b>Consolidate.</b> Fewer, busier cards. Three teams each running their own copy of the same model on their own pair of cards is the usual arrangement I see; one shared deployment carrying all three sits rows further down this table, and it costs nothing in hardware.</li>
+  <li><b>Ask the vendor for Wh per million output tokens at your running batch,</b> not theirs, and put your own [N] into the RFP clause on the <a href="{{ROOT}}why/#monday">why page</a>. A figure measured at {{L32_BEST_BATCH}} in flight tells you nothing about a service that will run at {{L32_FIRST_BATCH}}.</li>
+  <li><b>Do not chase the bottom of the table.</b> Past the best row the users wait and the energy does not fall. Pick the row on the <a href="{{ROOT}}models/{{REF_SLUG}}/">model page</a> that matches the latency you promised, and hold the vendor to it.</li>
+</ul>
+<p>I think this is the table to take into the capacity meeting, because it is the lever you already hold. The full ladders, with the definitions, are on <a href="{{ROOT}}index/#concurrency">the index</a>.</p>
+
+<div class="refs">
+  <p class="eyebrow">References</p>
+  <ol>
+    <li>{{MLE_BLOCK}}</li>
+    <li>The rows: all {{L32_COUNT_WORD}} measured configurations of {{L32_MODEL}} on {{L32_GPUS}} and all {{L8_COUNT_WORD}} of {{L8_MODEL}} on {{L8_GPUS}}, Text Conversation, {{L32_PRECISION}}. Cap is vLLM's <code>max_num_seqs</code>; running batch (avg) is the average <code>num_requests_running</code> over the steady-state window; queued requests are not counted. Full ladders on <a href="{{ROOT}}index/#concurrency">the index</a>; every model's curve is in <a href="{{ROOT}}api/">the API</a>.</li>
+    <li>GPU-hours per million output tokens = cards × 1,000,000 ÷ output tokens per second ÷ 3,600. Tokens per megawatt-hour = 1,000,000 ÷ Wh/M, in millions.</li>
+    <li>The mechanism: Pope et al., Efficiently Scaling Transformer Inference, November 2022, <a href="https://arxiv.org/abs/2211.05102">arXiv 2211.05102</a>, on generation at a small batch being bound by reading the weights; Kwon et al., Efficient Memory Management for Large Language Model Serving with PagedAttention, SOSP 2023, <a href="https://arxiv.org/abs/2309.06180">arXiv 2309.06180</a>, on the memory held for requests in flight limiting the batch a server can hold. The reading of the {{L32_TURN_CAP}} row as memory running out is mine.</li>
+  </ol>
+</div>
