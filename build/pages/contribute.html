@@ -42,7 +42,7 @@ description: How to add a measurement, review a claim or write for Lead Green. V
     <li><div><b>Report.</b> Joules per output token (energy ÷ output tokens), Wh per million (× 1,000,000 ÷ 3,600), median and p99 inter-token latency, tokens per second, average power summed across cards, and the fields above, in the JSON row schema used by <a href="{{ROOT}}api/#fields">the API</a>. Attach the raw power log and the engine log.</div></li>
     <li><div><b>Repeat.</b> Two runs; report both and the mean. If they differ by more than 5 percent, say why or run a third.</div></li>
   </ol>
-  <p class="note">The protocol measures GPU energy only, like the index. If you also have facility or host power, report it as separate fields; do not fold it in. A sliced (MIG) card is measured on the slice's own metrics where the tooling allows, and the whole-card draw is reported alongside with the slice count.</p>
+  <p class="note">The protocol measures GPU energy only, like the index. If you also have facility or host power, report it as separate fields; do not fold it in. The same goes for water: if you know the site's water use, report it in the optional site water field as water usage effectiveness (litres per kWh of IT energy, ISO/IEC 30134-9), never folded into Wh/M. A sliced (MIG) card is measured on the slice's own metrics where the tooling allows, and the whole-card draw is reported alongside with the slice count.</p>
 </section>
 
 <section id="review">
@@ -68,6 +68,7 @@ description: How to add a measurement, review a claim or write for Lead Green. V
     <li><div><b>Other GPUs.</b> A100, H200, L40S, and AMD MI300X. The index has H100 and B200 only.</div></li>
     <li><div><b>Hourly grid data.</b> Annual averages hide a lot. Hourly intensity for the grids on the carbon table, from a source whose licence allows republishing.</div></li>
     <li><div><b>Translations.</b> Arabic, Serbian, Traditional Chinese, Tagalog and Sinhala first, for the readers the carbon table was built for.</div></li>
+    <li><div><b>Water.</b> Site water use beside any contributed row, as its own field. The index has none, and the two public per-prompt figures differ by two orders of magnitude.</div></li>
     <li><div><b>Reviews.</b> A second pair of eyes on any figure on the site, starting with the ones that get cited most.</div></li>
   </ol>
 </section>
