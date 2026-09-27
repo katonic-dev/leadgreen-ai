@@ -1,0 +1,47 @@
+<!--meta
+title: What is watt-hours per million tokens, and why not joules per token?
+description: The unit behind the index: what Wh/M counts, what it leaves out, how it converts to kWh, carbon and the meter, and why joules per token became watt-hours.
+date: 2026-10-XX
+slug: what-is-watt-hours-per-million-tokens
+author: Prem Naraindas
+-->
+<p>Look, every table on this site is in one unit, watt-hours per million output tokens, and I get asked why. The benchmark we build on publishes joules per token. Finance thinks in kilowatt-hours. Facilities thinks in kilowatts. Sustainability wants kilograms of CO2e. So this post is the unit, start to finish: what it counts, what it leaves out, how to move between it and every other number people ask for, and why I picked it over the alternatives.</p>
+
+<h2>The definition</h2>
+<p>Take the GPU energy a server used while it was serving, in joules. Divide by the output tokens it produced in the same window. That is joules per output token, which is what the ML.ENERGY benchmark measures. Multiply by a million, divide by 3,600, and you have watt-hours per million output tokens, Wh/M. One Wh/M is 0.0036 joules per token; the arithmetic never changes, so you can go back and forth without losing anything. The reference row on the index is {{REF_J}} J per token, which is {{REF_WH_1}} Wh/M.</p>
+<p>Two words in that definition carry the weight. <b>GPU energy:</b> the cards and nothing else. The host, the network, the cooling and the building are outside the figure. <b>Output tokens:</b> the tokens the model produced, not the ones it read. The prompt still costs energy to process, and that energy is inside the figure, because the benchmark divides everything the GPUs used by the outputs alone. So Wh/M is the whole GPU bill per unit of what you got.</p>
+
+<h2>Why not joules per token?</h2>
+<p>Because the numbers are hard to hold in your head. Across the index, joules per token run from {{LOW_J}} to {{HIGH_J}}. Those are decimals with the interesting part in the second and third place, and nobody in a capacity meeting is going to compare {{LOW_J}} with {{REF_J}} and feel the difference. The same rows in Wh/M are {{LOW_WH_1}} to {{HIGH_WH_1}}: whole numbers, a {{SPAN}}× spread you can see. The scaling is the only change; the information is identical.</p>
+<p>The second reason is the bill. Tokens are sold by the million, and electricity is sold by the kilowatt-hour. A unit that is watt-hours over millions of tokens sits between the two invoices, which is where the question lives. See, {{REF_WH_1}} Wh per million tokens is {{REF_KWH_PER_B}} kWh per billion tokens, no conversion table needed, and that is the number a finance person can multiply by a tariff.</p>
+
+<h2>Why not energy per request?</h2>
+<p>Because requests are not the same size. On the index's chat workload, the average answer runs from {{CHAT_OUT_MIN}} to {{CHAT_OUT_MAX}} tokens depending on the model; on the same leaderboard's problem-solving task, answers run {{GPQA_OUT_MIN}} to {{GPQA_OUT_MAX}} tokens. Energy per request is what a bill sees, and it is the right number to ask for when you are forecasting a particular product, but it mixes the model's efficiency with how talkative it is. Energy per token separates the two. When you want per request, multiply by your own average output length: the reference row's {{REF_OUT_TOKENS}}-token answers cost about {{REF_J_PER_ANSWER}} joules each, which is {{REF_WH_PER_ANSWER}} Wh.</p>
+
+<h2>Why not power?</h2>
+<p>Power, in watts, is what the facility engineer sees and what the feed is sized for. It is not efficiency. A card at full draw producing few tokens and a card at full draw producing many read the same on a power meter, and the difference between them is the whole point. Energy per token is power divided by throughput: watts divided by tokens per second gives joules per token, and the same scaling gives Wh/M. On the reference row that is {{CONS_W}} W divided by {{CONS_TPS}} tokens per second, times a million, over 3,600, equals {{CONS_WH}} Wh/M. I put that identity in the RFP scoring box on the <a href="{{ROOT}}why/#monday">why page</a>, because any bidder's figure that fails it was not measured.</p>
+
+<h2>The conditions that travel with the number</h2>
+<p>A Wh/M figure without its conditions is a number without a unit. Three conditions must come with it. The <b>running batch</b>: how many requests the server was decoding at once, averaged over the window; the same model on the same cards moves {{L32_RATIO}}× between a batch of {{L32_FIRST_BATCH}} and {{L32_BEST_BATCH}}. The <b>latency</b>: the median inter-token latency users were getting, {{REF_ITL}} ms on the reference row, under the leaderboard's {{ITL}} ms ceiling. And the <b>boundary</b>: GPU only, or with the host, network and cooling, and if so how much. Every row on the index states all three. Every vendor figure you are given should too, and if it does not, ask.</p>
+
+<h2>From Wh/M to everything else</h2>
+<ul>
+  <li><b>Kilowatt-hours.</b> Wh/M × millions of tokens ÷ 1,000. A billion tokens at {{REF_WH_1}} Wh/M is {{REF_KWH_PER_B}} kWh.</li>
+  <li><b>Tokens per megawatt-hour</b>, the capacity planner's number. One MWh of GPU energy at the reference row serves {{TOKENS_PER_MWH_REF_B}} billion output tokens; at the top of the concurrency ladder, {{TOKENS_PER_MWH_TOP_B}} billion. Same cards, same MWh.</li>
+  <li><b>Carbon.</b> Wh/M × the grid's grams of CO2e per kWh ÷ 1,000 gives kilograms per billion tokens. The reference row on Serbia's grid ({{SRB_G}} gCO2e per kWh, Ember {{EMBER_YEAR}}) is {{REF_KG_SRB}} kg per billion. The grid figure is location-based and lifecycle; the <a href="{{ROOT}}grids/">grid pages</a> say what that means for your report.</li>
+  <li><b>The meter.</b> Multiply by the system-to-GPU power ratio (a {{SYS_NAME}} is {{SYS_RATIO}}) and the site's PUE, which only the operator knows. With an assumed PUE of {{PUE_EXAMPLE}}, the reference row is about {{METER_WH}} Wh/M at the meter, {{METER_TOKENS_B}} billion tokens per facility MWh. Both multipliers are assumptions in that example, and I say so every time I use it.</li>
+  <li><b>Money.</b> At USD {{ELECTRICITY_PRICE}} per kWh, my assumption, the reference row is {{CENTS_PER_M_REF}} cents per million tokens. Small. The number matters because it tracks GPU-hours, which are not small.</li>
+</ul>
+
+<h2>What the unit does not tell you</h2>
+<p>It does not tell you what your deployment uses. Every index row is a floor: the most efficient configuration measured, on a busy server, GPU only. It does not tell you about water, which the index does not measure. It does not tell you about closed models behind an API, which nobody outside the operator can measure. And it does not rank anyone as green. In my view it is the one number that ties a model, a card and a load to a feed, a bill and a carbon line at the same time, and that is the case for it. The rows are on <a href="{{ROOT}}index/">the index</a>, the same numbers are in <a href="{{ROOT}}api/">the API</a>, and the <a href="{{ROOT}}mcp/">MCP server</a> will do the conversions above for you and repeat the caveat every time.</p>
+
+<div class="refs">
+  <p class="eyebrow">References</p>
+  <ol>
+    <li>{{MLE_BLOCK}}</li>
+    <li>Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, {{EMBER_YEAR}}, CC BY 4.0. <a href="https://ember-energy.org/data/yearly-electricity-data/">ember-energy.org</a>.</li>
+    <li>NVIDIA DGX B200 product page, for the system power rating behind the system-to-GPU ratio. The PUE of {{PUE_EXAMPLE}} and the electricity price of USD {{ELECTRICITY_PRICE}} per kWh are stated assumptions, not source figures.</li>
+    <li>Conversions: Wh/M = J per token × 1,000,000 ÷ 3,600; kWh per billion tokens = Wh/M; kg CO2e per billion tokens = Wh/M × gCO2e per kWh ÷ 1,000. Method and every row: <a href="{{ROOT}}index/#method">the index</a>.</li>
+  </ol>
+</div>

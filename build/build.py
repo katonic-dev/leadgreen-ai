@@ -1027,6 +1027,9 @@ subs.update({
     "HIGHEST_CFG_WH": fmt(cfg_wh(_hicfg), 0), "HIGHEST_CFG_WH_PER_ANSWER": f"{cfg_wh(_hicfg) * _hicfg['avg_output_len'] / 1e6:.1f}",
     "HIGHEST_CFG_VS_TILE": f"{cfg_wh(_hicfg) / raw_wh(high):.1f}", "LOW_OUT_TOKENS": fmt(low["_cfg"]["avg_output_len"], 0),
     "LOW_WH_PER_ANSWER": f"{raw_wh(low) * low['_cfg']['avg_output_len'] / 1e6:.3f}",
+    # joules per token at the ends of the index, for the unit explainer
+    "LOW_J": f"{low['_cfg']['energy_per_token_joules']:.3f}", "HIGH_J": f"{high['_cfg']['energy_per_token_joules']:.2f}",
+    "REF_J_PER_ANSWER": fmt(ref["_cfg"]["energy_per_request_joules"], 0),
     "RECUSAL": (f"While Katonic is a bidder in a tender that cites the index, the editor changes no row for a model Katonic proposes. "
                 f"Rows change only when a source publishes a dated release, and those changes are applied by {esc(OUTSIDE_REVIEWER)}, "
                 "who has no Katonic affiliation. " if OUTSIDE_REVIEWER else
