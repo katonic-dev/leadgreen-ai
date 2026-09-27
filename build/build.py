@@ -680,6 +680,10 @@ def mig_table() -> str:
 pairs_html, pairs = pairs_table()
 l32 = ladder("Qwen 3 32B", "H100", 2)
 l8 = ladder("Llama 3.1 8B Instruct", "H100", 1)
+# D18: the public comparators for the two MIG measurements (1 x H100, BF16)
+_q14 = sorted((c for c in cfgs if c["nickname"] == "Qwen 3 14B" and c["gpu_model"] == "H100" and c["num_gpus"] == 1), key=lambda c: c["max_num_seqs"])
+_q32 = sorted((c for c in cfgs if c["nickname"] == "Qwen 3 32B" and c["gpu_model"] == "H100" and c["num_gpus"] == 1), key=lambda c: c["max_num_seqs"])
+assert _q14 and _q32
 ref_wh = wh_per_million(ref_j)                     # raw, for the page tables and prose
 ref_wh_api = ref["wh_per_million_output_tokens"]   # the two-decimal value the API and MCP server return
 tokens_per_mwh_ref_b = 1_000_000 / ref_wh / 1000          # million Wh ÷ Wh per million tokens = million tokens; ÷1000 = billions
@@ -909,6 +913,9 @@ subs.update({
         "The leaderboard repository the JSON comes from carries no licence file; the benchmark data is published under Apache 2.0 on the "
         "dataset card and in the NeurIPS 2025 paper, and the JSON is reproduced here as published measurements on that basis while the "
         "ML.ENERGY team is asked to confirm that the licence covers it."),
+    "Q14_FIRST_WH": fmt(cfg_wh(_q14[0])), "Q14_FIRST_CAP": fmt(_q14[0]["max_num_seqs"], 0),
+    "Q14_LAST_WH": fmt(cfg_wh(_q14[-1])), "Q14_LAST_CAP": fmt(_q14[-1]["max_num_seqs"], 0),
+    "Q32_1GPU_WH_LIST": and_list([fmt(cfg_wh(c)) for c in _q32]),
     "RECUSAL": (f"While Katonic is a bidder in a tender that cites the index, the editor changes no row for a model Katonic proposes. "
                 f"Rows change only when a source publishes a dated release, and those changes are applied by {esc(OUTSIDE_REVIEWER)}, "
                 "who has no Katonic affiliation. " if OUTSIDE_REVIEWER else
