@@ -529,6 +529,8 @@ COUNTRIES = [  # the grids shown on the page; the API carries every country
     ("DEU", "Germany"), ("FRA", "France"), ("GBR", "United Kingdom"), ("IRL", "Ireland"),
     ("NOR", "Norway"), ("USA", "United States"), ("JPN", "Japan"),
 ]
+REFERENCE_GRIDS = ("DEU", "FRA", "GBR", "IRL", "NOR", "USA", "JPN")  # D6: shown for reference; the rest are markets Katonic sells in or expects to
+assert set(REFERENCE_GRIDS) <= {c for c, _ in COUNTRIES}
 SHORT_NAMES = {  # F23: the short names the site shows; grid.json carries them as display_name
     "Hong Kong (SAR of China)": "Hong Kong", "Macao (SAR of China)": "Macao", "Taiwan (China)": "Taiwan",
     "Cook Islands (the)": "Cook Islands", "Palestine (State of)": "Palestine", "Tanzania (the United Republic of)": "Tanzania",
@@ -946,7 +948,8 @@ subs.update({
     "GOOGLE_URL": GOOGLE_2025["url"], "MISTRAL_URL": MISTRAL_2025["url"],
     "MISTRAL_G": f"{MISTRAL_2025['g_co2e']:g}", "MISTRAL_ML": f"{MISTRAL_2025['water_ml']:g}", "MISTRAL_TOKENS": f"{MISTRAL_2025['tokens']:,}",
     # grids (D6, F14)
-    "LISTED_GRID_COUNT": str(len(COUNTRIES)), "LISTED_GRID_WORD": "twenty-two" if len(COUNTRIES) == 22 else str(len(COUNTRIES)),
+    "LISTED_GRID_COUNT": str(len(COUNTRIES)), "LISTED_GRID_WORD": word(len(COUNTRIES)),
+    "MARKET_GRID_WORD": word(len(COUNTRIES) - len(REFERENCE_GRIDS)), "REFERENCE_GRID_WORD": word(len(REFERENCE_GRIDS)),
     "GRID_MIN_NAME": grid_min["display_name"], "GRID_MIN_G": fmt(intensity[grid_min["iso3"]], 1),
     "GRID_MAX_NAME": grid_max["display_name"], "GRID_MAX_G": fmt(intensity[grid_max["iso3"]], 1),
     "GRID_SPREAD": f"{intensity[grid_max['iso3']] / intensity[grid_min['iso3']]:.1f}",
