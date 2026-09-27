@@ -905,6 +905,10 @@ subs.update({
     "RESPONSE_DAYS": word(RESPONSE_DAYS), "PUBLISHER_ENTITY": PUBLISHER_ENTITY, "PUBLISHER_REGISTRATION": PUBLISHER_REGISTRATION,
     "PUBLISHER_JURISDICTION": PUBLISHER_JURISDICTION, "RELEASES_URL": f"{SITE}/api/v1/releases/",
     # D13: the recusal reads as the dated-release rule alone until the outside reviewer is named
+    "MLE_LICENCE_SENTENCE": ("Apache 2.0 per its dataset card, confirmed by the ML.ENERGY team for the leaderboard files." if MLE_LICENCE_CONFIRMED else
+        "The leaderboard repository the JSON comes from carries no licence file; the benchmark data is published under Apache 2.0 on the "
+        "dataset card and in the NeurIPS 2025 paper, and the JSON is reproduced here as published measurements on that basis while the "
+        "ML.ENERGY team is asked to confirm that the licence covers it."),
     "RECUSAL": (f"While Katonic is a bidder in a tender that cites the index, the editor changes no row for a model Katonic proposes. "
                 f"Rows change only when a source publishes a dated release, and those changes are applied by {esc(OUTSIDE_REVIEWER)}, "
                 "who has no Katonic affiliation. " if OUTSIDE_REVIEWER else
