@@ -143,6 +143,7 @@
     <li><a href="#index">Index</a></li>
     <li><a href="#generations">Two generations</a></li>
     <li><a href="#concurrency">Concurrency</a></li>
+    <li><a href="#workloads">Two tasks</a></li>
     <li><a href="#carbon">Carbon</a></li>
     <li><a href="#hardware">Hardware</a></li>
     <li><a href="#per-query">Per query</a></li>
@@ -233,7 +234,7 @@
 <section id="generations">
   <p class="eyebrow">Two generations</p>
   <h2>The same model on H100 and B200</h2>
-  <p class="lead">14 models were measured on both GPUs. The newer card's advantage runs from <b>4.55×</b> on Qwen 3 235B A22B Instruct to <b>1.05×</b> on NVIDIA Nemotron Nano 9B V2. The gap is widest where the H100 configuration needs many cards to hold the weights, and narrowest for small models that fit one card either way.</p>
+  <p class="lead">14 models were measured on both GPUs. The newer card's advantage runs from <b>4.55×</b> on Qwen 3 235B A22B Instruct to <b>1.05×</b> on NVIDIA Nemotron Nano 9B V2. The gap also depends on which configurations were swept. The 4.55× pair compares an H100 row that was run only at eight cards and a cap of at most 256 requests with a B200 row at a running batch of 3,765 on four cards; at the same cap of 256 the B200 row reads 197.5 Wh/M against the H100's 303.5, a gap of 1.54×. The two Nemotron pairs compare runs whose average answers are 3.2 and 2.4 times longer on the B200 (462 and 510 tokens on the H100 against 1,464 and 1,242).</p>
   <div class="table-scroll">
     <table>
       <caption>Energy-optimal rows from the index, paired by model</caption>
@@ -333,6 +334,41 @@
   <p class="note">The Llama 3.1 8B ladder has eleven measured configurations. Its power rises 41 percent, from 486 W to 688 W, while energy per token falls 6.5×, from 126 to 19.5 Wh/M; past its best row, at a cap of 768, it reads 19.8 Wh/M at 63 ms.</p>
   <p class="note">Cap is the configured maximum batch (vLLM's <code>max_num_seqs</code>). Running batch (avg) is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>); queued requests are not counted, and the benchmark keeps a queue at all times. The highlighted row is the index row.</p>
   <p class="note">Same source and workload as the index. Each row is one benchmarked configuration; the index takes the best of them. Every model's full curve is in its <a href="../api/">API document</a>.</p>
+</section>
+
+<section id="workloads">
+  <p class="eyebrow">Two tasks</p>
+  <h2>Long answers cost twice</h2>
+  <p class="lead">The same leaderboard also runs a Problem Solving task, whose answers are far longer. For the 11 model and GPU pairs measured on both tasks, Problem Solving costs 3 to 41 times the energy per response of Text Conversation, because its answers run 5,361 to 8,969 tokens against 462 to 1,464, and because the long outputs cut the batch the server can hold, so energy per token itself is 2.2 to 3.3 times the Text Conversation figure for the Qwen and DeepSeek pairs, and 0.7 to 1.0 times it for the four Nemotron pairs.</p>
+  <div class="table-scroll">
+    <table>
+      <caption>Problem Solving (gpqa) against Text Conversation, energy-optimal row of each task per model and GPU, at or under 500 ms</caption>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col" class="num">GPUs</th>
+          <th scope="col" class="num">Energy per response</th>
+          <th scope="col" class="num">Energy per token</th>
+          <th scope="col" class="num">Output tokens, chat / gpqa</th>
+          <th scope="col" class="num">Running batch (avg), chat / gpqa</th>
+        </tr>
+      </thead>
+      <tbody>
+<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 9B V2</span></th><td class="num">1 × B200</td><td class="num key">3.4×</td><td class="num">0.79×</td><td class="num">1,242 / 5,361</td><td class="num">255 / 512</td></tr>
+<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 12B V2</span></th><td class="num">1 × B200</td><td class="num key">3.9×</td><td class="num">1.02×</td><td class="num">1,464 / 5,646</td><td class="num">256 / 256</td></tr>
+<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 9B V2</span></th><td class="num">1 × H100</td><td class="num key">7.6×</td><td class="num">0.70×</td><td class="num">510 / 5,531</td><td class="num">255 / 256</td></tr>
+<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 12B V2</span></th><td class="num">1 × H100</td><td class="num key">8.7×</td><td class="num">0.70×</td><td class="num">462 / 5,768</td><td class="num">241 / 192</td></tr>
+<tr><th scope="row"><span class="model">DeepSeek V3.1</span></th><td class="num">8 × B200</td><td class="num key">23.5×</td><td class="num">2.20×</td><td class="num">842 / 8,969</td><td class="num">3,008 / 256</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 32B</span></th><td class="num">1 × B200</td><td class="num key">24.6×</td><td class="num">2.22×</td><td class="num">635 / 7,035</td><td class="num">383 / 111</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 32B</span></th><td class="num">2 × H100</td><td class="num key">26.1×</td><td class="num">2.35×</td><td class="num">634 / 7,058</td><td class="num">256 / 64</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 14B</span></th><td class="num">1 × H100</td><td class="num key">26.8×</td><td class="num">2.50×</td><td class="num">625 / 6,711</td><td class="num">253 / 59</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 8B</span></th><td class="num">1 × H100</td><td class="num key">38.3×</td><td class="num">3.06×</td><td class="num">645 / 8,052</td><td class="num">474 / 82</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 14B</span></th><td class="num">1 × B200</td><td class="num key">39.8×</td><td class="num">3.33×</td><td class="num">613 / 7,327</td><td class="num">2,045 / 128</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 8B</span></th><td class="num">1 × B200</td><td class="num key">40.6×</td><td class="num">3.26×</td><td class="num">649 / 8,074</td><td class="num">1,427 / 128</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Both ratio columns are Problem Solving over Text Conversation for the same model and GPU. Energy per token is the fairer comparison across workloads; energy per response is what a bill sees. Same source as the index.</p>
 </section>
 
 <section id="carbon">
@@ -489,7 +525,7 @@
       <li><b>Not measurable.</b> Closed-weight models served over an API. The benchmark's authors say so plainly, and this index says nothing about them.</li>
       <li><b>A floor.</b> Every index row is the best configuration found under a latency limit, at high concurrency. A real deployment sits above it, often far above it. The concurrency section shows how far.</li>
       <li><b>The latency ceiling.</b> 500 ms is the leaderboard's own default for every LLM task, chosen to match it. No measured configuration reaches it, so it changes no row. Tighter ceilings would: At 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. None of these is applied to the index.</li>
-      <li><b>Workload.</b> The index uses the Text Conversation task. The same leaderboard's Problem Solving task costs 3 to 41 times the energy per response for the same model and GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464. Energy per token is the fairer comparison across workloads; energy per response is what a bill sees.</li>
+      <li><b>Workload.</b> The index uses the Text Conversation task. The same leaderboard's Problem Solving task costs 3 to 41 times the energy per response for the same model and GPU, because its answers run 5,361 to 8,969 tokens against 462 to 1,464, and because the long outputs cut the batch the server can hold, so energy per token itself is 2.2 to 3.3 times the Text Conversation figure for the Qwen and DeepSeek pairs, and 0.7 to 1.0 times it for the four Nemotron pairs (<a href="#workloads">table</a>). Energy per token is the fairer comparison across workloads; energy per response is what a bill sees.</li>
       <li><b>Grid intensity.</b> Annual generation average per country, in grams of CO2e per kWh, from Ember. Hourly values, contracted supply and self-generation are not reflected.</li>
       <li><b>Words.</b> The words-per-token conversion uses the common English rule of thumb of about three quarters of a word per token. It is a rough guide, nothing more.</li>
     </ul>

@@ -12,6 +12,7 @@ og_type: website
     <li><a href="#index">Index</a></li>
     <li><a href="#generations">Two generations</a></li>
     <li><a href="#concurrency">Concurrency</a></li>
+    <li><a href="#workloads">Two tasks</a></li>
     <li><a href="#carbon">Carbon</a></li>
     <li><a href="#hardware">Hardware</a></li>
     <li><a href="#per-query">Per query</a></li>
@@ -71,7 +72,7 @@ og_type: website
 <section id="generations">
   <p class="eyebrow">Two generations</p>
   <h2>The same model on H100 and B200</h2>
-  <p class="lead">{{PAIR_COUNT}} models were measured on both GPUs. The newer card's advantage runs from <b>{{PAIR_MAX_RATIO}}×</b> on {{PAIR_MAX_MODEL}} to <b>{{PAIR_MIN_RATIO}}×</b> on {{PAIR_MIN_MODEL}}. The gap is widest where the H100 configuration needs many cards to hold the weights, and narrowest for small models that fit one card either way.</p>
+  <p class="lead">{{PAIR_COUNT}} models were measured on both GPUs. The newer card's advantage runs from <b>{{PAIR_MAX_RATIO}}×</b> on {{PAIR_MAX_MODEL}} to <b>{{PAIR_MIN_RATIO}}×</b> on {{PAIR_MIN_MODEL}}. {{PAIR_SWEEP_SENTENCE}}</p>
   <div class="table-scroll">
     <table>
       <caption>Energy-optimal rows from the index, paired by model</caption>
@@ -140,6 +141,31 @@ og_type: website
   <p class="note">The Llama 3.1 8B ladder has {{L8_COUNT_WORD}} measured configurations. Its power rises {{L8_POWER_PCT}} percent, from {{L8_FIRST_W}} W to {{L8_BEST_W}} W, while energy per token falls {{L8_RATIO}}×, from {{L8_FIRST}} to {{L8_BEST}} Wh/M; past its best row, at a cap of {{L8_TURN_CAP}}, it reads {{L8_TURN_WH}} Wh/M at {{L8_TURN_ITL}} ms.</p>
   <p class="note">Cap is the configured maximum batch (vLLM's <code>max_num_seqs</code>). Running batch (avg) is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>); queued requests are not counted, and the benchmark keeps a queue at all times. The highlighted row is the index row.</p>
   <p class="note">Same source and workload as the index. Each row is one benchmarked configuration; the index takes the best of them. Every model's full curve is in its <a href="{{ROOT}}api/">API document</a>.</p>
+</section>
+
+<section id="workloads">
+  <p class="eyebrow">Two tasks</p>
+  <h2>Long answers cost twice</h2>
+  <p class="lead">The same leaderboard also runs a Problem Solving task, whose answers are far longer. For the {{GPQA_PAIRS}} model and GPU pairs measured on both tasks, Problem Solving costs {{GPQA_RATIO_MIN}} to {{GPQA_RATIO_MAX}} times the energy per response of Text Conversation, because its answers run {{GPQA_OUT_MIN}} to {{GPQA_OUT_MAX}} tokens against {{CHAT_OUT_MIN}} to {{CHAT_OUT_MAX}}, {{GPQA_TOK_SENTENCE}}.</p>
+  <div class="table-scroll">
+    <table>
+      <caption>Problem Solving (gpqa) against Text Conversation, energy-optimal row of each task per model and GPU, at or under {{GPQA_ITL}} ms</caption>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col" class="num">GPUs</th>
+          <th scope="col" class="num">Energy per response</th>
+          <th scope="col" class="num">Energy per token</th>
+          <th scope="col" class="num">Output tokens, chat / gpqa</th>
+          <th scope="col" class="num">Running batch (avg), chat / gpqa</th>
+        </tr>
+      </thead>
+      <tbody>
+{{GPQA_ROWS}}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Both ratio columns are Problem Solving over Text Conversation for the same model and GPU. Energy per token is the fairer comparison across workloads; energy per response is what a bill sees. Same source as the index.</p>
 </section>
 
 <section id="carbon">
@@ -242,7 +268,7 @@ og_type: website
       <li><b>Not measurable.</b> Closed-weight models served over an API. The benchmark's authors say so plainly, and this index says nothing about them.</li>
       <li><b>A floor.</b> Every index row is the best configuration found under a latency limit, at high concurrency. A real deployment sits above it, often far above it. The concurrency section shows how far.</li>
       <li><b>The latency ceiling.</b> {{ITL}} ms is the leaderboard's own default for every LLM task, chosen to match it. No measured configuration reaches it, so it changes no row. Tighter ceilings would: {{SENS_SENTENCE}} None of these is applied to the index.</li>
-      <li><b>Workload.</b> The index uses the Text Conversation task. The same leaderboard's Problem Solving task costs {{GPQA_RATIO_MIN}} to {{GPQA_RATIO_MAX}} times the energy per response for the same model and GPU, because its answers run {{GPQA_OUT_MIN}} to {{GPQA_OUT_MAX}} tokens against {{CHAT_OUT_MIN}} to {{CHAT_OUT_MAX}}. Energy per token is the fairer comparison across workloads; energy per response is what a bill sees.</li>
+      <li><b>Workload.</b> The index uses the Text Conversation task. The same leaderboard's Problem Solving task costs {{GPQA_RATIO_MIN}} to {{GPQA_RATIO_MAX}} times the energy per response for the same model and GPU, because its answers run {{GPQA_OUT_MIN}} to {{GPQA_OUT_MAX}} tokens against {{CHAT_OUT_MIN}} to {{CHAT_OUT_MAX}}, {{GPQA_TOK_SENTENCE}} (<a href="#workloads">table</a>). Energy per token is the fairer comparison across workloads; energy per response is what a bill sees.</li>
       <li><b>Grid intensity.</b> Annual generation average per country, in grams of CO2e per kWh, from Ember. Hourly values, contracted supply and self-generation are not reflected.</li>
       <li><b>Words.</b> The words-per-token conversion uses the common English rule of thumb of about three quarters of a word per token. It is a rough guide, nothing more.</li>
     </ul>
