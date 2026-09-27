@@ -6,7 +6,7 @@ og_type: website
 <div class="title">
   <h1>The energy behind the token</h1>
   <p class="stand">Lead Green is a public index of the <b>GPU watt-hours it takes to serve a million output tokens</b>, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open, there is a JSON API and an MCP server, and anyone with a GPU can add a measurement.</p>
-  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. Updated {{UPDATED_LONG}}.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. Updated {{UPDATED_LONG}}.</p>
   <div class="actions">
     <a class="cta solid" href="{{ROOT}}index/">Read the index</a>
     <a class="cta" href="{{ROOT}}why/">Why it matters</a>
@@ -16,22 +16,22 @@ og_type: website
 
 <div class="tiles" role="group" aria-label="Headline readings">
   <div class="tile">
-    <span class="lbl">Lowest on the index</span>
+    <span class="lbl">Lowest floor on the index</span>
     <span class="val">{{TILE_LOW_WH}}<small>Wh/M</small></span>
-    <span class="sub">{{TILE_LOW_LABEL}}</span>
+    <span class="sub">{{TILE_LOW_SUB}}</span>
   </div>
   <div class="tile ref">
-    <span class="lbl">Reference row</span>
+    <span class="lbl">Reference floor</span>
     <span class="val">{{TILE_REF_WH}}<small>Wh/M</small></span>
-    <span class="sub">{{TILE_REF_LABEL}}. The carbon table is priced on this row.</span>
+    <span class="sub">{{TILE_REF_SUB}}</span>
   </div>
   <div class="tile">
-    <span class="lbl">Highest on the index</span>
+    <span class="lbl">Highest floor on the index</span>
     <span class="val">{{TILE_HIGH_WH}}<small>Wh/M</small></span>
-    <span class="sub">{{TILE_HIGH_LABEL}}</span>
+    <span class="sub">{{TILE_HIGH_SUB}}</span>
   </div>
 </div>
-<p class="after-tiles">A million output tokens is roughly three quarters of a million words of English. The index spans <b>{{SPAN}}×</b> from its lowest row to its highest, and the same model on the same GPUs moves <b>{{LADDER_32_RATIO}}×</b> depending on how busy the server is. Every row is a floor. The number a buyer should ask for is the one measured on their own server.</p>
+<p class="after-tiles">A million output tokens is roughly three quarters of a million words of English. The index spans <b>{{SPAN}}×</b> from its lowest row to its highest, and the same model on the same two GPUs moves <b>{{L32_RATIO}}×</b> depending on how busy the server is. Every row is a floor. The number a buyer should ask for is the one measured on their own server.</p>
 
 <section id="what" class="first">
   <p class="eyebrow">What it is</p>
@@ -50,8 +50,8 @@ og_type: website
   <p class="eyebrow">Why it exists</p>
   <h2>Everyone buys tokens. Nobody is told the energy.</h2>
   <div class="prose">
-    <p>Enterprises are buying GPUs by the rack and tokens by the billion, and neither invoice carries an energy figure. The model vendors do not publish one. The cloud providers do not itemise one. The measurements that do exist are academic and scattered across leaderboards and papers, in different units, on different hardware, under different load. A CIO who wants to know what a million tokens costs in watt-hours has nowhere to look it up.</p>
-    <p>Meanwhile the questions are arriving. Boards want the AI line in the energy report. Auditors want to know how Scope 2 grows when the assistants roll out. Regulators already ask model providers to document energy consumption, and buyers will start asking downstream. Sovereign and on-premise deployments run inside a fixed power envelope, so energy per token sets how much AI a site can serve at all.</p>
+    <p>Enterprises are buying GPUs by the rack and tokens by the billion, and neither invoice carries an energy figure. Model vendors have published, at most, a per-prompt average with no load, output length or method a buyer could compare (<a href="{{GOOGLE_URL}}">Google, August 2025</a>; <a href="{{MISTRAL_URL}}">Mistral, July 2025</a>). None publishes watt-hours per million output tokens at a stated concurrency. The cloud providers do not itemise one. The measurements that do exist are academic and scattered across leaderboards and papers, in different units, on different hardware, under different load. A CIO who wants to know what a million tokens costs in watt-hours has nowhere to look it up.</p>
+    <p>Meanwhile the questions are arriving. Boards want the AI line in the energy report. Auditors want to know how Scope 2, or Scope 3 for a hosted API, grows when the assistants roll out. Regulators already ask model providers to document energy consumption, and buyers will start asking downstream. Sovereign and on-premise deployments run inside a fixed power envelope, so energy per token sets how much AI a site can serve at all.</p>
     <p>Lead Green puts the public measurements in one unit on one page, explains what they mean, exposes them to software, and adds measurements of its own as they are made. It is run by <a href="https://www.katonic.ai">Katonic</a>, a sovereign AI platform company that meets these questions on every deployment, and it takes no vendor money.</p>
   </div>
 </section>
@@ -63,9 +63,9 @@ og_type: website
     <div class="card"><span class="k">Utilisation</span><span class="n">{{LADDER_32_RATIO}}×<small>same model, same GPUs</small></span><p>Energy per token is a utilisation meter. A high reading means you are paying for silicon that is waiting.</p></div>
     <div class="card"><span class="k">Power is the ceiling</span><span class="n">{{TOKENS_PER_MWH_REF_B}} bn<small>tokens per MWh</small></span><p>At the reference row. At the top of the concurrency ladder the same megawatt-hour serves {{TOKENS_PER_MWH_TOP_B}} billion. On a fixed feed, the number decides how much AI you can run.</p></div>
     <div class="card"><span class="k">Location</span><span class="n">{{SAU_NOR_RATIO}}×<small>carbon, same tokens</small></span><p>Saudi grid against Norwegian grid, {{EMBER_YEAR}} averages. Geography changes the carbon number and not the energy number.</p></div>
-    <div class="card"><span class="k">Reporting</span><span class="n">E1-5<small>ESRS</small></span><p>European sustainability reporting asks for energy consumption in MWh. AI serving is a growing line inside it, and it needs a per-token figure to forecast.</p></div>
+    <div class="card"><span class="k">Reporting</span><span class="n">E1-5<small>ESRS</small></span><p>European sustainability reporting asks for energy consumption in MWh. AI served on your own GPUs is a growing line inside it, and it needs a per-token figure to forecast.</p></div>
     <div class="card"><span class="k">Regulation</span><span class="n">XI 2(e)<small>EU AI Act, Annex</small></span><p>General-purpose model providers must document known or estimated energy consumption. What is documented upstream gets asked for downstream.</p></div>
-    <div class="card"><span class="k">Cheap, and that is the point</span><span class="n">{{CENTS_PER_M_REF}}¢<small>per million tokens</small></span><p>Electricity at the reference row, priced at USD {{ELECTRICITY_PRICE}} per kWh. Trivial as a bill, decisive as a signal: it tracks GPU-hours, which is where the real money goes.</p></div>
+    <div class="card"><span class="k">Cheap, and that is the point</span><span class="n">{{CENTS_PER_M_REF}}¢<small>per million tokens</small></span><p>Electricity at the reference row, priced at USD {{ELECTRICITY_PRICE}} per kWh, at the floor; a lightly loaded server pays several times this. Trivial as a bill, decisive as a signal: it tracks GPU-hours, which is where the real money goes.</p></div>
   </div>
   <p class="note"><a href="{{ROOT}}why/">All nine, with the working and the sources, and an RFP clause you can paste.</a></p>
 </section>

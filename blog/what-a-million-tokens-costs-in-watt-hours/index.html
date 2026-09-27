@@ -121,9 +121,9 @@
     </tbody>
   </table>
 </div>
-<p>From 452 to 63 Wh/M. 7.1× on the same model, the same two cards, the same prompts. The power draw barely moves: 850 W at the top of the table, 1,178 W at the bottom. What moves is how many tokens that power produces, from 522 a second to 5,155. Median latency goes from 15 ms to 44 ms, which no user will notice.</p>
+<p>From 452 to 63.5 Wh/M. 7.1× on the same model, the same two cards, the same prompts. The power draw rises by about a third, 39 percent: 850 W at the top of the table, 1,178 W at the best row. What moves far more is how many tokens that power produces, from 522 a second to 5,155, 9.9×. Median latency goes from 15 ms to 44 ms, which no user will notice. Past that row the curve turns: at a cap of 384 the same cards read 64.6 Wh/M at 55 ms.</p>
 <p>See, this is the part the invoice hides. A GPU is a bus. The diesel per trip is about the same whether it carries eight people or two hundred and fifty; the diesel per passenger is not. An enterprise assistant that serves a handful of people at a time is the bus with eight people on it, and it is by far the most common deployment I see.</p>
-<p>The same ladder for a small model on one card: Llama 3.1 8B Instruct on 1 × H100 goes from 126 Wh/M at a running batch of 8 to 19.5 at 511, a 6.5× drop.</p>
+<p>The same ladder for a small model on one card: Llama 3.1 8B Instruct on 1 × H100 goes from 126 Wh/M at a running batch of 8 to 19.5 at 511, a 6.5× drop, while its power rises 41 percent. All eleven of its configurations are on <a href="../../index/#concurrency">the index</a>.</p>
 
 <h2>What that does to the bill, and to the carbon</h2>
 <p>Electricity first, because people always ask and the answer is small. 63.5 Wh per million tokens is 63.5 kWh per billion. At USD 0.10 per kWh, my assumption and not a source figure, a billion tokens is USD 6.35 of electricity, or 0.6 cents per million. Nobody will change a decision over that. The number matters because it tracks GPU-hours, and GPU-hours are where the money actually goes. Halve the watt-hours per token and you have halved the GPU time per token, on the same kit.</p>

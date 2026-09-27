@@ -24,9 +24,9 @@ og_type: article
   <p class="eyebrow">1</p>
   <h2>It is a utilisation meter</h2>
   <div class="prose">
-    <p>Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from <b>{{LADDER_32_FIRST}} Wh/M</b> at a running batch of {{LADDER_32_FIRST_BATCH}} to <b>{{LADDER_32_LAST}} Wh/M</b> at {{LADDER_32_LAST_BATCH}}. That is {{LADDER_32_RATIO}}× on the same hardware, while the cards draw {{LADDER_32_FIRST_W}} to {{LADDER_32_LAST_W}} W either way and median inter-token latency stays at {{LADDER_32_LAST_ITL}} ms or under.</p>
+    <p>Take one model on one pair of GPUs and change nothing but how many requests the server holds at once. On the index, Qwen 3 32B on two H100 cards goes from <b>{{L32_FIRST}} Wh/M</b> at a running batch of {{L32_FIRST_BATCH}} to <b>{{L32_BEST}} Wh/M</b> at {{L32_BEST_BATCH}}. That is {{L32_RATIO}}× on the same hardware. The cards' draw rises {{L32_POWER_PCT}} percent, from {{L32_FIRST_W}} W to {{L32_BEST_W}} W, while the tokens they produce each second rise {{L32_TPS_RATIO}}×, and median inter-token latency stays at {{L32_MAX_ITL}} ms or under.</p>
     <p>Read it the other way round. A high energy per token does not mean the GPU is working hard. It means the GPU is drawing close to full power and producing few tokens, which is what an under-used server looks like from the wall socket. Energy per token is the utilisation rate expressed in a unit finance can see. If yours is high, you are paying for silicon that is waiting.</p>
-    <p class="fn">Source: ML.ENERGY Leaderboard v3.0, Text Conversation, all measured configurations of Qwen 3 32B on 2 × H100. Full ladder on <a href="{{ROOT}}index/#concurrency">the index</a>.</p>
+    <p class="fn">Source: ML.ENERGY Leaderboard v3.0, Text Conversation, all {{L32_COUNT_WORD}} measured configurations of Qwen 3 32B on 2 × H100. Full ladder on <a href="{{ROOT}}index/#concurrency">the index</a>.</p>
   </div>
 </section>
 
@@ -44,9 +44,9 @@ og_type: article
   <p class="eyebrow">3</p>
   <h2>The board will ask</h2>
   <div class="prose">
-    <p>Under the European Sustainability Reporting Standards, disclosure E1-5 asks for total energy consumption in MWh from own operations, split by fossil, nuclear and renewable sources. AI serving is a new and growing line inside that total, and the electricity behind it lands in Scope 2. A company that cannot say how many MWh its assistants used last quarter, or how many they will use next year as adoption grows, cannot fill in the line with a method it can defend.</p>
-    <p>Energy per million tokens is the forecasting unit. Tokens served next year multiplied by Wh/M gives the MWh. Without the first factor the second is a guess.</p>
-    <p class="fn">Source: Commission Delegated Regulation (EU) 2023/2772, ESRS E1-5 "Energy consumption and mix".</p>
+    <p>Under the European Sustainability Reporting Standards, disclosure E1-5 asks for total energy consumption in MWh from own operations, split by fossil, nuclear and renewable sources. AI served on GPUs the company runs is a new and growing line inside that total, and its electricity lands in Scope 2. Tokens bought from a hosted API are different: that electricity is the provider's Scope 2 and the buyer's Scope 3 category 1 (purchased goods and services), and it sits outside the buyer's E1-5 MWh. A company that cannot say how many MWh its assistants used last quarter, or how many they will use next year as adoption grows, cannot fill in the line with a method it can defend.</p>
+    <p>Energy per million tokens is the forecasting unit in both cases. Tokens served next year multiplied by Wh/M gives the MWh. Without the first factor the second is a guess.</p>
+    <p class="fn">Sources: Commission Delegated Regulation (EU) 2023/2772, ESRS E1-5 "Energy consumption and mix" (energy consumption related to own operations) and E1-6 (Scope 2, location-based and market-based); GHG Protocol Scope 3, category 1, purchased goods and services.</p>
   </div>
 </section>
 
@@ -66,7 +66,7 @@ og_type: article
   <div class="prose">
     <p>Energy per token is a property of the model, the hardware and the load. Carbon per token adds the grid. On Ember's {{EMBER_YEAR}} annual averages, Saudi Arabia's grid runs at {{SAU_G}} gCO2e per kWh and Norway's at {{NOR_G}}. The reference row priced against them gives <b>{{REF_KG_SAU}} kg CO2e per billion tokens</b> in one place and <b>{{REF_KG_NOR}} kg</b> in the other, for identical tokens on identical GPUs.</p>
     <p>So a sovereign or in-country deployment changes the carbon figure with no change to the energy figure, in either direction. Which is why the two numbers should be reported separately, and why a claim about one should never be dressed as a claim about the other.</p>
-    <p class="fn">Source: Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, {{EMBER_YEAR}}. {{GRID_COUNT}} countries in <a href="{{ROOT}}api/">the API</a>; twenty-two on <a href="{{ROOT}}index/#carbon">the index</a>.</p>
+    <p class="fn">Source: Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, {{EMBER_YEAR}}: a lifecycle, generation-based figure for comparing places, not a Scope 2 combustion factor to file. {{GRID_COUNT}} countries in <a href="{{ROOT}}api/">the API</a>; twenty-two on <a href="{{ROOT}}index/#carbon">the index</a>.</p>
   </div>
 </section>
 
@@ -74,8 +74,9 @@ og_type: article
   <p class="eyebrow">6</p>
   <h2>It is the E in the SCI</h2>
   <div class="prose">
-    <p>ISO/IEC 21031:2024 standardises the Software Carbon Intensity specification: SCI = ((E × I) + M) per R, where E is the energy consumed by the software, I the carbon intensity of that energy, M the embodied emissions of the hardware, and R the functional unit. For a language model, R is naturally a million output tokens, E is exactly what this index measures, Ember supplies I, and manufacturer footprints such as NVIDIA's {{B200_EMBODIED_KG}} kg CO2e cradle-to-gate figure for an eight-GPU HGX B200 baseboard give a scale for M.</p>
-    <p>Anyone building an SCI score for an AI service needs the E. The index is a public place to get a baseline for it.</p>
+    <p>ISO/IEC 21031:2024 standardises the Software Carbon Intensity specification: SCI = ((E × I) + M) per R, where E is the energy consumed by the software, I the carbon intensity of that energy, M the embodied emissions of the hardware, and R the functional unit. For a language model, R is naturally a million output tokens. E is the energy of all the hardware reserved for the service; this index supplies the GPU part of it, which is a floor. I is the location-based grid intensity, which Ember supplies. M is an amortised share of the embodied emissions, not a total: TE × (TiR / EL) × (RR / ToR).</p>
+    <p>NVIDIA's {{B200_EMBODIED_KG}} kg CO2e cradle-to-gate figure for an eight-GPU HGX B200 baseboard covers the baseboard only; it excludes the host, the use phase and end of life. As an illustration, spread over {{SCI_LIFE_YEARS}} years of continuous use it comes to {{SCI_G_PER_H}} g an hour. {{SCI_MODEL}} on {{SCI_GPUS}} serves {{SCI_MTOK_PER_H}} million output tokens an hour at its index row, so M is about {{SCI_M_PER_M}} g per million tokens, against E × I of {{SCI_EI_NOR}} g on the Norwegian grid. The {{SCI_LIFE_YEARS}}-year life is an assumption for the illustration, not a source figure.</p>
+    <p>Anyone building an SCI score for an AI service needs the E. The index is a public place to get a baseline for its GPU part.</p>
     <p class="fn">Sources: ISO/IEC 21031:2024, Information technology, Software Carbon Intensity (SCI) specification; NVIDIA, Product Carbon Footprint Summary for HGX B200, July 2025.</p>
   </div>
 </section>

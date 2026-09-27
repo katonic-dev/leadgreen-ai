@@ -7,7 +7,7 @@ og_type: website
   <p class="eyebrow">The index</p>
   <h1>{{INDEX_NAME}}</h1>
   <p class="stand">The GPU energy it takes to serve a million tokens, by model, GPU and configuration. Every figure is from a public measurement or a manufacturer's specification, and every source is listed at the foot of the page. Updated {{UPDATED_LONG}}.</p>
-  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. The same data as <a href="{{ROOT}}api/">JSON</a> and through the <a href="{{ROOT}}mcp/">MCP server</a>.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. The same data as <a href="{{ROOT}}api/">JSON</a> and through the <a href="{{ROOT}}mcp/">MCP server</a>.</p>
   <ul class="toc" aria-label="On this page">
     <li><a href="#index">Index</a></li>
     <li><a href="#generations">Two generations</a></li>
@@ -24,22 +24,22 @@ og_type: website
 
 <div class="tiles" role="group" aria-label="Headline readings">
   <div class="tile">
-    <span class="lbl">Lowest on the index</span>
+    <span class="lbl">Lowest floor on the index</span>
     <span class="val">{{TILE_LOW_WH}}<small>Wh/M</small></span>
-    <span class="sub">{{TILE_LOW_LABEL}}</span>
+    <span class="sub">{{TILE_LOW_SUB}}</span>
   </div>
   <div class="tile ref">
-    <span class="lbl">Reference row</span>
+    <span class="lbl">Reference floor</span>
     <span class="val">{{TILE_REF_WH}}<small>Wh/M</small></span>
-    <span class="sub">{{TILE_REF_LABEL}}. The carbon table is priced on this row.</span>
+    <span class="sub">{{TILE_REF_SUB}}</span>
   </div>
   <div class="tile">
-    <span class="lbl">Highest on the index</span>
+    <span class="lbl">Highest floor on the index</span>
     <span class="val">{{TILE_HIGH_WH}}<small>Wh/M</small></span>
-    <span class="sub">{{TILE_HIGH_LABEL}}</span>
+    <span class="sub">{{TILE_HIGH_SUB}}</span>
   </div>
 </div>
-<p class="after-tiles">A million output tokens is roughly three quarters of a million words of English. The index spans <b>{{SPAN}}×</b> from its lowest row to its highest, and the same model on the same GPU moves <b>{{LADDER_32_RATIO}}×</b> depending on how busy the server is. Every row here is a floor. The number a buyer should ask for is the one measured on their own server.</p>
+<p class="after-tiles">A million output tokens is roughly three quarters of a million words of English. The index spans <b>{{SPAN}}×</b> from its lowest row to its highest, and the same model on the same two GPUs moves <b>{{L32_RATIO}}×</b> depending on how busy the server is. Every row here is a floor. The number a buyer should ask for is the one measured on their own server.</p>
 
 <section id="index" class="first">
   <p class="eyebrow">The index</p>
@@ -97,7 +97,7 @@ og_type: website
 <section id="concurrency">
   <p class="eyebrow">Concurrency</p>
   <h2>The idle server is the expensive one</h2>
-  <p class="lead">Energy per token depends on how many requests the server is handling at once. Below is the same Qwen 3 32B on the same two H100 cards, from a running batch of {{LADDER_32_FIRST_BATCH}} to {{LADDER_32_LAST_BATCH}}. Energy per token falls <b>{{LADDER_32_RATIO}}×</b>, from {{LADDER_32_FIRST}} to {{LADDER_32_LAST}} Wh/M, while median inter-token latency stays under 50 ms. The cards draw roughly the same power either way. What changes is how many tokens that power produces.</p>
+  <p class="lead">Energy per token depends on how many requests the server is handling at once. Below is the same Qwen 3 32B on the same two H100 cards, all {{L32_COUNT_WORD}} measured configurations, from a running batch of {{L32_FIRST_BATCH}} to the index row at {{L32_BEST_BATCH}}. Energy per token falls <b>{{L32_RATIO}}×</b>, from {{L32_FIRST}} to {{L32_BEST}} Wh/M, while median inter-token latency stays at {{L32_MAX_ITL}} ms or under. Power rises {{L32_POWER_PCT}} percent, from {{L32_FIRST_W}} W to {{L32_BEST_W}} W, while throughput rises {{L32_TPS_RATIO}}×, from {{L32_FIRST_TPS}} to {{L32_BEST_TPS}} tokens per second. Energy per token falls because the second effect dwarfs the first. Past the best row the curve turns: at a cap of {{L32_TURN_CAP}} the same pair of cards reads {{L32_TURN_WH}} Wh/M at {{L32_TURN_ITL}} ms.</p>
   <div class="stack">
     <div class="table-scroll">
       <table>
@@ -137,6 +137,7 @@ og_type: website
     </div>
   </div>
   <p class="note">A departmental deployment that serves a handful of people at a time lives at the top of these tables, not the bottom. Consolidating traffic onto fewer, busier cards is the largest single lever an operator controls, and it costs nothing in hardware.</p>
+  <p class="note">The Llama 3.1 8B ladder has {{L8_COUNT_WORD}} measured configurations. Its power rises {{L8_POWER_PCT}} percent, from {{L8_FIRST_W}} W to {{L8_BEST_W}} W, while energy per token falls {{L8_RATIO}}×, from {{L8_FIRST}} to {{L8_BEST}} Wh/M; past its best row, at a cap of {{L8_TURN_CAP}}, it reads {{L8_TURN_WH}} Wh/M at {{L8_TURN_ITL}} ms.</p>
   <p class="note">Cap is the configured maximum batch (vLLM's <code>max_num_seqs</code>). Running batch (avg) is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>); queued requests are not counted, and the benchmark keeps a queue at all times. The highlighted row is the index row.</p>
   <p class="note">Same source and workload as the index. Each row is one benchmarked configuration; the index takes the best of them. Every model's full curve is in its <a href="{{ROOT}}api/">API document</a>.</p>
 </section>
@@ -160,7 +161,7 @@ og_type: website
       </tbody>
     </table>
   </div>
-  <p class="note">Multiply any row of the index by the grid figure and divide by 1,000 to price a different model. Grid figures are annual averages of total generation from Ember's yearly electricity data (CC BY 4.0), September 2026 release. {{EMBER_YEAR}} is the latest year with a value for every grid listed. Hourly intensity, contracted renewable supply and on-site generation all move the real number, and so does facility overhead, which is not counted here. Area names are shortened from Ember's labels. All {{GRID_COUNT}} countries with a {{EMBER_YEAR}} value are in the <a href="{{ROOT}}api/">API</a>.</p>
+  <p class="note">Multiply any row of the index by the grid figure and divide by 1,000 to price a different model. Grid figures are Ember's yearly emissions intensity (CC BY 4.0), September 2026 release. {{EMBER_BASIS}} {{EMBER_YEAR}} is the latest year with a value for every grid listed. Hourly intensity, contracted renewable supply and on-site generation all move the real number, and so does facility overhead, which is not counted here. Area names are shortened from Ember's labels. All {{GRID_COUNT}} countries with a {{EMBER_YEAR}} value are in the <a href="{{ROOT}}api/">API</a>.</p>
 </section>
 
 <section id="hardware">
@@ -202,7 +203,7 @@ og_type: website
       </table>
     </div>
   </div>
-  <p class="note">The A100 80GB uses the same seven shapes as the H100 column, and the B200 180GB has the same shapes at its own sizes (all four cards are in the <a href="{{ROOT}}api/">API</a>). NVIDIA does not publish power draw per MIG slice, and neither public benchmark on this page measures a sliced card. That gap is the first measurement Lead Green will add.</p>
+  <p class="note">The A100 80GB uses the same six shapes as the H100 column (the seventh, a 1g media-extension variant, is omitted for all four cards), and the B200 180GB has the same shapes at its own sizes (all four cards are in the <a href="{{ROOT}}api/">API</a>). NVIDIA does not publish power draw per MIG slice, and neither public benchmark on this page measures a sliced card. That gap is the first measurement Lead Green will add.</p>
   <p class="note">Sources: NVIDIA product specifications for A100, H100 and H200; NVIDIA Product Carbon Footprint Summary for HGX B200 (July 2025) for the B200 ceiling; NVIDIA Multi-Instance GPU User Guide, supported profiles, last updated 11 September 2026. The "+me" media-extension variants of the 1g profiles are omitted.</p>
 </section>
 

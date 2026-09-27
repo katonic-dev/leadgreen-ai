@@ -701,7 +701,7 @@ subs = {
         f"<a class=\"cta\" href=\"{OWN_YOUR_AI_URL}\">Own Your AI on LinkedIn</a></div>"
         if NEWSLETTER_SIGNUP_URL else
         f"<p class=\"lead\">The email edition is being set up. Until it opens, the meter runs inside <a href=\"{OWN_YOUR_AI_URL}\">Own Your AI</a>, "
-        "the fortnightly LinkedIn newsletter, which carries one number from this index in every issue.</p>"
+        "the fortnightly LinkedIn newsletter, which will carry one number from this index in every issue from its next edition.</p>"
         f"<div class=\"actions\"><a class=\"cta solid\" href=\"{OWN_YOUR_AI_URL}\">Read Own Your AI on LinkedIn</a>"
         "<a class=\"cta\" href=\"{{ROOT}}feed.xml\">Blog RSS feed</a></div>"
     ),
@@ -1011,7 +1011,7 @@ for m in models.values():
                                             "itl_deadline_ms": ITL_DEADLINE_MS, "source": SRC_MLE, "caveat": CAVEAT, **m}
 api_docs["grid.json"] = {
     "version": "1", "updated": UPDATED, "year": EMBER_YEAR, "unit": "gCO2e per kWh",
-    "basis": "annual average emissions intensity of total generation; hourly intensity, contracted supply and self-generation are not reflected",
+    "basis": EMBER_BASIS + " Annual averages: hourly intensity, contracted supply and self-generation are not reflected.",
     "source": SRC_EMBER, "licence": "CC BY 4.0", "world": round(world, 1),
     "note": "Area names are Ember's labels. 'WLD' is used as the code for the World row; Ember gives it none.",
     "areas": areas,
