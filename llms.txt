@@ -10,6 +10,7 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - Carbon: multiply Wh/M by the grid's gCO2e/kWh and divide by 1,000 for kg CO2e per billion tokens. Saudi Arabia 692, Serbia 668, Norway 30, World 474 gCO2e/kWh (Ember, 2024).
 - Caveat: GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.
 - Publisher and funder: Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. It takes no money from hardware, cloud or model vendors.
+- Contact: hello@leadgreen.ai, for corrections, measurements and data requests, answered within ten working days.
 - Regulatory summaries on this site are as at 27 September 2026, for orientation, and are not legal advice. The EU AI Act asks providers of general-purpose AI models for training energy in MWh, held for the AI Office; no law asks anyone for serving energy per token.
 
 ## Pages

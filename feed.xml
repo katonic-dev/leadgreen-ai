@@ -13,7 +13,7 @@
     <guid isPermaLink="true">https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/</guid>
     <pubDate>Sat, 26 Sep 2026 06:00:00 +0000</pubDate>
     <dc:creator>Prem Naraindas</dc:creator>
-    <description>The public baseline for GPU energy per million output tokens: where the numbers come from, what the lowest, reference and highest rows say, and why the busy server beats the idle one seven times over.</description>
+    <description>What the public measurements say a million output tokens takes in GPU watt-hours, and why a busy server uses a fraction of the energy of a quiet one.</description>
   </item>
 </channel>
 </rss>

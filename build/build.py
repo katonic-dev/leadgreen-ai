@@ -1649,6 +1649,7 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - Carbon: multiply Wh/M by the grid's gCO2e/kWh and divide by 1,000 for kg CO2e per billion tokens. Saudi Arabia {subs['SAU_G']}, Serbia {subs['SRB_G']}, Norway {subs['NOR_G']}, World {subs['WORLD_G']} gCO2e/kWh (Ember, {EMBER_YEAR}).
 - Caveat: {CAVEAT}
 - Publisher and funder: {FUNDING}
+- Contact: {CONTACT_EMAIL}, for corrections, measurements and data requests, answered within {word(RESPONSE_DAYS)} working days.
 - {LEGAL_NOTE} The EU AI Act asks providers of general-purpose AI models for training energy in MWh, held for the AI Office; no law asks anyone for serving energy per token.
 
 ## Pages
@@ -1697,6 +1698,10 @@ if DATA_VERSION in frozen:
         old = RELEASES / DATA_VERSION / rel
         if not old.exists() or old.read_text(encoding="utf-8") != jdump(doc):
             problems.append(f"release {DATA_VERSION} is published and frozen, but {rel} would change: bump UPDATED")
+for rel, text in outputs.items():   # D10: search engines cut meta descriptions at about 155 characters
+    for d in re.findall(r'<meta name="description" content="([^"]*)"', text):
+        if len(html.unescape(d)) > 155:
+            problems.append(f"{rel}: meta description is {len(html.unescape(d))} characters, over 155")
 if problems:
     sys.exit("REFUSING TO WRITE:\n  " + "\n  ".join(problems))
 
