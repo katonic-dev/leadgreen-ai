@@ -948,16 +948,17 @@ _sens = [sens_part(d) for d in SENSITIVITY_MS]
 sens_sentence = (_sens[0][0].upper() + _sens[0][1:] + "; " + "; ".join(_sens[1:]) + ".")
 
 # D5: the two generations at a 50 ms ceiling
-_b50 = best_by_model_gpu(cfgs, 50)
+PAIR50_MS = 50   # the tighter ceiling the two-generations comparison is re-cut at
+_b50 = best_by_model_gpu(cfgs, PAIR50_MS)
 _both50 = sorted({k[0] for k in _b50 if (k[0], "H100") in _b50 and (k[0], "B200") in _b50})
 _hwins = [(m, _b50[(m, "H100")], _b50[(m, "B200")]) for m in _both50
           if _b50[(m, "H100")]["energy_per_token_joules"] < _b50[(m, "B200")]["energy_per_token_joules"]]
 pair50_sentence = (
-    f"At a 50 ms ceiling the comparison shifts: {len(_both50)} models still have a row on both cards, and the H100 uses less "
+    f"At a {PAIR50_MS} ms ceiling the comparison shifts: {len(_both50)} models still have a row on both cards, and the H100 uses less "
     f"energy per token than the B200 on {word(len(_hwins))} of them ("
     + "; ".join(f"{m}, {fmt(cfg_wh(h))} Wh/M on {h['num_gpus']} × H100 against {fmt(cfg_wh(b))} on {b['num_gpus']} × B200"
                 for m, h, b in _hwins) + ")."
-) if _hwins else f"At a 50 ms ceiling, {len(_both50)} models still have a row on both cards, and the B200 stays ahead on every one."
+) if _hwins else f"At a {PAIR50_MS} ms ceiling, {len(_both50)} models still have a row on both cards, and the B200 stays ahead on every one."
 
 # D23: the widest generations gap, read against the sweep that produced it (F34)
 _pm, _ph, _pb, _pratio = pairs[0]
@@ -994,6 +995,31 @@ gpqa_tok_sentence = (
     f"for the {and_list(_rest_fam)} pairs, and {min(p['ratio_tok'] for p in gp_nemo):.1f} to "
     f"{max(p['ratio_tok'] for p in gp_nemo):.1f} times it for the {word(len(gp_nemo))} Nemotron pairs"
 )
+
+# blog post 4 (H100 against B200): the figures compare_page() derives, exposed for prose
+_pair_ratios = sorted(r for *_, r in pairs)
+_pair_med = (_pair_ratios[len(_pair_ratios) // 2] if len(_pair_ratios) % 2
+             else (_pair_ratios[len(_pair_ratios) // 2 - 1] + _pair_ratios[len(_pair_ratios) // 2]) / 2)
+_pair_wins = sum(1 for r in _pair_ratios if r > 1)
+_lm, _lh, _lb, _lratio = pairs[-1]
+_pair_fewer = sum(1 for _, h, b, _ in pairs if b["num_gpus"] < h["num_gpus"])
+_pair_h100_w = sum(h["_cfg"]["avg_power_watts"] / h["num_gpus"] for _, h, _, _ in pairs) / len(pairs)
+_pair_b200_w = sum(b["_cfg"]["avg_power_watts"] / b["num_gpus"] for _, _, b, _ in pairs) / len(pairs)   # measured, per card; not the TDP
+_tdp_by = {(t["gpu"], t["form"]): t for t in hw["tdp"]}
+_ref_pair = next((h, b, r) for m, h, b, r in pairs if m == ref["model"])   # the reference model must have both rows
+_by_gpu: dict[str, set] = {}
+for _r in index_rows:
+    _by_gpu.setdefault(_r["model"], set()).add(_r["gpu"])
+_h100_only = sorted(m for m, g in _by_gpu.items() if g == {"H100"})
+_b200_only = sorted(m for m, g in _by_gpu.items() if g == {"B200"})
+_pair50_clause = ((f"the H100 comes out ahead on {word(len(_hwins))} of them: "
+                   + "; ".join(f"{m}, {fmt(cfg_wh(h))} Wh/M on {h['num_gpus']} \u00d7 H100 against {fmt(cfg_wh(b))} on {b['num_gpus']} \u00d7 B200"
+                               for m, h, b in _hwins))
+                  if _hwins else "the B200 stays ahead on every one")
+_nemo_note = ((f"At the other end, the {word(len(_nemo_pairs))} Nemotron pairs compare runs whose answers were "
+               + and_list([f"{b['avg_output_len'] / h['avg_output_len']:.1f}" for _, h, b in _nemo_pairs])
+               + " times longer on the B200, which is a different workload wearing the same name.")
+              if _nemo_pairs else "")
 
 # D4: to the meter. The printed sum uses the displayed factors so that it multiplies out as printed.
 _sys = hw["systems"][0]
@@ -1086,6 +1112,24 @@ subs.update({
     "REF_RANK": str(ref_rank), "REF_P99": fmt(ref["_cfg"]["p99_itl_ms"], 0), "REF_TPS": fmt(ref["_cfg"]["output_throughput_tokens_per_sec"], 0),
     "MAX_CHAT_ITL": fmt(max_chat_itl, 0), "MAX_GPQA_ITL": fmt(max_gpqa_itl, 0),
     "SENS_SENTENCE": sens_sentence, "PAIR50_SENTENCE": pair50_sentence, "PAIR_SWEEP_SENTENCE": pair_sweep_sentence,
+    # blog post 4 (H100 against B200)
+    "PAIR_MEDIAN": f"{_pair_med:.2f}",
+    "PAIR_WINS_PHRASE": ("all " + str(len(pairs))) if _pair_wins == len(pairs) else f"{_pair_wins} of the {len(pairs)}",
+    "PAIR_MAX_H_CARDS": word(_ph["num_gpus"]), "PAIR_MAX_H_WH": fmt(raw_wh(_ph)), "PAIR_MAX_H_BATCH": fmt(_hc["avg_batch_size"], 0),
+    "PAIR_MAX_B_CARDS": word(_pb["num_gpus"]), "PAIR_MAX_B_WH": fmt(raw_wh(_pb)), "PAIR_MAX_B_BATCH": fmt(_bc["avg_batch_size"], 0),
+    "PAIR_MAX_H_SWEEP": _sweep_phrase, "PAIR_MATCH_CAP": f"{_hc['max_num_seqs']:,}",
+    "PAIR_MATCH_B_WH": fmt(cfg_wh(_mc)), "PAIR_MATCH_H_WH": fmt(cfg_wh(_hc)), "PAIR_MATCH_RATIO": f"{_match_ratio:.2f}",
+    "PAIR_MIN_H_CARDS": word(_lh["num_gpus"]), "PAIR_MIN_H_WH": fmt(raw_wh(_lh)), "PAIR_MIN_B_CARDS": word(_lb["num_gpus"]), "PAIR_MIN_B_WH": fmt(raw_wh(_lb)),
+    "PAIR_FEWER_WORD": word(_pair_fewer), "PAIR_SAME_WORD": word(len(pairs) - _pair_fewer),
+    "H100_AVG_W": fmt(_pair_h100_w, 0), "B200_AVG_W": fmt(_pair_b200_w, 0),
+    "H100_TDP_LABEL": _tdp_by[("H100", "SXM")]["tdp_label"], "B200_TDP_LABEL": next(t for t in hw["tdp"] if t["gpu"] == "B200")["tdp_label"],
+    "PAIR50_MS": str(PAIR50_MS), "PAIR50_COUNT": str(len(_both50)), "PAIR50_CLAUSE": _pair50_clause, "NEMO_NOTE": _nemo_note,
+    "REF_B200_CARDS_WORD": word(_ref_pair[1]["num_gpus"]), "REF_B200_WH": fmt(raw_wh(_ref_pair[1])), "REF_PAIR_RATIO": f"{_ref_pair[2]:.2f}",
+    "REF_PAIR_H_GPUH": f"{_ref_pair[0]['num_gpus'] * 1e6 / _ref_pair[0]['_cfg']['output_throughput_tokens_per_sec'] / 3600:.2f}",
+    "REF_PAIR_B_GPUH": f"{_ref_pair[1]['num_gpus'] * 1e6 / _ref_pair[1]['_cfg']['output_throughput_tokens_per_sec'] / 3600:.2f}",
+    "GPU_LIST": and_list(sorted({c["gpu_model"] for c in cfgs})),
+    "H100_ONLY_WORD": word(len(_h100_only)), "H100_ONLY_LIST": and_list(_h100_only),
+    "B200_ONLY_WORD": word(len(_b200_only)), "B200_ONLY_LIST": and_list(_b200_only),
     # ladders (F7)
     **{f"{p}_{k}": v for p, lad in (("L32", l32), ("L8", l8)) for k, v in {
         "COUNT": str(lad["count"]), "COUNT_WORD": word(lad["count"]),
