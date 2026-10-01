@@ -1,0 +1,6 @@
+# The build writes LF everywhere; keep the checkout the same on every platform so a fresh clone builds to a clean tree.
+* text=auto eol=lf
+*.png -text
+*.ico -text
+*.whl -text
+*.zip -text
