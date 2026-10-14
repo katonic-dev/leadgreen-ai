@@ -1,0 +1,180 @@
+# The site on Kubernetes: the image from the Dockerfile behind the Service leadgreen-website:80, published at
+# https://leadgreen.ai through the cluster's Istio ingress gateway (www.leadgreen.ai redirects to it).
+# Apply:  kubectl apply -f k8s/leadgreen-website.yaml
+# TLS: the secret leadgreen-tls in istio-system (the gateway pods' namespace), created by hand from the certbot files.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: leadgreen-website
+  namespace: application
+  labels:
+    app.kubernetes.io/name: leadgreen-website
+    app.kubernetes.io/component: web
+    app.kubernetes.io/part-of: leadgreen
+spec:
+  replicas: 2
+  revisionHistoryLimit: 3
+  # Bring a new pod up and ready before taking an old one away, so a rollout never drops below two.
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: leadgreen-website
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: leadgreen-website
+        app.kubernetes.io/component: web
+        app.kubernetes.io/part-of: leadgreen
+    spec:
+      imagePullSecrets:
+        - name: dockerhub-pull
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        seccompProfile:
+          type: RuntimeDefault
+      # One replica per node where possible, so losing a node leaves the site up.
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: leadgreen-website
+      containers:
+        - name: nginx
+          image: docker.io/katonic/leadgreen-website:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 2
+          # Keep serving while the endpoint is withdrawn from the Service and the mesh; the image's stop signal
+          # (SIGQUIT) then lets in-flight requests finish.
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 5
+          # nginx idles at about 4 MiB.
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 500m
+              memory: 64Mi
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        # The only path nginx writes: its pid file and temp dirs.
+        - name: tmp
+          emptyDir:
+            sizeLimit: 32Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: leadgreen-website
+  namespace: application
+  labels:
+    app.kubernetes.io/name: leadgreen-website
+    app.kubernetes.io/component: web
+    app.kubernetes.io/part-of: leadgreen
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: leadgreen-website
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+---
+# Its own Gateway, like finops-gateway, so the shared main-gateway is left alone.
+apiVersion: networking.istio.io/v1
+kind: Gateway
+metadata:
+  name: leadgreen-gateway
+  namespace: application
+  labels:
+    app.kubernetes.io/name: leadgreen-website
+    app.kubernetes.io/component: web
+    app.kubernetes.io/part-of: leadgreen
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - leadgreen.ai
+        - www.leadgreen.ai
+      port:
+        name: https
+        number: 443
+        protocol: HTTPS
+      tls:
+        mode: SIMPLE
+        credentialName: leadgreen-tls
+        minProtocolVersion: TLSV1_2
+    - hosts:
+        - leadgreen.ai
+        - www.leadgreen.ai
+      port:
+        name: http
+        number: 80
+        protocol: HTTP
+      tls:
+        httpsRedirect: true
+---
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: leadgreen-website
+  namespace: application
+  labels:
+    app.kubernetes.io/name: leadgreen-website
+    app.kubernetes.io/component: web
+    app.kubernetes.io/part-of: leadgreen
+spec:
+  hosts:
+    - leadgreen.ai
+    - www.leadgreen.ai
+  gateways:
+    - application/leadgreen-gateway
+  http:
+    # leadgreen.ai is the canonical host (every page's canonical link, the sitemap, the feed); keep the path.
+    - name: www-to-apex
+      match:
+        - authority:
+            prefix: www.leadgreen.ai
+      redirect:
+        authority: leadgreen.ai
+        redirectCode: 301
+    - name: site
+      route:
+        - destination:
+            host: leadgreen-website.application.svc.cluster.local
+            port:
+              number: 80

@@ -1,0 +1,24 @@
+# The build context is the repository root, and the root is the site. Everything not excluded here is served,
+# so a new page folder from build/build.py ships without touching this file.
+
+# Version control, editor and local settings (root dotfiles; .well-known stays servable)
+.*
+!.well-known
+**/.DS_Store
+**/__pycache__
+**/*.pem
+**/*.key
+
+# Repository docs, not pages (LICENSE stays: the footer links to it)
+README.md
+CONTRIBUTING.md
+
+# The generator, its templates, data snapshots and unpublished drafts
+build/
+
+# The MCP server source; the site links to the built wheel in dist/
+leadgreen-mcp/
+
+# The image definition itself and its Kubernetes manifest
+Dockerfile
+k8s/

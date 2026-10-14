@@ -20,6 +20,8 @@ build/posts/YYYY-MM-DD-slug.html  blog posts, same shape
 build/data/                     dated snapshots of every source file used, plus the NVIDIA hardware transcription
 leadgreen-mcp/                  the MCP server package (pyproject.toml, leadgreen_mcp/, README); leadgreen_mcp/data/ is a copy of api/v1
 dist/                           the built wheel that the MCP page's install line points at
+Dockerfile .dockerignore docker/nginx.conf   the production container image (nginx); see Deploy (container)
+k8s/leadgreen-website.yaml      its Kubernetes Deployment, Service, Istio Gateway and VirtualService
 ```
 
 ## Build
@@ -70,6 +72,17 @@ Preview: the Browser pane config `leadgreen-site-static` in `.claude/launch.json
 5. Cancel or park the site-builder plan that serves the "Launching Soon" page, so its contact form stops accepting messages into an unmonitored mailbox.
 6. After the first deploy, fetch `https://leadgreen.ai/api/v1/manifest.json` and `https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl` once to confirm both are served, then run the MCP install line from the `/mcp/` page.
 7. Tell the search engines: `python build/indexnow.py --all` on the first deploy, then `python build/indexnow.py` after every later deploy (it posts only the URLs whose content changed; the key file it checks is served at the site root). Submit `https://leadgreen.ai/sitemap.xml` once in Google Search Console and Bing Webmaster Tools; Bing's index also feeds ChatGPT search.
+
+## Deploy (container)
+
+The image serves the committed folder with unprivileged nginx, the same way Pages does, minus `build/`, `leadgreen-mcp/` and the repository docs (see `.dockerignore`). It does not run the build: build and commit first, as for Pages. New page folders need no change to the image.
+
+```
+docker build -t leadgreen-site .
+docker run --rm -p 8080:8080 leadgreen-site
+```
+
+On Kubernetes, `k8s/leadgreen-website.yaml` runs it as `docker.io/katonic/leadgreen-website` in the `application` namespace: two replicas behind the ClusterIP Service `leadgreen-website:80`, published through the cluster's Istio ingress gateway (`leadgreen-gateway` and a VirtualService; `www.leadgreen.ai` redirects to `leadgreen.ai`). DNS: an `A` record for the apex pointing at the ingress gateway's address (`kubectl -n istio-system get svc istio-ingressgateway`), and `www` as a `CNAME` to the apex. TLS comes from the secret `leadgreen-tls` in `istio-system`: a Let's Encrypt certificate issued with certbot by DNS-01, renewed by hand with `certbot renew --config-dir ~/.certbot/config --work-dir ~/.certbot/work --logs-dir ~/.certbot/logs` (new TXT values land in `~/.certbot/hooks/pending-txt.txt`), after which the secret is replaced with the new files. Apply it with `kubectl apply -f k8s/leadgreen-website.yaml`; for a new image, push a new tag and change `image:`. What the pod spec relies on: container port 8080; it runs as UID 101, so `runAsNonRoot: true` works; point the liveness and readiness probes at `GET /healthz`. With `readOnlyRootFilesystem: true`, mount an `emptyDir` at `/tmp`, the only path nginx writes to. TLS, HSTS and the `leadgreen.ai` host belong on the ingress; redirects are relative, so they keep the client's scheme and host.
 
 ## Logo
 
