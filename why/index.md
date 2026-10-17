@@ -2,7 +2,7 @@
 
 > Why GPU energy per million output tokens belongs in procurement, operations and reporting, with the working, the sources and an RFP clause to paste.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/why/ (this file: https://leadgreen.ai/why/index.md). Updated 27 September 2026, data version 2026-09-27. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/why/ (this file: https://leadgreen.ai/why/index.md). Updated 17 October 2026, data version 2026-10-17. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Why it matters*
 
@@ -71,11 +71,11 @@ Legal texts are summarised as at 27 September 2026 for orientation and are not l
 
 ## Location changes carbon 23×, and not energy
 
-Energy per token is a property of the model, the hardware and the load. Carbon per token adds the grid. On Ember's 2024 annual averages, Saudi Arabia's grid runs at 692 gCO2e per kWh and Norway's at 30. The reference row priced against them gives **43.9 kg CO2e per billion tokens** in one place and **1.9 kg** in the other, for identical tokens on identical GPUs.
+Energy per token is a property of the model, the hardware and the load. Carbon per token adds the grid. On Ember's 2024 annual averages, Saudi Arabia's grid runs at 689 gCO2e per kWh and Norway's at 30. The reference row priced against them gives **43.7 kg CO2e per billion tokens** in one place and **1.9 kg** in the other, for identical tokens on identical GPUs.
 
 So a sovereign or in-country deployment changes the carbon figure with no change to the energy figure, in either direction. Which is why the two numbers should be reported separately, and why a claim about one should never be dressed as a claim about the other.
 
-Source: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, emissions intensity of total generation, 2024: a lifecycle, generation-based figure for comparing places, not a Scope 2 combustion factor to file. 193 countries in [the API](https://leadgreen.ai/api/); 22 on [the index](https://leadgreen.ai/index/#carbon).
+Source: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), October 2026 release, emissions intensity of total generation, 2024: a lifecycle, generation-based figure for comparing places, not a Scope 2 combustion factor to file. 193 countries in [the API](https://leadgreen.ai/api/); 22 on [the index](https://leadgreen.ai/index/#carbon).
 
 *6*
 

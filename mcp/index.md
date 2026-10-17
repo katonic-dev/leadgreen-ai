@@ -2,20 +2,20 @@
 
 > An MCP server that gives Claude, Cursor and other assistants the Green Tokens index as tools: energy by model and GPU, estimates, carbon and sources.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/mcp/ (this file: https://leadgreen.ai/mcp/index.md). Updated 27 September 2026, data version 2026-09-27. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/mcp/ (this file: https://leadgreen.ai/mcp/index.md). Updated 17 October 2026, data version 2026-10-17. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *MCP server*
 
 The Model Context Protocol (MCP) is an open standard that lets an AI assistant call tools a server exposes. Lead Green ships a small MCP server so that Claude, Cursor or any MCP-capable client can answer questions about the index with the row, the source and the caveat attached, instead of guessing.
 
-**Package** leadgreen-mcp 0.2.0 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `b47948b9b23259a94759821a7584dd1174c64593276ce826b3b1ed01fb10957b`
+**Package** leadgreen-mcp 0.2.0 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `c9c416e65b09245f5e021dfc9e8456d602365fa9f7dda90ce7265f7e765fca96`
 
 *Install*
 
 ## One line
 
 ```
-pip install https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl#sha256=b47948b9b23259a94759821a7584dd1174c64593276ce826b3b1ed01fb10957b
+pip install https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl#sha256=c9c416e65b09245f5e021dfc9e8456d602365fa9f7dda90ce7265f7e765fca96
 ```
 
 Or run it without installing, with [uv](https://docs.astral.sh/uv/):

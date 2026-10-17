@@ -2,13 +2,13 @@
 
 > Qatar's grid at 582 gCO2e/kWh: what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/qatar/ (this file: https://leadgreen.ai/grids/qatar/index.md). Updated 27 September 2026, data version 2026-09-27. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/qatar/ (this file: https://leadgreen.ai/grids/qatar/index.md). Updated 17 October 2026, data version 2026-10-17. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-Qatar's grid ran at **582 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× the world average of 474, and 137th of the 193 countries Ember covers, counting from the cleanest. A billion output tokens of the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) served on it carries about **36.9 kg CO2e** of GPU-side emissions; the index's lowest row carries 7.5 kg and its highest 333.3 kg. Energy per token does not change with geography; carbon per token does.
+Qatar's grid ran at **582 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× the world average of 473, and 137th of the 193 countries Ember covers, counting from the cleanest. A billion output tokens of the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) served on it carries about **36.9 kg CO2e** of GPU-side emissions; the index's lowest row carries 7.5 kg and its highest 333.3 kg. Energy per token does not change with geography; carbon per token does.
 
-**Area** Qatar (QAT, QA). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 27 September 2026.
+**Area** Qatar (QAT, QA). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 17 October 2026.
 
 - [Trend](https://leadgreen.ai/grids/qatar/#trend)
 - [Every model](https://leadgreen.ai/grids/qatar/#models)
@@ -16,7 +16,7 @@ Qatar's grid ran at **582 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2
 - [Questions](https://leadgreen.ai/grids/qatar/#faq)
 - [Sources](https://leadgreen.ai/grids/qatar/#sources)
 
-- **Grid intensity, 2024:** 582 gCO2e/kWh Ember yearly data, lifecycle, location-based. World: 474.
+- **Grid intensity, 2024:** 582 gCO2e/kWh Ember yearly data, lifecycle, location-based. World: 473.
 - **Reference row, per billion tokens:** 36.9 kg CO2e Qwen 3 32B, 2 × H100, 63.5 Wh/M, GPU only, a floor.
 - **Rank:** 137 of 193 1 is the cleanest grid Ember covers (Ethiopia, 23); 193 the highest (Turkmenistan, 1,306).
 
@@ -81,7 +81,7 @@ For GPUs you run in Qatar, the electricity is your own consumption: it goes into
 
 ### What is the grid carbon intensity of Qatar?
 
-582 gCO2e per kWh in 2024, on Ember's yearly electricity data: a lifecycle, location-based figure for the country's own generation, 1.2× the world average of 474. Ember's 2025 figure is 581.9.
+582 gCO2e per kWh in 2024, on Ember's yearly electricity data: a lifecycle, location-based figure for the country's own generation, 1.2× the world average of 473. Ember's 2025 figure is 581.9.
 
 ### How much CO2 does a million AI tokens produce in Qatar?
 
@@ -89,7 +89,7 @@ At the index's reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million outpu
 
 ### Is running AI in Qatar cleaner than the world average?
 
-Qatar's 2024 intensity of 582 gCO2e per kWh is 1.2× the world average of 474 (474 gCO2e per kWh). The same tokens on the same GPUs produce the same energy figure anywhere; only the carbon figure moves with the grid.
+Qatar's 2024 intensity of 582 gCO2e per kWh is 1.2× the world average of 473 (473 gCO2e per kWh). The same tokens on the same GPUs produce the same energy figure anywhere; only the carbon figure moves with the grid.
 
 ### Can I use this figure for my Scope 2 report in Qatar?
 
@@ -97,14 +97,14 @@ As a comparison, not as a filing. Ember's intensity is a lifecycle figure on net
 
 ### Where do these figures come from?
 
-Grid intensity: Ember, Yearly electricity data, September 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 26 September 2026. Energy per token: the ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026). Carbon is Wh/M × gCO2e per kWh ÷ 1,000.
+Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. Energy per token: the ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026). Carbon is Wh/M × gCO2e per kWh ÷ 1,000.
 
 *Sources*
 
 ## Where every figure came from
 
-Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, emissions intensity of total generation, 2023, 2024, 2025 (CC BY 4.0), retrieved 26 September 2026. Energy per token: [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), October 2026 release, emissions intensity of total generation, 2023, 2024, 2025 (CC BY 4.0), retrieved 17 October 2026. Energy per token: [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
 
-**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-17, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshots as [the index](https://leadgreen.ai/index/#carbon); no figure on it is typed by hand. All 193 areas are in [grid.json](https://leadgreen.ai/api/v1/grid.json); the 22 with a page are the markets Katonic sells in or expects to, plus seven reference grids.

@@ -2,7 +2,7 @@
 
 > What the public measurements say a million output tokens takes in GPU watt-hours, and why a busy server uses a fraction of the energy of a quiet one.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/ (this file: https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md). Updated 27 September 2026, data version 2026-09-27. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/ (this file: https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md). Updated 17 October 2026, data version 2026-10-17. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Blog*
 
@@ -56,7 +56,7 @@ The same ladder for a small model on one card: Llama 3.1 8B Instruct on 1 × H10
 
 Electricity first, because people always ask and the answer is small. 63.5 Wh per million tokens is 63.5 kWh per billion. At USD 0.10 per kWh, my assumption and not a source figure, a billion tokens is USD 6.35 of electricity, or 0.6 cents per million. Nobody will change a decision over that. The number matters because it tracks GPU-hours, and GPU-hours are where the money actually goes. Halve the watt-hours per token and you have halved the GPU time per token, on the same kit.
 
-Carbon depends on where the socket is. Multiply Wh/M by the grid's grams of CO2e per kWh and divide by a thousand, and you get kilograms per billion tokens. On Ember's 2024 annual averages the reference row is 43.9 kg per billion tokens in Saudi Arabia (692 g/kWh), 42.4 kg in Serbia (668), and 1.9 kg in Norway (30). Same tokens, same cards, 23× apart. Location moves the carbon and does nothing to the energy, which is why the two should never be reported as one number.
+Carbon depends on where the socket is. Multiply Wh/M by the grid's grams of CO2e per kWh and divide by a thousand, and you get kilograms per billion tokens. On Ember's 2024 annual averages the reference row is 43.7 kg per billion tokens in Saudi Arabia (689 g/kWh), 42.4 kg in Serbia (668), and 1.9 kg in Norway (30). Same tokens, same cards, 23× apart. Location moves the carbon and does nothing to the energy, which is why the two should never be reported as one number.
 
 ## What I am not telling you
 
@@ -71,6 +71,6 @@ Ask your vendor for Wh per million output tokens at your concurrency, not theirs
 *References*
 
 1. [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
-2. Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, 2024, CC BY 4.0, retrieved 27 September 2026. [ember-energy.org](https://ember-energy.org/data/yearly-electricity-data/).
+2. Ember, Yearly electricity data, October 2026 release, emissions intensity of total generation, 2024, CC BY 4.0, retrieved 17 October 2026. [ember-energy.org](https://ember-energy.org/data/yearly-electricity-data/).
 3. OpenAI, What are tokens and how to count them, retrieved 27 September 2026, for the words-per-token rule of thumb.
 4. Full tables, method and sources: [the index](https://leadgreen.ai/index/). Data: [the API](https://leadgreen.ai/api/).

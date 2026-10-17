@@ -49,9 +49,11 @@ MCP_DATA = ROOT / "leadgreen-mcp" / "leadgreen_mcp" / "data"
 
 # ----------------------------------------------------------------- settings
 SITE = "https://leadgreen.ai"
-UPDATED = "2026-09-27"                 # bump on every data or content change
+UPDATED = "2026-10-17"                 # bump on every data or content change
 DATA_VERSION = UPDATED                 # D20: carried by every API document; a published release never changes
-RETRIEVED = "2026-09-26"               # when the snapshots in build/data were retrieved; not the same as UPDATED
+RETRIEVED = "2026-09-26"               # when the ML.ENERGY, AI Energy Score and NVIDIA snapshots in build/data were retrieved; not the same as UPDATED
+EMBER_RETRIEVED = "2026-10-17"         # the Ember snapshot is refreshed on its own: Ember re-issues the yearly file monthly
+EMBER_RELEASE = "October 2026 release" # Ember's own label for the file, as shown on every page that cites it
 INDEX_NAME = "Green Tokens"            # D1: "Green Tokens" or "The Green Token Index"
 EDITOR = "Prem Naraindas"
 LINKEDIN_URL = "https://www.linkedin.com/in/premnaraindas/"
@@ -78,7 +80,7 @@ LEGAL_AS_AT = "2026-09-27"             # D15: the date the regulatory summaries 
 
 MLE_CHAT = DATA / "mlenergy-v3-lm-arena-chat-2026-09-26.json"
 MLE_GPQA = DATA / "mlenergy-v3-gpqa-2026-09-26.json"
-EMBER = DATA / "ember-yearly-total-generation-extract-2026-09-26.csv"
+EMBER = DATA / "ember-yearly-total-generation-extract-2026-10-17.csv"
 AIES = DATA / "aienergyscore-text_generation-2026-09-26.csv"
 HW = DATA / "nvidia-hardware-2026-09-26.json"
 ISO3166 = DATA / "iso3166-1-alpha3-to-alpha2-2026-09-27.json"   # pycountry 26.2.16 (Debian iso-codes)
@@ -157,8 +159,8 @@ SRC_EMBER = {
     "publisher": "Ember",
     "url": "https://ember-energy.org/data/yearly-electricity-data/",
     "data_url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
-    "version": "September 2026 release (file last modified 2026-09-22)",
-    "retrieved": RETRIEVED,
+    "version": f"{EMBER_RELEASE} (file last modified 2026-10-06)",
+    "retrieved": EMBER_RETRIEVED,
     "licence": "CC-BY-4.0",
     "factor_basis": EMBER_BASIS,
     "used_for": f"grid emissions intensity of total generation, gCO2e per kWh, {EMBER_YEAR} (location-based)",
@@ -1082,7 +1084,7 @@ subs.update({
                 f"retrieved [date]. © 2026 {esc(PUBLISHER_ENTITY)}. Licensed <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>, "
                 "offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 "
                 "(The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, "
-                "NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); "
+                f"NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, {EMBER_RELEASE} (CC BY 4.0); "
                 "AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced "
                 "as facts from the documents named in the sources ledger."),
     "PUBLISHER_ADDRESS": (esc(PUBLISHER_ADDRESS) if PUBLISHER_ADDRESS else "to be added, word for word from the DIFC registry extract, before launch"),
@@ -1091,6 +1093,7 @@ subs.update({
     "OUTSIDE_REVIEWER_PHRASE": (esc(OUTSIDE_REVIEWER) if OUTSIDE_REVIEWER else "a named reviewer with no Katonic affiliation, to be named here before the first Katonic row is published"),
     "SUBMISSIONS_OPEN_PHRASE": (f"on {long_date(SUBMISSIONS_OPEN)}" if SUBMISSIONS_OPEN else "on a date to be announced on this page"),
     "LEGAL_AS_AT_LONG": long_date(LEGAL_AS_AT), "RETRIEVED_LONG": long_date(RETRIEVED), "DATA_VERSION": DATA_VERSION,
+    "EMBER_RELEASE": EMBER_RELEASE, "EMBER_RETRIEVED_LONG": long_date(EMBER_RETRIEVED),
     # sources (D21)
     "MLE_SHORT": f"ML.ENERGY Leaderboard v3.0 (data compiled {long_date(SRC_MLE['compiled'])})",
     "MLE_COMPILED_LONG": long_date(SRC_MLE["compiled"]), "MLE_RELEASED_LONG": long_date(SRC_MLE["released"]),
@@ -1318,6 +1321,13 @@ CHANGES = [
                                         "p95_itl_ms, avg_running_batch, boundary, years, latest_year, iso2, display_name, source_label); changes.json, "
                                         "measurements.json, the measurement schema, a dated release archive, CSV, zip and TypeScript types."),
      "documents": ["*"], "reason": "review corrections", "source_version": SRC_MLE["version"]},
+    {"date": "2026-10-17", "summary": (f"Ember's {EMBER_RELEASE} of its yearly electricity data (file dated 6 October 2026) replaces the September 2026 release. "
+                                        f"The {EMBER_YEAR} emissions intensity moves for 26 of the {grid_count} grids and World, seven of them on the carbon table "
+                                        "(United Arab Emirates 467.5 to 477.3 gCO2e per kWh, Sri Lanka 386.8 to 392.8, Australia 554.0 to 549.5, Saudi Arabia 691.9 to 689.1, "
+                                        "Taiwan 636.2 to 635.2, Japan 483.6 to 484.3, Serbia 668.0 to 668.4), and every kilogram figure priced on them follows. "
+                                        "2025 rows are added for Saudi Arabia and the United Arab Emirates. The reference year stays 2024, the latest with every "
+                                        "listed grid present. No energy figure changes."),
+     "documents": ["grid.json", "manifest.json"], "reason": "source release", "source_version": SRC_EMBER["version"]},
 ]
 assert CHANGES[-1]["date"] == DATA_VERSION, "add a CHANGES entry for this DATA_VERSION"
 api_docs["changes.json"] = {"version": "1", "updated": UPDATED, "note": "One entry per change to the published data or its description, newest last.",
@@ -1900,7 +1910,7 @@ def model_page(m: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="eyebrow">Sources</p>
   <h2>Where every figure came from</h2>
   <p class="note">{{{{MLE_BLOCK}}}}</p>
-  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, September 2026 release, {EMBER_YEAR} (CC BY 4.0). Model card: <a href="https://huggingface.co/{esc(m['model_id'])}">Hugging Face</a>.</p>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, {EMBER_RELEASE}, {EMBER_YEAR} (CC BY 4.0). Model card: <a href="https://huggingface.co/{esc(m['model_id'])}">Hugging Face</a>.</p>
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
   <p class="note">This page is generated from the same dated snapshot as <a href="{{{{ROOT}}}}index/">the index</a> and <a href="{{{{ROOT}}}}api/v1/models/{s}.json">the API</a>; no figure on it is typed by hand. Ask the <a href="{{{{ROOT}}}}mcp/">MCP server</a> for {esc(name)} on your own grid and load.</p>
 </section>"""
@@ -1995,7 +2005,7 @@ def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
          "As a comparison, not as a filing. Ember's intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. "
          "Tokens bought from a hosted API land in your Scope 3 category 1, not your Scope 2. The why page explains both."),
         ("Where do these figures come from?",
-         f"Grid intensity: Ember, Yearly electricity data, September 2026 release ({EMBER_YEAR}; {', '.join(sorted(yrs))} shown), CC BY 4.0, retrieved {long_date(RETRIEVED)}. Energy per token: the ML.ENERGY Leaderboard v3.0 (data compiled {long_date(SRC_MLE['compiled'])}). Carbon is Wh/M × gCO2e per kWh ÷ 1,000."),
+         f"Grid intensity: Ember, Yearly electricity data, {EMBER_RELEASE} ({EMBER_YEAR}; {', '.join(sorted(yrs))} shown), CC BY 4.0, retrieved {long_date(EMBER_RETRIEVED)}. Energy per token: the ML.ENERGY Leaderboard v3.0 (data compiled {long_date(SRC_MLE['compiled'])}). Carbon is Wh/M × gCO2e per kWh ÷ 1,000."),
     ]
     faq_html = "<section id=\"faq\"><p class=\"eyebrow\">Questions</p><h2>Asked about AI carbon in " + esc(name) + "</h2><div class=\"prose faq\">" + "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq) + "</div></section>"
     body = f"""<div class="title">
@@ -2041,7 +2051,7 @@ def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
 <section id="sources">
   <p class="eyebrow">Sources</p>
   <h2>Where every figure came from</h2>
-  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, September 2026 release, emissions intensity of total generation, {', '.join(sorted(yrs))} (CC BY 4.0), retrieved {{{{RETRIEVED_LONG}}}}. Energy per token: {{{{MLE_BLOCK}}}}</p>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, {EMBER_RELEASE}, emissions intensity of total generation, {', '.join(sorted(yrs))} (CC BY 4.0), retrieved {{{{EMBER_RETRIEVED_LONG}}}}. Energy per token: {{{{MLE_BLOCK}}}}</p>
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
   <p class="note">This page is generated from the same dated snapshots as <a href="{{{{ROOT}}}}index/#carbon">the index</a>; no figure on it is typed by hand. All {{{{GRID_COUNT}}}} areas are in <a href="{{{{ROOT}}}}api/v1/grid.json">grid.json</a>; the {{{{LISTED_GRID_COUNT}}}} with a page are the markets Katonic sells in or expects to, plus seven reference grids.</p>
 </section>"""

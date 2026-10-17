@@ -54,8 +54,8 @@
    "url": "https://www.katonic.ai"
   }
  },
- "dateModified": "2026-09-27",
- "version": "2026-09-27",
+ "dateModified": "2026-10-17",
+ "version": "2026-10-17",
  "inLanguage": "en",
  "keywords": [
   "LLM inference energy",
@@ -174,7 +174,7 @@
 <div class="title">
   <p class="eyebrow">The index</p>
   <h1>Green Tokens</h1>
-  <p class="stand">The GPU energy it takes to serve a million tokens, by model, GPU and configuration. Every figure is from a public measurement or a manufacturer's specification, and every source is listed at the foot of the page. Updated 27 September 2026.</p>
+  <p class="stand">The GPU energy it takes to serve a million tokens, by model, GPU and configuration. Every figure is from a public measurement or a manufacturer's specification, and every source is listed at the foot of the page. Updated 17 October 2026.</p>
   <p class="stand">Green here is a direction, not a verdict. This table ranks serving configurations by GPU energy per token and by nothing else.</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. The same data as <a href="../api/">JSON</a> and through the <a href="../mcp/">MCP server</a>.</p>
   <ul class="toc" aria-label="On this page">
@@ -414,7 +414,7 @@
 <section id="carbon">
   <p class="eyebrow">Carbon</p>
   <h2>Same tokens, different grid</h2>
-  <p class="lead">Energy per token does not change with geography. Carbon per token does. This table prices the reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) against each grid's average emissions intensity for 2024. A billion output tokens on the Saudi grid carries about <b>43.9 kg CO2e</b> of GPU-side emissions. The same billion tokens on the Norwegian grid carries <b>1.9 kg</b>.</p>
+  <p class="lead">Energy per token does not change with geography. Carbon per token does. This table prices the reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) against each grid's average emissions intensity for 2024. A billion output tokens on the Saudi grid carries about <b>43.7 kg CO2e</b> of GPU-side emissions. The same billion tokens on the Norwegian grid carries <b>1.9 kg</b>.</p>
   <div class="table-scroll">
     <table>
       <caption>Grid emissions intensity, 2024 annual average, location-based, and the reference row priced against it</caption>
@@ -427,17 +427,17 @@
       </thead>
       <tbody>
 <tr><th scope="row">India</th><td class="num">707</td><td class="num key">44.9</td></tr>
-<tr><th scope="row">Saudi Arabia</th><td class="num">692</td><td class="num key">43.9</td></tr>
+<tr><th scope="row">Saudi Arabia</th><td class="num">689</td><td class="num key">43.7</td></tr>
 <tr><th scope="row">Hong Kong</th><td class="num">676</td><td class="num key">42.9</td></tr>
 <tr><th scope="row">Serbia</th><td class="num">668</td><td class="num key">42.4</td></tr>
-<tr><th scope="row">Taiwan</th><td class="num">636</td><td class="num key">40.4</td></tr>
+<tr><th scope="row">Taiwan</th><td class="num">635</td><td class="num key">40.3</td></tr>
 <tr><th scope="row">Philippines</th><td class="num">629</td><td class="num key">40.0</td></tr>
 <tr><th scope="row">Qatar</th><td class="num">582</td><td class="num key">36.9</td></tr>
-<tr><th scope="row">Australia</th><td class="num">554</td><td class="num key">35.2</td></tr>
+<tr><th scope="row">Australia</th><td class="num">549</td><td class="num key">34.9</td></tr>
 <tr><th scope="row">Singapore</th><td class="num">499</td><td class="num key">31.6</td></tr>
 <tr><th scope="row">Japan</th><td class="num">484</td><td class="num key">30.7</td></tr>
-<tr><th scope="row">United Arab Emirates</th><td class="num">468</td><td class="num key">29.7</td></tr>
-<tr><th scope="row">Sri Lanka</th><td class="num">387</td><td class="num key">24.5</td></tr>
+<tr><th scope="row">United Arab Emirates</th><td class="num">477</td><td class="num key">30.3</td></tr>
+<tr><th scope="row">Sri Lanka</th><td class="num">393</td><td class="num key">24.9</td></tr>
 <tr><th scope="row">United States</th><td class="num">384</td><td class="num key">24.4</td></tr>
 <tr><th scope="row">Germany</th><td class="num">340</td><td class="num key">21.6</td></tr>
 <tr><th scope="row">Bulgaria</th><td class="num">279</td><td class="num key">17.7</td></tr>
@@ -448,13 +448,13 @@
 <tr><th scope="row">Slovakia</th><td class="num">97</td><td class="num key">6.2</td></tr>
 <tr><th scope="row">France</th><td class="num">40</td><td class="num key">2.6</td></tr>
 <tr><th scope="row">Norway</th><td class="num">30</td><td class="num key">1.9</td></tr>
-<tr class="total"><th scope="row">World average</th><td class="num">474</td><td class="num key">30.1</td></tr>
+<tr class="total"><th scope="row">World average</th><td class="num">473</td><td class="num key">30.0</td></tr>
       </tbody>
     </table>
   </div>
   <p class="note"><b>Which grids.</b> The 22 grids are 15 markets Katonic sells in or expects to, plus seven reference grids. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2 gCO2e per kWh, a spread of 55.6×; all 193 areas plus World are in <a href="../api/v1/grid.json"><code>grid.json</code></a>, and each listed grid has <a href="../grids/">its own page</a> with the whole index priced on it. Area names are shortened from Ember's labels.</p>
-  <p class="note"><b>What the figure is.</b> Grid figures are Ember's yearly emissions intensity (CC BY 4.0), September 2026 release. Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported. The table is location-based in the ESRS E1-6 sense, so what it prices belongs in the Scope 2 location-based line of E1-6, not in the E1-5 energy line. The other method, market-based, nets the buyer's contracted supply (certificates and power purchase agreements) and needs the buyer's own contracts.</p>
-  <p class="note"><b>Why 2024.</b> It is the latest year with a value for every grid listed. 93 of Ember's 193 areas already have a 2025 value, but Saudi Arabia, United Arab Emirates and Hong Kong do not yet; <code>grid.json</code> carries 2023 to 2025 per area where present, with the latest year named. <b>A flat load.</b> A GPU server draws much the same power around the clock, while an annual average weights each hour by how much was generated in it, so on a grid whose clean supply peaks at midday a flat load sees a higher figure than the average, and on one with steady clean supply much the same. Hourly intensity, contracted supply, on-site generation and facility overhead are not counted here. Multiply any row of the index by the grid figure and divide by 1,000 to price a different model.</p>
+  <p class="note"><b>What the figure is.</b> Grid figures are Ember's yearly emissions intensity (CC BY 4.0), October 2026 release. Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported. The table is location-based in the ESRS E1-6 sense, so what it prices belongs in the Scope 2 location-based line of E1-6, not in the E1-5 energy line. The other method, market-based, nets the buyer's contracted supply (certificates and power purchase agreements) and needs the buyer's own contracts.</p>
+  <p class="note"><b>Why 2024.</b> It is the latest year with a value for every grid listed. 95 of Ember's 193 areas already have a 2025 value, but Hong Kong do not yet; <code>grid.json</code> carries 2023 to 2025 per area where present, with the latest year named. <b>A flat load.</b> A GPU server draws much the same power around the clock, while an annual average weights each hour by how much was generated in it, so on a grid whose clean supply peaks at midday a flat load sees a higher figure than the average, and on one with steady clean supply much the same. Hourly intensity, contracted supply, on-site generation and facility overhead are not counted here. Multiply any row of the index by the grid figure and divide by 1,000 to price a different model.</p>
 </section>
 
 <section id="hardware">
@@ -595,7 +595,7 @@
 <section id="cite">
   <p class="eyebrow">Cite as</p>
   <h2>How to credit this index</h2>
-  <div class="prose"><p>Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p><p>In a tender where Katonic may bid, read <a href="../about/#tender">Using the index in a tender</a> first.</p></div>
+  <div class="prose"><p>Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-17, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p><p>In a tender where Katonic may bid, read <a href="../about/#tender">Using the index in a tender</a> first.</p></div>
 </section>
 
 <section id="sources">
@@ -603,12 +603,12 @@
   <h2>Every figure, and where it came from</h2>
   <ol class="ledger">
     <li><div><div class="src"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a>, The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)</div><div class="use">Index, two-generation table, concurrency tables, the workload comparison and the measured GPU power figures. Text Conversation, all 328 stable configurations; Problem Solving, all 187. The leaderboard publishes the runs that passed its stability filter as JSON in its repository; every run, including the unstable ones, is in the gated Hugging Face dataset <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a>. The leaderboard repository the JSON comes from carries no licence file; the benchmark data is published under Apache 2.0 on the dataset card and in the NeurIPS 2025 paper, and the JSON is reproduced here as published measurements on that basis while the ML.ENERGY team is asked to confirm that the licence covers it. Cite: <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371</a>.</div><div class="meta">Version 3.0, released 1 December 2025; data compiled 16 February 2026 (the leaderboard's index.json). Retrieved 26 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a></div><div class="use">Carbon table and the grid API. Emissions intensity of total generation, gCO2e per kWh, 2024. CC BY 4.0.</div><div class="meta">September 2026 release. Retrieved 27 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles</a></div><div class="use">MIG profile table.</div><div class="meta">Last updated 11 September 2026. Retrieved 27 September 2026.</div></div></li>
-    <li><div><div class="src">NVIDIA product specifications: <a href="https://www.nvidia.com/en-us/data-center/a100/">A100</a>, <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a>, <a href="https://www.nvidia.com/en-us/data-center/h200/">H200</a>, <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a></div><div class="use">Maximum TDP and memory in the hardware table; the DGX B200 system power figure used on the "why" page.</div><div class="meta">Retrieved 27 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200</a></div><div class="use">B200 maximum TDP (configurable up to 1,000 W per GPU) and the 2,274 kg CO2e cradle-to-gate figure in the method.</div><div class="meta">July 2025. Retrieved 27 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://huggingface.co/spaces/AIEnergyScore/Leaderboard">AI Energy Score leaderboard</a> (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University), with its <a href="https://huggingface.github.io/AIEnergyScore/">documentation</a></div><div class="use">Per-query table. Text generation task, December 2025 round, all 22 rows. Apache-2.0 as tagged on the Space; the project states no separate licence for the results file, which is reproduced as facts with attribution.</div><div class="meta">Retrieved 27 September 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">OpenAI, What are tokens and how to count them</a></div><div class="use">The rough words-per-token conversion in the opening paragraph.</div><div class="meta">Retrieved 27 September 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a></div><div class="use">Carbon table and the grid API. Emissions intensity of total generation, gCO2e per kWh, 2024. CC BY 4.0.</div><div class="meta">October 2026 release. Retrieved 17 October 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles</a></div><div class="use">MIG profile table.</div><div class="meta">Last updated 11 September 2026. Retrieved 17 October 2026.</div></div></li>
+    <li><div><div class="src">NVIDIA product specifications: <a href="https://www.nvidia.com/en-us/data-center/a100/">A100</a>, <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a>, <a href="https://www.nvidia.com/en-us/data-center/h200/">H200</a>, <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a></div><div class="use">Maximum TDP and memory in the hardware table; the DGX B200 system power figure used on the "why" page.</div><div class="meta">Retrieved 17 October 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200</a></div><div class="use">B200 maximum TDP (configurable up to 1,000 W per GPU) and the 2,274 kg CO2e cradle-to-gate figure in the method.</div><div class="meta">July 2025. Retrieved 17 October 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://huggingface.co/spaces/AIEnergyScore/Leaderboard">AI Energy Score leaderboard</a> (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University), with its <a href="https://huggingface.github.io/AIEnergyScore/">documentation</a></div><div class="use">Per-query table. Text generation task, December 2025 round, all 22 rows. Apache-2.0 as tagged on the Space; the project states no separate licence for the results file, which is reproduced as facts with attribution.</div><div class="meta">Retrieved 17 October 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">OpenAI, What are tokens and how to count them</a></div><div class="use">The rough words-per-token conversion in the opening paragraph.</div><div class="meta">Retrieved 17 October 2026.</div></div></li>
   </ol>
   <p class="note">Snapshots of every data file used, as retrieved, are kept alongside the page so each figure can be recomputed. Corrections are welcome and are recorded below.</p>
 </section>
@@ -617,6 +617,7 @@
   <p class="eyebrow">Changes</p>
   <h2>Record</h2>
   <ul class="changes">
+    <li><time datetime="2026-10-17">17 Oct 2026</time><span>Ember&#x27;s October 2026 release of its yearly electricity data (file dated 6 October 2026) replaces the September 2026 release. The 2024 emissions intensity moves for 26 of the 193 grids and World, seven of them on the carbon table (United Arab Emirates 467.5 to 477.3 gCO2e per kWh, Sri Lanka 386.8 to 392.8, Australia 554.0 to 549.5, Saudi Arabia 691.9 to 689.1, Taiwan 636.2 to 635.2, Japan 483.6 to 484.3, Serbia 668.0 to 668.4), and every kilogram figure priced on them follows. 2025 rows are added for Saudi Arabia and the United Arab Emirates. The reference year stays 2024, the latest with every listed grid present. No energy figure changes.</span></li>
     <li><time datetime="2026-09-27">27 Sep 2026</time><span>Corrections after a nine-reader review, before launch. The ML.ENERGY data is dated to its compile date, not a banner update; the latency ceiling is the leaderboard&#x27;s own 500 ms (no row moved); &quot;requests in flight&quot; is renamed running batch; full concurrency ladders; all AI Energy Score December rows; a two-task table; the carbon basis, grid years and display names; seven-decimal joules; additive API fields (data_version, row_id, repeat, p95_itl_ms, avg_running_batch, boundary, years, latest_year, iso2, display_name, source_label); changes.json, measurements.json, the measurement schema, a dated release archive, CSV, zip and TypeScript types.</span></li>
     <li><time datetime="2026-09-26">26 Sep 2026</time><span>First build. 32 index rows from ML.ENERGY v3.0 (data compiled 16 February 2026), grid intensities from Ember (2024), NVIDIA specifications, AI Energy Score December 2025 round. The API, the MCP server and the first blog post.</span></li>
   </ul>
@@ -635,7 +636,7 @@
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 27 September 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 17 October 2026.</p>
   </footer>
 
 </div>

@@ -1,0 +1,1887 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Lead Green Green Tokens API",
+    "version": "1",
+    "summary": "GPU energy per million output tokens, grid carbon, GPU hardware.",
+    "description": "Static JSON files. GET only. No authentication. CORS open. Additive changes only within v1. Every schema here is inferred at build time from the published documents themselves, with the field descriptions the API page shows.",
+    "license": {
+      "name": "CC BY 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://leadgreen.ai/api/v1"
+    }
+  ],
+  "paths": {
+    "/manifest.json": {
+      "get": {
+        "operationId": "get_manifest",
+        "summary": "Sources, versions, retrieval dates, licences and this endpoint list.",
+        "responses": {
+          "200": {
+            "description": "Sources, versions, retrieval dates, licences and this endpoint list.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Manifest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/index.json": {
+      "get": {
+        "operationId": "get_index",
+        "summary": "The index: 32 rows, one per model and GPU, energy-optimal under the latency limit, sorted ascending.",
+        "responses": {
+          "200": {
+            "description": "The index: 32 rows, one per model and GPU, energy-optimal under the latency limit, sorted ascending.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Index"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/models.json": {
+      "get": {
+        "operationId": "get_models",
+        "summary": "Every model on the index with its slug, Hugging Face id, parameter counts and measured GPUs.",
+        "responses": {
+          "200": {
+            "description": "Every model on the index with its slug, Hugging Face id, parameter counts and measured GPUs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Models"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/models/{slug}.json": {
+      "get": {
+        "operationId": "get_models_by_slug",
+        "summary": "One model: every measured configuration (concurrency, parallelism, latency, power) and the best row per GPU.",
+        "responses": {
+          "200": {
+            "description": "One model: every measured configuration (concurrency, parallelism, latency, power) and the best row per GPU.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Model"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown slug. The static host answers with its own HTML 404 page, not JSON."
+          }
+        },
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "deepseek-v3-1",
+                "gemma-3-12b",
+                "gemma-3-27b",
+                "llama-3-1-405b-instruct",
+                "llama-3-1-405b-instruct-fp8",
+                "llama-3-1-70b-instruct",
+                "llama-3-1-8b-instruct",
+                "llama-3-3-70b-instruct",
+                "llama-4-maverick-17b-128e-instruct-fp8",
+                "llama-4-scout-17b-16e-instruct",
+                "nvidia-nemotron-nano-12b-v2",
+                "nvidia-nemotron-nano-9b-v2",
+                "qwen-3-14b",
+                "qwen-3-235b-a22b-instruct",
+                "qwen-3-235b-a22b-instruct-fp8",
+                "qwen-3-30b-a3b-instruct",
+                "qwen-3-32b",
+                "qwen-3-8b"
+              ]
+            },
+            "example": "qwen-3-32b"
+          }
+        ]
+      }
+    },
+    "/grid.json": {
+      "get": {
+        "operationId": "get_grid",
+        "summary": "Grid emissions intensity, gCO2e per kWh, 2024 annual average, 193 countries plus World.",
+        "responses": {
+          "200": {
+            "description": "Grid emissions intensity, gCO2e per kWh, 2024 annual average, 193 countries plus World.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Grid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hardware.json": {
+      "get": {
+        "operationId": "get_hardware",
+        "summary": "Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure.",
+        "responses": {
+          "200": {
+            "description": "Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Hardware"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/per-query.json": {
+      "get": {
+        "operationId": "get_per_query",
+        "summary": "AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C).",
+        "responses": {
+          "200": {
+            "description": "AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PerQuery"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "operationId": "get_openapi",
+        "summary": "OpenAPI 3.1 description of these endpoints.",
+        "responses": {
+          "200": {
+            "description": "OpenAPI 3.1 description of these endpoints.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/measurements.json": {
+      "get": {
+        "operationId": "get_measurements",
+        "summary": "Contributed measurements accepted under the protocol, with contributor, affiliation, date, versions and MIG profile; never merged into index.json.",
+        "responses": {
+          "200": {
+            "description": "Contributed measurements accepted under the protocol, with contributor, affiliation, date, versions and MIG profile; never merged into index.json.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Measurements"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schema/measurement.schema.json": {
+      "get": {
+        "operationId": "get_schema_measurement_schema",
+        "summary": "JSON Schema for a contributed measurement file (protocol v0.2); the build validates every submission against it.",
+        "responses": {
+          "200": {
+            "description": "JSON Schema for a contributed measurement file (protocol v0.2); the build validates every submission against it.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Measurement"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/changes.json": {
+      "get": {
+        "operationId": "get_changes",
+        "summary": "Every change to the published data or its description: date, summary, documents, reason and source version.",
+        "responses": {
+          "200": {
+            "description": "Every change to the published data or its description: date, summary, documents, reason and source version.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Changes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/index.csv": {
+      "get": {
+        "operationId": "get_index_csv",
+        "summary": "The index rows as CSV, for a spreadsheet.",
+        "responses": {
+          "200": {
+            "description": "The index rows as CSV, for a spreadsheet.",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/types.d.ts": {
+      "get": {
+        "operationId": "get_types_d_ts",
+        "summary": "TypeScript types for every document, generated from the documents.",
+        "responses": {
+          "200": {
+            "description": "TypeScript types for every document, generated from the documents.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/all.zip": {
+      "get": {
+        "operationId": "get_all_zip",
+        "summary": "Every JSON document of the current release in one zip (the same bytes as the dated release zip).",
+        "responses": {
+          "200": {
+            "description": "Every JSON document of the current release in one zip (the same bytes as the dated release zip).",
+            "content": {
+              "application/zip": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/releases/index.json": {
+      "get": {
+        "operationId": "get_releases_index",
+        "summary": "Every dated release of api/v1, each kept unchanged at releases/<date>/ with a zip of the whole release, for citation.",
+        "responses": {
+          "200": {
+            "description": "Every dated release of api/v1, each kept unchanged at releases/<date>/ with a zip of the whole release, for citation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Manifest": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "site": {
+            "type": "string",
+            "description": "Site URL."
+          },
+          "name": {
+            "type": "string",
+            "description": "API name."
+          },
+          "description": {
+            "type": "string",
+            "description": "What the API is."
+          },
+          "endpoints": {
+            "type": "array",
+            "description": "Every endpoint.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "description": "Path under /api/v1/."
+                },
+                "url": {
+                  "type": "string",
+                  "description": "Full URL."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "What it returns."
+                }
+              },
+              "required": [
+                "path",
+                "url",
+                "description"
+              ]
+            }
+          },
+          "sources": {
+            "type": "array"
+          },
+          "licence": {
+            "type": "string",
+            "description": "Licence of the document or of its source, as stated."
+          },
+          "caveat": {
+            "type": "string",
+            "description": "Carried on every document with energy figures. Please carry it into whatever you build."
+          },
+          "boundary": {
+            "type": "string",
+            "description": "gpu_only: GPU energy and nothing else; host, network, storage, cooling and idle time are outside it."
+          },
+          "publisher": {
+            "type": "object",
+            "description": "Who publishes the API.",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Project."
+              },
+              "parent": {
+                "type": "string",
+                "description": "Parent."
+              },
+              "url": {
+                "type": "string",
+                "description": "Site."
+              },
+              "entity": {
+                "type": "string",
+                "description": "Legal entity."
+              },
+              "registration": {
+                "type": "string",
+                "description": "Registration number."
+              },
+              "jurisdiction": {
+                "type": "string",
+                "description": "Jurisdiction."
+              },
+              "address": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Registered office; null until confirmed."
+              },
+              "contact": {
+                "type": "string",
+                "description": "Corrections and contributions mailbox."
+              },
+              "response_working_days": {
+                "type": "integer",
+                "description": "Response time, working days."
+              }
+            },
+            "required": [
+              "name",
+              "parent",
+              "url",
+              "entity",
+              "registration",
+              "jurisdiction",
+              "address",
+              "contact",
+              "response_working_days"
+            ]
+          },
+          "attribution": {
+            "type": "string",
+            "description": "A ready CC BY 4.0 credit line."
+          },
+          "releases": {
+            "type": "object",
+            "description": "Where dated releases are kept.",
+            "properties": {
+              "index": {
+                "type": "string",
+                "description": "The list of releases."
+              },
+              "pattern": {
+                "type": "string",
+                "description": "URL pattern of a release."
+              }
+            },
+            "required": [
+              "index",
+              "pattern"
+            ]
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "site",
+          "name",
+          "description",
+          "endpoints",
+          "sources",
+          "licence",
+          "caveat",
+          "boundary",
+          "publisher",
+          "attribution",
+          "releases"
+        ]
+      },
+      "Index": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of the main figure in the document."
+          },
+          "workload": {
+            "type": "string",
+            "description": "The benchmark task behind the rows."
+          },
+          "itl_deadline_ms": {
+            "type": "integer",
+            "description": "The median inter-token latency ceiling used to pick best rows: 500 ms, the leaderboard's default."
+          },
+          "selection": {
+            "type": "string",
+            "description": "The rule that picks each row, in words."
+          },
+          "reference_row": {
+            "type": "object",
+            "description": "The row the carbon table and worked examples are priced on.",
+            "properties": {
+              "model": {
+                "type": "string",
+                "description": "Its model."
+              },
+              "gpu": {
+                "type": "string",
+                "description": "Its GPU."
+              },
+              "num_gpus": {
+                "type": "integer",
+                "description": "Its card count."
+              }
+            },
+            "required": [
+              "model",
+              "gpu",
+              "num_gpus"
+            ]
+          },
+          "source": {
+            "type": "object"
+          },
+          "caveat": {
+            "type": "string",
+            "description": "Carried on every document with energy figures. Please carry it into whatever you build."
+          },
+          "boundary": {
+            "type": "string",
+            "description": "gpu_only: GPU energy and nothing else; host, network, storage, cooling and idle time are outside it."
+          },
+          "rows": {
+            "type": "array",
+            "description": "One row per model and GPU, sorted ascending by Wh/M.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "model": {
+                  "type": "string",
+                  "description": "Display name."
+                },
+                "slug": {
+                  "type": "string",
+                  "description": "Key for models/<slug>.json."
+                },
+                "model_id": {
+                  "type": "string",
+                  "description": "Hugging Face id."
+                },
+                "params_b": {
+                  "type": "number",
+                  "description": "Total parameters, billions."
+                },
+                "active_params_b": {
+                  "type": "number",
+                  "description": "Parameters active per token, billions (they differ for mixture-of-experts models)."
+                },
+                "precision": {
+                  "type": "string",
+                  "description": "Weight precision (BF16, FP8, MXFP4)."
+                },
+                "gpu": {
+                  "type": "string",
+                  "description": "GPU model: H100 (H100 80GB HBM3) or B200."
+                },
+                "num_gpus": {
+                  "type": "integer",
+                  "description": "Cards in the configuration."
+                },
+                "wh_per_million_output_tokens": {
+                  "type": "number",
+                  "description": "GPU energy per million output tokens, watt-hours: joules_per_output_token x 1,000,000 / 3,600, which holds exactly on every row."
+                },
+                "joules_per_output_token": {
+                  "type": "number",
+                  "description": "The source's figure, seven decimals: steady-state GPU energy divided by the output tokens generated in that window (steady_state_energy_per_token). Prompt processing is included."
+                },
+                "median_itl_ms": {
+                  "type": "number",
+                  "description": "Median inter-token latency, milliseconds."
+                },
+                "avg_requests_in_flight": {
+                  "type": "number",
+                  "description": "The same value as avg_running_batch under its first name, kept in v1 and removed at v2. It is the running batch, not client-side requests outstanding."
+                },
+                "gpu_power_watts_total": {
+                  "type": "integer",
+                  "description": "Average power drawn, summed across every card."
+                },
+                "avg_output_tokens": {
+                  "type": "integer",
+                  "description": "Average output length per response, tokens."
+                },
+                "avg_running_batch": {
+                  "type": "number",
+                  "description": "The average number of requests the server was decoding at once over the steady-state window (vLLM num_requests_running). Queued requests are not counted."
+                },
+                "max_num_seqs": {
+                  "type": "integer",
+                  "description": "The configured cap on sequences decoded at once (vLLM max_num_seqs)."
+                },
+                "row_id": {
+                  "type": "string",
+                  "description": "Stable identifier, <slug>/<gpu>/<num_gpus>/<max_num_seqs>, with /r2 on a repeated run. It survives re-sorting and new rows."
+                }
+              },
+              "required": [
+                "model",
+                "slug",
+                "model_id",
+                "params_b",
+                "active_params_b",
+                "precision",
+                "gpu",
+                "num_gpus",
+                "wh_per_million_output_tokens",
+                "joules_per_output_token",
+                "median_itl_ms",
+                "avg_requests_in_flight",
+                "gpu_power_watts_total",
+                "avg_output_tokens",
+                "avg_running_batch",
+                "max_num_seqs",
+                "row_id"
+              ]
+            }
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "unit",
+          "workload",
+          "itl_deadline_ms",
+          "selection",
+          "reference_row",
+          "source",
+          "caveat",
+          "boundary",
+          "rows"
+        ]
+      },
+      "Models": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "source": {
+            "type": "object"
+          },
+          "models": {
+            "type": "array",
+            "description": "Every model on the index.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "slug": {
+                  "type": "string",
+                  "description": "Model key."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Display name."
+                },
+                "model_id": {
+                  "type": "string",
+                  "description": "Hugging Face id."
+                },
+                "params_b": {
+                  "type": "number",
+                  "description": "Total parameters, billions."
+                },
+                "active_params_b": {
+                  "type": "number",
+                  "description": "Parameters active per token, billions."
+                },
+                "gpus": {
+                  "type": "array",
+                  "description": "GPUs measured.",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "url": {
+                  "type": "string",
+                  "description": "URL of models/<slug>.json."
+                },
+                "page": {
+                  "type": "string",
+                  "description": "URL of the model's page on the site."
+                }
+              },
+              "required": [
+                "slug",
+                "name",
+                "model_id",
+                "params_b",
+                "active_params_b",
+                "gpus",
+                "url",
+                "page"
+              ]
+            }
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "source",
+          "models"
+        ]
+      },
+      "Model": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of the main figure in the document."
+          },
+          "itl_deadline_ms": {
+            "type": "integer",
+            "description": "The median inter-token latency ceiling used to pick best rows: 500 ms, the leaderboard's default."
+          },
+          "source": {
+            "type": "object"
+          },
+          "caveat": {
+            "type": "string",
+            "description": "Carried on every document with energy figures. Please carry it into whatever you build."
+          },
+          "boundary": {
+            "type": "string",
+            "description": "gpu_only: GPU energy and nothing else; host, network, storage, cooling and idle time are outside it."
+          },
+          "slug": {
+            "type": "string",
+            "description": "Model key."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name."
+          },
+          "model_id": {
+            "type": "string",
+            "description": "Hugging Face id."
+          },
+          "params_b": {
+            "type": "number",
+            "description": "Total parameters, billions."
+          },
+          "active_params_b": {
+            "type": "number",
+            "description": "Parameters active per token, billions."
+          },
+          "architecture": {
+            "type": "string",
+            "description": "The source's label: Dense Transformer, MoE or Mamba-Transformer Hybrid."
+          },
+          "gpus": {
+            "type": "array",
+            "description": "GPUs the model was measured on.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "configurations": {
+            "type": "array",
+            "description": "Every stable configuration the source measured for this model.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "gpu": {
+                  "type": "string",
+                  "description": "GPU model: H100 (H100 80GB HBM3) or B200."
+                },
+                "num_gpus": {
+                  "type": "integer",
+                  "description": "Cards in the configuration."
+                },
+                "tensor_parallel": {
+                  "type": "integer",
+                  "description": "Tensor-parallel degree."
+                },
+                "data_parallel": {
+                  "type": "integer",
+                  "description": "Data-parallel degree."
+                },
+                "expert_parallel": {
+                  "type": "integer",
+                  "description": "Expert-parallel degree (mixture-of-experts models)."
+                },
+                "precision": {
+                  "type": "string",
+                  "description": "Weight precision (BF16, FP8, MXFP4)."
+                },
+                "max_num_seqs": {
+                  "type": "integer",
+                  "description": "The configured cap on sequences decoded at once (vLLM max_num_seqs)."
+                },
+                "avg_requests_in_flight": {
+                  "type": "number",
+                  "description": "The same value as avg_running_batch under its first name, kept in v1 and removed at v2. It is the running batch, not client-side requests outstanding."
+                },
+                "wh_per_million_output_tokens": {
+                  "type": "number",
+                  "description": "GPU energy per million output tokens, watt-hours: joules_per_output_token x 1,000,000 / 3,600, which holds exactly on every row."
+                },
+                "joules_per_output_token": {
+                  "type": "number",
+                  "description": "The source's figure, seven decimals: steady-state GPU energy divided by the output tokens generated in that window (steady_state_energy_per_token). Prompt processing is included."
+                },
+                "median_itl_ms": {
+                  "type": "number",
+                  "description": "Median inter-token latency, milliseconds."
+                },
+                "p90_itl_ms": {
+                  "type": "number",
+                  "description": "90th percentile inter-token latency, milliseconds."
+                },
+                "p99_itl_ms": {
+                  "type": "number",
+                  "description": "99th percentile inter-token latency, milliseconds."
+                },
+                "tokens_per_second": {
+                  "type": "number",
+                  "description": "Output throughput of the whole configuration."
+                },
+                "gpu_power_watts_total": {
+                  "type": "integer",
+                  "description": "Average power drawn, summed across every card."
+                },
+                "avg_output_tokens": {
+                  "type": "integer",
+                  "description": "Average output length per response, tokens."
+                },
+                "under_itl_deadline": {
+                  "type": "boolean",
+                  "description": "Whether median_itl_ms is at or under itl_deadline_ms; every published configuration currently is."
+                },
+                "avg_running_batch": {
+                  "type": "number",
+                  "description": "The average number of requests the server was decoding at once over the steady-state window (vLLM num_requests_running). Queued requests are not counted."
+                },
+                "p95_itl_ms": {
+                  "type": "number",
+                  "description": "95th percentile inter-token latency, milliseconds."
+                },
+                "row_id": {
+                  "type": "string",
+                  "description": "Stable identifier, <slug>/<gpu>/<num_gpus>/<max_num_seqs>, with /r2 on a repeated run. It survives re-sorting and new rows."
+                },
+                "repeat": {
+                  "type": "integer",
+                  "description": "1 for the first run of a configuration, 2 for the source's repeat of it (two Qwen 3 30B A3B configurations were run twice)."
+                }
+              },
+              "required": [
+                "gpu",
+                "num_gpus",
+                "tensor_parallel",
+                "data_parallel",
+                "expert_parallel",
+                "precision",
+                "max_num_seqs",
+                "avg_requests_in_flight",
+                "wh_per_million_output_tokens",
+                "joules_per_output_token",
+                "median_itl_ms",
+                "p90_itl_ms",
+                "p99_itl_ms",
+                "tokens_per_second",
+                "gpu_power_watts_total",
+                "avg_output_tokens",
+                "under_itl_deadline",
+                "avg_running_batch",
+                "p95_itl_ms",
+                "row_id",
+                "repeat"
+              ]
+            }
+          },
+          "best": {
+            "type": "object",
+            "description": "The index row per GPU, keyed by GPU; each value has the configuration fields.",
+            "additionalProperties": {
+              "type": "object",
+              "description": "The configuration the index row uses for that GPU.",
+              "properties": {
+                "gpu": {
+                  "type": "string",
+                  "description": "GPU model: H100 (H100 80GB HBM3) or B200."
+                },
+                "num_gpus": {
+                  "type": "integer",
+                  "description": "Cards in the configuration."
+                },
+                "tensor_parallel": {
+                  "type": "integer",
+                  "description": "Tensor-parallel degree."
+                },
+                "data_parallel": {
+                  "type": "integer",
+                  "description": "Data-parallel degree."
+                },
+                "expert_parallel": {
+                  "type": "integer",
+                  "description": "Expert-parallel degree (mixture-of-experts models)."
+                },
+                "precision": {
+                  "type": "string",
+                  "description": "Weight precision (BF16, FP8, MXFP4)."
+                },
+                "max_num_seqs": {
+                  "type": "integer",
+                  "description": "The configured cap on sequences decoded at once (vLLM max_num_seqs)."
+                },
+                "avg_requests_in_flight": {
+                  "type": "number",
+                  "description": "The same value as avg_running_batch under its first name, kept in v1 and removed at v2. It is the running batch, not client-side requests outstanding."
+                },
+                "wh_per_million_output_tokens": {
+                  "type": "number",
+                  "description": "GPU energy per million output tokens, watt-hours: joules_per_output_token x 1,000,000 / 3,600, which holds exactly on every row."
+                },
+                "joules_per_output_token": {
+                  "type": "number",
+                  "description": "The source's figure, seven decimals: steady-state GPU energy divided by the output tokens generated in that window (steady_state_energy_per_token). Prompt processing is included."
+                },
+                "median_itl_ms": {
+                  "type": "number",
+                  "description": "Median inter-token latency, milliseconds."
+                },
+                "p90_itl_ms": {
+                  "type": "number",
+                  "description": "90th percentile inter-token latency, milliseconds."
+                },
+                "p99_itl_ms": {
+                  "type": "number",
+                  "description": "99th percentile inter-token latency, milliseconds."
+                },
+                "tokens_per_second": {
+                  "type": "number",
+                  "description": "Output throughput of the whole configuration."
+                },
+                "gpu_power_watts_total": {
+                  "type": "integer",
+                  "description": "Average power drawn, summed across every card."
+                },
+                "avg_output_tokens": {
+                  "type": "integer",
+                  "description": "Average output length per response, tokens."
+                },
+                "under_itl_deadline": {
+                  "type": "boolean",
+                  "description": "Whether median_itl_ms is at or under itl_deadline_ms; every published configuration currently is."
+                },
+                "avg_running_batch": {
+                  "type": "number",
+                  "description": "The average number of requests the server was decoding at once over the steady-state window (vLLM num_requests_running). Queued requests are not counted."
+                },
+                "p95_itl_ms": {
+                  "type": "number",
+                  "description": "95th percentile inter-token latency, milliseconds."
+                },
+                "row_id": {
+                  "type": "string",
+                  "description": "Stable identifier, <slug>/<gpu>/<num_gpus>/<max_num_seqs>, with /r2 on a repeated run. It survives re-sorting and new rows."
+                },
+                "repeat": {
+                  "type": "integer",
+                  "description": "1 for the first run of a configuration, 2 for the source's repeat of it (two Qwen 3 30B A3B configurations were run twice)."
+                }
+              },
+              "required": [
+                "gpu",
+                "num_gpus",
+                "tensor_parallel",
+                "data_parallel",
+                "expert_parallel",
+                "precision",
+                "max_num_seqs",
+                "avg_requests_in_flight",
+                "wh_per_million_output_tokens",
+                "joules_per_output_token",
+                "median_itl_ms",
+                "p90_itl_ms",
+                "p99_itl_ms",
+                "tokens_per_second",
+                "gpu_power_watts_total",
+                "avg_output_tokens",
+                "under_itl_deadline",
+                "avg_running_batch",
+                "p95_itl_ms",
+                "row_id",
+                "repeat"
+              ]
+            }
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "unit",
+          "itl_deadline_ms",
+          "source",
+          "caveat",
+          "boundary",
+          "slug",
+          "name",
+          "model_id",
+          "params_b",
+          "active_params_b",
+          "architecture",
+          "gpus",
+          "configurations",
+          "best"
+        ]
+      },
+      "Grid": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "year": {
+            "type": "string",
+            "description": "The year g_co2e_per_kwh is taken from (2024, the latest with every listed grid)."
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of the main figure in the document."
+          },
+          "basis": {
+            "type": "string",
+            "description": "What the figure is: lifecycle, location-based, production-based."
+          },
+          "source": {
+            "type": "object"
+          },
+          "licence": {
+            "type": "string",
+            "description": "Licence of the document or of its source, as stated."
+          },
+          "world": {
+            "type": "number",
+            "description": "The World figure for year."
+          },
+          "note": {
+            "type": "string",
+            "description": "How to read the document."
+          },
+          "areas": {
+            "type": "array",
+            "description": "Every area Ember covers, plus the World row (iso3 WLD, area_type world); filter on area_type == country.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "iso3": {
+                  "type": "string",
+                  "description": "ISO 3166-1 alpha-3 code (WLD for World)."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Ember's label."
+                },
+                "area_type": {
+                  "type": "string",
+                  "description": "country or world."
+                },
+                "g_co2e_per_kwh": {
+                  "type": "number",
+                  "description": "Emissions intensity, gCO2e per kWh, for year (2024); kept for compatibility."
+                },
+                "display_name": {
+                  "type": "string",
+                  "description": "The shorter name the site shows."
+                },
+                "iso2": {
+                  "type": [
+                    "null",
+                    "string"
+                  ],
+                  "description": "ISO 3166-1 alpha-2 code; null for World and for Kosovo, which has none."
+                },
+                "years": {
+                  "type": "object",
+                  "description": "Every year Ember holds for the area from 2023, keyed by year.",
+                  "additionalProperties": {
+                    "type": "number",
+                    "description": "gCO2e per kWh in that year."
+                  }
+                },
+                "latest_year": {
+                  "type": "string",
+                  "description": "The newest year in years."
+                },
+                "continent": {
+                  "type": "string",
+                  "description": "Ember's continent label."
+                }
+              },
+              "required": [
+                "iso3",
+                "name",
+                "area_type",
+                "g_co2e_per_kwh",
+                "display_name",
+                "iso2",
+                "years",
+                "latest_year"
+              ]
+            }
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "year",
+          "unit",
+          "basis",
+          "source",
+          "licence",
+          "world",
+          "note",
+          "areas"
+        ]
+      },
+      "Hardware": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "retrieved": {
+            "type": "string",
+            "description": "When the specifications were read."
+          },
+          "note": {
+            "type": "string",
+            "description": "How to read the document."
+          },
+          "tdp": {
+            "type": "array",
+            "description": "Maximum thermal design power per GPU.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "gpu": {
+                  "type": "string",
+                  "description": "GPU."
+                },
+                "form": {
+                  "type": "string",
+                  "description": "Form factor."
+                },
+                "max_tdp_w": {
+                  "type": "integer",
+                  "description": "Maximum TDP, watts."
+                },
+                "tdp_label": {
+                  "type": "string",
+                  "description": "TDP as NVIDIA words it."
+                },
+                "memory": {
+                  "type": "string",
+                  "description": "Memory."
+                },
+                "source": {
+                  "type": "string",
+                  "description": "Where the figure is from."
+                }
+              },
+              "required": [
+                "gpu",
+                "form",
+                "max_tdp_w",
+                "tdp_label",
+                "memory",
+                "source"
+              ]
+            }
+          },
+          "systems": {
+            "type": "array",
+            "description": "System power ratings.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "system": {
+                  "type": "string",
+                  "description": "System."
+                },
+                "gpus": {
+                  "type": "string",
+                  "description": "GPUs in the system."
+                },
+                "max_power_kw": {
+                  "type": "number",
+                  "description": "Maximum system power, kW."
+                },
+                "label": {
+                  "type": "string",
+                  "description": "The rating as published."
+                },
+                "source": {
+                  "type": "string",
+                  "description": "Where it is from."
+                }
+              },
+              "required": [
+                "system",
+                "gpus",
+                "max_power_kw",
+                "label",
+                "source"
+              ]
+            }
+          },
+          "mig_profiles": {
+            "type": "array",
+            "description": "Multi-Instance GPU profiles per card (the media-extension variants are omitted).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "gpu": {
+                  "type": "string",
+                  "description": "Card."
+                },
+                "profile": {
+                  "type": "string",
+                  "description": "Profile name."
+                },
+                "memory_fraction": {
+                  "type": "string",
+                  "description": "Share of the card's memory."
+                },
+                "sm_fraction": {
+                  "type": "string",
+                  "description": "Share of the card's streaming multiprocessors."
+                },
+                "instances": {
+                  "type": "integer",
+                  "description": "How many fit on one card."
+                }
+              },
+              "required": [
+                "gpu",
+                "profile",
+                "memory_fraction",
+                "sm_fraction",
+                "instances"
+              ]
+            }
+          },
+          "embodied": {
+            "type": "object",
+            "description": "One embodied-carbon figure.",
+            "properties": {
+              "item": {
+                "type": "string",
+                "description": "What it covers."
+              },
+              "kg_co2e_cradle_to_gate": {
+                "type": "integer",
+                "description": "kg CO2e, cradle to gate, baseboard only."
+              },
+              "source": {
+                "type": "string",
+                "description": "Source."
+              },
+              "published": {
+                "type": "string",
+                "description": "Publication date."
+              }
+            },
+            "required": [
+              "item",
+              "kg_co2e_cradle_to_gate",
+              "source",
+              "published"
+            ]
+          },
+          "sources": {
+            "type": "array"
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "retrieved",
+          "note",
+          "tdp",
+          "systems",
+          "mig_profiles",
+          "embodied",
+          "sources"
+        ]
+      },
+      "PerQuery": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of the main figure in the document."
+          },
+          "round": {
+            "type": "string",
+            "description": "The AI Energy Score round."
+          },
+          "setup": {
+            "type": "string",
+            "description": "How a query is run."
+          },
+          "classes": {
+            "type": "object",
+            "description": "Hardware classes.",
+            "additionalProperties": {
+              "type": "string",
+              "description": "What the class means."
+            }
+          },
+          "score": {
+            "type": "string",
+            "description": "What the stars mean."
+          },
+          "note": {
+            "type": "string",
+            "description": "How to read the document."
+          },
+          "source": {
+            "type": "object"
+          },
+          "rows": {
+            "type": "array",
+            "description": "Every row of the round.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "model": {
+                  "type": "string",
+                  "description": "Clean Hugging Face id."
+                },
+                "class": {
+                  "type": "string",
+                  "description": "Hardware class."
+                },
+                "wh_per_1000_queries": {
+                  "type": "number",
+                  "description": "GPU watt-hours for 1,000 queries."
+                },
+                "score": {
+                  "type": "integer",
+                  "description": "Stars, 1 to 5, within the class."
+                },
+                "source_label": {
+                  "type": "string",
+                  "description": "The model string exactly as the source gives it."
+                },
+                "note": {
+                  "type": "string",
+                  "description": "A note on the row, where there is one."
+                }
+              },
+              "required": [
+                "model",
+                "class",
+                "wh_per_1000_queries",
+                "score",
+                "source_label"
+              ]
+            }
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "unit",
+          "round",
+          "setup",
+          "classes",
+          "score",
+          "note",
+          "source",
+          "rows"
+        ]
+      },
+      "Measurements": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "unit": {
+            "type": "string",
+            "description": "Unit of the main figure in the document."
+          },
+          "protocol_version": {
+            "type": "string",
+            "description": "Protocol version the rows follow."
+          },
+          "schema": {
+            "type": "string",
+            "description": "URL of the measurement schema."
+          },
+          "itl_deadline_ms": {
+            "type": "integer",
+            "description": "The median inter-token latency ceiling used to pick best rows: 500 ms, the leaderboard's default."
+          },
+          "note": {
+            "type": "string",
+            "description": "How to read the document."
+          },
+          "caveat": {
+            "type": "string",
+            "description": "Carried on every document with energy figures. Please carry it into whatever you build."
+          },
+          "boundary": {
+            "type": "string",
+            "description": "gpu_only: GPU energy and nothing else; host, network, storage, cooling and idle time are outside it."
+          },
+          "rows": {
+            "type": "array",
+            "description": "Contributed rows: the measurement schema's fields plus source_file and comparable (median ITL at or under itl_deadline_ms).",
+            "items": {}
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "unit",
+          "protocol_version",
+          "schema",
+          "itl_deadline_ms",
+          "note",
+          "caveat",
+          "boundary",
+          "rows"
+        ]
+      },
+      "Changes": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "API major version; it changes only for a breaking change, which would ship at /api/v2/ with v1 left in place."
+          },
+          "updated": {
+            "type": "string",
+            "description": "Date the document was built."
+          },
+          "data_version": {
+            "type": "string",
+            "description": "Changes whenever a value in the document changes. Cite it with the release archive."
+          },
+          "note": {
+            "type": "string",
+            "description": "How to read the document."
+          },
+          "changes": {
+            "type": "array",
+            "description": "One entry per change, oldest first.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "description": "Date of the change."
+                },
+                "summary": {
+                  "type": "string",
+                  "description": "What changed."
+                },
+                "documents": {
+                  "type": "array",
+                  "description": "Documents affected (* for all).",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Why."
+                },
+                "source_version": {
+                  "type": "string",
+                  "description": "Source version at the time."
+                }
+              },
+              "required": [
+                "date",
+                "summary",
+                "documents",
+                "reason",
+                "source_version"
+              ]
+            }
+          }
+        },
+        "required": [
+          "version",
+          "updated",
+          "data_version",
+          "note",
+          "changes"
+        ]
+      },
+      "Measurement": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://leadgreen.ai/api/v1/schema/measurement.schema.json",
+        "title": "Lead Green contributed measurement, protocol v0.2",
+        "description": "One measured serving configuration, submitted under the measurement protocol at leadgreen.ai/contribute/#protocol. Field names match the configurations in api/v1/models/<slug>.json where they exist. GPU energy only; host, facility and water figures are separate optional fields and are never folded into wh_per_million_output_tokens.",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "protocol_version",
+          "example",
+          "model",
+          "model_id",
+          "gpu",
+          "num_gpus",
+          "tensor_parallel",
+          "data_parallel",
+          "expert_parallel",
+          "precision",
+          "max_num_seqs",
+          "avg_running_batch",
+          "joules_per_output_token",
+          "wh_per_million_output_tokens",
+          "median_itl_ms",
+          "p90_itl_ms",
+          "p99_itl_ms",
+          "tokens_per_second",
+          "gpu_power_watts_total",
+          "avg_output_tokens",
+          "avg_prompt_tokens",
+          "window_seconds",
+          "requests_in_window",
+          "runs",
+          "mig_profile",
+          "slice_count",
+          "slices_loaded",
+          "engine",
+          "engine_version",
+          "driver_version",
+          "cuda_version",
+          "energy_source",
+          "prompt_set",
+          "measured_on",
+          "contributor",
+          "affiliation",
+          "vendor_affiliation",
+          "logs",
+          "notes"
+        ],
+        "properties": {
+          "protocol_version": {
+            "type": "string",
+            "enum": [
+              "0.2"
+            ]
+          },
+          "example": {
+            "type": "boolean",
+            "description": "true only for the example file; example rows are never published"
+          },
+          "model": {
+            "type": "string",
+            "description": "display name, as on the index where the model is on it"
+          },
+          "model_id": {
+            "type": "string",
+            "description": "Hugging Face id"
+          },
+          "gpu": {
+            "type": "string",
+            "description": "GPU model, e.g. H100 80GB HBM3 SXM"
+          },
+          "num_gpus": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "tensor_parallel": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "data_parallel": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "expert_parallel": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "precision": {
+            "type": "string",
+            "enum": [
+              "BF16",
+              "FP16",
+              "FP8",
+              "INT8",
+              "INT4",
+              "MXFP4",
+              "other"
+            ],
+            "description": "weight precision; required, because it decides whether a sliced row is like-for-like"
+          },
+          "max_num_seqs": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "the configured cap"
+          },
+          "avg_running_batch": {
+            "type": "number",
+            "minimum": 0,
+            "description": "mean of vllm:num_requests_running over the window, scraped every second; queued requests are not counted"
+          },
+          "joules_per_output_token": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "wh_per_million_output_tokens": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "joules_per_output_token x 1,000,000 / 3,600"
+          },
+          "median_itl_ms": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "p90_itl_ms": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "p99_itl_ms": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "p95_itl_ms": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "ttft_median_ms": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "median time to first token, if recorded"
+          },
+          "tokens_per_second": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "gpu_power_watts_total": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "average board power summed across every card, or every card holding a loaded slice"
+          },
+          "avg_output_tokens": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "avg_prompt_tokens": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "window_seconds": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "requests_in_window": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "runs": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "joules_per_output_token"
+              ],
+              "properties": {
+                "joules_per_output_token": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              }
+            },
+            "description": "every run's joules per output token; the row carries their mean"
+          },
+          "mig_profile": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "e.g. 3g.40gb, or null for a whole card"
+          },
+          "slice_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "slices_loaded": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1,
+            "description": "must equal slice_count: every slice serves the workload at once"
+          },
+          "engine": {
+            "type": "string"
+          },
+          "engine_version": {
+            "type": "string"
+          },
+          "driver_version": {
+            "type": "string"
+          },
+          "cuda_version": {
+            "type": "string"
+          },
+          "energy_source": {
+            "type": "string",
+            "enum": [
+              "dcgm_total_energy",
+              "nvidia_smi_power_integrated",
+              "other"
+            ],
+            "description": "how GPU energy was read"
+          },
+          "prompt_set": {
+            "type": "string",
+            "description": "URL or file name of the published prompt set"
+          },
+          "measured_on": {
+            "type": "string",
+            "format": "date"
+          },
+          "contributor": {
+            "type": "string"
+          },
+          "affiliation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "vendor_affiliation": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "set when a hardware, cloud or model vendor made or paid for the measurement"
+          },
+          "host_power_watts": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "optional, separate; never folded in"
+          },
+          "site_pue": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "optional, separate; ISO/IEC 30134-2"
+          },
+          "site_wue_l_per_kwh": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "description": "optional site water, ISO/IEC 30134-9; never folded into Wh/M"
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "power log and engine metrics log, request bodies stripped"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

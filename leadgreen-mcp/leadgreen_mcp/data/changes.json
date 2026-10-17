@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-09-27",
-  "data_version": "2026-09-27",
+  "updated": "2026-10-17",
+  "data_version": "2026-10-17",
   "note": "One entry per change to the published data or its description, newest last.",
   "changes": [
     {
@@ -21,6 +21,16 @@
       ],
       "reason": "review corrections",
       "source_version": "3.0 (released 2025-12-01); data compiled 2026-02-16"
+    },
+    {
+      "date": "2026-10-17",
+      "summary": "Ember's October 2026 release of its yearly electricity data (file dated 6 October 2026) replaces the September 2026 release. The 2024 emissions intensity moves for 26 of the 193 grids and World, seven of them on the carbon table (United Arab Emirates 467.5 to 477.3 gCO2e per kWh, Sri Lanka 386.8 to 392.8, Australia 554.0 to 549.5, Saudi Arabia 691.9 to 689.1, Taiwan 636.2 to 635.2, Japan 483.6 to 484.3, Serbia 668.0 to 668.4), and every kilogram figure priced on them follows. 2025 rows are added for Saudi Arabia and the United Arab Emirates. The reference year stays 2024, the latest with every listed grid present. No energy figure changes.",
+      "documents": [
+        "grid.json",
+        "manifest.json"
+      ],
+      "reason": "source release",
+      "source_version": "October 2026 release (file last modified 2026-10-06)"
     }
   ]
 }

@@ -2,13 +2,13 @@
 
 > One page per grid for 22 countries: Ember's carbon intensity, what a billion AI output tokens cost in CO2e there, every index model priced on it.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/ (this file: https://leadgreen.ai/grids/index.md). Updated 27 September 2026, data version 2026-09-27. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/ (this file: https://leadgreen.ai/grids/index.md). Updated 17 October 2026, data version 2026-10-17. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Grids*
 
 Energy per token does not change with geography; carbon per token does. Each page prices the whole index on one country's grid, shows the grid's trend since 2023, and says which reporting line the figure belongs on. The 22 grids are 15 markets Katonic sells in or expects to, plus seven reference grids; all 193 areas Ember covers are in [grid.json](https://leadgreen.ai/api/v1/grid.json).
 
-**Basis** Ember yearly emissions intensity, 2024, lifecycle, location-based, gCO2e per kWh. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2, a spread of 55.6×. Updated 27 September 2026.
+**Basis** Ember yearly emissions intensity, 2024, lifecycle, location-based, gCO2e per kWh. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2, a spread of 55.6×. Updated 17 October 2026.
 
 *Highest intensity first*
 
@@ -18,9 +18,9 @@ Energy per token does not change with geography; carbon per token does. Each pag
 
 44.9 kg CO2e per billion tokens at the reference row; rank 181 of 193. Asia
 
-### [Saudi Arabia](https://leadgreen.ai/grids/saudi-arabia/)692 gCO2e/kWh, 2024
+### [Saudi Arabia](https://leadgreen.ai/grids/saudi-arabia/)689 gCO2e/kWh, 2024
 
-43.9 kg CO2e per billion tokens at the reference row; rank 177 of 193. Asia
+43.7 kg CO2e per billion tokens at the reference row; rank 177 of 193. Asia
 
 ### [Hong Kong](https://leadgreen.ai/grids/hong-kong/)676 gCO2e/kWh, 2024
 
@@ -30,9 +30,9 @@ Energy per token does not change with geography; carbon per token does. Each pag
 
 42.4 kg CO2e per billion tokens at the reference row; rank 172 of 193. Asia
 
-### [Taiwan](https://leadgreen.ai/grids/taiwan/)636 gCO2e/kWh, 2024
+### [Taiwan](https://leadgreen.ai/grids/taiwan/)635 gCO2e/kWh, 2024
 
-40.4 kg CO2e per billion tokens at the reference row; rank 157 of 193. Asia
+40.3 kg CO2e per billion tokens at the reference row; rank 156 of 193. Asia
 
 ### [The Philippines](https://leadgreen.ai/grids/the-philippines/)629 gCO2e/kWh, 2024
 
@@ -42,9 +42,9 @@ Energy per token does not change with geography; carbon per token does. Each pag
 
 36.9 kg CO2e per billion tokens at the reference row; rank 137 of 193. Oceania
 
-### [Australia](https://leadgreen.ai/grids/australia/)554 gCO2e/kWh, 2024
+### [Australia](https://leadgreen.ai/grids/australia/)549 gCO2e/kWh, 2024
 
-35.2 kg CO2e per billion tokens at the reference row; rank 124 of 193. Asia
+34.9 kg CO2e per billion tokens at the reference row; rank 125 of 193. Asia
 
 ### [Singapore](https://leadgreen.ai/grids/singapore/)499 gCO2e/kWh, 2024
 
@@ -54,13 +54,13 @@ Energy per token does not change with geography; carbon per token does. Each pag
 
 30.7 kg CO2e per billion tokens at the reference row; rank 101 of 193. Asia
 
-### [United Arab Emirates](https://leadgreen.ai/grids/united-arab-emirates/)468 gCO2e/kWh, 2024
+### [United Arab Emirates](https://leadgreen.ai/grids/united-arab-emirates/)477 gCO2e/kWh, 2024
 
-29.7 kg CO2e per billion tokens at the reference row; rank 96 of 193. Asia
+30.3 kg CO2e per billion tokens at the reference row; rank 100 of 193. Asia
 
-### [Sri Lanka](https://leadgreen.ai/grids/sri-lanka/)387 gCO2e/kWh, 2024
+### [Sri Lanka](https://leadgreen.ai/grids/sri-lanka/)393 gCO2e/kWh, 2024
 
-24.5 kg CO2e per billion tokens at the reference row; rank 82 of 193. North America · reference
+24.9 kg CO2e per billion tokens at the reference row; rank 83 of 193. North America · reference
 
 ### [United States](https://leadgreen.ai/grids/united-states/)384 gCO2e/kWh, 2024
 
@@ -88,7 +88,7 @@ Energy per token does not change with geography; carbon per token does. Each pag
 
 ### [New Zealand](https://leadgreen.ai/grids/new-zealand/)112 gCO2e/kWh, 2024
 
-7.1 kg CO2e per billion tokens at the reference row; rank 26 of 193. Europe
+7.1 kg CO2e per billion tokens at the reference row; rank 27 of 193. Europe
 
 ### [Slovakia](https://leadgreen.ai/grids/slovakia/)97 gCO2e/kWh, 2024
 
@@ -102,4 +102,4 @@ Energy per token does not change with geography; carbon per token does. Each pag
 
 1.9 kg CO2e per billion tokens at the reference row; rank 9 of 193.
 
-The kilogram figure on each card prices the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M, GPU only, a floor). Source: Ember, Yearly electricity data, September 2026 release (CC BY 4.0), retrieved 26 September 2026. Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported.
+The kilogram figure on each card prices the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M, GPU only, a floor). Source: Ember, Yearly electricity data, October 2026 release (CC BY 4.0), retrieved 17 October 2026. Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported.

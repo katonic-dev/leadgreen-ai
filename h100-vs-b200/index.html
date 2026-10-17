@@ -46,7 +46,7 @@
     }
    },
    "inLanguage": "en",
-   "dateModified": "2026-09-27",
+   "dateModified": "2026-10-17",
    "license": "https://creativecommons.org/licenses/by/4.0/",
    "isPartOf": {
     "@type": "WebSite",
@@ -69,7 +69,7 @@
       "url": "https://www.katonic.ai"
      }
     },
-    "dateModified": "2026-09-27",
+    "dateModified": "2026-10-17",
     "isBasedOn": "https://ml.energy/leaderboard/",
     "distribution": [
      {
@@ -188,7 +188,7 @@
   <p class="eyebrow">Two generations · 14 models</p>
   <h1>H100 vs B200: GPU energy per million output tokens</h1>
   <p class="stand">On the index rows, the B200 uses less GPU energy per output token than the H100 for <b>all 14 models</b> measured on both cards. The H100 row uses from <b>4.55×</b> the energy of the B200 row (Qwen 3 235B A22B Instruct) down to <b>1.05×</b> (NVIDIA Nemotron Nano 9B V2), with a median of 1.63×. Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.</p>
-  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="../api/v1/index.json">index.json</a>. Updated 27 September 2026.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="../api/v1/index.json">index.json</a>. Updated 17 October 2026.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#pairs">The 14 pairs</a></li><li><a href="#sweep">The sweep</a></li><li><a href="#power">Power against energy</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 <div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile"><span class="lbl">Widest gap</span><span class="val">4.55<small>×</small></span><span class="sub">Qwen 3 235B A22B Instruct: 303.5 Wh/M on 8 × H100 against 66.7 on 4 × B200.</span></div><div class="tile ref"><span class="lbl">Median gap, 14 pairs</span><span class="val">1.63<small>×</small></span><span class="sub">H100 row energy per token over B200 row energy per token, at each model's index rows.</span></div><div class="tile"><span class="lbl">Narrowest gap</span><span class="val">1.05<small>×</small></span><span class="sub">NVIDIA Nemotron Nano 9B V2: 43.1 Wh/M on 1 × H100 against 40.9 on 1 × B200.</span></div></div>
@@ -246,7 +246,7 @@
   <h2>Where every figure came from</h2>
   <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
   <p class="note">TDP and memory: NVIDIA product specifications for <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a> and <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a>, and the <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">HGX B200 product carbon footprint summary</a> (July 2025), retrieved 26 September 2026.</p>
-  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-17, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
 </section>
   </main>
 
@@ -261,7 +261,7 @@
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 27 September 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 17 October 2026.</p>
   </footer>
 
 </div>

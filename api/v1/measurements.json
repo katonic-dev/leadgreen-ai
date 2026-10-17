@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-09-27",
-  "data_version": "2026-09-27",
+  "updated": "2026-10-17",
+  "data_version": "2026-10-17",
   "unit": "Wh per million output tokens",
   "protocol_version": "0.2",
   "schema": "https://leadgreen.ai/api/v1/schema/measurement.schema.json",

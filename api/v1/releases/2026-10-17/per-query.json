@@ -1,0 +1,184 @@
+{
+  "version": "1",
+  "updated": "2026-10-17",
+  "data_version": "2026-10-17",
+  "unit": "Wh per 1,000 queries",
+  "round": "December 2025",
+  "setup": "text generation, 1,000 queries one at a time (batch size 1) on NVIDIA H100 80GB GPUs: one card for class A and B models, several cards for class C; output length fixed at 10 tokens for non-reasoning runs; the score averages ten passes; GPU energy only",
+  "classes": {
+    "A": "fits one consumer GPU",
+    "B": "fits one H100 (single cloud GPU)",
+    "C": "needs more than one H100 (multiple cloud GPUs)"
+  },
+  "score": "1 to 5 stars within a class for this round: the class's energy range is cut into five equal bands and the lowest band is five stars; stars do not compare across classes",
+  "note": "Only the December 2025 round is included: the benchmark harness changed between rounds (Optimum Benchmark in February 2025, Neuralwatt's AI Energy Benchmarks in December 2025); the project treats watt-hour values as stable across rounds and recalibrates only the stars. A query is a controlled probe with a fixed ten-token response, not a serving workload, so these values are not converted to Wh per million tokens. source_label keeps the model string exactly as the source CSV gives it; model carries the clean Hugging Face id.",
+  "source": {
+    "name": "AI Energy Score leaderboard",
+    "publisher": "AI Energy Score (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University)",
+    "url": "https://huggingface.co/spaces/AIEnergyScore/Leaderboard",
+    "data_url": "https://huggingface.co/spaces/AIEnergyScore/Leaderboard/raw/main/data/energy/text_generation.csv",
+    "documentation": "https://huggingface.github.io/AIEnergyScore/",
+    "version": "December 2025 round",
+    "harness": "Neuralwatt's AI Energy Benchmarks for the December 2025 round; the February 2025 round ran on Optimum Benchmark",
+    "retrieved": "2026-09-26",
+    "licence": "Apache-2.0 as tagged on the Space; the project states no separate licence for the results file, which is reproduced as facts with attribution",
+    "used_for": "GPU energy per 1,000 text-generation queries at batch size 1 on NVIDIA H100 80GB GPUs (one card for class A and B models, several for class C)"
+  },
+  "rows": [
+    {
+      "model": "tencent/Hunyuan-1.8B-Instruct",
+      "class": "A",
+      "wh_per_1000_queries": 4.2,
+      "score": 5,
+      "source_label": "tencent/Hunyuan-1.8B-Instruct"
+    },
+    {
+      "model": "google/gemma-3-270m",
+      "class": "A",
+      "wh_per_1000_queries": 9.3,
+      "score": 5,
+      "source_label": "google/gemma-3-270m"
+    },
+    {
+      "model": "Qwen/Qwen3-0.6B",
+      "class": "A",
+      "wh_per_1000_queries": 11.8,
+      "score": 5,
+      "source_label": "Qwen/Qwen3-0.6B"
+    },
+    {
+      "model": "google/gemma-3-1b-pt",
+      "class": "A",
+      "wh_per_1000_queries": 12.3,
+      "score": 5,
+      "source_label": "google/gemma-3-1b-pt"
+    },
+    {
+      "model": "ibm-granite/granite-4.0-micro",
+      "class": "A",
+      "wh_per_1000_queries": 16.6,
+      "score": 5,
+      "source_label": "ibm-granite/granite-4.0-micro"
+    },
+    {
+      "model": "microsoft/Phi-4-reasoning-plus",
+      "class": "A",
+      "wh_per_1000_queries": 18.4,
+      "score": 5,
+      "source_label": "microsoft/Phi-4-reasoning-plus"
+    },
+    {
+      "model": "HuggingFaceTB/SmolLM3-3B",
+      "class": "A",
+      "wh_per_1000_queries": 18.4,
+      "score": 5,
+      "source_label": "HuggingFaceTB/SmolLM3-3B"
+    },
+    {
+      "model": "swiss-ai/Apertus-8B-Instruct-2509",
+      "class": "A",
+      "wh_per_1000_queries": 21.7,
+      "score": 4,
+      "source_label": "swiss-ai/Apertus-8B-Instruct-2509"
+    },
+    {
+      "model": "mistralai/Mistral-Nemo-Instruct-2407",
+      "class": "A",
+      "wh_per_1000_queries": 23.2,
+      "score": 4,
+      "source_label": "mistralai/Mistral-Nemo-Instruct-2407"
+    },
+    {
+      "model": "Qwen/Qwen2.5-Coder-14B",
+      "class": "A",
+      "wh_per_1000_queries": 27.1,
+      "score": 4,
+      "source_label": "Qwen/Qwen2.5-Coder-14B"
+    },
+    {
+      "model": "google/gemma-3-4b-pt",
+      "class": "A",
+      "wh_per_1000_queries": 34.4,
+      "score": 4,
+      "source_label": "google/gemma-3-4b-pt"
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+      "class": "C",
+      "wh_per_1000_queries": 36.6,
+      "score": 5,
+      "source_label": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B"
+    },
+    {
+      "model": "Qwen/Qwen3-30B-A3B",
+      "class": "B",
+      "wh_per_1000_queries": 37.4,
+      "score": 5,
+      "source_label": "Qwen/Qwen3-30B-A3B"
+    },
+    {
+      "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B",
+      "class": "C",
+      "wh_per_1000_queries": 49.5,
+      "score": 5,
+      "source_label": "deepseek-ai/DeepSeek-R1-Distill-Llama-70B"
+    },
+    {
+      "model": "google/gemma-3-27b-pt",
+      "class": "B",
+      "wh_per_1000_queries": 50.4,
+      "score": 2,
+      "source_label": "google/gemma-3-27b-pt"
+    },
+    {
+      "model": "LGAI-EXAONE/EXAONE-4.0-32B",
+      "class": "B",
+      "wh_per_1000_queries": 54.5,
+      "score": 1,
+      "source_label": "LGAI-EXAONE/EXAONE-4.0-32B"
+    },
+    {
+      "model": "ibm-granite/granite-4.0-h-tiny",
+      "class": "A",
+      "wh_per_1000_queries": 81.8,
+      "score": 1,
+      "source_label": "ibm-granite/*granite-4.0-h-tiny",
+      "note": "The source marks this row with an asterisk; model holds the clean Hugging Face id."
+    },
+    {
+      "model": "zai-org/GLM-4.5-Air",
+      "class": "C",
+      "wh_per_1000_queries": 220.5,
+      "score": 5,
+      "source_label": "zai-org/GLM-4.5-Air"
+    },
+    {
+      "model": "Qwen/Qwen3-235B-A22B",
+      "class": "C",
+      "wh_per_1000_queries": 305.8,
+      "score": 4,
+      "source_label": "Qwen/Qwen3-235B-A22B"
+    },
+    {
+      "model": "swiss-ai/Apertus-70B-Instruct-2509",
+      "class": "C",
+      "wh_per_1000_queries": 697.5,
+      "score": 3,
+      "source_label": "swiss-ai/Apertus-70B-Instruct-2509"
+    },
+    {
+      "model": "zai-org/GLM-4.5",
+      "class": "C",
+      "wh_per_1000_queries": 1225.4,
+      "score": 1,
+      "source_label": "zai-org/GLM-4.5"
+    },
+    {
+      "model": "zai-org/GLM-4.6",
+      "class": "C",
+      "wh_per_1000_queries": 1273.5,
+      "score": 1,
+      "source_label": "zai-org/GLM-4.6"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": "1",
+  "updated": "2026-10-17",
+  "data_version": "2026-10-17",
+  "unit": "Wh per million output tokens",
+  "protocol_version": "0.2",
+  "schema": "https://leadgreen.ai/api/v1/schema/measurement.schema.json",
+  "itl_deadline_ms": 500,
+  "note": "Rows contributed under the measurement protocol and accepted by two reviewers. They are never merged into index.json. comparable is false for a row whose median inter-token latency exceeds itl_deadline_ms; such rows are shown and flagged.",
+  "caveat": "GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.",
+  "boundary": "gpu_only",
+  "rows": []
+}
