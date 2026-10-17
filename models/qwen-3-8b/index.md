@@ -2,13 +2,13 @@
 
 > GPU watt-hours per million output tokens for Qwen 3 8B on B200 and H100: 19 measured configurations, load curve and carbon by grid. From ML.ENERGY v3.0.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/models/qwen-3-8b/ (this file: https://leadgreen.ai/models/qwen-3-8b/index.md). Updated 27 September 2026, data version 2026-09-27. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/models/qwen-3-8b/ (this file: https://leadgreen.ai/models/qwen-3-8b/index.md). Updated 17 October 2026, data version 2026-10-17. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Models](https://leadgreen.ai/models/) · B200 and H100*
 
 Qwen 3 8B serves a million output tokens for **14.7 Wh/M** on 1 × B200 (running batch 1,427, median inter-token latency 91 ms) and **20.0 Wh/M** on 1 × H100 (running batch 474, median inter-token latency 47 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
 
-**Model** [Qwen/Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B), a dense transformer, weights in BF16. **Measured** 19 configurations on B200 and H100. **Data** [models/qwen-3-8b.json](https://leadgreen.ai/api/v1/models/qwen-3-8b.json). Updated 27 September 2026.
+**Model** [Qwen/Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B), a dense transformer, weights in BF16. **Measured** 19 configurations on B200 and H100. **Data** [models/qwen-3-8b.json](https://leadgreen.ai/api/v1/models/qwen-3-8b.json). Updated 17 October 2026.
 
 - [Every configuration](https://leadgreen.ai/models/qwen-3-8b/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-8b/#generations)
@@ -69,17 +69,17 @@ On the index rows, the H100 configuration uses 1.36× the energy per token of th
 
 ## Same tokens, different grid
 
-A billion output tokens of Qwen 3 8B on 1 × B200 at its index row carries about 10.2 kg CO2e of GPU-side emissions on the Saudi grid (692 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). Energy per token does not change with geography; carbon per token does.
+A billion output tokens of Qwen 3 8B on 1 × B200 at its index row carries about 10.2 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). Energy per token does not change with geography; carbon per token does.
 
 *Qwen 3 8B, 1 × B200 index row (14.7 Wh/M), priced on 2024 annual grid averages, location-based*
 
 | Grid | g CO2e per kWh | kg CO2e per billion output tokens |
 |---|---|---|
 | India | 707 | 10.4 |
-| Saudi Arabia | 692 | 10.2 |
+| Saudi Arabia | 689 | 10.2 |
 | Hong Kong | 676 | 10.0 |
-| Serbia | 668 | 9.8 |
-| World | 474 | 7.0 |
+| Serbia | 668 | 9.9 |
+| World | 473 | 7.0 |
 | Germany | 340 | 5.0 |
 | Norway | 30 | 0.4 |
 
@@ -109,7 +109,7 @@ On 1 × H100, energy per token falls 6.2× between a running batch of 8 (123.3 W
 
 ### What is the carbon footprint of a billion tokens of Qwen 3 8B?
 
-A billion output tokens of Qwen 3 8B on 1 × B200 at its index row carries about 10.2 kg CO2e of GPU-side emissions on the Saudi grid (692 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). Multiply the Wh/M figure by your own grid's intensity and divide by 1,000 for kilograms per billion tokens.
+A billion output tokens of Qwen 3 8B on 1 × B200 at its index row carries about 10.2 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). Multiply the Wh/M figure by your own grid's intensity and divide by 1,000 for kilograms per billion tokens.
 
 ### Does Qwen 3 8B use more energy for reasoning or problem-solving tasks?
 
@@ -129,8 +129,8 @@ The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2
 
 [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
 
-Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/Qwen/Qwen3-8B).
+Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), October 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/Qwen/Qwen3-8B).
 
-**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-17, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/qwen-3-8b.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Qwen 3 8B on your own grid and load.

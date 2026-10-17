@@ -1,0 +1,36 @@
+{
+  "version": "1",
+  "updated": "2026-10-17",
+  "data_version": "2026-10-17",
+  "note": "One entry per change to the published data or its description, newest last.",
+  "changes": [
+    {
+      "date": "2026-09-26",
+      "summary": "First build. 32 index rows from ML.ENERGY v3.0 (data compiled 16 February 2026), grid intensities from Ember (2024), NVIDIA specifications, AI Energy Score December 2025 round. The API, the MCP server and the first blog post.",
+      "documents": [
+        "*"
+      ],
+      "reason": "first build",
+      "source_version": "3.0 (released 2025-12-01); data compiled 2026-02-16"
+    },
+    {
+      "date": "2026-09-27",
+      "summary": "Corrections after a nine-reader review, before launch. The ML.ENERGY data is dated to its compile date, not a banner update; the latency ceiling is the leaderboard's own 500 ms (no row moved); \"requests in flight\" is renamed running batch; full concurrency ladders; all AI Energy Score December rows; a two-task table; the carbon basis, grid years and display names; seven-decimal joules; additive API fields (data_version, row_id, repeat, p95_itl_ms, avg_running_batch, boundary, years, latest_year, iso2, display_name, source_label); changes.json, measurements.json, the measurement schema, a dated release archive, CSV, zip and TypeScript types.",
+      "documents": [
+        "*"
+      ],
+      "reason": "review corrections",
+      "source_version": "3.0 (released 2025-12-01); data compiled 2026-02-16"
+    },
+    {
+      "date": "2026-10-17",
+      "summary": "Ember's October 2026 release of its yearly electricity data (file dated 6 October 2026) replaces the September 2026 release. The 2024 emissions intensity moves for 26 of the 193 grids and World, seven of them on the carbon table (United Arab Emirates 467.5 to 477.3 gCO2e per kWh, Sri Lanka 386.8 to 392.8, Australia 554.0 to 549.5, Saudi Arabia 691.9 to 689.1, Taiwan 636.2 to 635.2, Japan 483.6 to 484.3, Serbia 668.0 to 668.4), and every kilogram figure priced on them follows. 2025 rows are added for Saudi Arabia and the United Arab Emirates. The reference year stays 2024, the latest with every listed grid present. No energy figure changes.",
+      "documents": [
+        "grid.json",
+        "manifest.json"
+      ],
+      "reason": "source release",
+      "source_version": "October 2026 release (file last modified 2026-10-06)"
+    }
+  ]
+}

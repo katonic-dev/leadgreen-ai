@@ -1,13 +1,13 @@
 # Lead Green
 
-> Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens, Wh/M), by model, GPU and configuration, with grid carbon intensity to price it anywhere. Every figure comes from a named public source with a retrieval date. It is a Katonic project. Updated 27 September 2026.
+> Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens, Wh/M), by model, GPU and configuration, with grid carbon intensity to price it anywhere. Every figure comes from a named public source with a retrieval date. It is a Katonic project. Updated 17 October 2026.
 
 Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-optimal configuration at or under a 500 ms median inter-token latency, the leaderboard's default ceiling, which no configuration reaches):
 - Lowest on the index: 13.0 Wh/M (Llama 3.1 8B Instruct, 1 × B200)
 - Reference row: 63.5 Wh/M (Qwen 3 32B, 2 × H100)
 - Highest on the index: 572.9 Wh/M (Llama 3.1 405B Instruct FP8, 8 × H100)
 - The index spans 44x. The same model on the same GPUs moves 7.1x with concurrency (452 to 63 Wh/M for Qwen 3 32B on 2 x H100, running batch 8 to 256). Running batch = the average number of requests the server was decoding at once (vLLM num_requests_running); queued requests are not counted.
-- Carbon: multiply Wh/M by the grid's gCO2e/kWh and divide by 1,000 for kg CO2e per billion tokens. Saudi Arabia 692, Serbia 668, Norway 30, World 474 gCO2e/kWh (Ember, 2024).
+- Carbon: multiply Wh/M by the grid's gCO2e/kWh and divide by 1,000 for kg CO2e per billion tokens. Saudi Arabia 689, Serbia 668, Norway 30, World 473 gCO2e/kWh (Ember, 2024).
 - Caveat: GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.
 - Publisher and funder: Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. It takes no money from hardware, cloud or model vendors.
 - Contact: hello@leadgreen.ai, for corrections, measurements and data requests, answered within ten working days.
@@ -66,7 +66,7 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 
 ## Sources
 - ML.ENERGY Leaderboard (The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)), 3.0 (released 2025-12-01); data compiled 2026-02-16, Apache-2.0 per the ml-energy/benchmark-v3 dataset card: https://ml.energy/leaderboard/
-- Ember, Yearly electricity data, September 2026 release (file last modified 2026-09-22), CC-BY-4.0: https://ember-energy.org/data/yearly-electricity-data/
+- Ember, Yearly electricity data, October 2026 release (file last modified 2026-10-06), CC-BY-4.0: https://ember-energy.org/data/yearly-electricity-data/
 - NVIDIA Multi-Instance GPU User Guide, supported MIG profiles: https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html
 - NVIDIA product specifications: https://www.nvidia.com/en-us/data-center/a100/, https://www.nvidia.com/en-us/data-center/h100/, https://www.nvidia.com/en-us/data-center/h200/, https://www.nvidia.com/en-us/data-center/dgx-b200/
 - NVIDIA, Product Carbon Footprint Summary for HGX B200: https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf

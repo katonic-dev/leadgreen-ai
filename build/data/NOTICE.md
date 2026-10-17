@@ -13,13 +13,14 @@ Every figure on leadgreen.ai is computed by `build/build.py` from the files in t
 - Cite: Chung et al., The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371.
 - Changes: none to the files. The site selects rows, converts units and states the selection rule.
 
-## ember-yearly-total-generation-extract-2026-09-26.csv
+## ember-yearly-total-generation-extract-2026-10-17.csv
 
 - Source: Ember, Yearly electricity data, https://ember-energy.org/data/yearly-electricity-data/
-- Version: September 2026 release
-- Retrieved: 26 September 2026
+- File: https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv
+- Version: October 2026 release (file last modified 6 October 2026). It replaces the September 2026 release (file last modified 22 September 2026, retrieved 26 September 2026), which the 2026-09-27 release of this site was built from.
+- Retrieved: 17 October 2026
 - Licence: CC BY 4.0
-- Changes: an extract of the columns the site uses (area, ISO 3 code, year, emissions intensity); values unchanged.
+- Changes: an extract of the columns the site uses (area, ISO 3 code, year, emissions intensity): the Total generation rows for every country or economy plus World, for the three latest years in the file; values unchanged. Rows with no intensity are left out, as before.
 
 ## aienergyscore-text_generation-2026-09-26.csv
 

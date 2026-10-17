@@ -2,7 +2,7 @@
 
 > Lead Green is a Katonic project on the energy behind AI tokens. Who runs it, who pays and what they gain, the publisher and how to reach the editor.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/about/ (this file: https://leadgreen.ai/about/index.md). Updated 27 September 2026, data version 2026-09-27. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/about/ (this file: https://leadgreen.ai/about/index.md). Updated 17 October 2026, data version 2026-10-17. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *About*
 
@@ -22,7 +22,7 @@ Lead Green is not a separate company and not a product. It is a project with an 
 
 - **Publisher.** Katonic AI Technology Ltd, a company registered in the Dubai International Financial Centre, registration CL9944. Registered office: to be added, word for word from the DIFC registry extract, before launch. Jurisdiction: Dubai International Financial Centre (DIFC), United Arab Emirates.
 - **Corrections, contributions and data requests.** [hello@leadgreen.ai](mailto:hello@leadgreen.ai), answered within ten working days.
-- **Cite as.** Lead Green, Green Tokens index, release 2026-09-27, Katonic, https://leadgreen.ai/index/, retrieved [date]. The full block is on [the index](https://leadgreen.ai/index/#cite).
+- **Cite as.** Lead Green, Green Tokens index, release 2026-10-17, Katonic, https://leadgreen.ai/index/, retrieved [date]. The full block is on [the index](https://leadgreen.ai/index/#cite).
 - **Archive.** Every dated release of the API is kept unchanged at `https://leadgreen.ai/api/v1/releases/<date>/`, with a zip of the whole release, so a citation can be reproduced after the index changes. The list is [`releases/index.json`](https://leadgreen.ai/api/v1/releases/index.json).
 
 *Independence*

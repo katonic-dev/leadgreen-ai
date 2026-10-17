@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-09-27",
-  "data_version": "2026-09-27",
+  "updated": "2026-10-17",
+  "data_version": "2026-10-17",
   "retrieved": "2026-09-26",
   "note": "Manufacturer ceilings transcribed from NVIDIA's published pages and documents on the retrieval date. NVIDIA does not publish power draw per MIG slice, and neither public benchmark on the index measures a sliced card. The '+me' media-extension variants of the 1g profiles are omitted.",
   "tdp": [

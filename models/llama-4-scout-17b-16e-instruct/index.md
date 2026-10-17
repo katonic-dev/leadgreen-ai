@@ -2,13 +2,13 @@
 
 > Llama 4 Scout 17B 16E Instruct: GPU watt-hours per million output tokens at every measured load, with carbon by grid. ML.ENERGY v3.0 data.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/ (this file: https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/index.md). Updated 27 September 2026, data version 2026-09-27. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/ (this file: https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/index.md). Updated 17 October 2026, data version 2026-10-17. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Models](https://leadgreen.ai/models/) · H100*
 
 Llama 4 Scout 17B 16E Instruct serves a million output tokens for **93.4 Wh/M** on 4 × H100 (running batch 473, median inter-token latency 69 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
 
-**Model** [meta-llama/Llama-4-Scout-17B-16E-Instruct](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct), a mixture-of-experts model (17 B of 109 B parameters active per token), weights in BF16. **Measured** 20 configurations on H100. **Data** [models/llama-4-scout-17b-16e-instruct.json](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json). Updated 27 September 2026.
+**Model** [meta-llama/Llama-4-Scout-17B-16E-Instruct](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct), a mixture-of-experts model (17 B of 109 B parameters active per token), weights in BF16. **Measured** 20 configurations on H100. **Data** [models/llama-4-scout-17b-16e-instruct.json](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json). Updated 17 October 2026.
 
 - [Every configuration](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#configurations)
 - [Carbon](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#carbon)
@@ -61,17 +61,17 @@ Cap is the configured maximum batch (vLLM's `max_num_seqs`). Running batch (avg)
 
 ## Same tokens, different grid
 
-A billion output tokens of Llama 4 Scout 17B 16E Instruct on 4 × H100 at its index row carries about 64.6 kg CO2e of GPU-side emissions on the Saudi grid (692 gCO2e per kWh, Ember 2024) and 2.8 kg on the Norwegian grid (30). Energy per token does not change with geography; carbon per token does.
+A billion output tokens of Llama 4 Scout 17B 16E Instruct on 4 × H100 at its index row carries about 64.3 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 2.8 kg on the Norwegian grid (30). Energy per token does not change with geography; carbon per token does.
 
 *Llama 4 Scout 17B 16E Instruct, 4 × H100 index row (93.4 Wh/M), priced on 2024 annual grid averages, location-based*
 
 | Grid | g CO2e per kWh | kg CO2e per billion output tokens |
 |---|---|---|
 | India | 707 | 66.0 |
-| Saudi Arabia | 692 | 64.6 |
+| Saudi Arabia | 689 | 64.3 |
 | Hong Kong | 676 | 63.1 |
 | Serbia | 668 | 62.4 |
-| World | 474 | 44.2 |
+| World | 473 | 44.2 |
 | Germany | 340 | 31.7 |
 | Norway | 30 | 2.8 |
 
@@ -91,7 +91,7 @@ On 4 × H100, energy per token falls 11.8× between a running batch of 8 (1,104.
 
 ### What is the carbon footprint of a billion tokens of Llama 4 Scout 17B 16E Instruct?
 
-A billion output tokens of Llama 4 Scout 17B 16E Instruct on 4 × H100 at its index row carries about 64.6 kg CO2e of GPU-side emissions on the Saudi grid (692 gCO2e per kWh, Ember 2024) and 2.8 kg on the Norwegian grid (30). Multiply the Wh/M figure by your own grid's intensity and divide by 1,000 for kilograms per billion tokens.
+A billion output tokens of Llama 4 Scout 17B 16E Instruct on 4 × H100 at its index row carries about 64.3 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 2.8 kg on the Norwegian grid (30). Multiply the Wh/M figure by your own grid's intensity and divide by 1,000 for kilograms per billion tokens.
 
 ### Is this the energy my Llama 4 Scout 17B 16E Instruct deployment will use?
 
@@ -107,8 +107,8 @@ The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2
 
 [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
 
-Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), September 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct).
+Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), October 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct).
 
-**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-09-27, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, September 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-17, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Llama 4 Scout 17B 16E Instruct on your own grid and load.

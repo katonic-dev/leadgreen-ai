@@ -129,7 +129,7 @@
 
 <h2>What that does to the bill, and to the carbon</h2>
 <p>Electricity first, because people always ask and the answer is small. 63.5 Wh per million tokens is 63.5 kWh per billion. At USD 0.10 per kWh, my assumption and not a source figure, a billion tokens is USD 6.35 of electricity, or 0.6 cents per million. Nobody will change a decision over that. The number matters because it tracks GPU-hours, and GPU-hours are where the money actually goes. Halve the watt-hours per token and you have halved the GPU time per token, on the same kit.</p>
-<p>Carbon depends on where the socket is. Multiply Wh/M by the grid's grams of CO2e per kWh and divide by a thousand, and you get kilograms per billion tokens. On Ember's 2024 annual averages the reference row is 43.9 kg per billion tokens in Saudi Arabia (692 g/kWh), 42.4 kg in Serbia (668), and 1.9 kg in Norway (30). Same tokens, same cards, 23× apart. Location moves the carbon and does nothing to the energy, which is why the two should never be reported as one number.</p>
+<p>Carbon depends on where the socket is. Multiply Wh/M by the grid's grams of CO2e per kWh and divide by a thousand, and you get kilograms per billion tokens. On Ember's 2024 annual averages the reference row is 43.7 kg per billion tokens in Saudi Arabia (689 g/kWh), 42.4 kg in Serbia (668), and 1.9 kg in Norway (30). Same tokens, same cards, 23× apart. Location moves the carbon and does nothing to the energy, which is why the two should never be reported as one number.</p>
 
 <h2>What I am not telling you</h2>
 <p>Closed-weight models served over an API. The leaderboard cannot measure them, and neither can anyone outside those companies, so I say nothing about them. Sliced GPUs: NVIDIA does not publish power per MIG slice and no public benchmark has measured one, which is the first gap we will fill with a measurement of our own, on our own rig, with the protocol and the logs published. And the lightly loaded reality: every row on the index is the best case under a latency limit. Your deployment sits above it. The concurrency table tells you how far.</p>
@@ -142,8 +142,8 @@
   <p class="eyebrow">References</p>
   <ol>
     <li><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</li>
-    <li>Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, 2024, CC BY 4.0, retrieved 27 September 2026. <a href="https://ember-energy.org/data/yearly-electricity-data/">ember-energy.org</a>.</li>
-    <li>OpenAI, What are tokens and how to count them, retrieved 27 September 2026, for the words-per-token rule of thumb.</li>
+    <li>Ember, Yearly electricity data, October 2026 release, emissions intensity of total generation, 2024, CC BY 4.0, retrieved 17 October 2026. <a href="https://ember-energy.org/data/yearly-electricity-data/">ember-energy.org</a>.</li>
+    <li>OpenAI, What are tokens and how to count them, retrieved 17 October 2026, for the words-per-token rule of thumb.</li>
     <li>Full tables, method and sources: <a href="../../index/">the index</a>. Data: <a href="../../api/">the API</a>.</li>
   </ol>
 </div>
@@ -163,7 +163,7 @@
       <a href="../../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 27 September 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 17 October 2026.</p>
   </footer>
 
 </div>

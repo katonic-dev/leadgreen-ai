@@ -213,7 +213,7 @@ def figures() -> dict:
                    key=lambda p: p[1])
     fig["gpqa_pairs"] = len(pairs); fig["gpqa_ratio"] = (round(pairs[0][1], 2), round(pairs[-1][1], 2))
     grid = {}
-    with open(ROOT / "build/data/ember-yearly-total-generation-extract-2026-09-26.csv", encoding="utf-8-sig") as f:
+    with open(ROOT / "build/data/ember-yearly-total-generation-extract-2026-10-17.csv", encoding="utf-8-sig") as f:
         for r in csv.DictReader(f):
             if r["Year"] == "2024": grid[r["ISO 3 code"] or "WLD"] = float(r["Emissions intensity (gCO2e/kWh)"])
     rw = whm(ref["energy_per_token_joules"])

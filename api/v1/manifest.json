@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-09-27",
-  "data_version": "2026-09-27",
+  "updated": "2026-10-17",
+  "data_version": "2026-10-17",
   "site": "https://leadgreen.ai",
   "name": "Lead Green Green Tokens API",
   "description": "GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity and GPU hardware reference data. Static JSON, GET only, CORS open.",
@@ -136,8 +136,8 @@
       "publisher": "Ember",
       "url": "https://ember-energy.org/data/yearly-electricity-data/",
       "data_url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
-      "version": "September 2026 release (file last modified 2026-09-22)",
-      "retrieved": "2026-09-26",
+      "version": "October 2026 release (file last modified 2026-10-06)",
+      "retrieved": "2026-10-17",
       "licence": "CC-BY-4.0",
       "factor_basis": "Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported.",
       "used_for": "grid emissions intensity of total generation, gCO2e per kWh, 2024 (location-based)"
