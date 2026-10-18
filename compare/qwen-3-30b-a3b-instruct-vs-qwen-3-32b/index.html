@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Qwen 3 30B A3B Instruct vs Qwen 3 32B: GPU energy per million output tokens | Lead Green</title>
+<meta name="description" content="Qwen 3 32B against Qwen 3 30B A3B Instruct on GPU energy per output token: 2.57× on the H100 and 2.49× on the B200, from the index rows.">
+<link rel="canonical" href="https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Qwen 3 30B A3B Instruct vs Qwen 3 32B: GPU energy per million output tokens | Lead Green">
+<meta property="og:description" content="Qwen 3 32B against Qwen 3 30B A3B Instruct on GPU energy per output token: 2.57× on the H100 and 2.49× on the B200, from the index rows.">
+<meta property="og:url" content="https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/index.md">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/",
+   "name": "Qwen 3 30B A3B Instruct vs Qwen 3 32B: GPU energy per million output tokens | Lead Green",
+   "description": "Qwen 3 32B against Qwen 3 30B A3B Instruct on GPU energy per output token: 2.57× on the H100 and 2.49× on the B200, from the index rows.",
+   "url": "https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-18",
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/"
+   },
+   "mainEntity": {
+    "@type": "Dataset",
+    "name": "Qwen 3 30B A3B Instruct vs Qwen 3 32B: GPU energy per million output tokens",
+    "description": "Qwen 3 32B against Qwen 3 30B A3B Instruct on GPU energy per output token: 2.57× on the H100 and 2.49× on the B200, from the index rows.",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "creator": {
+     "@type": "Organization",
+     "name": "Lead Green",
+     "url": "https://leadgreen.ai/",
+     "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+     "parentOrganization": {
+      "@type": "Organization",
+      "name": "Katonic",
+      "url": "https://www.katonic.ai"
+     }
+    },
+    "dateModified": "2026-10-18",
+    "isBasedOn": "https://ml.energy/leaderboard/",
+    "distribution": [
+     {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://leadgreen.ai/api/v1/index.json"
+     }
+    ]
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is Qwen 3 30B A3B Instruct more energy-efficient than Qwen 3 32B?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Qwen 3 32B uses 2.57× the GPU energy per output token of Qwen 3 30B A3B Instruct on the H100 (63.5 against 24.7 Wh per million output tokens) and 2.49× the GPU energy per output token of Qwen 3 30B A3B Instruct on the B200 (39.1 against 15.7 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much more energy does Qwen 3 32B use per million tokens than Qwen 3 30B A3B Instruct?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The index rows differ by 38.8 Wh/M on the H100 (38.8 kWh per billion tokens) and 23.4 Wh/M on the B200 (23.4 kWh per billion tokens). Per answer, at each row's own average output length, Qwen 3 30B A3B Instruct costs 0.023 Wh on the H100 and 0.015 Wh on the B200 and Qwen 3 32B 0.040 Wh on the H100 and 0.025 Wh on the B200."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does a mixture-of-experts model use less energy per token than a dense one?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "At a similar total size, on these rows, yes: Qwen 3 30B A3B Instruct activates 3 B of 30 B parameters per token and its H100 index row uses 24.7 Wh/M against 63.5 for the dense Qwen 3 32B (32 B), 0.39× less. The mixture-of-experts model reads about 11× fewer weights per token; it still needs memory for all of them, so the saving is in energy per token, not in cards."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why are the two rows not like for like?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 2 and 2 cards at running batches of 1,019 and 256. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Where do these figures come from?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024)."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Lead Green",
+     "item": "https://leadgreen.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Compare",
+     "item": "https://leadgreen.ai/compare/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Qwen 3 30B A3B Instruct vs Qwen 3 32B",
+     "item": "https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models" aria-current="page">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow"><a href="../../compare/">Compare</a> · Dense against mixture of experts · H100 and B200</p>
+  <h1>Qwen 3 30B A3B Instruct vs Qwen 3 32B: GPU energy per million output tokens</h1>
+  <p class="stand">On the index rows, Qwen 3 32B uses <b>2.57×</b> the GPU energy per output token of Qwen 3 30B A3B Instruct on the H100 (63.5 against 24.7 Wh/M, both on two cards at running batches of 256 and 1,019) and <b>2.49×</b> on the B200 (39.1 against 15.7 Wh/M, both on one card at running batches of 383 and 1,023), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Qwen 3 30B A3B Instruct has 30 B parameters, 3 B active per token; Qwen 3 32B has 32 B parameters. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="../../api/v1/models/qwen-3-30b-a3b-instruct.json">qwen-3-30b-a3b-instruct.json</a>, <a href="../../api/v1/models/qwen-3-32b.json">qwen-3-32b.json</a>. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Qwen 3 30B A3B Instruct vs Qwen 3 32B: GPU energy per million output tokens. https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#rows">The rows</a></li><li><a href="#why">What explains it</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+<div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile ref"><span class="lbl">H100, index rows</span><span class="val">2.57<small>×</small></span><span class="sub">Qwen 3 32B 63.5 Wh/M on 2 × H100 against Qwen 3 30B A3B Instruct 24.7 Wh/M on 2 × H100.</span></div><div class="tile"><span class="lbl">B200, index rows</span><span class="val">2.49<small>×</small></span><span class="sub">Qwen 3 32B 39.1 Wh/M on 1 × B200 against Qwen 3 30B A3B Instruct 15.7 Wh/M on 1 × B200.</span></div><div class="tile"><span class="lbl">Parameters</span><span class="val">1.1<small>×</small></span><span class="sub">Qwen 3 32B 32 B parameters; Qwen 3 30B A3B Instruct 30 B parameters, 3 B active per token.</span></div></div>
+<p class="after-tiles">Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.</p>
+
+<section id="rows" class="first">
+  <p class="eyebrow">The rows</p>
+  <h2>Index rows on every GPU both models share</h2>
+  <div class="table-scroll"><table><caption>Index rows for Qwen 3 30B A3B Instruct and Qwen 3 32B, with the configuration behind each and the per-answer and carbon readings</caption>
+  <thead><tr><th scope="col">GPU</th><th scope="col">Model</th><th scope="col" class="num">Cards</th><th scope="col" class="num">Precision</th><th scope="col" class="num">Running batch</th><th scope="col" class="num">GPU W</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Output tokens</th><th scope="col" class="num">Wh per answer</th><th scope="col" class="num">kg CO2e / bn tokens, world grid</th></tr></thead><tbody>
+<tr><th scope="row">H100</th><td><a class="model" href="../../models/qwen-3-30b-a3b-instruct/">Qwen 3 30B A3B Instruct</a></td><td class="num">2 × H100</td><td class="num">BF16</td><td class="num">1,019</td><td class="num">1,123</td><td class="num">12,640</td><td class="num key">24.7</td><td class="num">920</td><td class="num">0.023</td><td class="num">11.7</td></tr>
+<tr><th scope="row">H100</th><td><a class="model" href="../../models/qwen-3-32b/">Qwen 3 32B</a></td><td class="num">2 × H100</td><td class="num">BF16</td><td class="num">256</td><td class="num">1,178</td><td class="num">5,155</td><td class="num key">63.5</td><td class="num">634</td><td class="num">0.040</td><td class="num">30.0</td></tr>
+<tr><th scope="row">B200</th><td><a class="model" href="../../models/qwen-3-30b-a3b-instruct/">Qwen 3 30B A3B Instruct</a></td><td class="num">1 × B200</td><td class="num">BF16</td><td class="num">1,023</td><td class="num">601</td><td class="num">10,648</td><td class="num key">15.7</td><td class="num">928</td><td class="num">0.015</td><td class="num">7.4</td></tr>
+<tr><th scope="row">B200</th><td><a class="model" href="../../models/qwen-3-32b/">Qwen 3 32B</a></td><td class="num">1 × B200</td><td class="num">BF16</td><td class="num">383</td><td class="num">972</td><td class="num">6,912</td><td class="num key">39.1</td><td class="num">635</td><td class="num">0.025</td><td class="num">18.5</td></tr>
+  </tbody></table></div>
+  <p class="note">Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the <a href="../../grids/">grid pages</a> price every model on each listed grid. Model names link to every measured configuration.</p>
+</section>
+
+<section id="why">
+  <p class="eyebrow">What explains it</p>
+  <h2>Dense against mixture of experts</h2>
+  <div class="prose"><p>A dense model reads all of its weights for every output token; a mixture-of-experts model routes each token through a few experts and reads only those. Qwen 3 30B A3B Instruct activates 3 B of its 30 B parameters per token; Qwen 3 32B is dense at 32 B. So the mixture-of-experts model reads about 11× fewer weights per token at a similar total size, and on the H100 its index row uses 0.39× less GPU energy per output token (24.7 against 63.5 Wh/M). The whole model must still fit in memory: On the H100 both rows sit on two cards, at running batches of 1,019 (Qwen 3 30B A3B Instruct) and 256 (Qwen 3 32B). The saving is in weights read per token, not in cards.</p>
+  <p>Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The <a href="../../glossary/running-batch/">running batch</a> and <a href="../../glossary/floor/">floor</a> entries define the terms.</p></div>
+</section>
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about Qwen 3 30B A3B Instruct against Qwen 3 32B</h2><div class="prose faq"><h3>Is Qwen 3 30B A3B Instruct more energy-efficient than Qwen 3 32B?</h3><p>Yes, on these rows: on the ML.ENERGY Leaderboard&#x27;s index rows, Qwen 3 32B uses 2.57× the GPU energy per output token of Qwen 3 30B A3B Instruct on the H100 (63.5 against 24.7 Wh per million output tokens) and 2.49× the GPU energy per output token of Qwen 3 30B A3B Instruct on the B200 (39.1 against 15.7 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.</p><h3>How much more energy does Qwen 3 32B use per million tokens than Qwen 3 30B A3B Instruct?</h3><p>The index rows differ by 38.8 Wh/M on the H100 (38.8 kWh per billion tokens) and 23.4 Wh/M on the B200 (23.4 kWh per billion tokens). Per answer, at each row&#x27;s own average output length, Qwen 3 30B A3B Instruct costs 0.023 Wh on the H100 and 0.015 Wh on the B200 and Qwen 3 32B 0.040 Wh on the H100 and 0.025 Wh on the B200.</p><h3>Does a mixture-of-experts model use less energy per token than a dense one?</h3><p>At a similar total size, on these rows, yes: Qwen 3 30B A3B Instruct activates 3 B of 30 B parameters per token and its H100 index row uses 24.7 Wh/M against 63.5 for the dense Qwen 3 32B (32 B), 0.39× less. The mixture-of-experts model reads about 11× fewer weights per token; it still needs memory for all of them, so the saving is in energy per token, not in cards.</p><h3>Why are the two rows not like for like?</h3><p>The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 2 and 2 cards at running batches of 1,019 and 256. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.</p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).</p></div></section>
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
+  <p class="note">Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+</section>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

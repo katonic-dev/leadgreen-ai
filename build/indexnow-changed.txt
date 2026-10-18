@@ -31,6 +31,16 @@ https://leadgreen.ai/api/v1/per-query.json
 https://leadgreen.ai/api/v1/schema/measurement.schema.json
 https://leadgreen.ai/blog/
 https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/
+https://leadgreen.ai/compare/
+https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/
+https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/
+https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/
+https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/
+https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/
+https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/
+https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/
+https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/
+https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/
 https://leadgreen.ai/contribute/
 https://leadgreen.ai/faq/
 https://leadgreen.ai/glossary/

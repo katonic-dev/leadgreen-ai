@@ -88,4 +88,6 @@ Cite this page: Lead Green, a Katonic project. Models: GPU energy per million ou
 
 405 B parameters; 15 measured configurations.
 
+Pairs people ask about (small against large, dense against mixture of experts, BF16 against FP8) are set side by side on [the compare pages](https://leadgreen.ai/compare/); the two GPU generations on [H100 vs B200](https://leadgreen.ai/h100-vs-b200/).
+
 The figure on each card is the model's lowest index row across the GPUs it was measured on. Closed-weight models served over an API cannot be measured from outside and are not here. Source: ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026), Text Conversation, 328 stable configurations, retrieved 26 September 2026.

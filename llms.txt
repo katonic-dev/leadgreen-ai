@@ -21,6 +21,7 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - [H100 vs B200](https://leadgreen.ai/h100-vs-b200/): the 14 models measured on both cards, the gap per model and how much of it is the sweep
 - [Grids](https://leadgreen.ai/grids/): one page per listed grid, the whole index priced on it, the trend since 2023 and the reporting line
 - [How much energy does an AI query use?](https://leadgreen.ai/per-query/): per prompt against per million tokens, with Google's and Mistral's published figures and the AI Energy Score on one page
+- [Compare](https://leadgreen.ai/compare/): 9 model pairs side by side on GPU energy per output token (small against large, dense against MoE, BF16 against FP8, two families, two expert counts), one page each
 - [Glossary](https://leadgreen.ai/glossary/): 9 defined terms, one page each with the figure and the source (Wh/M, energy per token, running batch, floor, GPU-only boundary, location-based intensity, kg CO2e per billion tokens, inter-token latency ceiling, PUE)
 - [Questions](https://leadgreen.ai/faq/): every question the site answers, each linking the page with the full answer
 - [Data API](https://leadgreen.ai/api/): read-only JSON, CORS open, CC BY 4.0
@@ -84,6 +85,16 @@ Every page has a Markdown copy at its URL followed by index.md, generated from t
 - https://leadgreen.ai/api/index.md
 - https://leadgreen.ai/blog/index.md
 - https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md
+- https://leadgreen.ai/compare/index.md
+- https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/index.md
+- https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/index.md
+- https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/index.md
+- https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/index.md
+- https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/index.md
+- https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/index.md
+- https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/index.md
+- https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/index.md
+- https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/index.md
 - https://leadgreen.ai/contribute/index.md
 - https://leadgreen.ai/faq/index.md
 - https://leadgreen.ai/glossary/energy-per-token/index.md
@@ -147,4 +158,4 @@ Every page has a Markdown copy at its URL followed by index.md, generated from t
 - https://leadgreen.ai/why/index.md
 
 ## Full text
-- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 65 pages.
+- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 75 pages.

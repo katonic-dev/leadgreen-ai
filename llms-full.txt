@@ -3747,6 +3747,8 @@ Cite this page: Lead Green, a Katonic project. Models: GPU energy per million ou
 
 405 B parameters; 15 measured configurations.
 
+Pairs people ask about (small against large, dense against mixture of experts, BF16 against FP8) are set side by side on [the compare pages](https://leadgreen.ai/compare/); the two GPU generations on [H100 vs B200](https://leadgreen.ai/h100-vs-b200/).
+
 The figure on each card is the model's lowest index row across the GPUs it was measured on. Closed-weight models served over an API cannot be measured from outside and are not here. Source: ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026), Text Conversation, 328 stable configurations, retrieved 26 September 2026.
 
 ---
@@ -7422,33 +7424,838 @@ Each term's page carries its own FAQ and sources, and a Markdown copy at its URL
 
 ---
 
+# Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct: GPU energy per million output tokens
+
+> Llama 3.3 70B Instruct against Llama 3.1 8B Instruct on GPU energy per output token: 6.03× on the H100 and 4.68× on the B200, from the index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/ (this file: https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Two sizes · H100 and B200*
+
+On the index rows, Llama 3.3 70B Instruct uses **6.03×** the GPU energy per output token of Llama 3.1 8B Instruct on the H100 (117.5 against 19.5 Wh/M, on four cards and one card at running batches of 724 and 511) and **4.68×** on the B200 (60.7 against 13.0 Wh/M, on two cards and one card at running batches of 1,022 and 2,043), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Llama 3.1 8B Instruct has 8 B parameters; Llama 3.3 70B Instruct has 70 B parameters. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [llama-3-1-8b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-1-8b-instruct.json), [llama-3-3-70b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-3-70b-instruct.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct: GPU energy per million output tokens. https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#rows)
+- [What explains it](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#why)
+- [Questions](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+- [Sources](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#sources)
+
+- **H100, index rows:** 6.03 × Llama 3.3 70B Instruct 117.5 Wh/M on 4 × H100 against Llama 3.1 8B Instruct 19.5 Wh/M on 1 × H100.
+- **B200, index rows:** 4.68 × Llama 3.3 70B Instruct 60.7 Wh/M on 2 × B200 against Llama 3.1 8B Instruct 13.0 Wh/M on 1 × B200.
+- **Parameters:** 8.8 × Llama 3.3 70B Instruct 70 B parameters; Llama 3.1 8B Instruct 8 B parameters.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Llama 3.1 8B Instruct and Llama 3.3 70B Instruct, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| H100 | [Llama 3.1 8B Instruct](https://leadgreen.ai/models/llama-3-1-8b-instruct/) | 1 × H100 | BF16 | 511 | 688 | 9,806 | 19.5 | 397 | 0.008 | 9.2 |
+| H100 | [Llama 3.3 70B Instruct](https://leadgreen.ai/models/llama-3-3-70b-instruct/) | 4 × H100 | BF16 | 724 | 2,546 | 6,018 | 117.5 | 413 | 0.049 | 55.6 |
+| B200 | [Llama 3.1 8B Instruct](https://leadgreen.ai/models/llama-3-1-8b-instruct/) | 1 × B200 | BF16 | 2,043 | 691 | 14,799 | 13.0 | 396 | 0.005 | 6.1 |
+| B200 | [Llama 3.3 70B Instruct](https://leadgreen.ai/models/llama-3-3-70b-instruct/) | 2 × B200 | BF16 | 1,022 | 1,935 | 8,854 | 60.7 | 409 | 0.025 | 28.7 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Two sizes
+
+The second model has 8.8× the parameters of the first, and a dense model reads every parameter for every output token, so the weights moved per token scale with size and so does the memory needed to hold them. On the H100 the rows sit on one card (Llama 3.1 8B Instruct) and four cards (Llama 3.3 70B Instruct), at running batches of 511 (Llama 3.1 8B Instruct) and 724 (Llama 3.3 70B Instruct). The energy gap on the H100 (6.03×) is smaller than the parameter gap (8.8×), because each row runs at its own card count and running batch, where its fixed draw is spread over its own number of tokens. Size is the largest lever after load; the question for a buyer is whether the task needs the larger model's answers.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Llama 3.1 8B Instruct against Llama 3.3 70B Instruct
+
+### Is Llama 3.1 8B Instruct more energy-efficient than Llama 3.3 70B Instruct?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.3 70B Instruct uses 6.03× the GPU energy per output token of Llama 3.1 8B Instruct on the H100 (117.5 against 19.5 Wh per million output tokens) and 4.68× the GPU energy per output token of Llama 3.1 8B Instruct on the B200 (60.7 against 13.0 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does Llama 3.3 70B Instruct use per million tokens than Llama 3.1 8B Instruct?
+
+The index rows differ by 98.0 Wh/M on the H100 (98.0 kWh per billion tokens) and 47.7 Wh/M on the B200 (47.7 kWh per billion tokens). Per answer, at each row's own average output length, Llama 3.1 8B Instruct costs 0.008 Wh on the H100 and 0.005 Wh on the B200 and Llama 3.3 70B Instruct 0.049 Wh on the H100 and 0.025 Wh on the B200.
+
+### Does the bigger model cost more per answer?
+
+Yes, at these rows: on the H100, 0.008 Wh for Llama 3.1 8B Instruct against 0.049 Wh for Llama 3.3 70B Instruct, using each row's own average output length (397 and 413 tokens). The larger model also needs more cards to hold its weights (1 against 4 on the H100). Whether its answers are worth the difference is a question about the task, not the index.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 1 and 4 cards at running batches of 511 and 724. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# Llama 3.3 70B Instruct vs Llama 3.1 405B Instruct FP8: GPU energy per million output tokens
+
+> Llama 3.1 405B Instruct FP8 against Llama 3.3 70B Instruct on GPU energy per output token: 4.88× on the H100 and 5.25× on the B200, from the index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/ (this file: https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Two sizes · H100 and B200*
+
+On the index rows, Llama 3.1 405B Instruct FP8 uses **4.88×** the GPU energy per output token of Llama 3.3 70B Instruct on the H100 (572.9 against 117.5 Wh/M, on eight cards and four cards at running batches of 255 and 724) and **5.25×** on the B200 (318.5 against 60.7 Wh/M, on four cards and two cards at running batches of 510 and 1,022), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Llama 3.3 70B Instruct has 70 B parameters; Llama 3.1 405B Instruct FP8 has 405 B parameters. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [llama-3-3-70b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-3-70b-instruct.json), [llama-3-1-405b-instruct-fp8.json](https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct-fp8.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Llama 3.3 70B Instruct vs Llama 3.1 405B Instruct FP8: GPU energy per million output tokens. https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#rows)
+- [What explains it](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#why)
+- [Questions](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+- [Sources](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#sources)
+
+- **H100, index rows:** 4.88 × Llama 3.1 405B Instruct FP8 572.9 Wh/M on 8 × H100 against Llama 3.3 70B Instruct 117.5 Wh/M on 4 × H100.
+- **B200, index rows:** 5.25 × Llama 3.1 405B Instruct FP8 318.5 Wh/M on 4 × B200 against Llama 3.3 70B Instruct 60.7 Wh/M on 2 × B200.
+- **Parameters:** 5.8 × Llama 3.1 405B Instruct FP8 405 B parameters; Llama 3.3 70B Instruct 70 B parameters.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Llama 3.3 70B Instruct and Llama 3.1 405B Instruct FP8, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| H100 | [Llama 3.3 70B Instruct](https://leadgreen.ai/models/llama-3-3-70b-instruct/) | 4 × H100 | BF16 | 724 | 2,546 | 6,018 | 117.5 | 413 | 0.049 | 55.6 |
+| H100 | [Llama 3.1 405B Instruct FP8](https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/) | 8 × H100 | FP8 | 255 | 4,875 | 2,363 | 572.9 | 367 | 0.210 | 271.0 |
+| B200 | [Llama 3.3 70B Instruct](https://leadgreen.ai/models/llama-3-3-70b-instruct/) | 2 × B200 | BF16 | 1,022 | 1,935 | 8,854 | 60.7 | 409 | 0.025 | 28.7 |
+| B200 | [Llama 3.1 405B Instruct FP8](https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/) | 4 × B200 | FP8 | 510 | 3,883 | 3,386 | 318.5 | 380 | 0.121 | 150.7 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Two sizes
+
+The second model has 5.8× the parameters of the first, and a dense model reads every parameter for every output token, so the weights moved per token scale with size and so does the memory needed to hold them. On the H100 the rows sit on four cards (Llama 3.3 70B Instruct) and eight cards (Llama 3.1 405B Instruct FP8), at running batches of 724 (Llama 3.3 70B Instruct) and 255 (Llama 3.1 405B Instruct FP8). The energy gap on the H100 (4.88×) is smaller than the parameter gap (5.8×), because each row runs at its own card count and running batch, where its fixed draw is spread over its own number of tokens. Size is the largest lever after load; the question for a buyer is whether the task needs the larger model's answers.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Llama 3.3 70B Instruct against Llama 3.1 405B Instruct FP8
+
+### Is Llama 3.3 70B Instruct more energy-efficient than Llama 3.1 405B Instruct FP8?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 405B Instruct FP8 uses 4.88× the GPU energy per output token of Llama 3.3 70B Instruct on the H100 (572.9 against 117.5 Wh per million output tokens) and 5.25× the GPU energy per output token of Llama 3.3 70B Instruct on the B200 (318.5 against 60.7 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does Llama 3.1 405B Instruct FP8 use per million tokens than Llama 3.3 70B Instruct?
+
+The index rows differ by 455.4 Wh/M on the H100 (455.4 kWh per billion tokens) and 257.8 Wh/M on the B200 (257.8 kWh per billion tokens). Per answer, at each row's own average output length, Llama 3.3 70B Instruct costs 0.049 Wh on the H100 and 0.025 Wh on the B200 and Llama 3.1 405B Instruct FP8 0.210 Wh on the H100 and 0.121 Wh on the B200.
+
+### Does the bigger model cost more per answer?
+
+Yes, at these rows: on the H100, 0.049 Wh for Llama 3.3 70B Instruct against 0.210 Wh for Llama 3.1 405B Instruct FP8, using each row's own average output length (413 and 367 tokens). The larger model also needs more cards to hold its weights (4 against 8 on the H100). Whether its answers are worth the difference is a question about the task, not the index.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 4 and 8 cards at running batches of 724 and 255. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# Qwen 3 32B vs Llama 3.3 70B Instruct: GPU energy per million output tokens
+
+> Llama 3.3 70B Instruct against Qwen 3 32B on GPU energy per output token: 1.85× on the H100 and 1.55× on the B200, from the index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/ (this file: https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Two families, two sizes · H100 and B200*
+
+On the index rows, Llama 3.3 70B Instruct uses **1.85×** the GPU energy per output token of Qwen 3 32B on the H100 (117.5 against 63.5 Wh/M, on four cards and two cards at running batches of 724 and 256) and **1.55×** on the B200 (60.7 against 39.1 Wh/M, on two cards and one card at running batches of 1,022 and 383), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Qwen 3 32B has 32 B parameters; Llama 3.3 70B Instruct has 70 B parameters. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [qwen-3-32b.json](https://leadgreen.ai/api/v1/models/qwen-3-32b.json), [llama-3-3-70b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-3-70b-instruct.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Qwen 3 32B vs Llama 3.3 70B Instruct: GPU energy per million output tokens. https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#rows)
+- [What explains it](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#why)
+- [Questions](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+- [Sources](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#sources)
+
+- **H100, index rows:** 1.85 × Llama 3.3 70B Instruct 117.5 Wh/M on 4 × H100 against Qwen 3 32B 63.5 Wh/M on 2 × H100.
+- **B200, index rows:** 1.55 × Llama 3.3 70B Instruct 60.7 Wh/M on 2 × B200 against Qwen 3 32B 39.1 Wh/M on 1 × B200.
+- **Parameters:** 2.2 × Llama 3.3 70B Instruct 70 B parameters; Qwen 3 32B 32 B parameters.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Qwen 3 32B and Llama 3.3 70B Instruct, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| H100 | [Qwen 3 32B](https://leadgreen.ai/models/qwen-3-32b/) | 2 × H100 | BF16 | 256 | 1,178 | 5,155 | 63.5 | 634 | 0.040 | 30.0 |
+| H100 | [Llama 3.3 70B Instruct](https://leadgreen.ai/models/llama-3-3-70b-instruct/) | 4 × H100 | BF16 | 724 | 2,546 | 6,018 | 117.5 | 413 | 0.049 | 55.6 |
+| B200 | [Qwen 3 32B](https://leadgreen.ai/models/qwen-3-32b/) | 1 × B200 | BF16 | 383 | 972 | 6,912 | 39.1 | 635 | 0.025 | 18.5 |
+| B200 | [Llama 3.3 70B Instruct](https://leadgreen.ai/models/llama-3-3-70b-instruct/) | 2 × B200 | BF16 | 1,022 | 1,935 | 8,854 | 60.7 | 409 | 0.025 | 28.7 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Two families, two sizes
+
+Two families and two sizes: Qwen 3 32B (32 B parameters, Dense Transformer) against Llama 3.3 70B Instruct (70 B parameters, Dense Transformer), 2.2× the parameters. On the H100 the rows sit on two cards (Qwen 3 32B) and four cards (Llama 3.3 70B Instruct), at running batches of 256 (Qwen 3 32B) and 724 (Llama 3.3 70B Instruct). The energy gap on the H100 (1.85×) is smaller than the parameter gap (2.2×); architecture, vocabulary and the configuration each model was swept at account for the rest. Qwen 3 32B is the index's reference model, so its full ladder of measured loads is on [the index](https://leadgreen.ai/index/#concurrency), and both models' every configuration is on their pages.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Qwen 3 32B against Llama 3.3 70B Instruct
+
+### Is Qwen 3 32B more energy-efficient than Llama 3.3 70B Instruct?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.3 70B Instruct uses 1.85× the GPU energy per output token of Qwen 3 32B on the H100 (117.5 against 63.5 Wh per million output tokens) and 1.55× the GPU energy per output token of Qwen 3 32B on the B200 (60.7 against 39.1 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does Llama 3.3 70B Instruct use per million tokens than Qwen 3 32B?
+
+The index rows differ by 54.1 Wh/M on the H100 (54.1 kWh per billion tokens) and 21.7 Wh/M on the B200 (21.7 kWh per billion tokens). Per answer, at each row's own average output length, Qwen 3 32B costs 0.040 Wh on the H100 and 0.025 Wh on the B200 and Llama 3.3 70B Instruct 0.049 Wh on the H100 and 0.025 Wh on the B200.
+
+### Does Llama 3.3 70B Instruct cost more per answer than Qwen 3 32B?
+
+At these rows, on the H100: 0.040 Wh for Qwen 3 32B against 0.049 Wh for Llama 3.3 70B Instruct, using each row's own average output length (634 and 413 tokens). The two differ in family and in size (2.2× the parameters), and the rows differ in cards (2 against 4) and running batch, so the per-answer figure is a reading, not a verdict on either architecture.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 2 and 4 cards at running batches of 256 and 724. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# Qwen 3 235B A22B Instruct vs DeepSeek V3.1: GPU energy per million output tokens
+
+> DeepSeek V3.1 against Qwen 3 235B A22B Instruct on GPU energy per output token: 2.52× on the B200, from the index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/ (this file: https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Two mixture-of-experts sizes · B200*
+
+On the index rows, DeepSeek V3.1 uses **2.52×** the GPU energy per output token of Qwen 3 235B A22B Instruct on the B200 (168.4 against 66.7 Wh/M, on eight cards and four cards at running batches of 3,008 and 3,765), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Qwen 3 235B A22B Instruct has 235 B parameters, 22 B active per token; DeepSeek V3.1 has 671 B parameters, 37 B active per token. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [qwen-3-235b-a22b-instruct.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json), [deepseek-v3-1.json](https://leadgreen.ai/api/v1/models/deepseek-v3-1.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct vs DeepSeek V3.1: GPU energy per million output tokens. https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#rows)
+- [What explains it](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#why)
+- [Questions](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+- [Sources](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#sources)
+
+- **B200, index rows:** 2.52 × DeepSeek V3.1 168.4 Wh/M on 8 × B200 against Qwen 3 235B A22B Instruct 66.7 Wh/M on 4 × B200.
+- **Parameters:** 2.9 × DeepSeek V3.1 671 B parameters, 37 B active per token; Qwen 3 235B A22B Instruct 235 B parameters, 22 B active per token.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Qwen 3 235B A22B Instruct and DeepSeek V3.1, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| B200 | [Qwen 3 235B A22B Instruct](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/) | 4 × B200 | BF16 | 3,765 | 3,196 | 13,303 | 66.7 | 874 | 0.058 | 31.6 |
+| B200 | [DeepSeek V3.1](https://leadgreen.ai/models/deepseek-v3-1/) | 8 × B200 | FP8 | 3,008 | 5,470 | 9,021 | 168.4 | 842 | 0.142 | 79.7 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Two mixture-of-experts sizes
+
+Two mixture-of-experts models of different total size: Qwen 3 235B A22B Instruct activates 22 B of 235 B parameters per token, DeepSeek V3.1 37 B of 671 B. Weights read per token scale with the active parameters (1.7× here), memory with the total (2.9×), so the larger model needs more cards to hold its experts and spreads each token's work across them. On the B200 the rows sit on four cards (Qwen 3 235B A22B Instruct) and eight cards (DeepSeek V3.1), at running batches of 3,765 (Qwen 3 235B A22B Instruct) and 3,008 (DeepSeek V3.1). The index row ratio on the B200 is 2.52×, between the active-parameter gap and the total-parameter gap.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Qwen 3 235B A22B Instruct against DeepSeek V3.1
+
+### Is Qwen 3 235B A22B Instruct more energy-efficient than DeepSeek V3.1?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, DeepSeek V3.1 uses 2.52× the GPU energy per output token of Qwen 3 235B A22B Instruct on the B200 (168.4 against 66.7 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does DeepSeek V3.1 use per million tokens than Qwen 3 235B A22B Instruct?
+
+The index rows differ by 101.7 Wh/M on the B200 (101.7 kWh per billion tokens). Per answer, at each row's own average output length, Qwen 3 235B A22B Instruct costs 0.058 Wh on the B200 and DeepSeek V3.1 0.142 Wh on the B200.
+
+### Does the larger mixture-of-experts model cost more energy per token?
+
+On the B200 index rows, yes: DeepSeek V3.1 (37 B active of 671 B) uses 2.52× the GPU energy per output token of Qwen 3 235B A22B Instruct (22 B active of 235 B), 168.4 against 66.7 Wh/M, on 8 and 4 cards at running batches of 3,008 and 3,765. Active parameters set the work per token; total parameters set the cards.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the B200 the rows here ran on 4 and 8 cards at running batches of 3,765 and 3,008. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# Qwen 3 30B A3B Instruct vs Qwen 3 32B: GPU energy per million output tokens
+
+> Qwen 3 32B against Qwen 3 30B A3B Instruct on GPU energy per output token: 2.57× on the H100 and 2.49× on the B200, from the index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/ (this file: https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Dense against mixture of experts · H100 and B200*
+
+On the index rows, Qwen 3 32B uses **2.57×** the GPU energy per output token of Qwen 3 30B A3B Instruct on the H100 (63.5 against 24.7 Wh/M, both on two cards at running batches of 256 and 1,019) and **2.49×** on the B200 (39.1 against 15.7 Wh/M, both on one card at running batches of 383 and 1,023), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Qwen 3 30B A3B Instruct has 30 B parameters, 3 B active per token; Qwen 3 32B has 32 B parameters. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [qwen-3-30b-a3b-instruct.json](https://leadgreen.ai/api/v1/models/qwen-3-30b-a3b-instruct.json), [qwen-3-32b.json](https://leadgreen.ai/api/v1/models/qwen-3-32b.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Qwen 3 30B A3B Instruct vs Qwen 3 32B: GPU energy per million output tokens. https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#rows)
+- [What explains it](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#why)
+- [Questions](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+- [Sources](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#sources)
+
+- **H100, index rows:** 2.57 × Qwen 3 32B 63.5 Wh/M on 2 × H100 against Qwen 3 30B A3B Instruct 24.7 Wh/M on 2 × H100.
+- **B200, index rows:** 2.49 × Qwen 3 32B 39.1 Wh/M on 1 × B200 against Qwen 3 30B A3B Instruct 15.7 Wh/M on 1 × B200.
+- **Parameters:** 1.1 × Qwen 3 32B 32 B parameters; Qwen 3 30B A3B Instruct 30 B parameters, 3 B active per token.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Qwen 3 30B A3B Instruct and Qwen 3 32B, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| H100 | [Qwen 3 30B A3B Instruct](https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/) | 2 × H100 | BF16 | 1,019 | 1,123 | 12,640 | 24.7 | 920 | 0.023 | 11.7 |
+| H100 | [Qwen 3 32B](https://leadgreen.ai/models/qwen-3-32b/) | 2 × H100 | BF16 | 256 | 1,178 | 5,155 | 63.5 | 634 | 0.040 | 30.0 |
+| B200 | [Qwen 3 30B A3B Instruct](https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/) | 1 × B200 | BF16 | 1,023 | 601 | 10,648 | 15.7 | 928 | 0.015 | 7.4 |
+| B200 | [Qwen 3 32B](https://leadgreen.ai/models/qwen-3-32b/) | 1 × B200 | BF16 | 383 | 972 | 6,912 | 39.1 | 635 | 0.025 | 18.5 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Dense against mixture of experts
+
+A dense model reads all of its weights for every output token; a mixture-of-experts model routes each token through a few experts and reads only those. Qwen 3 30B A3B Instruct activates 3 B of its 30 B parameters per token; Qwen 3 32B is dense at 32 B. So the mixture-of-experts model reads about 11× fewer weights per token at a similar total size, and on the H100 its index row uses 0.39× less GPU energy per output token (24.7 against 63.5 Wh/M). The whole model must still fit in memory: On the H100 both rows sit on two cards, at running batches of 1,019 (Qwen 3 30B A3B Instruct) and 256 (Qwen 3 32B). The saving is in weights read per token, not in cards.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Qwen 3 30B A3B Instruct against Qwen 3 32B
+
+### Is Qwen 3 30B A3B Instruct more energy-efficient than Qwen 3 32B?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Qwen 3 32B uses 2.57× the GPU energy per output token of Qwen 3 30B A3B Instruct on the H100 (63.5 against 24.7 Wh per million output tokens) and 2.49× the GPU energy per output token of Qwen 3 30B A3B Instruct on the B200 (39.1 against 15.7 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does Qwen 3 32B use per million tokens than Qwen 3 30B A3B Instruct?
+
+The index rows differ by 38.8 Wh/M on the H100 (38.8 kWh per billion tokens) and 23.4 Wh/M on the B200 (23.4 kWh per billion tokens). Per answer, at each row's own average output length, Qwen 3 30B A3B Instruct costs 0.023 Wh on the H100 and 0.015 Wh on the B200 and Qwen 3 32B 0.040 Wh on the H100 and 0.025 Wh on the B200.
+
+### Does a mixture-of-experts model use less energy per token than a dense one?
+
+At a similar total size, on these rows, yes: Qwen 3 30B A3B Instruct activates 3 B of 30 B parameters per token and its H100 index row uses 24.7 Wh/M against 63.5 for the dense Qwen 3 32B (32 B), 0.39× less. The mixture-of-experts model reads about 11× fewer weights per token; it still needs memory for all of them, so the saving is in energy per token, not in cards.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 2 and 2 cards at running batches of 1,019 and 256. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct: GPU energy per million output tokens
+
+> Two models on GPU energy per million output tokens: 1.47× on the H100 and 0.48× on the B200, from the ML.ENERGY index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/ (this file: https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Two precisions · H100 and B200*
+
+On the index rows, Qwen 3 235B A22B Instruct uses **1.47×** the GPU energy per output token of Qwen 3 235B A22B Instruct FP8 on the H100 (303.5 against 206.0 Wh/M, both on eight cards at running batches of 228 and 511) and **0.48×** on the B200 (66.7 against 139.1 Wh/M, on four cards and two cards at running batches of 3,765 and 256), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Qwen 3 235B A22B Instruct FP8 has 235 B parameters, 22 B active per token; Qwen 3 235B A22B Instruct has 235 B parameters, 22 B active per token. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [qwen-3-235b-a22b-instruct-fp8.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct-fp8.json), [qwen-3-235b-a22b-instruct.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct: GPU energy per million output tokens. https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#rows)
+- [What explains it](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#why)
+- [Questions](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+- [Sources](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#sources)
+
+- **H100, index rows:** 1.47 × Qwen 3 235B A22B Instruct 303.5 Wh/M on 8 × H100 against Qwen 3 235B A22B Instruct FP8 206.0 Wh/M on 8 × H100.
+- **B200, index rows:** 0.48 × Qwen 3 235B A22B Instruct 66.7 Wh/M on 4 × B200 against Qwen 3 235B A22B Instruct FP8 139.1 Wh/M on 2 × B200.
+- **Parameters:** 1.0 × Qwen 3 235B A22B Instruct 235 B parameters, 22 B active per token; Qwen 3 235B A22B Instruct FP8 235 B parameters, 22 B active per token.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Qwen 3 235B A22B Instruct FP8 and Qwen 3 235B A22B Instruct, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| H100 | [Qwen 3 235B A22B Instruct FP8](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/) | 8 × H100 | FP8 | 511 | 3,961 | 5,342 | 206.0 | 881 | 0.182 | 97.4 |
+| H100 | [Qwen 3 235B A22B Instruct](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/) | 8 × H100 | BF16 | 228 | 4,038 | 3,696 | 303.5 | 874 | 0.265 | 143.6 |
+| B200 | [Qwen 3 235B A22B Instruct FP8](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/) | 2 × B200 | FP8 | 256 | 1,891 | 3,776 | 139.1 | 876 | 0.122 | 65.8 |
+| B200 | [Qwen 3 235B A22B Instruct](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/) | 4 × B200 | BF16 | 3,765 | 3,196 | 13,303 | 66.7 | 874 | 0.058 | 31.6 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Two precisions
+
+The same model weights at two precisions. FP8 stores each weight in one byte and BF16 in two, so an FP8 row moves half the bytes per token from memory and the model fits on fewer cards or leaves more memory for batching. The FP8 row uses less energy per token on the H100 and more on the B200 (H100: FP8 206.0 Wh/M on eight cards at a running batch of 511, BF16 303.5 Wh/M on eight cards at 228; B200: FP8 139.1 Wh/M on two cards at a running batch of 256, BF16 66.7 Wh/M on four cards at 3,765). Where the FP8 row costs more, the reason is in the table: the two rows were swept to different card counts and reached different running batches, and a quieter row carries a higher energy per token whatever its precision. Quantisation is the cheapest energy lever after load, but these rows show it only pays when the serving configuration is matched; the model pages hold every configuration so the pair can be re-cut at the same cards and cap.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Qwen 3 235B A22B Instruct FP8 against Qwen 3 235B A22B Instruct
+
+### Is Qwen 3 235B A22B Instruct FP8 more energy-efficient than Qwen 3 235B A22B Instruct?
+
+It depends on the GPU: on the ML.ENERGY Leaderboard's index rows, Qwen 3 235B A22B Instruct uses 1.47× the GPU energy per output token of Qwen 3 235B A22B Instruct FP8 on the H100 (303.5 against 206.0 Wh per million output tokens) and 0.48× the GPU energy per output token of Qwen 3 235B A22B Instruct FP8 on the B200 (66.7 against 139.1 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does Qwen 3 235B A22B Instruct use per million tokens than Qwen 3 235B A22B Instruct FP8?
+
+The index rows differ by 97.6 Wh/M on the H100 (97.6 kWh per billion tokens) and 72.3 Wh/M on the B200 (72.3 kWh per billion tokens); where the ratio is under 1, Qwen 3 235B A22B Instruct is the lower row. Per answer, at each row's own average output length, Qwen 3 235B A22B Instruct FP8 costs 0.182 Wh on the H100 and 0.122 Wh on the B200 and Qwen 3 235B A22B Instruct 0.265 Wh on the H100 and 0.058 Wh on the B200.
+
+### Does FP8 save energy compared with BF16 for the same model?
+
+Not consistently on these index rows. On the H100 the FP8 row (Qwen 3 235B A22B Instruct FP8) uses 206.0 Wh/M on 8 cards at a running batch of 511 and the BF16 row 303.5 Wh/M on 8 at 228; on the B200 the FP8 row (Qwen 3 235B A22B Instruct FP8) uses 139.1 Wh/M on 2 cards at a running batch of 256 and the BF16 row 66.7 Wh/M on 4 at 3,765. FP8 halves the bytes moved per token and the memory the weights take, but the leaderboard swept the two variants to different card counts and loads, and load moves energy per token more than precision does. A matched run, same cards and same cap, is the comparison to ask a vendor for.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 8 and 8 cards at running batches of 511 and 228. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct: GPU energy per million output tokens
+
+> Llama 3.1 405B Instruct against Llama 3.1 405B Instruct FP8 on GPU energy per output token: 0.89× on the B200, from the index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/ (this file: https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Two precisions · B200*
+
+On the index rows, Llama 3.1 405B Instruct uses **0.89×** the GPU energy per output token of Llama 3.1 405B Instruct FP8 on the B200 (282.0 against 318.5 Wh/M, on eight cards and four cards at running batches of 3,589 and 510), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Llama 3.1 405B Instruct FP8 has 405 B parameters; Llama 3.1 405B Instruct has 405 B parameters. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [llama-3-1-405b-instruct-fp8.json](https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct-fp8.json), [llama-3-1-405b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct: GPU energy per million output tokens. https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#rows)
+- [What explains it](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#why)
+- [Questions](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+- [Sources](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#sources)
+
+- **B200, index rows:** 0.89 × Llama 3.1 405B Instruct 282.0 Wh/M on 8 × B200 against Llama 3.1 405B Instruct FP8 318.5 Wh/M on 4 × B200.
+- **Parameters:** 1.0 × Llama 3.1 405B Instruct 405 B parameters; Llama 3.1 405B Instruct FP8 405 B parameters.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Llama 3.1 405B Instruct FP8 and Llama 3.1 405B Instruct, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| B200 | [Llama 3.1 405B Instruct FP8](https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/) | 4 × B200 | FP8 | 510 | 3,883 | 3,386 | 318.5 | 380 | 0.121 | 150.7 |
+| B200 | [Llama 3.1 405B Instruct](https://leadgreen.ai/models/llama-3-1-405b-instruct/) | 8 × B200 | BF16 | 3,589 | 7,530 | 7,419 | 282.0 | 370 | 0.104 | 133.4 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Two precisions
+
+The same model weights at two precisions. FP8 stores each weight in one byte and BF16 in two, so an FP8 row moves half the bytes per token from memory and the model fits on fewer cards or leaves more memory for batching. On these index rows FP8 does not come out ahead (B200: FP8 318.5 Wh/M on four cards at a running batch of 510, BF16 282.0 Wh/M on eight cards at 3,589). Where the FP8 row costs more, the reason is in the table: the two rows were swept to different card counts and reached different running batches, and a quieter row carries a higher energy per token whatever its precision. Quantisation is the cheapest energy lever after load, but these rows show it only pays when the serving configuration is matched; the model pages hold every configuration so the pair can be re-cut at the same cards and cap.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Llama 3.1 405B Instruct FP8 against Llama 3.1 405B Instruct
+
+### Is Llama 3.1 405B Instruct FP8 more energy-efficient than Llama 3.1 405B Instruct?
+
+No, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 405B Instruct uses 0.89× the GPU energy per output token of Llama 3.1 405B Instruct FP8 on the B200 (282.0 against 318.5 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does Llama 3.1 405B Instruct use per million tokens than Llama 3.1 405B Instruct FP8?
+
+The index rows differ by 36.6 Wh/M on the B200 (36.6 kWh per billion tokens); where the ratio is under 1, Llama 3.1 405B Instruct is the lower row. Per answer, at each row's own average output length, Llama 3.1 405B Instruct FP8 costs 0.121 Wh on the B200 and Llama 3.1 405B Instruct 0.104 Wh on the B200.
+
+### Does FP8 save energy compared with BF16 for the same model?
+
+Not on these index rows. On the B200 the FP8 row (Llama 3.1 405B Instruct FP8) uses 318.5 Wh/M on 4 cards at a running batch of 510 and the BF16 row 282.0 Wh/M on 8 at 3,589. FP8 halves the bytes moved per token and the memory the weights take, but the leaderboard swept the two variants to different card counts and loads, and load moves energy per token more than precision does. A matched run, same cards and same cap, is the comparison to ask a vendor for.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the B200 the rows here ran on 4 and 8 cards at running batches of 510 and 3,589. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# Qwen 3 8B vs Llama 3.1 8B Instruct: GPU energy per million output tokens
+
+> Llama 3.1 8B Instruct against Qwen 3 8B on GPU energy per output token: 0.97× on the H100 and 0.88× on the B200, from the index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/ (this file: https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Two families, one size · H100 and B200*
+
+On the index rows, Llama 3.1 8B Instruct uses **0.97×** the GPU energy per output token of Qwen 3 8B on the H100 (19.5 against 20.0 Wh/M, both on one card at running batches of 511 and 474) and **0.88×** on the B200 (13.0 against 14.7 Wh/M, both on one card at running batches of 2,043 and 1,427), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Qwen 3 8B has 8 B parameters; Llama 3.1 8B Instruct has 8 B parameters. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [qwen-3-8b.json](https://leadgreen.ai/api/v1/models/qwen-3-8b.json), [llama-3-1-8b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-1-8b-instruct.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Qwen 3 8B vs Llama 3.1 8B Instruct: GPU energy per million output tokens. https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#rows)
+- [What explains it](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#why)
+- [Questions](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+- [Sources](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#sources)
+
+- **H100, index rows:** 0.97 × Llama 3.1 8B Instruct 19.5 Wh/M on 1 × H100 against Qwen 3 8B 20.0 Wh/M on 1 × H100.
+- **B200, index rows:** 0.88 × Llama 3.1 8B Instruct 13.0 Wh/M on 1 × B200 against Qwen 3 8B 14.7 Wh/M on 1 × B200.
+- **Parameters:** 1.0 × Llama 3.1 8B Instruct 8 B parameters; Qwen 3 8B 8 B parameters.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Qwen 3 8B and Llama 3.1 8B Instruct, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| H100 | [Qwen 3 8B](https://leadgreen.ai/models/qwen-3-8b/) | 1 × H100 | BF16 | 474 | 616 | 8,535 | 20.0 | 645 | 0.013 | 9.5 |
+| H100 | [Llama 3.1 8B Instruct](https://leadgreen.ai/models/llama-3-1-8b-instruct/) | 1 × H100 | BF16 | 511 | 688 | 9,806 | 19.5 | 397 | 0.008 | 9.2 |
+| B200 | [Qwen 3 8B](https://leadgreen.ai/models/qwen-3-8b/) | 1 × B200 | BF16 | 1,427 | 801 | 15,100 | 14.7 | 649 | 0.010 | 7.0 |
+| B200 | [Llama 3.1 8B Instruct](https://leadgreen.ai/models/llama-3-1-8b-instruct/) | 1 × B200 | BF16 | 2,043 | 691 | 14,799 | 13.0 | 396 | 0.005 | 6.1 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Two families, one size
+
+Two models of the same size class from different families: Qwen 3 8B (8 B parameters, Dense Transformer) against Llama 3.1 8B Instruct (8 B parameters, Dense Transformer). At the same size the energy per token depends on the architecture's depth and width, the vocabulary, the attention design and, on the leaderboard, the configuration swept for each: card count, cap and the running batch reached. On the H100 both rows sit on one card, at running batches of 474 (Qwen 3 8B) and 511 (Llama 3.1 8B Instruct). The gap here is under 12 percent, which is inside what load alone moves; read the ratio with the running batches beside it.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Qwen 3 8B against Llama 3.1 8B Instruct
+
+### Is Qwen 3 8B more energy-efficient than Llama 3.1 8B Instruct?
+
+No, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 8B Instruct uses 0.97× the GPU energy per output token of Qwen 3 8B on the H100 (19.5 against 20.0 Wh per million output tokens) and 0.88× the GPU energy per output token of Qwen 3 8B on the B200 (13.0 against 14.7 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does Llama 3.1 8B Instruct use per million tokens than Qwen 3 8B?
+
+The index rows differ by 0.5 Wh/M on the H100 (0.5 kWh per billion tokens) and 1.8 Wh/M on the B200 (1.8 kWh per billion tokens); where the ratio is under 1, Llama 3.1 8B Instruct is the lower row. Per answer, at each row's own average output length, Qwen 3 8B costs 0.013 Wh on the H100 and 0.010 Wh on the B200 and Llama 3.1 8B Instruct 0.008 Wh on the H100 and 0.005 Wh on the B200.
+
+### Why do two models of the same size differ in energy per token?
+
+Architecture (depth, width, attention design), vocabulary and, on the leaderboard, the configuration swept for each model: card count, cap and the running batch actually reached. On the H100 the rows here ran at running batches of 474 (Qwen 3 8B) and 511 (Llama 3.1 8B Instruct); a quieter row carries a higher energy per token whatever its architecture. The gap is 12 percent at most, inside what load alone moves.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 1 and 1 cards at running batches of 474 and 511. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8: GPU energy per million output tokens
+
+> Llama 4 Maverick 17B 128E Instruct FP8 against Llama 4 Scout 17B 16E Instruct on GPU energy per output token: 1.44× on the H100, from the index rows.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/ (this file: https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Compare](https://leadgreen.ai/compare/) · Two expert counts · H100*
+
+On the index rows, Llama 4 Maverick 17B 128E Instruct FP8 uses **1.44×** the GPU energy per output token of Llama 4 Scout 17B 16E Instruct on the H100 (134.5 against 93.4 Wh/M, on eight cards and four cards at running batches of 383 and 473), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Llama 4 Scout 17B 16E Instruct has 109 B parameters, 17 B active per token; Llama 4 Maverick 17B 128E Instruct FP8 has 400 B parameters, 17 B active per token. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [llama-4-scout-17b-16e-instruct.json](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json), [llama-4-maverick-17b-128e-instruct-fp8.json](https://leadgreen.ai/api/v1/models/llama-4-maverick-17b-128e-instruct-fp8.json). Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8: GPU energy per million output tokens. https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+- [The rows](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#rows)
+- [What explains it](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#why)
+- [Questions](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+- [Sources](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#sources)
+
+- **H100, index rows:** 1.44 × Llama 4 Maverick 17B 128E Instruct FP8 134.5 Wh/M on 8 × H100 against Llama 4 Scout 17B 16E Instruct 93.4 Wh/M on 4 × H100.
+- **Parameters:** 3.7 × Llama 4 Maverick 17B 128E Instruct FP8 400 B parameters, 17 B active per token; Llama 4 Scout 17B 16E Instruct 109 B parameters, 17 B active per token.
+
+Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under 500 ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.
+
+*The rows*
+
+## Index rows on every GPU both models share
+
+*Index rows for Llama 4 Scout 17B 16E Instruct and Llama 4 Maverick 17B 128E Instruct FP8, with the configuration behind each and the per-answer and carbon readings*
+
+| GPU | Model | Cards | Precision | Running batch | GPU W | Tokens / s | Wh / M | Output tokens | Wh per answer | kg CO2e / bn tokens, world grid |
+|---|---|---|---|---|---|---|---|---|---|---|
+| H100 | [Llama 4 Scout 17B 16E Instruct](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/) | 4 × H100 | BF16 | 473 | 1,881 | 5,596 | 93.4 | 402 | 0.038 | 44.2 |
+| H100 | [Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/) | 8 × H100 | FP8 | 383 | 3,462 | 7,149 | 134.5 | 408 | 0.055 | 63.6 |
+
+Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's `num_requests_running`). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, 473 gCO2e per kWh (Ember, 2024); the [grid pages](https://leadgreen.ai/grids/) price every model on each listed grid. Model names link to every measured configuration.
+
+*What explains it*
+
+## Two expert counts
+
+Two mixture-of-experts models with the same active parameters per token (17 B) and very different totals: Llama 4 Scout 17B 16E Instruct routes across 16 experts (109 B in all), Llama 4 Maverick 17B 128E Instruct FP8 across 128 (400 B). The work per token is similar; the memory is not, so the larger model needs more cards to hold its experts and spreads each token's work across them. On the H100 the rows sit on four cards (Llama 4 Scout 17B 16E Instruct) and eight cards (Llama 4 Maverick 17B 128E Instruct FP8), at running batches of 473 (Llama 4 Scout 17B 16E Instruct) and 383 (Llama 4 Maverick 17B 128E Instruct FP8). The index row ratio on the H100 is 1.44×: the price of holding the extra experts, at the running batches stated in the table.
+
+Load still moves the number more than either model does: Qwen 3 32B on 2 × H100 spans 7.1× between a running batch of 8 and 256 on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The [running batch](https://leadgreen.ai/glossary/running-batch/) and [floor](https://leadgreen.ai/glossary/floor/) entries define the terms.
+
+*Questions*
+
+## Asked about Llama 4 Scout 17B 16E Instruct against Llama 4 Maverick 17B 128E Instruct FP8
+
+### Is Llama 4 Scout 17B 16E Instruct more energy-efficient than Llama 4 Maverick 17B 128E Instruct FP8?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 4 Maverick 17B 128E Instruct FP8 uses 1.44× the GPU energy per output token of Llama 4 Scout 17B 16E Instruct on the H100 (134.5 against 93.4 Wh per million output tokens). These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch.
+
+### How much more energy does Llama 4 Maverick 17B 128E Instruct FP8 use per million tokens than Llama 4 Scout 17B 16E Instruct?
+
+The index rows differ by 41.1 Wh/M on the H100 (41.1 kWh per billion tokens). Per answer, at each row's own average output length, Llama 4 Scout 17B 16E Instruct costs 0.038 Wh on the H100 and Llama 4 Maverick 17B 128E Instruct FP8 0.055 Wh on the H100.
+
+### Do more experts cost more energy per token at the same active parameters?
+
+On these rows, yes: with 17 B active parameters each, Llama 4 Maverick 17B 128E Instruct FP8 (400 B in all) uses 1.44× the GPU energy per output token of Llama 4 Scout 17B 16E Instruct (109 B) on the H100, 134.5 against 93.4 Wh/M. The extra experts must be held in memory and the token's work spread across more cards (8 against 4), which is the energy the table shows.
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the H100 the rows here ran on 4 and 8 cards at running batches of 473 and 383. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch.
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under 500 ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, 473 gCO2e per kWh (Ember, 2024).
+
+*Sources*
+
+## Where every figure came from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+---
+
+# 9 model pairs, side by side
+
+> Model pairs people ask about, side by side on GPU energy per output token: small against large, dense against MoE, FP8 against BF16, two families.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/ (this file: https://leadgreen.ai/compare/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*Compare*
+
+The comparisons people ask for, each on one page: a small model against a large one, two families at the same size, dense against mixture of experts, FP8 against BF16, and two expert counts at the same active size. Every page sets the two models' index rows beside each other on each GPU both were measured on, states the card count and running batch behind each row, and says what explains the gap. The GPU generations themselves are compared on [H100 vs B200](https://leadgreen.ai/h100-vs-b200/).
+
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Compare: 9 model pairs on GPU energy per million output tokens. https://leadgreen.ai/compare/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
+*Pairs*
+
+## Pick a comparison  Two sizes · H100 and B200
+
+### [Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/)6.03× H100 index rows
+
+Llama 3.3 70B Instruct over Llama 3.1 8B Instruct, GPU energy per output token; 4.68× on the B200. Two sizes · H100 and B200
+
+### [Llama 3.3 70B Instruct vs Llama 3.1 405B Instruct FP8](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/)4.88× H100 index rows
+
+Llama 3.1 405B Instruct FP8 over Llama 3.3 70B Instruct, GPU energy per output token; 5.25× on the B200. Two families, two sizes · H100 and B200
+
+### [Qwen 3 32B vs Llama 3.3 70B Instruct](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/)1.85× H100 index rows
+
+Llama 3.3 70B Instruct over Qwen 3 32B, GPU energy per output token; 1.55× on the B200. Two mixture-of-experts sizes · B200
+
+### [Qwen 3 235B A22B Instruct vs DeepSeek V3.1](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/)2.52× B200 index rows
+
+DeepSeek V3.1 over Qwen 3 235B A22B Instruct, GPU energy per output token. Dense against mixture of experts · H100 and B200
+
+### [Qwen 3 30B A3B Instruct vs Qwen 3 32B](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/)2.57× H100 index rows
+
+Qwen 3 32B over Qwen 3 30B A3B Instruct, GPU energy per output token; 2.49× on the B200. Two precisions · H100 and B200
+
+### [Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/)1.47× H100 index rows
+
+Qwen 3 235B A22B Instruct over Qwen 3 235B A22B Instruct FP8, GPU energy per output token; 0.48× on the B200. Two precisions · B200
+
+### [Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/)0.89× B200 index rows
+
+Llama 3.1 405B Instruct over Llama 3.1 405B Instruct FP8, GPU energy per output token. Two families, one size · H100 and B200
+
+### [Qwen 3 8B vs Llama 3.1 8B Instruct](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/)0.97× H100 index rows
+
+Llama 3.1 8B Instruct over Qwen 3 8B, GPU energy per output token; 0.88× on the B200. Two expert counts · H100
+
+### [Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/)1.44× H100 index rows
+
+Llama 4 Maverick 17B 128E Instruct FP8 over Llama 4 Scout 17B 16E Instruct, GPU energy per output token.
+
+The ratio on each card is the second model's energy per token over the first's, on the GPU named, at the index rows; under 1 means the second model's row is the lower one. Any other pair can be read off [the model pages](https://leadgreen.ai/models/) or asked of the [MCP server](https://leadgreen.ai/mcp/). Source: ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026), Text Conversation, retrieved 26 September 2026.
+
+---
+
 # Every question the site answers
 
-> Every question the site answers, from 53 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
+> Every question the site answers, from 62 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/faq/ (this file: https://leadgreen.ai/faq/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Questions*
 
-279 questions from 53 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
+324 questions from 62 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.
 
-Cite this page: Lead Green, a Katonic project. FAQ: 279 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. FAQ: 324 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-18, retrieved [date]. CC BY 4.0.
 
 - [Lead Green](https://leadgreen.ai/faq/#lead-green)
 - [Why it matters](https://leadgreen.ai/faq/#why-it-matters)
 - [Per query](https://leadgreen.ai/faq/#per-query)
 - [H100 vs B200](https://leadgreen.ai/faq/#h100-vs-b200)
-- [Watt-hours per million output tokens (Wh/M)](https://leadgreen.ai/faq/#watt-hours-per-million-output-tokens-wh-m)
-- [Energy per token](https://leadgreen.ai/faq/#energy-per-token)
-- [Running batch](https://leadgreen.ai/faq/#running-batch)
-- [Floor](https://leadgreen.ai/faq/#floor)
-- [GPU-only boundary](https://leadgreen.ai/faq/#gpu-only-boundary)
-- [Location-based grid intensity](https://leadgreen.ai/faq/#location-based-grid-intensity)
-- [kg CO2e per billion output tokens](https://leadgreen.ai/faq/#kg-co2e-per-billion-output-tokens)
-- [Inter-token latency ceiling](https://leadgreen.ai/faq/#inter-token-latency-ceiling)
-- [Power usage effectiveness (PUE)](https://leadgreen.ai/faq/#power-usage-effectiveness-pue)
+- [Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct](https://leadgreen.ai/faq/#llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct)
+- [Llama 3.3 70B Instruct vs Llama 3.1 405B Instruct FP8](https://leadgreen.ai/faq/#llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8)
+- [Qwen 3 32B vs Llama 3.3 70B Instruct](https://leadgreen.ai/faq/#qwen-3-32b-vs-llama-3-3-70b-instruct)
+- [Qwen 3 235B A22B Instruct vs DeepSeek V3.1](https://leadgreen.ai/faq/#qwen-3-235b-a22b-instruct-vs-deepseek-v3-1)
+- [Qwen 3 30B A3B Instruct vs Qwen 3 32B](https://leadgreen.ai/faq/#qwen-3-30b-a3b-instruct-vs-qwen-3-32b)
+- [Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct](https://leadgreen.ai/faq/#qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct)
+- [Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct](https://leadgreen.ai/faq/#llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct)
+- [Qwen 3 8B vs Llama 3.1 8B Instruct](https://leadgreen.ai/faq/#qwen-3-8b-vs-llama-3-1-8b-instruct)
+- [Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/faq/#llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8)
 - [Models](https://leadgreen.ai/faq/#models)
 - [Grids](https://leadgreen.ai/faq/#grids)
 
@@ -7561,6 +8368,222 @@ The leaderboard picks each GPU's configurations separately; a B200 has more memo
 ### Where do these figures come from?
 
 The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/h100-vs-b200/#faq)
+
+*5 questions*
+
+## [Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/)
+
+### Is Llama 3.1 8B Instruct more energy-efficient than Llama 3.3 70B Instruct?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.3 70B Instruct uses 6.03× the GPU energy per output token of Llama 3.1 8B Instruct on the H100 (117.5 against 19.5 Wh per million output tokens) and 4.68× the GPU... [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+### How much more energy does Llama 3.3 70B Instruct use per million tokens than Llama 3.1 8B Instruct?
+
+The index rows differ by 98.0 Wh/M on the H100 (98.0 kWh per billion tokens) and 47.7 Wh/M on the B200 (47.7 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+### Does the bigger model cost more per answer?
+
+Yes, at these rows: on the H100, 0.008 Wh for Llama 3.1 8B Instruct against 0.049 Wh for Llama 3.3 70B Instruct, using each row's own average output length (397 and 413 tokens). [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+*5 questions*
+
+## [Llama 3.3 70B Instruct vs Llama 3.1 405B Instruct FP8](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/)
+
+### Is Llama 3.3 70B Instruct more energy-efficient than Llama 3.1 405B Instruct FP8?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 405B Instruct FP8 uses 4.88× the GPU energy per output token of Llama 3.3 70B Instruct on the H100 (572.9 against 117.5 Wh per million output tokens) and 5.25× the... [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+### How much more energy does Llama 3.1 405B Instruct FP8 use per million tokens than Llama 3.3 70B Instruct?
+
+The index rows differ by 455.4 Wh/M on the H100 (455.4 kWh per billion tokens) and 257.8 Wh/M on the B200 (257.8 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+### Does the bigger model cost more per answer?
+
+Yes, at these rows: on the H100, 0.049 Wh for Llama 3.3 70B Instruct against 0.210 Wh for Llama 3.1 405B Instruct FP8, using each row's own average output length (413 and 367 tokens). [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+*5 questions*
+
+## [Qwen 3 32B vs Llama 3.3 70B Instruct](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/)
+
+### Is Qwen 3 32B more energy-efficient than Llama 3.3 70B Instruct?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.3 70B Instruct uses 1.85× the GPU energy per output token of Qwen 3 32B on the H100 (117.5 against 63.5 Wh per million output tokens) and 1.55× the GPU energy per... [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+### How much more energy does Llama 3.3 70B Instruct use per million tokens than Qwen 3 32B?
+
+The index rows differ by 54.1 Wh/M on the H100 (54.1 kWh per billion tokens) and 21.7 Wh/M on the B200 (21.7 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+### Does Llama 3.3 70B Instruct cost more per answer than Qwen 3 32B?
+
+At these rows, on the H100: 0.040 Wh for Qwen 3 32B against 0.049 Wh for Llama 3.3 70B Instruct, using each row's own average output length (634 and 413 tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+*5 questions*
+
+## [Qwen 3 235B A22B Instruct vs DeepSeek V3.1](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/)
+
+### Is Qwen 3 235B A22B Instruct more energy-efficient than DeepSeek V3.1?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, DeepSeek V3.1 uses 2.52× the GPU energy per output token of Qwen 3 235B A22B Instruct on the B200 (168.4 against 66.7 Wh per million output tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+### How much more energy does DeepSeek V3.1 use per million tokens than Qwen 3 235B A22B Instruct?
+
+The index rows differ by 101.7 Wh/M on the B200 (101.7 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+### Does the larger mixture-of-experts model cost more energy per token?
+
+On the B200 index rows, yes: DeepSeek V3.1 (37 B active of 671 B) uses 2.52× the GPU energy per output token of Qwen 3 235B A22B Instruct (22 B active of 235 B), 168.4 against 66.7 Wh/M, on 8 and 4 cards at running batches of 3,008 and... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+*5 questions*
+
+## [Qwen 3 30B A3B Instruct vs Qwen 3 32B](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/)
+
+### Is Qwen 3 30B A3B Instruct more energy-efficient than Qwen 3 32B?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Qwen 3 32B uses 2.57× the GPU energy per output token of Qwen 3 30B A3B Instruct on the H100 (63.5 against 24.7 Wh per million output tokens) and 2.49× the GPU energy per... [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+### How much more energy does Qwen 3 32B use per million tokens than Qwen 3 30B A3B Instruct?
+
+The index rows differ by 38.8 Wh/M on the H100 (38.8 kWh per billion tokens) and 23.4 Wh/M on the B200 (23.4 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+### Does a mixture-of-experts model use less energy per token than a dense one?
+
+At a similar total size, on these rows, yes: Qwen 3 30B A3B Instruct activates 3 B of 30 B parameters per token and its H100 index row uses 24.7 Wh/M against 63.5 for the dense Qwen 3 32B (32 B), 0.39× less. [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+*5 questions*
+
+## [Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/)
+
+### Is Qwen 3 235B A22B Instruct FP8 more energy-efficient than Qwen 3 235B A22B Instruct?
+
+It depends on the GPU: on the ML.ENERGY Leaderboard's index rows, Qwen 3 235B A22B Instruct uses 1.47× the GPU energy per output token of Qwen 3 235B A22B Instruct FP8 on the H100 (303.5 against 206.0 Wh per million output tokens) and... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+### How much more energy does Qwen 3 235B A22B Instruct use per million tokens than Qwen 3 235B A22B Instruct FP8?
+
+The index rows differ by 97.6 Wh/M on the H100 (97.6 kWh per billion tokens) and 72.3 Wh/M on the B200 (72.3 kWh per billion tokens); where the ratio is under 1, Qwen 3 235B A22B Instruct is the lower row. [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+### Does FP8 save energy compared with BF16 for the same model?
+
+Not consistently on these index rows. On the H100 the FP8 row (Qwen 3 235B A22B Instruct FP8) uses 206.0 Wh/M on 8 cards at a running batch of 511 and the BF16 row 303.5 Wh/M on 8 at 228; on the B200 the FP8 row (Qwen 3 235B A22B Instruct... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+*5 questions*
+
+## [Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/)
+
+### Is Llama 3.1 405B Instruct FP8 more energy-efficient than Llama 3.1 405B Instruct?
+
+No, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 405B Instruct uses 0.89× the GPU energy per output token of Llama 3.1 405B Instruct FP8 on the B200 (282.0 against 318.5 Wh per million output tokens). [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+### How much more energy does Llama 3.1 405B Instruct use per million tokens than Llama 3.1 405B Instruct FP8?
+
+The index rows differ by 36.6 Wh/M on the B200 (36.6 kWh per billion tokens); where the ratio is under 1, Llama 3.1 405B Instruct is the lower row. [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+### Does FP8 save energy compared with BF16 for the same model?
+
+Not on these index rows. On the B200 the FP8 row (Llama 3.1 405B Instruct FP8) uses 318.5 Wh/M on 4 cards at a running batch of 510 and the BF16 row 282.0 Wh/M on 8 at 3,589. [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+*5 questions*
+
+## [Qwen 3 8B vs Llama 3.1 8B Instruct](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/)
+
+### Is Qwen 3 8B more energy-efficient than Llama 3.1 8B Instruct?
+
+No, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 8B Instruct uses 0.97× the GPU energy per output token of Qwen 3 8B on the H100 (19.5 against 20.0 Wh per million output tokens) and 0.88× the GPU energy per output... [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+### How much more energy does Llama 3.1 8B Instruct use per million tokens than Qwen 3 8B?
+
+The index rows differ by 0.5 Wh/M on the H100 (0.5 kWh per billion tokens) and 1.8 Wh/M on the B200 (1.8 kWh per billion tokens); where the ratio is under 1, Llama 3.1 8B Instruct is the lower row. [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+### Why do two models of the same size differ in energy per token?
+
+Architecture (depth, width, attention design), vocabulary and, on the leaderboard, the configuration swept for each model: card count, cap and the running batch actually reached. [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+*5 questions*
+
+## [Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/)
+
+### Is Llama 4 Scout 17B 16E Instruct more energy-efficient than Llama 4 Maverick 17B 128E Instruct FP8?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 4 Maverick 17B 128E Instruct FP8 uses 1.44× the GPU energy per output token of Llama 4 Scout 17B 16E Instruct on the H100 (134.5 against 93.4 Wh per million output... [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+
+### How much more energy does Llama 4 Maverick 17B 128E Instruct FP8 use per million tokens than Llama 4 Scout 17B 16E Instruct?
+
+The index rows differ by 41.1 Wh/M on the H100 (41.1 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+
+### Do more experts cost more energy per token at the same active parameters?
+
+On these rows, yes: with 17 B active parameters each, Llama 4 Maverick 17B 128E Instruct FP8 (400 B in all) uses 1.44× the GPU energy per output token of Llama 4 Scout 17B 16E Instruct (109 B) on the H100, 134.5 against 93.4 Wh/M. [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
 
 *4 questions*
 

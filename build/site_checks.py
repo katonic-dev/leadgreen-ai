@@ -81,7 +81,7 @@ def resolve(base_url: str, href: str):
 
 def check() -> tuple[dict, list[str], list[str]]:
     pages = [ROOT / "index.html"] + sorted(ROOT.glob("*/index.html")) + sorted(ROOT.glob("blog/*/index.html")) \
-        + sorted(ROOT.glob("models/*/index.html")) + sorted(ROOT.glob("grids/*/index.html")) + sorted(ROOT.glob("glossary/*/index.html"))
+        + sorted(ROOT.glob("models/*/index.html")) + sorted(ROOT.glob("grids/*/index.html")) + sorted(ROOT.glob("glossary/*/index.html")) + sorted(ROOT.glob("compare/*/index.html"))
     pages = [p for p in pages if "leadgreen-mcp" not in p.parts and "build" not in p.parts]
     report = {"pages": {}, "broken": [], "frag_broken": [], "ext": set(), "dash": []}
     failures, warnings = [], []
