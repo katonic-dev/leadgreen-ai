@@ -10,6 +10,8 @@ Qwen 3 235B A22B Instruct FP8 serves a million output tokens for **139.1 Wh/M** 
 
 **Model** [Qwen/Qwen3-235B-A22B-Instruct-2507-FP8](https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507-FP8), a mixture-of-experts model (22 B of 235 B parameters active per token), weights in FP8. **Measured** 23 configurations on B200 and H100. **Data** [models/qwen-3-235b-a22b-instruct-fp8.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct-fp8.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct FP8: energy per million output tokens. https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#generations)
 - [Carbon](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#carbon)

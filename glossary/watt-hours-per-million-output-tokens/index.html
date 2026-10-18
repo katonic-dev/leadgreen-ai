@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Watt-hours per million output tokens (Wh/M): definition and the figure | Lead Green glossary</title>
+<meta name="description" content="The unit of the index: the GPU energy, in watt-hours, that a serving configuration uses to generate one million output tokens.">
+<link rel="canonical" href="https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Watt-hours per million output tokens (Wh/M): definition and the figure | Lead Green glossary">
+<meta property="og:description" content="The unit of the index: the GPU energy, in watt-hours, that a serving configuration uses to generate one million output tokens.">
+<meta property="og:url" content="https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/index.md">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/",
+   "name": "Watt-hours per million output tokens (Wh/M): definition and the figure | Lead Green glossary",
+   "description": "The unit of the index: the GPU energy, in watt-hours, that a serving configuration uses to generate one million output tokens.",
+   "url": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-18",
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/"
+   },
+   "mainEntity": {
+    "@type": "DefinedTerm",
+    "@id": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/#term",
+    "name": "Watt-hours per million output tokens (Wh/M)",
+    "description": "The unit of the index: the GPU energy, in watt-hours, that a serving configuration uses to generate one million output tokens.",
+    "url": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/",
+    "inDefinedTermSet": {
+     "@type": "DefinedTermSet",
+     "name": "Lead Green glossary",
+     "url": "https://leadgreen.ai/glossary/"
+    }
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What does Wh/M mean?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Watt-hours per million output tokens: the GPU energy a serving configuration uses to generate a million output tokens. One Wh/M is 0.0036 joules per token. The index runs from 13.0 to 572.9 Wh/M across 32 rows and 18 models, GPU only, each row the lowest-energy configuration measured at or under a 500 ms median inter-token latency."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I convert joules per token to watt-hours per million tokens?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Multiply joules per token by 1,000,000 and divide by 3,600. The reference row's 0.2285 J per token becomes 63.5 Wh/M. The reverse is Wh/M × 0.0036 = J per token."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is Wh per million tokens the same as kWh per billion tokens?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, and the same as MWh per trillion tokens; the three scale together. 63.5 Wh/M is 63.5 kWh per billion and 63.5 MWh per trillion output tokens."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does the unit include the prompt?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The energy includes prompt processing, because the benchmark divides steady-state GPU energy by the output tokens generated in the window; the denominator counts output tokens only. A long-prompt workload therefore shows a higher Wh/M than a short-prompt one for the same answers."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Lead Green",
+     "item": "https://leadgreen.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Glossary",
+     "item": "https://leadgreen.ai/glossary/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Watt-hours per million output tokens (Wh/M)",
+     "item": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow"><a href="../../glossary/">Glossary</a></p>
+  <h1>Watt-hours per million output tokens (Wh/M)</h1>
+  <p class="stand"><b>Watt-hours per million output tokens (Wh/M)</b> is the GPU energy, in watt-hours, that a model on a stated set of GPUs at a stated load uses to generate one million output tokens. One Wh/M equals 0.0036 joules per output token (joules per token × 1,000,000 ÷ 3,600 = Wh/M). On the index the unit runs from <b>13.0 Wh/M</b> (Llama 3.1 8B Instruct, 1 × B200) to <b>572.9 Wh/M</b> (Llama 3.1 405B Instruct FP8, 8 × H100), GPU only, at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for each model and GPU (data compiled 16 February 2026).</p>
+  <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Watt-hours per million output tokens (Wh/M): definition and the figure. https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+<div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile"><span class="lbl">Lowest on the index</span><span class="val">13.0<small>Wh/M</small></span><span class="sub">Llama 3.1 8B Instruct, 1 × B200</span></div><div class="tile ref"><span class="lbl">Reference row</span><span class="val">63.5<small>Wh/M</small></span><span class="sub">Qwen 3 32B, 2 × H100</span></div><div class="tile"><span class="lbl">Highest on the index</span><span class="val">572.9<small>Wh/M</small></span><span class="sub">Llama 3.1 405B Instruct FP8, 8 × H100</span></div></div>
+<section id="working" class="first">
+  <p class="eyebrow">The working</p>
+  <h2>How the term is used on the index</h2>
+  <div class="prose"><p>The same number reads three ways without conversion: Wh per million tokens equals kWh per billion tokens equals MWh per trillion tokens. The reference row, Qwen 3 32B on 2 × H100, is 63.5 Wh/M, so a billion of its tokens take 63.5 kWh of GPU energy and a trillion take 63.5 MWh. Multiply by the grid's gCO2e per kWh and divide by 1,000 for kg CO2e per billion tokens: 63.5 × 689 ÷ 1,000 = 43.7 kg on Saudi Arabia's 2024 grid.</p><p>The unit is chosen over joules per token because procurement, capacity planning and sustainability reporting all work in watt-hours and tokens, and over watt-hours per query because a query has no fixed length. It is an output-token unit: prompt processing is included in the energy but the prompt's tokens are not in the denominator, which is how the leaderboard measures it. It says nothing about the host, the network, cooling or idle time; see the <a href="../../glossary/gpu-only-boundary/">GPU-only boundary</a>.</p></div>
+</section>
+
+<section id="used">
+  <p class="eyebrow">Where it is used</p>
+  <h2>Pages that rely on this term</h2>
+  <div class="prose"><ul><li><a href="../../index/">The index</a></li><li><a href="../../models/">Every model page</a></li><li><a href="../../per-query/">How much energy does an AI query use?</a></li></ul>
+  <p>Other terms: </p><ul><li><a href="../../glossary/energy-per-token/">Energy per token</a></li><li><a href="../../glossary/running-batch/">Running batch</a></li><li><a href="../../glossary/floor/">Floor</a></li><li><a href="../../glossary/gpu-only-boundary/">GPU-only boundary</a></li><li><a href="../../glossary/location-based-intensity/">Location-based grid intensity</a></li><li><a href="../../glossary/kg-co2e-per-billion-tokens/">kg CO2e per billion output tokens</a></li><li><a href="../../glossary/inter-token-latency-ceiling/">Inter-token latency ceiling</a></li><li><a href="../../glossary/pue/">Power usage effectiveness (PUE)</a></li></ul></div>
+</section>
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about this term</h2><div class="prose faq"><h3>What does Wh/M mean?</h3><p>Watt-hours per million output tokens: the GPU energy a serving configuration uses to generate a million output tokens. One Wh/M is 0.0036 joules per token. The index runs from 13.0 to 572.9 Wh/M across 32 rows and 18 models, GPU only, each row the lowest-energy configuration measured at or under a 500 ms median inter-token latency.</p><h3>How do I convert joules per token to watt-hours per million tokens?</h3><p>Multiply joules per token by 1,000,000 and divide by 3,600. The reference row&#x27;s 0.2285 J per token becomes 63.5 Wh/M. The reverse is Wh/M × 0.0036 = J per token.</p><h3>Is Wh per million tokens the same as kWh per billion tokens?</h3><p>Yes, and the same as MWh per trillion tokens; the three scale together. 63.5 Wh/M is 63.5 kWh per billion and 63.5 MWh per trillion output tokens.</p><h3>Does the unit include the prompt?</h3><p>The energy includes prompt processing, because the benchmark divides steady-state GPU energy by the output tokens generated in the window; the denominator counts output tokens only. A long-prompt workload therefore shows a higher Wh/M than a short-prompt one for the same answers.</p></div></section>
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, October 2026 release, 2024, CC BY 4.0, retrieved 17 October 2026. Hardware: NVIDIA product specifications and the HGX B200 product carbon footprint summary (July 2025), retrieved 26 September 2026. Per-prompt figures: Google, <a href="https://arxiv.org/abs/2508.15734">arXiv 2508.15734</a> (August 2025); Mistral AI, July 2025.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+</section>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

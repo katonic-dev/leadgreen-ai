@@ -8,6 +8,8 @@
 
 The Green Tokens edition is deliberately short: **one number** from the index, **one note** on what moved it or what it means, and **one pointer** to something worth reading. If the index did not change, the note says so. No round-ups, no sponsors.
 
+Cite this page: Lead Green, a Katonic project. Newsletter. https://leadgreen.ai/newsletter/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 *Subscribe*
 
 ## Email edition

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Floor: definition and the figure | Lead Green glossary</title>
+<meta name="description" content="What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.">
+<link rel="canonical" href="https://leadgreen.ai/glossary/floor/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Floor: definition and the figure | Lead Green glossary">
+<meta property="og:description" content="What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.">
+<meta property="og:url" content="https://leadgreen.ai/glossary/floor/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/glossary/floor/index.md">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://leadgreen.ai/glossary/floor/",
+   "name": "Floor: definition and the figure | Lead Green glossary",
+   "description": "What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.",
+   "url": "https://leadgreen.ai/glossary/floor/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-18",
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/"
+   },
+   "mainEntity": {
+    "@type": "DefinedTerm",
+    "@id": "https://leadgreen.ai/glossary/floor/#term",
+    "name": "Floor",
+    "description": "What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.",
+    "url": "https://leadgreen.ai/glossary/floor/",
+    "inDefinedTermSet": {
+     "@type": "DefinedTermSet",
+     "name": "Lead Green glossary",
+     "url": "https://leadgreen.ai/glossary/"
+    }
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What does the index mean by a floor?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The lowest GPU energy per output token measured for a model and GPU among configurations at or under a 500 ms median inter-token latency, at high concurrency. Every index row is one. A deployment sits above its floor; Qwen 3 32B on 2 × H100 is 63.5 Wh/M at its floor and 452 Wh/M at a running batch of 8."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is the floor what my deployment will use?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. It is the best measured configuration on a busy server, GPU only. Your figure depends on your running batch, your prompt and answer lengths, your precision and your card count, and sits above the floor; the model pages show how far above at each measured load."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What should I do with a vendor figure below the floor?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ask for the measurement: the running batch held, the latency over the window, the method, the tool and the logs. The index's scoring method challenges any answer more than 10 percent below the floor for the same model and GPU; the measurement protocol's own repeat threshold is 5 percent."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does the floor change if the latency ceiling changes?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It can. At 500 ms, the leaderboard's default, no measured configuration is excluded. At 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. The index applies none of them."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Lead Green",
+     "item": "https://leadgreen.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Glossary",
+     "item": "https://leadgreen.ai/glossary/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Floor",
+     "item": "https://leadgreen.ai/glossary/floor/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow"><a href="../../glossary/">Glossary</a></p>
+  <h1>Floor</h1>
+  <p class="stand"><b>A floor</b> is what every row on the index is: the lowest GPU energy per output token the ML.ENERGY Leaderboard v3.0 measured for a model on a GPU, among configurations whose median inter-token latency is at or under 500 ms, at high concurrency on a busy server (data compiled 16 February 2026). A real deployment sits above its floor, often far above it: the reference row, Qwen 3 32B on 2 × H100, is <b>63.5 Wh/M</b> at a running batch of 256, and the same model on the same cards measured <b>452 Wh/M</b> at a running batch of 8.</p>
+  <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Floor: definition and the figure. https://leadgreen.ai/glossary/floor/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+<div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile"><span class="lbl">Reference floor</span><span class="val">63.5<small>Wh/M</small></span><span class="sub">Qwen 3 32B, 2 × H100, running batch 256</span></div><div class="tile ref"><span class="lbl">Same row, light load</span><span class="val">452<small>Wh/M</small></span><span class="sub">Running batch 8: 7.1× the floor</span></div><div class="tile"><span class="lbl">Challenge line</span><span class="val">10<small>% below</small></span><span class="sub">A bidder's figure this far under the floor is asked for its logs</span></div></div>
+<section id="working" class="first">
+  <p class="eyebrow">The working</p>
+  <h2>How the term is used on the index</h2>
+  <div class="prose"><p>The word is chosen so that the rows are read the right way round. A floor is not a typical figure and not a target; it is the best the benchmark found, and it tells a buyer the lowest number a vendor could honestly report for that model on that GPU. An answer below the floor is the one to question: the <a href="../../why/#monday">RFP scoring box</a> challenges any figure more than 10 percent under it and asks for the raw power and engine logs.</p><p>Floors move with the ceiling that defines them. At 500 ms no measured configuration is excluded; at 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. None of those tighter ceilings is applied to the index. Above the floors sit every other measured configuration, 328 in all, on the <a href="../../models/">model pages</a>; the highest the leaderboard measured is Llama 3.1 405B Instruct on 8 × B200 at 6,073 Wh/M, holding 8 requests.</p></div>
+</section>
+
+<section id="used">
+  <p class="eyebrow">Where it is used</p>
+  <h2>Pages that rely on this term</h2>
+  <div class="prose"><ul><li><a href="../../index/">The index</a></li><li><a href="../../index/#method">The index method</a></li><li><a href="../../why/#monday">Scoring RFP answers</a></li></ul>
+  <p>Other terms: </p><ul><li><a href="../../glossary/watt-hours-per-million-output-tokens/">Watt-hours per million output tokens (Wh/M)</a></li><li><a href="../../glossary/energy-per-token/">Energy per token</a></li><li><a href="../../glossary/running-batch/">Running batch</a></li><li><a href="../../glossary/gpu-only-boundary/">GPU-only boundary</a></li><li><a href="../../glossary/location-based-intensity/">Location-based grid intensity</a></li><li><a href="../../glossary/kg-co2e-per-billion-tokens/">kg CO2e per billion output tokens</a></li><li><a href="../../glossary/inter-token-latency-ceiling/">Inter-token latency ceiling</a></li><li><a href="../../glossary/pue/">Power usage effectiveness (PUE)</a></li></ul></div>
+</section>
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about this term</h2><div class="prose faq"><h3>What does the index mean by a floor?</h3><p>The lowest GPU energy per output token measured for a model and GPU among configurations at or under a 500 ms median inter-token latency, at high concurrency. Every index row is one. A deployment sits above its floor; Qwen 3 32B on 2 × H100 is 63.5 Wh/M at its floor and 452 Wh/M at a running batch of 8.</p><h3>Is the floor what my deployment will use?</h3><p>No. It is the best measured configuration on a busy server, GPU only. Your figure depends on your running batch, your prompt and answer lengths, your precision and your card count, and sits above the floor; the model pages show how far above at each measured load.</p><h3>What should I do with a vendor figure below the floor?</h3><p>Ask for the measurement: the running batch held, the latency over the window, the method, the tool and the logs. The index&#x27;s scoring method challenges any answer more than 10 percent below the floor for the same model and GPU; the measurement protocol&#x27;s own repeat threshold is 5 percent.</p><h3>Does the floor change if the latency ceiling changes?</h3><p>It can. At 500 ms, the leaderboard&#x27;s default, no measured configuration is excluded. At 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. The index applies none of them.</p></div></section>
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, October 2026 release, 2024, CC BY 4.0, retrieved 17 October 2026. Hardware: NVIDIA product specifications and the HGX B200 product carbon footprint summary (July 2025), retrieved 26 September 2026. Per-prompt figures: Google, <a href="https://arxiv.org/abs/2508.15734">arXiv 2508.15734</a> (August 2025); Mistral AI, July 2025.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+</section>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

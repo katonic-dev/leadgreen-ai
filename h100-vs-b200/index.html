@@ -189,6 +189,7 @@
   <h1>H100 vs B200: GPU energy per million output tokens</h1>
   <p class="stand">On the index rows, the B200 uses less GPU energy per output token than the H100 for <b>all 14 models</b> measured on both cards. The H100 row uses from <b>4.55×</b> the energy of the B200 row (Qwen 3 235B A22B Instruct) down to <b>1.05×</b> (NVIDIA Nemotron Nano 9B V2), with a median of 1.63×. Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="../api/v1/index.json">index.json</a>. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. H100 vs B200: GPU energy per million output tokens, 14 models. https://leadgreen.ai/h100-vs-b200/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#pairs">The 14 pairs</a></li><li><a href="#sweep">The sweep</a></li><li><a href="#power">Power against energy</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 <div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile"><span class="lbl">Widest gap</span><span class="val">4.55<small>×</small></span><span class="sub">Qwen 3 235B A22B Instruct: 303.5 Wh/M on 8 × H100 against 66.7 on 4 × B200.</span></div><div class="tile ref"><span class="lbl">Median gap, 14 pairs</span><span class="val">1.63<small>×</small></span><span class="sub">H100 row energy per token over B200 row energy per token, at each model's index rows.</span></div><div class="tile"><span class="lbl">Narrowest gap</span><span class="val">1.05<small>×</small></span><span class="sub">NVIDIA Nemotron Nano 9B V2: 43.1 Wh/M on 1 × H100 against 40.9 on 1 × B200.</span></div></div>
@@ -257,6 +258,8 @@
       <a href="../api/">Data API</a>
       <a href="../mcp/">MCP server</a>
       <a href="../feed.xml">RSS</a>
+      <a href="../glossary/">Glossary</a>
+      <a href="../faq/">Questions</a>
       <a href="../llms.txt">llms.txt</a>
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>

@@ -10,6 +10,8 @@ Each post takes one question the index raises and answers it with public data, t
 
 **Feed** [RSS](https://leadgreen.ai/feed.xml) · **Editor** Prem Naraindas · **Licence** CC BY 4.0
 
+Cite this page: Lead Green, a Katonic project. Blog. https://leadgreen.ai/blog/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 *Posts*
 
 ## Published

@@ -10,6 +10,8 @@ The index is published as static JSON files under `/api/v1/`. No key, no trackin
 
 **Base URL** https://leadgreen.ai/api/v1/ · **Updated** 18 October 2026 · **Licence** CC BY 4.0 for the compilation; sources keep theirs
 
+Cite this page: Lead Green, a Katonic project. Data API. https://leadgreen.ai/api/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 *Endpoints*
 
 ## 15 files  GET`/api/v1/manifest.json`

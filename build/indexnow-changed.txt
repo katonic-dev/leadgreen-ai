@@ -32,6 +32,17 @@ https://leadgreen.ai/api/v1/schema/measurement.schema.json
 https://leadgreen.ai/blog/
 https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/
 https://leadgreen.ai/contribute/
+https://leadgreen.ai/faq/
+https://leadgreen.ai/glossary/
+https://leadgreen.ai/glossary/energy-per-token/
+https://leadgreen.ai/glossary/floor/
+https://leadgreen.ai/glossary/gpu-only-boundary/
+https://leadgreen.ai/glossary/inter-token-latency-ceiling/
+https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/
+https://leadgreen.ai/glossary/location-based-intensity/
+https://leadgreen.ai/glossary/pue/
+https://leadgreen.ai/glossary/running-batch/
+https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/
 https://leadgreen.ai/grids/
 https://leadgreen.ai/grids/australia/
 https://leadgreen.ai/grids/bulgaria/
@@ -78,4 +89,5 @@ https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/
 https://leadgreen.ai/models/qwen-3-32b/
 https://leadgreen.ai/models/qwen-3-8b/
 https://leadgreen.ai/newsletter/
+https://leadgreen.ai/per-query/
 https://leadgreen.ai/why/

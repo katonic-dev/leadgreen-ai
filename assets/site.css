@@ -73,6 +73,7 @@ h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.4rem, 7vw
 .stand b { color: var(--ink); font-weight: 600; }
 .unit { font-family: var(--mono); font-size: .8rem; color: var(--muted); margin: 0; }
 .unit b { color: var(--ink); font-weight: 500; }
+.cite { font-family: var(--mono); font-size: .74rem; color: var(--muted); margin: .35rem 0 0; max-width: 80ch; }
 .toc { display: flex; flex-wrap: wrap; gap: .35rem .9rem; font-family: var(--mono); font-size: .78rem; margin: .5rem 0 0; padding: 0; list-style: none; }
 .toc a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--rule); }
 .toc a:hover { color: var(--accent-ink); border-color: var(--accent); }

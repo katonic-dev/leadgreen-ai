@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Glossary: the terms behind GPU energy per token | Lead Green</title>
+<meta name="description" content="Nine defined terms behind the index, one page each with the figure and the source: Wh per million tokens, energy per token, running batch, floor, PUE.">
+<link rel="canonical" href="https://leadgreen.ai/glossary/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Glossary: the terms behind GPU energy per token | Lead Green">
+<meta property="og:description" content="Nine defined terms behind the index, one page each with the figure and the source: Wh per million tokens, energy per token, running batch, floor, PUE.">
+<meta property="og:url" content="https://leadgreen.ai/glossary/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/glossary/index.md">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://leadgreen.ai/glossary/",
+   "name": "Glossary: the terms behind GPU energy per token | Lead Green",
+   "description": "Nine defined terms behind the index, one page each with the figure and the source: Wh per million tokens, energy per token, running batch, floor, PUE.",
+   "url": "https://leadgreen.ai/glossary/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-18",
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/"
+   }
+  },
+  {
+   "@type": "DefinedTermSet",
+   "@id": "https://leadgreen.ai/glossary/#set",
+   "name": "Lead Green glossary",
+   "url": "https://leadgreen.ai/glossary/",
+   "hasDefinedTerm": [
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/#term",
+     "name": "Watt-hours per million output tokens (Wh/M)",
+     "description": "The unit of the index: the GPU energy, in watt-hours, that a serving configuration uses to generate one million output tokens.",
+     "url": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/energy-per-token/#term",
+     "name": "Energy per token",
+     "description": "GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.",
+     "url": "https://leadgreen.ai/glossary/energy-per-token/"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/running-batch/#term",
+     "name": "Running batch",
+     "description": "The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.",
+     "url": "https://leadgreen.ai/glossary/running-batch/"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/floor/#term",
+     "name": "Floor",
+     "description": "What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.",
+     "url": "https://leadgreen.ai/glossary/floor/"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/gpu-only-boundary/#term",
+     "name": "GPU-only boundary",
+     "description": "The measurement boundary of every index row: energy read from the GPUs alone, with host, network, cooling, idle time and embodied carbon outside it.",
+     "url": "https://leadgreen.ai/glossary/gpu-only-boundary/"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/location-based-intensity/#term",
+     "name": "Location-based grid intensity",
+     "description": "The average carbon intensity of the electricity generated where a GPU runs, in gCO2e per kWh; the factor that turns energy per token into carbon per token.",
+     "url": "https://leadgreen.ai/glossary/location-based-intensity/"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/#term",
+     "name": "kg CO2e per billion output tokens",
+     "description": "The carbon unit of the index: energy per million tokens multiplied by the grid's carbon intensity, which gives kilograms of CO2e per billion output tokens.",
+     "url": "https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/inter-token-latency-ceiling/#term",
+     "name": "Inter-token latency ceiling",
+     "description": "The latency limit that defines which configurations may be an index row: a median inter-token latency at or under 500 ms, the leaderboard's own default.",
+     "url": "https://leadgreen.ai/glossary/inter-token-latency-ceiling/"
+    },
+    {
+     "@type": "DefinedTerm",
+     "@id": "https://leadgreen.ai/glossary/pue/#term",
+     "name": "Power usage effectiveness (PUE)",
+     "description": "Total facility energy divided by IT equipment energy, per ISO/IEC 30134-2; the operator's own multiplier that takes a GPU figure to the building's meter.",
+     "url": "https://leadgreen.ai/glossary/pue/"
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Lead Green",
+     "item": "https://leadgreen.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Glossary",
+     "item": "https://leadgreen.ai/glossary/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../index/" data-nav="index">The index</a></li>
+        <li><a href="../models/" data-nav="models">Models</a></li>
+        <li><a href="../api/" data-nav="api">Data API</a></li>
+        <li><a href="../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow">Glossary</p>
+  <h1>The nine terms behind the index</h1>
+  <p class="stand">Every figure on this site depends on a handful of defined terms: the unit, the boundary, the load, the latency limit and the carbon factor. Each has one page that states the definition, the figure and the source in its first paragraph, with the working underneath. Read them once and every row on the index reads the same way.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Glossary: the terms behind GPU energy per token. https://leadgreen.ai/glossary/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+</div>
+
+<section id="terms" class="first">
+  <p class="eyebrow">Terms</p>
+  <h2>One page each</h2>
+  <div class="cards">
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/watt-hours-per-million-output-tokens/">Watt-hours per million output tokens (Wh/M)</a></h3><p>The unit of the index: the GPU energy, in watt-hours, that a serving configuration uses to generate one million output tokens.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/energy-per-token/">Energy per token</a></h3><p>GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/running-batch/">Running batch</a></h3><p>The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/floor/">Floor</a></h3><p>What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/gpu-only-boundary/">GPU-only boundary</a></h3><p>The measurement boundary of every index row: energy read from the GPUs alone, with host, network, cooling, idle time and embodied carbon outside it.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/location-based-intensity/">Location-based grid intensity</a></h3><p>The average carbon intensity of the electricity generated where a GPU runs, in gCO2e per kWh; the factor that turns energy per token into carbon per token.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/kg-co2e-per-billion-tokens/">kg CO2e per billion output tokens</a></h3><p>The carbon unit of the index: energy per million tokens multiplied by the grid&#x27;s carbon intensity, which gives kilograms of CO2e per billion output tokens.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/inter-token-latency-ceiling/">Inter-token latency ceiling</a></h3><p>The latency limit that defines which configurations may be an index row: a median inter-token latency at or under 500 ms, the leaderboard&#x27;s own default.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/pue/">Power usage effectiveness (PUE)</a></h3><p>Total facility energy divided by IT equipment energy, per ISO/IEC 30134-2; the operator&#x27;s own multiplier that takes a GPU figure to the building&#x27;s meter.</p></div>
+  </div>
+  <p class="note">Each term's page carries its own FAQ and sources, and a Markdown copy at its URL followed by <code>index.md</code>. The terms are also the vocabulary of the <a href="../contribute/#protocol">measurement protocol</a> and the <a href="../why/#monday">RFP clause</a>.</p>
+</section>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../index/">The index</a>
+      <a href="../api/">Data API</a>
+      <a href="../mcp/">MCP server</a>
+      <a href="../feed.xml">RSS</a>
+      <a href="../glossary/">Glossary</a>
+      <a href="../faq/">Questions</a>
+      <a href="../llms.txt">llms.txt</a>
+      <a href="../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

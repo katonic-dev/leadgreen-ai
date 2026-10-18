@@ -8,6 +8,8 @@
 
 By Prem Naraindas · 26 September 2026 · Lead Green, a Katonic project
 
+Cite this page: Lead Green, a Katonic project. What a million tokens costs in watt-hours. https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 Look, everybody in this industry now buys tokens. Per million, on an invoice, from a cloud or from their own GPUs. And nobody gets told what a million of them costs in electricity. I have sat in enough capacity meetings to know the question is coming, so this is the baseline: what the public measurements say a million output tokens takes in watt-hours, and what moves the number.
 
 ## The unit

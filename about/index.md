@@ -8,6 +8,8 @@
 
 Lead Green exists to put one number in front of the people who buy, run and audit AI: the GPU energy it takes to serve a million tokens. It publishes the public measurements in one unit, explains what they mean, exposes them to software, and adds measurements of its own as they are made.
 
+Cite this page: Lead Green, a Katonic project. About. https://leadgreen.ai/about/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 *Who runs it*
 
 ## A Katonic project

@@ -10,6 +10,8 @@ Gemma 3 27B serves a million output tokens for **49.1 Wh/M** on 1 × B200 (runni
 
 **Model** [google/gemma-3-27b-it](https://huggingface.co/google/gemma-3-27b-it), a dense transformer, weights in BF16. **Measured** 16 configurations on B200 and H100. **Data** [models/gemma-3-27b.json](https://leadgreen.ai/api/v1/models/gemma-3-27b.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Gemma 3 27B: energy per million output tokens. https://leadgreen.ai/models/gemma-3-27b/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/gemma-3-27b/#configurations)
 - [Two generations](https://leadgreen.ai/models/gemma-3-27b/#generations)
 - [Carbon](https://leadgreen.ai/models/gemma-3-27b/#carbon)

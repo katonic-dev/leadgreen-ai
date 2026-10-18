@@ -12,6 +12,8 @@ Green here is a direction, not a verdict. This table ranks serving configuration
 
 **Unit** watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. The same data as [JSON](https://leadgreen.ai/api/) and through the [MCP server](https://leadgreen.ai/mcp/).
 
+Cite this page: Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Index](https://leadgreen.ai/index/#index)
 - [Two generations](https://leadgreen.ai/index/#generations)
 - [Concurrency](https://leadgreen.ai/index/#concurrency)

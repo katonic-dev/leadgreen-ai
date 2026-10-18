@@ -10,6 +10,8 @@ NVIDIA Nemotron Nano 12B V2 serves a million output tokens for **39.4 Wh/M** on 
 
 **Model** [nvidia/NVIDIA-Nemotron-Nano-12B-v2](https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2), a Mamba-Transformer hybrid, weights in BF16. **Measured** 14 configurations on B200 and H100. **Data** [models/nvidia-nemotron-nano-12b-v2.json](https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-12b-v2.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. NVIDIA Nemotron Nano 12B V2: energy per million output tokens. https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#configurations)
 - [Two generations](https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#generations)
 - [Carbon](https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#carbon)

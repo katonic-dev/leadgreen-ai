@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Energy per token: definition and the figure | Lead Green glossary</title>
+<meta name="description" content="GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.">
+<link rel="canonical" href="https://leadgreen.ai/glossary/energy-per-token/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Energy per token: definition and the figure | Lead Green glossary">
+<meta property="og:description" content="GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.">
+<meta property="og:url" content="https://leadgreen.ai/glossary/energy-per-token/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/glossary/energy-per-token/index.md">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://leadgreen.ai/glossary/energy-per-token/",
+   "name": "Energy per token: definition and the figure | Lead Green glossary",
+   "description": "GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.",
+   "url": "https://leadgreen.ai/glossary/energy-per-token/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-18",
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/"
+   },
+   "mainEntity": {
+    "@type": "DefinedTerm",
+    "@id": "https://leadgreen.ai/glossary/energy-per-token/#term",
+    "name": "Energy per token",
+    "description": "GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.",
+    "url": "https://leadgreen.ai/glossary/energy-per-token/",
+    "inDefinedTermSet": {
+     "@type": "DefinedTermSet",
+     "name": "Lead Green glossary",
+     "url": "https://leadgreen.ai/glossary/"
+    }
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is energy per token?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "GPU energy divided by the output tokens generated in the same steady-state window, in joules per output token. The index measures it from the ML.ENERGY Leaderboard v3.0 and shows it as watt-hours per million output tokens; it runs from 0.047 to 2.06 J per token across the index rows."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How is energy per token measured?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "By reading the GPU's energy counter (through NVML or DCGM; the leaderboard uses Zeus) at the start and end of a steady-state window under a fixed load, and dividing the difference by the output tokens generated in that window. The index's protocol asks for a window of at least 5 minutes after warm-up and at least 1,000 requests. Average power divided by tokens per second gives the same number."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why do estimates of energy per token differ so much from measurements?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Estimates multiply a rated power by an assumed utilisation and divide by an assumed throughput, usually a single request at a time. A busy server serves hundreds of requests at once on nearly the same power: Qwen 3 32B on 2 × H100 moves 7.1× in energy per token between a running batch of 8 and 256. An estimate at one request per card lands far above every measured busy-server row."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does energy per token include the host, the network and cooling?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not on this index. The figures are GPU energy only. A whole-system reading adds the host, memory, network and fans (about 1.79× for a DGX B200, from NVIDIA's rated system and GPU power), and the facility's PUE adds cooling and distribution on top."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Lead Green",
+     "item": "https://leadgreen.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Glossary",
+     "item": "https://leadgreen.ai/glossary/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Energy per token",
+     "item": "https://leadgreen.ai/glossary/energy-per-token/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow"><a href="../../glossary/">Glossary</a></p>
+  <h1>Energy per token</h1>
+  <p class="stand"><b>Energy per token</b> is the GPU energy a serving system uses divided by the output tokens it generated in the same window, in joules per output token. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled 16 February 2026). On the index it runs from <b>0.047 J per token</b> (Llama 3.1 8B Instruct, 1 × B200) to <b>2.06 J</b> (Llama 3.1 405B Instruct FP8, 8 × H100); the index shows it as watt-hours per million output tokens.</p>
+  <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Energy per token: definition and the figure. https://leadgreen.ai/glossary/energy-per-token/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+
+<section id="working" class="first">
+  <p class="eyebrow">The working</p>
+  <h2>How the term is used on the index</h2>
+  <div class="prose"><p>Energy per token is average power divided by token throughput: on the reference row, 1,177.9 W summed across 2 cards ÷ 5,155.5 output tokens per second = 0.2285 J per token, which is 63.47 Wh/M. The identity is also the consistency check the <a href="../../why/#monday">RFP scoring box</a> applies to a bidder's figure.</p><p>Three ways of getting the number are not equal. A measured figure reads the GPU's energy counter (NVIDIA NVML or DCGM, which Zeus uses) over a window of steady load and divides by the tokens served. A whole-system figure reads the server's power supplies and includes host, memory, network and fans, which on a DGX B200 adds about 1.79× to the GPU figure. An estimate multiplies a rated power (TDP) by an assumed utilisation and divides by an assumed throughput; it is the kind most often quoted and the kind the index does not publish. Energy per token falls as the running batch rises because the cards' fixed draw is spread over more tokens: see <a href="../../glossary/running-batch/">running batch</a>.</p></div>
+</section>
+
+<section id="used">
+  <p class="eyebrow">Where it is used</p>
+  <h2>Pages that rely on this term</h2>
+  <div class="prose"><ul><li><a href="../../index/#method">The index method</a></li><li><a href="../../why/#utilisation">Why it matters: utilisation</a></li><li><a href="../../contribute/#protocol">The measurement protocol</a></li></ul>
+  <p>Other terms: </p><ul><li><a href="../../glossary/watt-hours-per-million-output-tokens/">Watt-hours per million output tokens (Wh/M)</a></li><li><a href="../../glossary/running-batch/">Running batch</a></li><li><a href="../../glossary/floor/">Floor</a></li><li><a href="../../glossary/gpu-only-boundary/">GPU-only boundary</a></li><li><a href="../../glossary/location-based-intensity/">Location-based grid intensity</a></li><li><a href="../../glossary/kg-co2e-per-billion-tokens/">kg CO2e per billion output tokens</a></li><li><a href="../../glossary/inter-token-latency-ceiling/">Inter-token latency ceiling</a></li><li><a href="../../glossary/pue/">Power usage effectiveness (PUE)</a></li></ul></div>
+</section>
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about this term</h2><div class="prose faq"><h3>What is energy per token?</h3><p>GPU energy divided by the output tokens generated in the same steady-state window, in joules per output token. The index measures it from the ML.ENERGY Leaderboard v3.0 and shows it as watt-hours per million output tokens; it runs from 0.047 to 2.06 J per token across the index rows.</p><h3>How is energy per token measured?</h3><p>By reading the GPU&#x27;s energy counter (through NVML or DCGM; the leaderboard uses Zeus) at the start and end of a steady-state window under a fixed load, and dividing the difference by the output tokens generated in that window. The index&#x27;s protocol asks for a window of at least 5 minutes after warm-up and at least 1,000 requests. Average power divided by tokens per second gives the same number.</p><h3>Why do estimates of energy per token differ so much from measurements?</h3><p>Estimates multiply a rated power by an assumed utilisation and divide by an assumed throughput, usually a single request at a time. A busy server serves hundreds of requests at once on nearly the same power: Qwen 3 32B on 2 × H100 moves 7.1× in energy per token between a running batch of 8 and 256. An estimate at one request per card lands far above every measured busy-server row.</p><h3>Does energy per token include the host, the network and cooling?</h3><p>Not on this index. The figures are GPU energy only. A whole-system reading adds the host, memory, network and fans (about 1.79× for a DGX B200, from NVIDIA&#x27;s rated system and GPU power), and the facility&#x27;s PUE adds cooling and distribution on top.</p></div></section>
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, October 2026 release, 2024, CC BY 4.0, retrieved 17 October 2026. Hardware: NVIDIA product specifications and the HGX B200 product carbon footprint summary (July 2025), retrieved 26 September 2026. Per-prompt figures: Google, <a href="https://arxiv.org/abs/2508.15734">arXiv 2508.15734</a> (August 2025); Mistral AI, July 2025.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+</section>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

@@ -10,6 +10,8 @@ Qwen 3 8B serves a million output tokens for **14.7 Wh/M** on 1 × B200 (running
 
 **Model** [Qwen/Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B), a dense transformer, weights in BF16. **Measured** 19 configurations on B200 and H100. **Data** [models/qwen-3-8b.json](https://leadgreen.ai/api/v1/models/qwen-3-8b.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Qwen 3 8B: energy per million output tokens. https://leadgreen.ai/models/qwen-3-8b/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/qwen-3-8b/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-8b/#generations)
 - [Carbon](https://leadgreen.ai/models/qwen-3-8b/#carbon)

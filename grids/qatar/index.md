@@ -10,6 +10,8 @@ Qatar's grid ran at **582 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2
 
 **Area** Qatar (QAT, QA). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Qatar: carbon of AI inference per billion tokens. https://leadgreen.ai/grids/qatar/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Trend](https://leadgreen.ai/grids/qatar/#trend)
 - [Every model](https://leadgreen.ai/grids/qatar/#models)
 - [Reporting](https://leadgreen.ai/grids/qatar/#reporting)

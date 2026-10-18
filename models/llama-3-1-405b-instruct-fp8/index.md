@@ -10,6 +10,8 @@ Llama 3.1 405B Instruct FP8 serves a million output tokens for **318.5 Wh/M** on
 
 **Model** [meta-llama/Llama-3.1-405B-Instruct-FP8](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct-FP8), a dense transformer, weights in FP8. **Measured** 15 configurations on B200 and H100. **Data** [models/llama-3-1-405b-instruct-fp8.json](https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct-fp8.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Llama 3.1 405B Instruct FP8: energy per million output tokens. https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#configurations)
 - [Two generations](https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#generations)
 - [Carbon](https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#carbon)
