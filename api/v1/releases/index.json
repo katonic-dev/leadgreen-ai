@@ -1,9 +1,16 @@
 {
   "version": "1",
-  "updated": "2026-10-17",
-  "current": "2026-10-17",
+  "updated": "2026-10-18",
+  "current": "2026-10-18",
   "note": "A release listed as published never changes. Cite a release, not the live files.",
   "releases": [
+    {
+      "date": "2026-10-18",
+      "url": "https://leadgreen.ai/api/v1/releases/2026-10-18/",
+      "zip": "https://leadgreen.ai/api/v1/releases/leadgreen-api-v1-2026-10-18.zip",
+      "sha256": "4eed461e8f03addbd9580f53c130882d58a1d7029ead9732411e3a17856651cc",
+      "published": true
+    },
     {
       "date": "2026-10-17",
       "url": "https://leadgreen.ai/api/v1/releases/2026-10-17/",

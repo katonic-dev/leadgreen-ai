@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-10-17",
-  "data_version": "2026-10-17",
+  "updated": "2026-10-18",
+  "data_version": "2026-10-18",
   "site": "https://leadgreen.ai",
   "name": "Lead Green Green Tokens API",
   "description": "GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity and GPU hardware reference data. Static JSON, GET only, CORS open.",
@@ -198,7 +198,7 @@
     "entity": "Katonic AI Technology Ltd",
     "registration": "CL9944",
     "jurisdiction": "Dubai International Financial Centre (DIFC), United Arab Emirates",
-    "address": null,
+    "address": "Unit IH-00-VZ-01-FL-194, Level 1, Innovation Hub, Dubai International Financial Centre, Dubai, United Arab Emirates",
     "contact": "hello@leadgreen.ai",
     "response_working_days": 10
   },

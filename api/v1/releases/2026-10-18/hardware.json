@@ -1,0 +1,273 @@
+{
+  "version": "1",
+  "updated": "2026-10-18",
+  "data_version": "2026-10-18",
+  "retrieved": "2026-09-26",
+  "note": "Manufacturer ceilings transcribed from NVIDIA's published pages and documents on the retrieval date. NVIDIA does not publish power draw per MIG slice, and neither public benchmark on the index measures a sliced card. The '+me' media-extension variants of the 1g profiles are omitted.",
+  "tdp": [
+    {
+      "gpu": "A100 80GB",
+      "form": "SXM",
+      "max_tdp_w": 400,
+      "tdp_label": "400 W",
+      "memory": "80 GB HBM2e",
+      "source": "https://www.nvidia.com/en-us/data-center/a100/"
+    },
+    {
+      "gpu": "A100 80GB",
+      "form": "PCIe",
+      "max_tdp_w": 300,
+      "tdp_label": "300 W",
+      "memory": "80 GB HBM2e",
+      "source": "https://www.nvidia.com/en-us/data-center/a100/"
+    },
+    {
+      "gpu": "H100",
+      "form": "SXM",
+      "max_tdp_w": 700,
+      "tdp_label": "up to 700 W",
+      "memory": "80 GB HBM3",
+      "source": "https://www.nvidia.com/en-us/data-center/h100/"
+    },
+    {
+      "gpu": "H100",
+      "form": "NVL",
+      "max_tdp_w": 400,
+      "tdp_label": "350 to 400 W",
+      "memory": "94 GB HBM3",
+      "source": "https://www.nvidia.com/en-us/data-center/h100/"
+    },
+    {
+      "gpu": "H200",
+      "form": "SXM",
+      "max_tdp_w": 700,
+      "tdp_label": "up to 700 W",
+      "memory": "141 GB HBM3e",
+      "source": "https://www.nvidia.com/en-us/data-center/h200/"
+    },
+    {
+      "gpu": "H200",
+      "form": "NVL",
+      "max_tdp_w": 600,
+      "tdp_label": "up to 600 W",
+      "memory": "141 GB HBM3e",
+      "source": "https://www.nvidia.com/en-us/data-center/h200/"
+    },
+    {
+      "gpu": "B200",
+      "form": "HGX, SXM6",
+      "max_tdp_w": 1000,
+      "tdp_label": "configurable up to 1,000 W",
+      "memory": "180 GB HBM3e",
+      "source": "https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf"
+    }
+  ],
+  "systems": [
+    {
+      "system": "DGX B200",
+      "gpus": "8 x B200",
+      "max_power_kw": 14.3,
+      "label": "~14.3 kW max",
+      "source": "https://www.nvidia.com/en-us/data-center/dgx-b200/"
+    }
+  ],
+  "mig_profiles": [
+    {
+      "gpu": "A100 80GB",
+      "profile": "1g.10gb",
+      "memory_fraction": "1/8",
+      "sm_fraction": "1/7",
+      "instances": 7
+    },
+    {
+      "gpu": "A100 80GB",
+      "profile": "1g.20gb",
+      "memory_fraction": "1/4",
+      "sm_fraction": "1/7",
+      "instances": 4
+    },
+    {
+      "gpu": "A100 80GB",
+      "profile": "2g.20gb",
+      "memory_fraction": "2/8",
+      "sm_fraction": "2/7",
+      "instances": 3
+    },
+    {
+      "gpu": "A100 80GB",
+      "profile": "3g.40gb",
+      "memory_fraction": "4/8",
+      "sm_fraction": "3/7",
+      "instances": 2
+    },
+    {
+      "gpu": "A100 80GB",
+      "profile": "4g.40gb",
+      "memory_fraction": "4/8",
+      "sm_fraction": "4/7",
+      "instances": 1
+    },
+    {
+      "gpu": "A100 80GB",
+      "profile": "7g.80gb",
+      "memory_fraction": "full",
+      "sm_fraction": "7/7",
+      "instances": 1
+    },
+    {
+      "gpu": "H100 80GB",
+      "profile": "1g.10gb",
+      "memory_fraction": "1/8",
+      "sm_fraction": "1/7",
+      "instances": 7
+    },
+    {
+      "gpu": "H100 80GB",
+      "profile": "1g.20gb",
+      "memory_fraction": "1/4",
+      "sm_fraction": "1/7",
+      "instances": 4
+    },
+    {
+      "gpu": "H100 80GB",
+      "profile": "2g.20gb",
+      "memory_fraction": "2/8",
+      "sm_fraction": "2/7",
+      "instances": 3
+    },
+    {
+      "gpu": "H100 80GB",
+      "profile": "3g.40gb",
+      "memory_fraction": "4/8",
+      "sm_fraction": "3/7",
+      "instances": 2
+    },
+    {
+      "gpu": "H100 80GB",
+      "profile": "4g.40gb",
+      "memory_fraction": "4/8",
+      "sm_fraction": "4/7",
+      "instances": 1
+    },
+    {
+      "gpu": "H100 80GB",
+      "profile": "7g.80gb",
+      "memory_fraction": "full",
+      "sm_fraction": "7/7",
+      "instances": 1
+    },
+    {
+      "gpu": "H200 141GB",
+      "profile": "1g.18gb",
+      "memory_fraction": "1/8",
+      "sm_fraction": "1/7",
+      "instances": 7
+    },
+    {
+      "gpu": "H200 141GB",
+      "profile": "1g.35gb",
+      "memory_fraction": "1/4",
+      "sm_fraction": "1/7",
+      "instances": 4
+    },
+    {
+      "gpu": "H200 141GB",
+      "profile": "2g.35gb",
+      "memory_fraction": "2/8",
+      "sm_fraction": "2/7",
+      "instances": 3
+    },
+    {
+      "gpu": "H200 141GB",
+      "profile": "3g.71gb",
+      "memory_fraction": "4/8",
+      "sm_fraction": "3/7",
+      "instances": 2
+    },
+    {
+      "gpu": "H200 141GB",
+      "profile": "4g.71gb",
+      "memory_fraction": "4/8",
+      "sm_fraction": "4/7",
+      "instances": 1
+    },
+    {
+      "gpu": "H200 141GB",
+      "profile": "7g.141gb",
+      "memory_fraction": "full",
+      "sm_fraction": "7/7",
+      "instances": 1
+    },
+    {
+      "gpu": "B200 180GB",
+      "profile": "1g.23gb",
+      "memory_fraction": "1/8",
+      "sm_fraction": "1/7",
+      "instances": 7
+    },
+    {
+      "gpu": "B200 180GB",
+      "profile": "1g.45gb",
+      "memory_fraction": "1/4",
+      "sm_fraction": "1/7",
+      "instances": 4
+    },
+    {
+      "gpu": "B200 180GB",
+      "profile": "2g.45gb",
+      "memory_fraction": "2/8",
+      "sm_fraction": "2/7",
+      "instances": 3
+    },
+    {
+      "gpu": "B200 180GB",
+      "profile": "3g.90gb",
+      "memory_fraction": "4/8",
+      "sm_fraction": "3/7",
+      "instances": 2
+    },
+    {
+      "gpu": "B200 180GB",
+      "profile": "4g.90gb",
+      "memory_fraction": "4/8",
+      "sm_fraction": "4/7",
+      "instances": 1
+    },
+    {
+      "gpu": "B200 180GB",
+      "profile": "7g.180gb",
+      "memory_fraction": "full",
+      "sm_fraction": "7/7",
+      "instances": 1
+    }
+  ],
+  "embodied": {
+    "item": "NVIDIA HGX B200 baseboard, eight GPUs",
+    "kg_co2e_cradle_to_gate": 2274,
+    "source": "https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf",
+    "published": "2025-07"
+  },
+  "sources": [
+    {
+      "name": "NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles",
+      "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html",
+      "version": "last updated 2026-09-11",
+      "retrieved": "2026-09-26",
+      "used_for": "mig_profiles"
+    },
+    {
+      "name": "NVIDIA product specifications: A100, H100, H200, DGX B200",
+      "url": "https://www.nvidia.com/en-us/data-center/h100/",
+      "version": "as published on the retrieval date",
+      "retrieved": "2026-09-26",
+      "used_for": "tdp (A100, H100, H200), systems"
+    },
+    {
+      "name": "NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200",
+      "url": "https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf",
+      "version": "July 2025",
+      "retrieved": "2026-09-26",
+      "used_for": "tdp (B200), embodied"
+    }
+  ]
+}

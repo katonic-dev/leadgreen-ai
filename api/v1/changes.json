@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-10-17",
-  "data_version": "2026-10-17",
+  "updated": "2026-10-18",
+  "data_version": "2026-10-18",
   "note": "One entry per change to the published data or its description, newest last.",
   "changes": [
     {
@@ -31,6 +31,15 @@
       ],
       "reason": "source release",
       "source_version": "October 2026 release (file last modified 2026-10-06)"
+    },
+    {
+      "date": "2026-10-18",
+      "summary": "The publisher's registered office is added to About and to the manifest. No change to the data or its description.",
+      "documents": [
+        "manifest.json"
+      ],
+      "reason": "publisher",
+      "source_version": "3.0 (released 2025-12-01); data compiled 2026-02-16"
     }
   ]
 }

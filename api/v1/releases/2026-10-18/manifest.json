@@ -1,0 +1,210 @@
+{
+  "version": "1",
+  "updated": "2026-10-18",
+  "data_version": "2026-10-18",
+  "site": "https://leadgreen.ai",
+  "name": "Lead Green Green Tokens API",
+  "description": "GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity and GPU hardware reference data. Static JSON, GET only, CORS open.",
+  "endpoints": [
+    {
+      "path": "manifest.json",
+      "url": "https://leadgreen.ai/api/v1/manifest.json",
+      "description": "Sources, versions, retrieval dates, licences and this endpoint list."
+    },
+    {
+      "path": "index.json",
+      "url": "https://leadgreen.ai/api/v1/index.json",
+      "description": "The index: 32 rows, one per model and GPU, energy-optimal under the latency limit, sorted ascending."
+    },
+    {
+      "path": "models.json",
+      "url": "https://leadgreen.ai/api/v1/models.json",
+      "description": "Every model on the index with its slug, Hugging Face id, parameter counts and measured GPUs."
+    },
+    {
+      "path": "models/{slug}.json",
+      "url": "https://leadgreen.ai/api/v1/models/{slug}.json",
+      "description": "One model: every measured configuration (concurrency, parallelism, latency, power) and the best row per GPU."
+    },
+    {
+      "path": "grid.json",
+      "url": "https://leadgreen.ai/api/v1/grid.json",
+      "description": "Grid emissions intensity, gCO2e per kWh, 2024 annual average, 193 countries plus World."
+    },
+    {
+      "path": "hardware.json",
+      "url": "https://leadgreen.ai/api/v1/hardware.json",
+      "description": "Manufacturer power ceilings, memory, MIG slice profiles and one embodied-carbon figure."
+    },
+    {
+      "path": "per-query.json",
+      "url": "https://leadgreen.ai/api/v1/per-query.json",
+      "description": "AI Energy Score text-generation rows, December 2025 round: Wh per 1,000 queries at batch size 1 on H100 80GB GPUs (one card for classes A and B, several for C)."
+    },
+    {
+      "path": "openapi.json",
+      "url": "https://leadgreen.ai/api/v1/openapi.json",
+      "description": "OpenAPI 3.1 description of these endpoints."
+    },
+    {
+      "path": "measurements.json",
+      "url": "https://leadgreen.ai/api/v1/measurements.json",
+      "description": "Contributed measurements accepted under the protocol, with contributor, affiliation, date, versions and MIG profile; never merged into index.json."
+    },
+    {
+      "path": "schema/measurement.schema.json",
+      "url": "https://leadgreen.ai/api/v1/schema/measurement.schema.json",
+      "description": "JSON Schema for a contributed measurement file (protocol v0.2); the build validates every submission against it."
+    },
+    {
+      "path": "changes.json",
+      "url": "https://leadgreen.ai/api/v1/changes.json",
+      "description": "Every change to the published data or its description: date, summary, documents, reason and source version."
+    },
+    {
+      "path": "index.csv",
+      "url": "https://leadgreen.ai/api/v1/index.csv",
+      "description": "The index rows as CSV, for a spreadsheet."
+    },
+    {
+      "path": "types.d.ts",
+      "url": "https://leadgreen.ai/api/v1/types.d.ts",
+      "description": "TypeScript types for every document, generated from the documents."
+    },
+    {
+      "path": "all.zip",
+      "url": "https://leadgreen.ai/api/v1/all.zip",
+      "description": "Every JSON document of the current release in one zip (the same bytes as the dated release zip)."
+    },
+    {
+      "path": "releases/index.json",
+      "url": "https://leadgreen.ai/api/v1/releases/index.json",
+      "description": "Every dated release of api/v1, each kept unchanged at releases/<date>/ with a zip of the whole release, for citation."
+    }
+  ],
+  "sources": [
+    {
+      "name": "ML.ENERGY Leaderboard",
+      "publisher": "The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)",
+      "url": "https://ml.energy/leaderboard/",
+      "data_url": "https://raw.githubusercontent.com/ml-energy/leaderboard/master/public/data/tasks/lm-arena-chat.json",
+      "version": "3.0 (released 2025-12-01); data compiled 2026-02-16",
+      "released": "2025-12-01",
+      "compiled": "2026-02-16",
+      "compiled_evidence": "the leaderboard's public/data/index.json last_updated, and the last commit to the task files, both 2026-02-16",
+      "retrieved": "2026-09-26",
+      "licence": "Apache-2.0 per the ml-energy/benchmark-v3 dataset card",
+      "licence_evidence": [
+        "Hugging Face dataset ml-energy/benchmark-v3: tagged license:apache-2.0, ships a LICENSE file, and its dataset card's License section reads Apache-2.0",
+        "The ML.ENERGY Leaderboard web app's footer says Apache 2.0",
+        "The leaderboard repository (github.com/ml-energy/leaderboard) carries no licence file; its JSON files are reproduced here as published measurements until the ML.ENERGY team confirms that the dataset licence covers them"
+      ],
+      "workload": "Text Conversation (lm-arena-chat)",
+      "method": "Energy per output token is steady-state GPU energy divided by the output tokens generated in the steady-state window (the benchmark's steady_state_energy_per_token), measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers. Energy per request is that figure multiplied by the average output length, not a separate measurement. Prompt processing is included.",
+      "selection": "Each index row is the lowest-energy configuration for its model and GPU whose median inter-token latency does not exceed 500 ms, the leaderboard's own default ceiling; no measured configuration reaches it.",
+      "cite": "Chung et al., The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371",
+      "cite_url": "https://arxiv.org/abs/2505.06371",
+      "used_for": "index, per-model configurations, concurrency curves, measured GPU power",
+      "configurations": "328 stable configurations: the leaderboard publishes the runs that passed its stability filter; every run, including the unstable ones, is in the gated Hugging Face dataset ml-energy/benchmark-v3"
+    },
+    {
+      "name": "ML.ENERGY Leaderboard",
+      "publisher": "The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)",
+      "url": "https://ml.energy/leaderboard/",
+      "data_url": "https://raw.githubusercontent.com/ml-energy/leaderboard/master/public/data/tasks/gpqa.json",
+      "version": "3.0 (released 2025-12-01); data compiled 2026-02-16",
+      "released": "2025-12-01",
+      "compiled": "2026-02-16",
+      "compiled_evidence": "the leaderboard's public/data/index.json last_updated, and the last commit to the task files, both 2026-02-16",
+      "retrieved": "2026-09-26",
+      "licence": "Apache-2.0 per the ml-energy/benchmark-v3 dataset card",
+      "licence_evidence": [
+        "Hugging Face dataset ml-energy/benchmark-v3: tagged license:apache-2.0, ships a LICENSE file, and its dataset card's License section reads Apache-2.0",
+        "The ML.ENERGY Leaderboard web app's footer says Apache 2.0",
+        "The leaderboard repository (github.com/ml-energy/leaderboard) carries no licence file; its JSON files are reproduced here as published measurements until the ML.ENERGY team confirms that the dataset licence covers them"
+      ],
+      "workload": "Problem Solving (gpqa)",
+      "method": "Energy per output token is steady-state GPU energy divided by the output tokens generated in the steady-state window (the benchmark's steady_state_energy_per_token), measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers. Energy per request is that figure multiplied by the average output length, not a separate measurement. Prompt processing is included.",
+      "selection": "Each index row is the lowest-energy configuration for its model and GPU whose median inter-token latency does not exceed 500 ms, the leaderboard's own default ceiling; no measured configuration reaches it.",
+      "cite": "Chung et al., The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371",
+      "cite_url": "https://arxiv.org/abs/2505.06371",
+      "used_for": "problem-solving versus chat comparison",
+      "configurations": "187 stable configurations: the leaderboard publishes the runs that passed its stability filter; every run, including the unstable ones, is in the gated Hugging Face dataset ml-energy/benchmark-v3"
+    },
+    {
+      "name": "Ember, Yearly electricity data",
+      "publisher": "Ember",
+      "url": "https://ember-energy.org/data/yearly-electricity-data/",
+      "data_url": "https://files.ember-energy.org/public-downloads/generation/outputs/release_generation_yearly_global.csv",
+      "version": "October 2026 release (file last modified 2026-10-06)",
+      "retrieved": "2026-10-17",
+      "licence": "CC-BY-4.0",
+      "factor_basis": "Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported.",
+      "used_for": "grid emissions intensity of total generation, gCO2e per kWh, 2024 (location-based)"
+    },
+    {
+      "name": "NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles",
+      "url": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html",
+      "version": "last updated 2026-09-11",
+      "retrieved": "2026-09-26",
+      "used_for": "mig_profiles",
+      "licence": "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
+    },
+    {
+      "name": "NVIDIA product specifications: A100, H100, H200, DGX B200",
+      "url": "https://www.nvidia.com/en-us/data-center/h100/",
+      "version": "as published on the retrieval date",
+      "retrieved": "2026-09-26",
+      "used_for": "tdp (A100, H100, H200), systems",
+      "licence": "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
+    },
+    {
+      "name": "NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200",
+      "url": "https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf",
+      "version": "July 2025",
+      "retrieved": "2026-09-26",
+      "used_for": "tdp (B200), embodied",
+      "licence": "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
+    },
+    {
+      "name": "AI Energy Score leaderboard",
+      "publisher": "AI Energy Score (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University)",
+      "url": "https://huggingface.co/spaces/AIEnergyScore/Leaderboard",
+      "data_url": "https://huggingface.co/spaces/AIEnergyScore/Leaderboard/raw/main/data/energy/text_generation.csv",
+      "documentation": "https://huggingface.github.io/AIEnergyScore/",
+      "version": "December 2025 round",
+      "harness": "Neuralwatt's AI Energy Benchmarks for the December 2025 round; the February 2025 round ran on Optimum Benchmark",
+      "retrieved": "2026-09-26",
+      "licence": "Apache-2.0 as tagged on the Space; the project states no separate licence for the results file, which is reproduced as facts with attribution",
+      "used_for": "GPU energy per 1,000 text-generation queries at batch size 1 on NVIDIA H100 80GB GPUs (one card for class A and B models, several for class C)"
+    },
+    {
+      "name": "OpenAI, What are tokens and how to count them",
+      "publisher": "OpenAI",
+      "url": "https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them",
+      "version": "as published on the retrieval date",
+      "retrieved": "2026-09-26",
+      "licence": "cited, not redistributed",
+      "used_for": "the rough words-per-token conversion"
+    }
+  ],
+  "licence": "Compilation and site text: CC BY 4.0. Code: Apache 2.0. Third-party figures remain subject to their sources' terms, listed per source.",
+  "caveat": "GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it.",
+  "boundary": "gpu_only",
+  "publisher": {
+    "name": "Lead Green",
+    "parent": "Katonic",
+    "url": "https://leadgreen.ai",
+    "entity": "Katonic AI Technology Ltd",
+    "registration": "CL9944",
+    "jurisdiction": "Dubai International Financial Centre (DIFC), United Arab Emirates",
+    "address": "Unit IH-00-VZ-01-FL-194, Level 1, Innovation Hub, Dubai International Financial Centre, Dubai, United Arab Emirates",
+    "contact": "hello@leadgreen.ai",
+    "response_working_days": 10
+  },
+  "attribution": "Green Tokens index, Lead Green, a Katonic project, https://leadgreen.ai/api/v1/, CC BY 4.0. Contains data from the ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled 2026-02-16, retrieved 2026-09-26) and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe].",
+  "releases": {
+    "index": "https://leadgreen.ai/api/v1/releases/index.json",
+    "pattern": "https://leadgreen.ai/api/v1/releases/<date>/"
+  }
+}
