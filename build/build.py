@@ -1745,6 +1745,18 @@ for name, out_rel, nav, kind in PAGE_SPECS:
             raise SystemExit(f"pages/{name}.html: meta is missing '{k}'")
     render(out_rel, nav, fill(meta["title"], subs), fill(meta["description"], subs), meta.get("og_type", "website"), kind, body)
 
+# The 404 page: nginx serves it (error_page) at whatever path was asked for, so every link and asset is absolute (ROOT = "/");
+# it is not a page of the site (no sitemap entry, no Markdown copy, noindex). Written to /404.html, which the twin loop skips.
+_m404, _b404 = read_body(PAGES / "404.html")
+_p404 = fill(layout, {
+    "TITLE": esc(_m404["title"]), "DESCRIPTION": esc(_m404["description"]), "CANONICAL": f"{SITE}/404.html", "OG_TITLE": esc(_m404["title"]),
+    "OG_TYPE": "website", "SITE": SITE, "ROOT": "/", "JSONLD": "", "CONTENT": fill(fill(_b404, subs), {"ROOT": "/"}), "UPDATED_LONG": long_date(UPDATED),
+})
+_p404 = _p404.replace('<link rel="canonical" href="' + SITE + '/404.html">', '<meta name="robots" content="noindex">')
+_p404 = _p404.replace('<link rel="alternate" type="text/markdown" href="' + SITE + '/404.htmlindex.md">\n', "")
+assert "index.md" not in _p404.split("</head>")[0], "404 page must not advertise a Markdown copy"
+outputs["404.html"] = _p404
+
 # ----------------------------------------------------------------- model pages: one page per model, generated from the data (SEO / AEO)
 MODEL_CARBON_GRIDS = ["SAU", "IND", "HKG", "SRB", "DEU", "NOR"]   # a spread of the listed grids; World is added
 _country_name = dict(COUNTRIES)

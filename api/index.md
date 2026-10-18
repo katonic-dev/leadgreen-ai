@@ -213,7 +213,7 @@ The examples above are generated from the live files at build time, so they matc
 
 ## CORS is open
 
-The files are served by GitHub Pages, which sends `access-control-allow-origin: *`, so a page on any origin can fetch them directly.
+Every file under `/api/v1/` is sent with `access-control-allow-origin: *`, and a preflight `OPTIONS` request gets 204, so a page on any origin can fetch them directly.
 
 ```
 const r = await fetch("https://leadgreen.ai/api/v1/index.json");

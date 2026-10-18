@@ -267,7 +267,7 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
   <p class="eyebrow">From a browser</p>
   <h2>CORS is open</h2>
   <div class="prose">
-    <p>The files are served by GitHub Pages, which sends <code>access-control-allow-origin: *</code>, so a page on any origin can fetch them directly.</p>
+    <p>Every file under <code>/api/v1/</code> is sent with <code>access-control-allow-origin: *</code>, and a preflight <code>OPTIONS</code> request gets 204, so a page on any origin can fetch them directly.</p>
   </div>
 <pre><code>const r = await fetch("https://leadgreen.ai/api/v1/index.json");
 const { rows } = await r.json();
