@@ -1,0 +1,261 @@
+{
+  "version": "1",
+  "updated": "2026-10-18",
+  "data_version": "2026-10-18",
+  "source": {
+    "name": "ML.ENERGY Leaderboard",
+    "publisher": "The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)",
+    "url": "https://ml.energy/leaderboard/",
+    "data_url": "https://raw.githubusercontent.com/ml-energy/leaderboard/master/public/data/tasks/lm-arena-chat.json",
+    "version": "3.0 (released 2025-12-01); data compiled 2026-02-16",
+    "released": "2025-12-01",
+    "compiled": "2026-02-16",
+    "compiled_evidence": "the leaderboard's public/data/index.json last_updated, and the last commit to the task files, both 2026-02-16",
+    "retrieved": "2026-09-26",
+    "licence": "Apache-2.0 per the ml-energy/benchmark-v3 dataset card",
+    "licence_evidence": [
+      "Hugging Face dataset ml-energy/benchmark-v3: tagged license:apache-2.0, ships a LICENSE file, and its dataset card's License section reads Apache-2.0",
+      "The ML.ENERGY Leaderboard web app's footer says Apache 2.0",
+      "The leaderboard repository (github.com/ml-energy/leaderboard) carries no licence file; its JSON files are reproduced here as published measurements until the ML.ENERGY team confirms that the dataset licence covers them"
+    ],
+    "workload": "Text Conversation (lm-arena-chat)",
+    "method": "Energy per output token is steady-state GPU energy divided by the output tokens generated in the steady-state window (the benchmark's steady_state_energy_per_token), measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers. Energy per request is that figure multiplied by the average output length, not a separate measurement. Prompt processing is included.",
+    "selection": "Each index row is the lowest-energy configuration for its model and GPU whose median inter-token latency does not exceed 500 ms, the leaderboard's own default ceiling; no measured configuration reaches it.",
+    "cite": "Chung et al., The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371",
+    "cite_url": "https://arxiv.org/abs/2505.06371",
+    "used_for": "index, per-model configurations, concurrency curves, measured GPU power",
+    "configurations": "328 stable configurations: the leaderboard publishes the runs that passed its stability filter; every run, including the unstable ones, is in the gated Hugging Face dataset ml-energy/benchmark-v3"
+  },
+  "models": [
+    {
+      "slug": "deepseek-v3-1",
+      "name": "DeepSeek V3.1",
+      "model_id": "deepseek-ai/DeepSeek-V3.1",
+      "params_b": 671.0,
+      "active_params_b": 37.0,
+      "gpus": [
+        "B200"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/deepseek-v3-1.json",
+      "page": "https://leadgreen.ai/models/deepseek-v3-1/"
+    },
+    {
+      "slug": "gemma-3-12b",
+      "name": "Gemma 3 12B",
+      "model_id": "google/gemma-3-12b-it",
+      "params_b": 12.0,
+      "active_params_b": 12.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/gemma-3-12b.json",
+      "page": "https://leadgreen.ai/models/gemma-3-12b/"
+    },
+    {
+      "slug": "gemma-3-27b",
+      "name": "Gemma 3 27B",
+      "model_id": "google/gemma-3-27b-it",
+      "params_b": 27.0,
+      "active_params_b": 27.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/gemma-3-27b.json",
+      "page": "https://leadgreen.ai/models/gemma-3-27b/"
+    },
+    {
+      "slug": "llama-3-1-405b-instruct",
+      "name": "Llama 3.1 405B Instruct",
+      "model_id": "meta-llama/Llama-3.1-405B-Instruct",
+      "params_b": 405.0,
+      "active_params_b": 405.0,
+      "gpus": [
+        "B200"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-3-1-405b-instruct/"
+    },
+    {
+      "slug": "llama-3-1-405b-instruct-fp8",
+      "name": "Llama 3.1 405B Instruct FP8",
+      "model_id": "meta-llama/Llama-3.1-405B-Instruct-FP8",
+      "params_b": 405.0,
+      "active_params_b": 405.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct-fp8.json",
+      "page": "https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/"
+    },
+    {
+      "slug": "llama-3-1-70b-instruct",
+      "name": "Llama 3.1 70B Instruct",
+      "model_id": "meta-llama/Llama-3.1-70B-Instruct",
+      "params_b": 70.0,
+      "active_params_b": 70.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-70b-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-3-1-70b-instruct/"
+    },
+    {
+      "slug": "llama-3-1-8b-instruct",
+      "name": "Llama 3.1 8B Instruct",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "params_b": 8.0,
+      "active_params_b": 8.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-1-8b-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-3-1-8b-instruct/"
+    },
+    {
+      "slug": "llama-3-3-70b-instruct",
+      "name": "Llama 3.3 70B Instruct",
+      "model_id": "meta-llama/Llama-3.3-70B-Instruct",
+      "params_b": 70.0,
+      "active_params_b": 70.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/llama-3-3-70b-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-3-3-70b-instruct/"
+    },
+    {
+      "slug": "llama-4-maverick-17b-128e-instruct-fp8",
+      "name": "Llama 4 Maverick 17B 128E Instruct FP8",
+      "model_id": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+      "params_b": 400.0,
+      "active_params_b": 17.0,
+      "gpus": [
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/llama-4-maverick-17b-128e-instruct-fp8.json",
+      "page": "https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/"
+    },
+    {
+      "slug": "llama-4-scout-17b-16e-instruct",
+      "name": "Llama 4 Scout 17B 16E Instruct",
+      "model_id": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "params_b": 109.0,
+      "active_params_b": 17.0,
+      "gpus": [
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json",
+      "page": "https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/"
+    },
+    {
+      "slug": "nvidia-nemotron-nano-12b-v2",
+      "name": "NVIDIA Nemotron Nano 12B V2",
+      "model_id": "nvidia/NVIDIA-Nemotron-Nano-12B-v2",
+      "params_b": 12.0,
+      "active_params_b": 12.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-12b-v2.json",
+      "page": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/"
+    },
+    {
+      "slug": "nvidia-nemotron-nano-9b-v2",
+      "name": "NVIDIA Nemotron Nano 9B V2",
+      "model_id": "nvidia/NVIDIA-Nemotron-Nano-9B-v2",
+      "params_b": 9.0,
+      "active_params_b": 9.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/nvidia-nemotron-nano-9b-v2.json",
+      "page": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/"
+    },
+    {
+      "slug": "qwen-3-14b",
+      "name": "Qwen 3 14B",
+      "model_id": "Qwen/Qwen3-14B",
+      "params_b": 14.0,
+      "active_params_b": 14.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-14b.json",
+      "page": "https://leadgreen.ai/models/qwen-3-14b/"
+    },
+    {
+      "slug": "qwen-3-235b-a22b-instruct",
+      "name": "Qwen 3 235B A22B Instruct",
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
+      "params_b": 235.0,
+      "active_params_b": 22.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json",
+      "page": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/"
+    },
+    {
+      "slug": "qwen-3-235b-a22b-instruct-fp8",
+      "name": "Qwen 3 235B A22B Instruct FP8",
+      "model_id": "Qwen/Qwen3-235B-A22B-Instruct-2507-FP8",
+      "params_b": 235.0,
+      "active_params_b": 22.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct-fp8.json",
+      "page": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/"
+    },
+    {
+      "slug": "qwen-3-30b-a3b-instruct",
+      "name": "Qwen 3 30B A3B Instruct",
+      "model_id": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+      "params_b": 30.0,
+      "active_params_b": 3.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-30b-a3b-instruct.json",
+      "page": "https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/"
+    },
+    {
+      "slug": "qwen-3-32b",
+      "name": "Qwen 3 32B",
+      "model_id": "Qwen/Qwen3-32B",
+      "params_b": 32.0,
+      "active_params_b": 32.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-32b.json",
+      "page": "https://leadgreen.ai/models/qwen-3-32b/"
+    },
+    {
+      "slug": "qwen-3-8b",
+      "name": "Qwen 3 8B",
+      "model_id": "Qwen/Qwen3-8B",
+      "params_b": 8.0,
+      "active_params_b": 8.0,
+      "gpus": [
+        "B200",
+        "H100"
+      ],
+      "url": "https://leadgreen.ai/api/v1/models/qwen-3-8b.json",
+      "page": "https://leadgreen.ai/models/qwen-3-8b/"
+    }
+  ]
+}

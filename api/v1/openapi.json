@@ -420,10 +420,7 @@
                 "description": "Jurisdiction."
               },
               "address": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
                 "description": "Registered office; null until confirmed."
               },
               "contact": {

@@ -49,7 +49,7 @@ MCP_DATA = ROOT / "leadgreen-mcp" / "leadgreen_mcp" / "data"
 
 # ----------------------------------------------------------------- settings
 SITE = "https://leadgreen.ai"
-UPDATED = "2026-10-17"                 # bump on every data or content change
+UPDATED = "2026-10-18"                 # bump on every data or content change
 DATA_VERSION = UPDATED                 # D20: carried by every API document; a published release never changes
 RETRIEVED = "2026-09-26"               # when the ML.ENERGY, AI Energy Score and NVIDIA snapshots in build/data were retrieved; not the same as UPDATED
 EMBER_RETRIEVED = "2026-10-17"         # the Ember snapshot is refreshed on its own: Ember re-issues the yearly file monthly
@@ -69,7 +69,7 @@ WHEEL_SHA256 = hashlib.sha256(_wheel_file.read_bytes()).hexdigest() if _wheel_fi
 PUBLISHER_ENTITY = "Katonic AI Technology Ltd"
 PUBLISHER_REGISTRATION = "CL9944"
 PUBLISHER_JURISDICTION = "Dubai International Financial Centre (DIFC), United Arab Emirates"
-PUBLISHER_ADDRESS = ""                 # OWED: registered office, word for word from the registry extract
+PUBLISHER_ADDRESS = "Unit IH-00-VZ-01-FL-194, Level 1, Innovation Hub, Dubai International Financial Centre, Dubai, United Arab Emirates"   # D16: registered office, confirmed by Prem 18 October 2026
 CONTACT_EMAIL = "hello@leadgreen.ai"   # D16: forwarded to the editor; mail on the domain must work before launch
 RESPONSE_DAYS = 10                     # working days, for corrections and contributions
 REVIEWERS: list[str] = []              # D1 OWED: the two named reviewers
@@ -1328,6 +1328,8 @@ CHANGES = [
                                         "2025 rows are added for Saudi Arabia and the United Arab Emirates. The reference year stays 2024, the latest with every "
                                         "listed grid present. No energy figure changes."),
      "documents": ["grid.json", "manifest.json"], "reason": "source release", "source_version": SRC_EMBER["version"]},
+    {"date": "2026-10-18", "summary": "The publisher's registered office is added to About and to the manifest. No change to the data or its description.",
+     "documents": ["manifest.json"], "reason": "publisher", "source_version": SRC_MLE["version"]},
 ]
 assert CHANGES[-1]["date"] == DATA_VERSION, "add a CHANGES entry for this DATA_VERSION"
 api_docs["changes.json"] = {"version": "1", "updated": UPDATED, "note": "One entry per change to the published data or its description, newest last.",
