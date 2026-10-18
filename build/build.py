@@ -28,6 +28,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import html
+import io
 import json
 import os
 import re
@@ -1701,6 +1702,120 @@ outputs.update(_extra_outputs)
 sitemap: list[tuple[str, str]] = []
 
 
+# ----------------------------------------------------------------- social cards: one number per generated page (GEO strategy 6.3)
+# A 1200 x 630 PNG per model, grid, glossary, compare and answer page, drawn from the same values as the page, in the
+# design of assets/social-card.png (dark paper, the mark, Archivo for the figure, IBM Plex Mono for the labels).
+# Pillow is a build dependency for the cards only: without it the build keeps the PNGs already on disk and says so.
+FONTS = HERE / "fonts"
+CARDS_REL = "assets/cards"
+CARD_W, CARD_H = 1200, 630
+CARD_BG, CARD_INK, CARD_INK2, CARD_MUTED, CARD_MINT, CARD_RULE = "#0E1411", "#E7EEE9", "#C9D2CD", "#8E9A93", "#5FCF97", "#1F6B47"
+outputs_bin: dict[str, bytes] = {}
+try:
+    from PIL import Image as _PILImage, ImageDraw as _PILDraw, ImageFont as _PILFont
+    CARDS_OK = all((FONTS / f).exists() for f in ("Archivo[wdth,wght].ttf", "IBMPlexMono-Regular.ttf", "IBMPlexMono-Medium.ttf"))
+except ImportError:   # pragma: no cover
+    CARDS_OK = False
+_font_cache: dict[tuple, object] = {}
+
+
+def _font(kind: str, size: int):
+    key = (kind, size)
+    if key not in _font_cache:
+        if kind in ("bold", "medium"):
+            f = _PILFont.truetype(str(FONTS / "Archivo[wdth,wght].ttf"), size)
+            f.set_variation_by_axes([700 if kind == "bold" else 500, 100])   # axes: weight, width
+        else:
+            f = _PILFont.truetype(str(FONTS / ("IBMPlexMono-Medium.ttf" if kind == "mono-medium" else "IBMPlexMono-Regular.ttf")), size)
+        _font_cache[key] = f
+    return _font_cache[key]
+
+
+def _wrap(draw, text: str, font, max_w: int, max_lines: int) -> list[str]:
+    words, lines, cur = text.split(), [], ""
+    for w in words:
+        t = (cur + " " + w).strip()
+        if draw.textlength(t, font=font) <= max_w or not cur:
+            cur = t
+        else:
+            lines.append(cur); cur = w
+    if cur:
+        lines.append(cur)
+    if len(lines) > max_lines:
+        lines = lines[:max_lines]
+        last = lines[-1]
+        while draw.textlength(last + "...", font=font) > max_w and " " in last:
+            last = last.rsplit(" ", 1)[0]
+        lines[-1] = last.rstrip(",;:.") + "..."
+    return lines
+
+
+def card_png(eyebrow: str, value: str, unit: str, label: str, footer: str) -> bytes:
+    im = _PILImage.new("RGB", (CARD_W, CARD_H), CARD_BG)
+    d = _PILDraw.Draw(im)
+    # the mark (assets/logo: a 64-unit grid), small, top left, with the wordmark beside it
+    s, ox, oy = 1.5, 96, 64
+    d.rectangle([ox + 22 * s, oy + 18 * s, ox + 42 * s, oy + 46 * s], fill=CARD_MINT)
+    pts = [(ox + 4 * s, oy + 46 * s), (ox + 22 * s, oy + 46 * s), (ox + 22 * s, oy + 18 * s), (ox + 42 * s, oy + 18 * s), (ox + 42 * s, oy + 46 * s), (ox + 60 * s, oy + 46 * s)]
+    d.line(pts, fill=CARD_INK, width=int(4 * s), joint="curve")
+    for (x, y) in (pts[0], pts[-1]):
+        d.ellipse([x - 2 * s, y - 2 * s, x + 2 * s, y + 2 * s], fill=CARD_INK)
+    wm = _font("bold", 40)
+    d.text((ox + 64 * s + 22, oy + 46 * s - 40), "Lead", font=wm, fill=CARD_INK)
+    d.text((ox + 64 * s + 22 + d.textlength("Lead ", font=wm), oy + 46 * s - 40), "Green", font=wm, fill=CARD_MINT)
+    # eyebrow
+    eb = _font("mono-medium", 24)
+    d.text((96, 186), eyebrow.upper(), font=eb, fill=CARD_MINT)
+    # the number and its unit, sized to fit beside each other
+    size = 190
+    while size > 90:
+        vf = _font("bold", size)
+        uf = _font("mono", max(26, size // 5) if unit != "×" else size // 2)
+        if d.textlength(value, font=vf) + 24 + d.textlength(unit, font=uf) <= CARD_W - 192:
+            break
+        size -= 10
+    vb = vf.getbbox(value)
+    base_y = 236 + (190 - size) // 2
+    d.text((96 - vb[0], base_y), value, font=vf, fill=CARD_INK)
+    d.text((96 + d.textlength(value, font=vf) + 24, base_y + (vb[3] - vb[1]) * 0.55), unit, font=uf, fill=CARD_MUTED)
+    # the label, up to two lines
+    if label and label[-1] not in ".!?":
+        label += "."
+    for lsize in (38, 34, 30):
+        lf = _font("medium", lsize)
+        if len(_wrap(d, label, lf, CARD_W - 192, 3)) <= 2:
+            break
+    y = base_y + (vb[3] - vb[1]) + 56 + (38 - lsize) // 2
+    for line in _wrap(d, label, lf, CARD_W - 192, 2):
+        d.text((96, y), line, font=lf, fill=CARD_INK2)
+        y += lsize + 10
+    # footer and rule
+    ff = _font("mono", 22)
+    if d.textlength(footer, font=ff) > CARD_W - 192 and " · a Katonic project" in footer:
+        footer = footer.replace(" · a Katonic project", "")
+    while d.textlength(footer, font=ff) > CARD_W - 192 and ff.size > 16:
+        ff = _font("mono", ff.size - 1)
+    d.text((96, 556), footer, font=ff, fill=CARD_MUTED)
+    d.rectangle([96, 598, CARD_W - 96, 600], fill=CARD_RULE)
+    im = im.quantize(colors=128, method=_PILImage.Quantize.MEDIANCUT, dither=_PILImage.Dither.NONE)
+    buf = io.BytesIO()
+    im.save(buf, format="PNG", optimize=True)
+    return buf.getvalue()
+
+
+def card_for(path: str, card: dict) -> tuple[str, str]:
+    """Render (or keep) the card for a page path like 'models/qwen-3-32b/' and return (og:image URL, alt text)."""
+    name = slug(path.strip("/")) or "home"
+    rel = f"{CARDS_REL}/{name}.png"
+    footer = f"leadgreen.ai/{path} · release {DATA_VERSION} · a Katonic project"
+    alt = f"{card['value']} {card['unit']}: {card['label']}".strip()
+    if CARDS_OK:
+        outputs_bin[rel] = card_png(card["eyebrow"], card["value"], card["unit"], card["label"], footer)
+    elif not (ROOT / rel).exists():
+        return f"{SITE}/assets/social-card.png", "Lead Green: the energy behind the token"
+    return f"{SITE}/{rel}", alt
+
+
 faq_all: list[tuple[str, str, list[tuple[str, str]]]] = []   # (page name, url, questions) for the FAQ hub
 
 
@@ -1730,10 +1845,11 @@ def render(out_rel: str, nav: str, title: str, desc: str, og_type: str, kind: st
     content = with_cite(content, url, title)
     if post and post.get("faq"):
         faq_all.append((post.get("name") or re.sub(r"\s*\|\s*Lead Green.*$", "", title), url, post["faq"]))
+    og_image, og_alt = (card_for(path, post["card"]) if post and post.get("card") else (f"{SITE}/assets/social-card.png", "Lead Green: the energy behind the token"))
     page = fill(layout, {
         "TITLE": esc(title), "DESCRIPTION": esc(desc), "CANONICAL": url, "OG_TITLE": esc(title), "OG_TYPE": og_type,
         "SITE": SITE, "ROOT": root, "JSONLD": jsonld_for(kind, title, desc, url, post), "CONTENT": content,
-        "UPDATED_LONG": long_date(UPDATED),
+        "UPDATED_LONG": long_date(UPDATED), "OG_IMAGE": og_image, "OG_IMAGE_ALT": esc(og_alt),
     })
     if nav:
         page = page.replace(f'data-nav="{nav}"', f'data-nav="{nav}" aria-current="page"')
@@ -1833,6 +1949,7 @@ _m404, _b404 = read_body(PAGES / "404.html")
 _p404 = fill(layout, {
     "TITLE": esc(_m404["title"]), "DESCRIPTION": esc(_m404["description"]), "CANONICAL": f"{SITE}/404.html", "OG_TITLE": esc(_m404["title"]),
     "OG_TYPE": "website", "SITE": SITE, "ROOT": "/", "JSONLD": "", "CONTENT": fill(fill(_b404, subs), {"ROOT": "/"}), "UPDATED_LONG": long_date(UPDATED),
+    "OG_IMAGE": f"{SITE}/assets/social-card.png", "OG_IMAGE_ALT": "Lead Green: the energy behind the token",
 })
 _p404 = _p404.replace('<link rel="canonical" href="' + SITE + '/404.html">', '<meta name="robots" content="noindex">')
 _p404 = _p404.replace('<link rel="alternate" type="text/markdown" href="' + SITE + '/404.htmlindex.md">\n', "")
@@ -2024,10 +2141,12 @@ def model_page(m: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
 model_cards = []
 for s_, m_ in sorted(models.items(), key=lambda kv: min(cfg_wh(best[(kv[1]["name"], g)]) for g in kv[1]["gpus"])):
     t_, d_, b_, faq_ = model_page(m_)
-    render(f"models/{s_}/index.html", "models", t_, d_, "article", "model", b_,
-           {"date": UPDATED, "faq": faq_, "model": m_, "name": m_["name"]})
     lo_ = min(m_["gpus"], key=lambda g: cfg_wh(best[(m_["name"], g)]))
     lb_ = best[(m_["name"], lo_)]
+    render(f"models/{s_}/index.html", "models", t_, d_, "article", "model", b_,
+           {"date": UPDATED, "faq": faq_, "model": m_, "name": m_["name"],
+            "card": {"eyebrow": "GPU energy per million output tokens", "value": fmt(cfg_wh(lb_)), "unit": "Wh/M",
+                     "label": f"{m_['name']} on {lb_['num_gpus']} × {lo_}, running batch {fmt(lb_['avg_batch_size'], 0)}. GPU only, busy server, a floor."}})
     params_ = f"{m_['params_b']:g} B parameters" + (f", {m_['active_params_b']:g} B active" if m_["architecture"] == "MoE" else "")
     model_cards.append(
         f"<div class=\"card\"><span class=\"k\">{esc(and_list(m_['gpus']))}</span><h3><a href=\"{{{{ROOT}}}}models/{s_}/\">{esc(m_['name'])}</a></h3>"
@@ -2167,6 +2286,8 @@ for iso_, _n in sorted(COUNTRIES, key=lambda t: -intensity[t[0]]):
     a_ = _area_by_iso[iso_]
     render(f"grids/{grid_slug(iso_)}/index.html", "", t_, d_, "article", "answer", b_,
            {"date": UPDATED, "faq": faq_, "name": a_["display_name"], "crumbs": [("Grids", f"{SITE}/grids/")],
+            "card": {"eyebrow": f"Grid carbon intensity · {EMBER_YEAR} · Ember", "value": fmt(intensity[iso_], 0), "unit": "gCO2e/kWh",
+                     "label": f"{a_['display_name']}. {fmt(kg_per_billion(ref_wh_raw, intensity[iso_]))} kg CO2e per billion output tokens at the reference row; rank {_country_rank[iso_]} of {grid_count}."},
             "dataset": {"name": f"{a_['display_name']}: grid carbon intensity and AI inference carbon", "distribution": f"{SITE}/api/v1/grid.json", "isBasedOn": SRC_EMBER["url"]}})
     grid_cards.append(f"<div class=\"card\"><span class=\"k\">{esc(a_['continent'])}{' · reference' if iso_ in REFERENCE_GRIDS else ''}</span><h3><a href=\"{{{{ROOT}}}}grids/{grid_slug(iso_)}/\">{esc(a_['display_name'])}</a></h3>"
                       f"<span class=\"n\">{fmt(intensity[iso_], 0)}<small>gCO2e/kWh, {EMBER_YEAR}</small></span><p>{fmt(kg_per_billion(ref_wh_raw, intensity[iso_]))} kg CO2e per billion tokens at the reference row; rank {_country_rank[iso_]} of {grid_count}.</p></div>")
@@ -2271,6 +2392,8 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
 ct_, cd_, cb_, cfaq_ = compare_page()
 render("h100-vs-b200/index.html", "", ct_, cd_, "article", "answer", cb_,
        {"date": UPDATED, "faq": cfaq_, "name": "H100 vs B200", "crumbs": [("The index", f"{SITE}/index/")],
+        "card": {"eyebrow": f"H100 against B200 · {len(pairs)} models", "value": f"{_pair_med:.2f}", "unit": "×",
+                 "label": f"Median gap at the index rows: the H100 row over the B200 row, from {pairs[0][3]:.2f}× down to {pairs[-1][3]:.2f}×."},
         "dataset": {"name": "H100 vs B200: GPU energy per million output tokens", "distribution": f"{SITE}/api/v1/index.json", "isBasedOn": SRC_MLE["url"]}})
 
 # ----------------------------------------------------------------- GEO strategy 6.2: per-query bridge, glossary, FAQ hub (generated from the data)
@@ -2400,6 +2523,8 @@ per_query_json_classes = api_docs["per-query.json"]["classes"]
 pq_t, pq_d, pq_b, pq_faq = per_query_page()
 render("per-query/index.html", "index", pq_t, pq_d, "article", "answer", pq_b,
        {"date": UPDATED, "faq": pq_faq, "name": "Per query", "crumbs": [("The index", f"{SITE}/index/")],
+        "card": {"eyebrow": "One answer, reference row", "value": f"{_ref_wh_per_answer:.3f}", "unit": "Wh",
+                 "label": f"{ref['model']} on {ref['num_gpus']} × {ref['gpu']}: {fmt(raw_wh(ref))} Wh/M × {fmt(ref['_cfg']['avg_output_len'], 0)} output tokens. Google's median prompt: {GOOGLE_2025['wh']:g} Wh, whole stack."},
         "dataset": {"name": "AI inference energy per query and per million output tokens", "distribution": f"{SITE}/api/v1/per-query.json",
                     "isBasedOn": [SRC_MLE["url"], SRC_AIES["url"], GOOGLE_2025["url"]]}})
 
@@ -2577,9 +2702,16 @@ def glossary_page(t: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
 glossary_cards = []
 for _t in GLOSSARY:
     gt_, gd_, gb_, gfaq_ = glossary_page(_t)
+    _ti = {"inter-token-latency-ceiling": 0, "location-based-intensity": 0, "kg-co2e-per-billion-tokens": 0, "pue": 0}.get(_t["slug"], 1)
+    if _t["tiles"]:
+        _tl, _tv, _tu, _ts = _t["tiles"][_ti]
+        _card = {"eyebrow": f"Glossary · {_tl}", "value": _tv, "unit": _tu, "label": f"{_t['name']}. {re.sub('<[^>]+>', '', _ts)}"}
+    else:
+        _card = {"eyebrow": "Glossary · reference row", "value": f"{ref['_cfg']['energy_per_token_joules']:.4f}", "unit": "J per token",
+                 "label": f"{_t['name']}. {ref['model']} on {ref['num_gpus']} × {ref['gpu']}: {fmt(ref['_cfg']['avg_power_watts'], 0)} W ÷ {fmt(ref['_cfg']['output_throughput_tokens_per_sec'], 0)} tokens per second."}
     render(f"glossary/{_t['slug']}/index.html", "", gt_, gd_, "article", "answer", gb_,
            {"date": UPDATED, "faq": gfaq_, "name": _t["name"], "crumbs": [("Glossary", f"{SITE}/glossary/")],
-            "term": {"name": _t["name"], "description": _t["short"]}})
+            "term": {"name": _t["name"], "description": _t["short"]}, "card": _card})
     glossary_cards.append(f"<div class=\"card\"><span class=\"k\">Term</span><h3><a href=\"{{{{ROOT}}}}glossary/{_t['slug']}/\">{esc(_t['name'])}</a></h3><p>{esc(_t['short'])}</p></div>")
 
 _gl_body = f"""<div class="title">
@@ -2803,8 +2935,11 @@ def compare_pair_page(a_name: str, b_name: str, angle: str) -> tuple[str, str, s
 compare_cards = []
 for _a, _b, _angle in COMPARE_PAIRS:
     ct2, cd2, cb2, cfaq2, card_ = compare_pair_page(_a, _b, _angle)
+    _lg = card_["gpus"][0]
     render(f"compare/{card_['slug']}/index.html", "models", ct2, cd2, "article", "answer", cb2,
            {"date": UPDATED, "faq": cfaq2, "name": f"{_a} vs {_b}", "crumbs": [("Compare", f"{SITE}/compare/")],
+            "card": {"eyebrow": f"Compare · {_lg} index rows", "value": f"{card_['ratios'][_lg]:.2f}", "unit": "×",
+                     "label": f"{_b} uses {card_['ratios'][_lg]:.2f}× the GPU energy per output token of {_a}."},
             "dataset": {"name": f"{_a} vs {_b}: GPU energy per million output tokens", "distribution": f"{SITE}/api/v1/index.json", "isBasedOn": SRC_MLE["url"]}})
     _lead_g = card_["gpus"][0]
     compare_cards.append(
@@ -3223,6 +3358,11 @@ for rel, text in outputs.items():
     p = ROOT / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(text, encoding="utf-8", newline="\n")
+for rel, data in outputs_bin.items():
+    p = ROOT / rel
+    p.parent.mkdir(parents=True, exist_ok=True)
+    if not p.exists() or p.read_bytes() != data:
+        p.write_bytes(data)
 for rel, doc in api_docs.items():
     p = API_DIR / rel
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -3283,8 +3423,11 @@ shutil.copyfile(zip_path, API_DIR / "all.zip")
 sync_tree(API_DIR, MCP_DATA, skip=("releases", "all.zip", "index.csv", "types.d.ts"))
 
 wheel = ROOT / "dist" / WHEEL_NAME
-print(f"wrote {len(outputs)} pages/files and {len(api_docs)} API documents; {len(index_rows)} index rows from {len(cfgs)} configurations; "
+print(f"wrote {len(outputs)} pages/files, {len(outputs_bin)} social cards and {len(api_docs)} API documents; {len(index_rows)} index rows from {len(cfgs)} configurations; "
       f"{grid_count} grids; {len(posts)} posts; reference {ref['model']} {ref['num_gpus']}x{ref['gpu']} = {ref_wh:.1f} Wh/M")
+if not CARDS_OK:
+    print("NOTE: Pillow or build/fonts is missing, so no social card was redrawn; pages keep the cards already in assets/cards (or the default card). "
+          "Install Pillow (python -m pip install pillow) to regenerate them.")
 if not wheel.exists():
     print(f"NOTE: {wheel.relative_to(ROOT)} is missing; the MCP page's install line points at it. "
           f"Build it with: python -m pip wheel ./leadgreen-mcp -w dist --no-deps")

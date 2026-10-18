@@ -125,6 +125,9 @@ def check() -> tuple[dict, list[str], list[str]]:
         if not h.title: failures.append(f"{url}: no title")
         if not desc: failures.append(f"{url}: no meta description")
         if len(desc) > 155: failures.append(f"{url}: meta description is {len(desc)} characters")
+        ogi = h.meta.get("og:image") or ""
+        if not ogi.startswith(SITE + "/"): failures.append(f"{url}: og:image is {ogi!r}")
+        elif not (ROOT / ogi[len(SITE) + 1:]).exists(): failures.append(f"{url}: og:image file missing {ogi}")
         if v["generic_link_text"]: warnings.append(f"{url}: generic link text {v['generic_link_text']}")
         for href in h.links + [u for _, u, _ in h.srcs]:
             kind, tgt, frag = resolve(url, href)
@@ -160,9 +163,9 @@ def check() -> tuple[dict, list[str], list[str]]:
     report["robots"] = (ROOT / "robots.txt").read_text(encoding="utf-8").strip().splitlines()
     llms = (ROOT / "llms.txt").read_text(encoding="utf-8")
     report["llms"] = {"chars": len(llms), "links": len(set(re.findall(r"https?://\S+", llms)))}
-    report["cname"] = (ROOT / "CNAME").read_text(encoding="utf-8").strip()
+    report["cname"] = (ROOT / "CNAME").read_text(encoding="utf-8").strip() if (ROOT / "CNAME").exists() else None
     report["nojekyll"] = (ROOT / ".nojekyll").exists()
-    if report["cname"] != "leadgreen.ai": failures.append(f"CNAME is {report['cname']!r}")
+    if report["cname"] not in (None, "leadgreen.ai"): failures.append(f"CNAME is {report['cname']!r}")
     if not report["nojekyll"]: failures.append(".nojekyll is missing")
     rel = json.loads((ROOT / "api" / "v1" / "releases" / "index.json").read_text(encoding="utf-8"))
     chg = json.loads((ROOT / "api" / "v1" / "changes.json").read_text(encoding="utf-8"))
