@@ -10,6 +10,8 @@ The Philippines's grid ran at **629 gCO2e per kWh** in 2024 on Ember's yearly fi
 
 **Area** The Philippines (PHL, PH). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. The Philippines: carbon of AI inference per billion tokens. https://leadgreen.ai/grids/the-philippines/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Trend](https://leadgreen.ai/grids/the-philippines/#trend)
 - [Every model](https://leadgreen.ai/grids/the-philippines/#models)
 - [Reporting](https://leadgreen.ai/grids/the-philippines/#reporting)

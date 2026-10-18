@@ -1,0 +1,2703 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>FAQ: 279 questions about GPU energy per token, answered with sources | Lead Green</title>
+<meta name="description" content="Every question the site answers, from 53 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.">
+<link rel="canonical" href="https://leadgreen.ai/faq/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="FAQ: 279 questions about GPU energy per token, answered with sources | Lead Green">
+<meta property="og:description" content="Every question the site answers, from 53 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.">
+<meta property="og:url" content="https://leadgreen.ai/faq/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/faq/index.md">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://leadgreen.ai/faq/",
+   "name": "FAQ: 279 questions about GPU energy per token, answered with sources | Lead Green",
+   "description": "Every question the site answers, from 53 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.",
+   "url": "https://leadgreen.ai/faq/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-18",
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/"
+   }
+  },
+  {
+   "@type": "ItemList",
+   "name": "FAQ: 279 questions about GPU energy per token, answered with sources | Lead Green",
+   "numberOfItems": 279,
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": {
+      "@type": "Question",
+      "name": "What is Lead Green?",
+      "url": "https://leadgreen.ai/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": {
+      "@type": "Question",
+      "name": "What unit does the index use?",
+      "url": "https://leadgreen.ai/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": {
+      "@type": "Question",
+      "name": "Where do the figures come from?",
+      "url": "https://leadgreen.ai/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 4,
+     "item": {
+      "@type": "Question",
+      "name": "Is the data open, and how do I get it?",
+      "url": "https://leadgreen.ai/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 5,
+     "item": {
+      "@type": "Question",
+      "name": "Who runs and pays for Lead Green?",
+      "url": "https://leadgreen.ai/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 6,
+     "item": {
+      "@type": "Question",
+      "name": "Does the EU AI Act require reporting the energy used by AI inference?",
+      "url": "https://leadgreen.ai/why/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 7,
+     "item": {
+      "@type": "Question",
+      "name": "Which line of ESRS E1 does AI inference energy go on?",
+      "url": "https://leadgreen.ai/why/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 8,
+     "item": {
+      "@type": "Question",
+      "name": "How do I put AI energy efficiency in an RFP?",
+      "url": "https://leadgreen.ai/why/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 9,
+     "item": {
+      "@type": "Question",
+      "name": "Why does an idle GPU use more energy per token than a busy one?",
+      "url": "https://leadgreen.ai/why/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 10,
+     "item": {
+      "@type": "Question",
+      "name": "Does where I run AI change its energy per token?",
+      "url": "https://leadgreen.ai/why/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 11,
+     "item": {
+      "@type": "Question",
+      "name": "Is the electricity for AI inference expensive?",
+      "url": "https://leadgreen.ai/why/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 12,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does an AI query use?",
+      "url": "https://leadgreen.ai/per-query/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 13,
+     "item": {
+      "@type": "Question",
+      "name": "Why is Google's 0.24 Wh per prompt higher than the index's figure?",
+      "url": "https://leadgreen.ai/per-query/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 14,
+     "item": {
+      "@type": "Question",
+      "name": "How do I convert watt-hours per prompt into watt-hours per million tokens?",
+      "url": "https://leadgreen.ai/per-query/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 15,
+     "item": {
+      "@type": "Question",
+      "name": "Can the AI Energy Score's Wh per 1,000 queries be converted to Wh per million tokens?",
+      "url": "https://leadgreen.ai/per-query/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 16,
+     "item": {
+      "@type": "Question",
+      "name": "Does how busy the server is change the energy of one query?",
+      "url": "https://leadgreen.ai/per-query/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 17,
+     "item": {
+      "@type": "Question",
+      "name": "What about the carbon and water of one query?",
+      "url": "https://leadgreen.ai/per-query/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 18,
+     "item": {
+      "@type": "Question",
+      "name": "Is the B200 more energy-efficient than the H100 for LLM inference?",
+      "url": "https://leadgreen.ai/h100-vs-b200/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 19,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does a B200 save over an H100 per million tokens?",
+      "url": "https://leadgreen.ai/h100-vs-b200/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 20,
+     "item": {
+      "@type": "Question",
+      "name": "Does the B200 draw more power than the H100?",
+      "url": "https://leadgreen.ai/h100-vs-b200/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 21,
+     "item": {
+      "@type": "Question",
+      "name": "Should I buy B200s to cut the energy of AI inference?",
+      "url": "https://leadgreen.ai/h100-vs-b200/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 22,
+     "item": {
+      "@type": "Question",
+      "name": "Why do the two rows of a pair have different card counts?",
+      "url": "https://leadgreen.ai/h100-vs-b200/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 23,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/h100-vs-b200/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 24,
+     "item": {
+      "@type": "Question",
+      "name": "What does Wh/M mean?",
+      "url": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 25,
+     "item": {
+      "@type": "Question",
+      "name": "How do I convert joules per token to watt-hours per million tokens?",
+      "url": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 26,
+     "item": {
+      "@type": "Question",
+      "name": "Is Wh per million tokens the same as kWh per billion tokens?",
+      "url": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 27,
+     "item": {
+      "@type": "Question",
+      "name": "Does the unit include the prompt?",
+      "url": "https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 28,
+     "item": {
+      "@type": "Question",
+      "name": "What is energy per token?",
+      "url": "https://leadgreen.ai/glossary/energy-per-token/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 29,
+     "item": {
+      "@type": "Question",
+      "name": "How is energy per token measured?",
+      "url": "https://leadgreen.ai/glossary/energy-per-token/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 30,
+     "item": {
+      "@type": "Question",
+      "name": "Why do estimates of energy per token differ so much from measurements?",
+      "url": "https://leadgreen.ai/glossary/energy-per-token/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 31,
+     "item": {
+      "@type": "Question",
+      "name": "Does energy per token include the host, the network and cooling?",
+      "url": "https://leadgreen.ai/glossary/energy-per-token/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 32,
+     "item": {
+      "@type": "Question",
+      "name": "What is running batch?",
+      "url": "https://leadgreen.ai/glossary/running-batch/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 33,
+     "item": {
+      "@type": "Question",
+      "name": "Why does an idle GPU use more energy per token than a busy one?",
+      "url": "https://leadgreen.ai/glossary/running-batch/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 34,
+     "item": {
+      "@type": "Question",
+      "name": "What is the difference between running batch and batch size?",
+      "url": "https://leadgreen.ai/glossary/running-batch/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 35,
+     "item": {
+      "@type": "Question",
+      "name": "What running batch should I ask a vendor to measure at?",
+      "url": "https://leadgreen.ai/glossary/running-batch/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 36,
+     "item": {
+      "@type": "Question",
+      "name": "What does the index mean by a floor?",
+      "url": "https://leadgreen.ai/glossary/floor/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 37,
+     "item": {
+      "@type": "Question",
+      "name": "Is the floor what my deployment will use?",
+      "url": "https://leadgreen.ai/glossary/floor/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 38,
+     "item": {
+      "@type": "Question",
+      "name": "What should I do with a vendor figure below the floor?",
+      "url": "https://leadgreen.ai/glossary/floor/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 39,
+     "item": {
+      "@type": "Question",
+      "name": "Does the floor change if the latency ceiling changes?",
+      "url": "https://leadgreen.ai/glossary/floor/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 40,
+     "item": {
+      "@type": "Question",
+      "name": "What does GPU-only mean on the index?",
+      "url": "https://leadgreen.ai/glossary/gpu-only-boundary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 41,
+     "item": {
+      "@type": "Question",
+      "name": "How do I take a GPU-only figure to the facility meter?",
+      "url": "https://leadgreen.ai/glossary/gpu-only-boundary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 42,
+     "item": {
+      "@type": "Question",
+      "name": "Why not publish whole-system figures?",
+      "url": "https://leadgreen.ai/glossary/gpu-only-boundary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 43,
+     "item": {
+      "@type": "Question",
+      "name": "Does the boundary include the energy of processing the prompt?",
+      "url": "https://leadgreen.ai/glossary/gpu-only-boundary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 44,
+     "item": {
+      "@type": "Question",
+      "name": "What is location-based grid carbon intensity?",
+      "url": "https://leadgreen.ai/glossary/location-based-intensity/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 45,
+     "item": {
+      "@type": "Question",
+      "name": "What is the difference between location-based and market-based?",
+      "url": "https://leadgreen.ai/glossary/location-based-intensity/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 46,
+     "item": {
+      "@type": "Question",
+      "name": "How much does location change the carbon of AI inference?",
+      "url": "https://leadgreen.ai/glossary/location-based-intensity/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 47,
+     "item": {
+      "@type": "Question",
+      "name": "Can I file Ember's figure in my Scope 2 report?",
+      "url": "https://leadgreen.ai/glossary/location-based-intensity/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 48,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce?",
+      "url": "https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 49,
+     "item": {
+      "@type": "Question",
+      "name": "How do I calculate kg CO2e per billion tokens?",
+      "url": "https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 50,
+     "item": {
+      "@type": "Question",
+      "name": "Why are some published figures thousands of times higher?",
+      "url": "https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 51,
+     "item": {
+      "@type": "Question",
+      "name": "Is this a Scope 2 figure?",
+      "url": "https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 52,
+     "item": {
+      "@type": "Question",
+      "name": "What is the inter-token latency ceiling on the index?",
+      "url": "https://leadgreen.ai/glossary/inter-token-latency-ceiling/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 53,
+     "item": {
+      "@type": "Question",
+      "name": "What is inter-token latency?",
+      "url": "https://leadgreen.ai/glossary/inter-token-latency-ceiling/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 54,
+     "item": {
+      "@type": "Question",
+      "name": "Would a stricter latency limit change the index?",
+      "url": "https://leadgreen.ai/glossary/inter-token-latency-ceiling/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 55,
+     "item": {
+      "@type": "Question",
+      "name": "Why state a latency ceiling with an energy figure at all?",
+      "url": "https://leadgreen.ai/glossary/inter-token-latency-ceiling/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 56,
+     "item": {
+      "@type": "Question",
+      "name": "What is PUE?",
+      "url": "https://leadgreen.ai/glossary/pue/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 57,
+     "item": {
+      "@type": "Question",
+      "name": "How do I use PUE with watt-hours per million tokens?",
+      "url": "https://leadgreen.ai/glossary/pue/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 58,
+     "item": {
+      "@type": "Question",
+      "name": "Does a low PUE mean efficient AI inference?",
+      "url": "https://leadgreen.ai/glossary/pue/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 59,
+     "item": {
+      "@type": "Question",
+      "name": "Which regulation asks for PUE?",
+      "url": "https://leadgreen.ai/glossary/pue/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 60,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Llama 3.1 8B Instruct use per million output tokens?",
+      "url": "https://leadgreen.ai/models/llama-3-1-8b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 61,
+     "item": {
+      "@type": "Question",
+      "name": "Is Llama 3.1 8B Instruct more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/llama-3-1-8b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 62,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Llama 3.1 8B Instruct?",
+      "url": "https://leadgreen.ai/models/llama-3-1-8b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 63,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Llama 3.1 8B Instruct?",
+      "url": "https://leadgreen.ai/models/llama-3-1-8b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 64,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Llama 3.1 8B Instruct deployment will use?",
+      "url": "https://leadgreen.ai/models/llama-3-1-8b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 65,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/llama-3-1-8b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 66,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Qwen 3 8B use per million output tokens?",
+      "url": "https://leadgreen.ai/models/qwen-3-8b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 67,
+     "item": {
+      "@type": "Question",
+      "name": "Is Qwen 3 8B more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/qwen-3-8b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 68,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Qwen 3 8B?",
+      "url": "https://leadgreen.ai/models/qwen-3-8b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 69,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Qwen 3 8B?",
+      "url": "https://leadgreen.ai/models/qwen-3-8b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 70,
+     "item": {
+      "@type": "Question",
+      "name": "Does Qwen 3 8B use more energy for reasoning or problem-solving tasks?",
+      "url": "https://leadgreen.ai/models/qwen-3-8b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 71,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Qwen 3 8B deployment will use?",
+      "url": "https://leadgreen.ai/models/qwen-3-8b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 72,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/qwen-3-8b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 73,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Qwen 3 14B use per million output tokens?",
+      "url": "https://leadgreen.ai/models/qwen-3-14b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 74,
+     "item": {
+      "@type": "Question",
+      "name": "Is Qwen 3 14B more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/qwen-3-14b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 75,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Qwen 3 14B?",
+      "url": "https://leadgreen.ai/models/qwen-3-14b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 76,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Qwen 3 14B?",
+      "url": "https://leadgreen.ai/models/qwen-3-14b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 77,
+     "item": {
+      "@type": "Question",
+      "name": "Does Qwen 3 14B use more energy for reasoning or problem-solving tasks?",
+      "url": "https://leadgreen.ai/models/qwen-3-14b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 78,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Qwen 3 14B deployment will use?",
+      "url": "https://leadgreen.ai/models/qwen-3-14b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 79,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/qwen-3-14b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 80,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Qwen 3 30B A3B Instruct use per million output tokens?",
+      "url": "https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 81,
+     "item": {
+      "@type": "Question",
+      "name": "Is Qwen 3 30B A3B Instruct more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 82,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Qwen 3 30B A3B Instruct?",
+      "url": "https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 83,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Qwen 3 30B A3B Instruct?",
+      "url": "https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 84,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Qwen 3 30B A3B Instruct deployment will use?",
+      "url": "https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 85,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 86,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Gemma 3 12B use per million output tokens?",
+      "url": "https://leadgreen.ai/models/gemma-3-12b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 87,
+     "item": {
+      "@type": "Question",
+      "name": "Is Gemma 3 12B more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/gemma-3-12b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 88,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Gemma 3 12B?",
+      "url": "https://leadgreen.ai/models/gemma-3-12b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 89,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Gemma 3 12B?",
+      "url": "https://leadgreen.ai/models/gemma-3-12b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 90,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Gemma 3 12B deployment will use?",
+      "url": "https://leadgreen.ai/models/gemma-3-12b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 91,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/gemma-3-12b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 92,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Qwen 3 32B use per million output tokens?",
+      "url": "https://leadgreen.ai/models/qwen-3-32b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 93,
+     "item": {
+      "@type": "Question",
+      "name": "Is Qwen 3 32B more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/qwen-3-32b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 94,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Qwen 3 32B?",
+      "url": "https://leadgreen.ai/models/qwen-3-32b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 95,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Qwen 3 32B?",
+      "url": "https://leadgreen.ai/models/qwen-3-32b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 96,
+     "item": {
+      "@type": "Question",
+      "name": "Does Qwen 3 32B use more energy for reasoning or problem-solving tasks?",
+      "url": "https://leadgreen.ai/models/qwen-3-32b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 97,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Qwen 3 32B deployment will use?",
+      "url": "https://leadgreen.ai/models/qwen-3-32b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 98,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/qwen-3-32b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 99,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does NVIDIA Nemotron Nano 12B V2 use per million output tokens?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 100,
+     "item": {
+      "@type": "Question",
+      "name": "Is NVIDIA Nemotron Nano 12B V2 more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 101,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of NVIDIA Nemotron Nano 12B V2?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 102,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of NVIDIA Nemotron Nano 12B V2?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 103,
+     "item": {
+      "@type": "Question",
+      "name": "Does NVIDIA Nemotron Nano 12B V2 use more energy for reasoning or problem-solving tasks?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 104,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my NVIDIA Nemotron Nano 12B V2 deployment will use?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 105,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-12b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 106,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does NVIDIA Nemotron Nano 9B V2 use per million output tokens?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 107,
+     "item": {
+      "@type": "Question",
+      "name": "Is NVIDIA Nemotron Nano 9B V2 more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 108,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of NVIDIA Nemotron Nano 9B V2?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 109,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of NVIDIA Nemotron Nano 9B V2?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 110,
+     "item": {
+      "@type": "Question",
+      "name": "Does NVIDIA Nemotron Nano 9B V2 use more energy for reasoning or problem-solving tasks?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 111,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my NVIDIA Nemotron Nano 9B V2 deployment will use?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 112,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/nvidia-nemotron-nano-9b-v2/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 113,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Gemma 3 27B use per million output tokens?",
+      "url": "https://leadgreen.ai/models/gemma-3-27b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 114,
+     "item": {
+      "@type": "Question",
+      "name": "Is Gemma 3 27B more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/gemma-3-27b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 115,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Gemma 3 27B?",
+      "url": "https://leadgreen.ai/models/gemma-3-27b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 116,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Gemma 3 27B?",
+      "url": "https://leadgreen.ai/models/gemma-3-27b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 117,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Gemma 3 27B deployment will use?",
+      "url": "https://leadgreen.ai/models/gemma-3-27b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 118,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/gemma-3-27b/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 119,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Llama 3.1 70B Instruct use per million output tokens?",
+      "url": "https://leadgreen.ai/models/llama-3-1-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 120,
+     "item": {
+      "@type": "Question",
+      "name": "Is Llama 3.1 70B Instruct more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/llama-3-1-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 121,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Llama 3.1 70B Instruct?",
+      "url": "https://leadgreen.ai/models/llama-3-1-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 122,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Llama 3.1 70B Instruct?",
+      "url": "https://leadgreen.ai/models/llama-3-1-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 123,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Llama 3.1 70B Instruct deployment will use?",
+      "url": "https://leadgreen.ai/models/llama-3-1-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 124,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/llama-3-1-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 125,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Llama 3.3 70B Instruct use per million output tokens?",
+      "url": "https://leadgreen.ai/models/llama-3-3-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 126,
+     "item": {
+      "@type": "Question",
+      "name": "Is Llama 3.3 70B Instruct more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/llama-3-3-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 127,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Llama 3.3 70B Instruct?",
+      "url": "https://leadgreen.ai/models/llama-3-3-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 128,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Llama 3.3 70B Instruct?",
+      "url": "https://leadgreen.ai/models/llama-3-3-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 129,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Llama 3.3 70B Instruct deployment will use?",
+      "url": "https://leadgreen.ai/models/llama-3-3-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 130,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/llama-3-3-70b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 131,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Qwen 3 235B A22B Instruct use per million output tokens?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 132,
+     "item": {
+      "@type": "Question",
+      "name": "Is Qwen 3 235B A22B Instruct more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 133,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Qwen 3 235B A22B Instruct?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 134,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Qwen 3 235B A22B Instruct?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 135,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Qwen 3 235B A22B Instruct deployment will use?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 136,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 137,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Llama 4 Scout 17B 16E Instruct use per million output tokens?",
+      "url": "https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 138,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Llama 4 Scout 17B 16E Instruct?",
+      "url": "https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 139,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Llama 4 Scout 17B 16E Instruct?",
+      "url": "https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 140,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Llama 4 Scout 17B 16E Instruct deployment will use?",
+      "url": "https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 141,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 142,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Llama 4 Maverick 17B 128E Instruct FP8 use per million output tokens?",
+      "url": "https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 143,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Llama 4 Maverick 17B 128E Instruct FP8?",
+      "url": "https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 144,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Llama 4 Maverick 17B 128E Instruct FP8?",
+      "url": "https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 145,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Llama 4 Maverick 17B 128E Instruct FP8 deployment will use?",
+      "url": "https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 146,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 147,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Qwen 3 235B A22B Instruct FP8 use per million output tokens?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 148,
+     "item": {
+      "@type": "Question",
+      "name": "Is Qwen 3 235B A22B Instruct FP8 more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 149,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Qwen 3 235B A22B Instruct FP8?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 150,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Qwen 3 235B A22B Instruct FP8?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 151,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Qwen 3 235B A22B Instruct FP8 deployment will use?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 152,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 153,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does DeepSeek V3.1 use per million output tokens?",
+      "url": "https://leadgreen.ai/models/deepseek-v3-1/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 154,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of DeepSeek V3.1?",
+      "url": "https://leadgreen.ai/models/deepseek-v3-1/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 155,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of DeepSeek V3.1?",
+      "url": "https://leadgreen.ai/models/deepseek-v3-1/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 156,
+     "item": {
+      "@type": "Question",
+      "name": "Does DeepSeek V3.1 use more energy for reasoning or problem-solving tasks?",
+      "url": "https://leadgreen.ai/models/deepseek-v3-1/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 157,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my DeepSeek V3.1 deployment will use?",
+      "url": "https://leadgreen.ai/models/deepseek-v3-1/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 158,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/deepseek-v3-1/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 159,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Llama 3.1 405B Instruct use per million output tokens?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 160,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Llama 3.1 405B Instruct?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 161,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Llama 3.1 405B Instruct?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 162,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Llama 3.1 405B Instruct deployment will use?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 163,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 164,
+     "item": {
+      "@type": "Question",
+      "name": "How much energy does Llama 3.1 405B Instruct FP8 use per million output tokens?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 165,
+     "item": {
+      "@type": "Question",
+      "name": "Is Llama 3.1 405B Instruct FP8 more energy-efficient on B200 or H100?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 166,
+     "item": {
+      "@type": "Question",
+      "name": "How much does load change the energy per token of Llama 3.1 405B Instruct FP8?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 167,
+     "item": {
+      "@type": "Question",
+      "name": "What is the carbon footprint of a billion tokens of Llama 3.1 405B Instruct FP8?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 168,
+     "item": {
+      "@type": "Question",
+      "name": "Is this the energy my Llama 3.1 405B Instruct FP8 deployment will use?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 169,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/models/llama-3-1-405b-instruct-fp8/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 170,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of India?",
+      "url": "https://leadgreen.ai/grids/india/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 171,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in India?",
+      "url": "https://leadgreen.ai/grids/india/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 172,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in India cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/india/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 173,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in India?",
+      "url": "https://leadgreen.ai/grids/india/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 174,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/india/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 175,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Saudi Arabia?",
+      "url": "https://leadgreen.ai/grids/saudi-arabia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 176,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Saudi Arabia?",
+      "url": "https://leadgreen.ai/grids/saudi-arabia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 177,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Saudi Arabia cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/saudi-arabia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 178,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Saudi Arabia?",
+      "url": "https://leadgreen.ai/grids/saudi-arabia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 179,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/saudi-arabia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 180,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Hong Kong?",
+      "url": "https://leadgreen.ai/grids/hong-kong/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 181,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Hong Kong?",
+      "url": "https://leadgreen.ai/grids/hong-kong/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 182,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Hong Kong cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/hong-kong/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 183,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Hong Kong?",
+      "url": "https://leadgreen.ai/grids/hong-kong/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 184,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/hong-kong/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 185,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Serbia?",
+      "url": "https://leadgreen.ai/grids/serbia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 186,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Serbia?",
+      "url": "https://leadgreen.ai/grids/serbia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 187,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Serbia cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/serbia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 188,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Serbia?",
+      "url": "https://leadgreen.ai/grids/serbia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 189,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/serbia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 190,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Taiwan?",
+      "url": "https://leadgreen.ai/grids/taiwan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 191,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Taiwan?",
+      "url": "https://leadgreen.ai/grids/taiwan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 192,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Taiwan cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/taiwan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 193,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Taiwan?",
+      "url": "https://leadgreen.ai/grids/taiwan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 194,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/taiwan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 195,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of The Philippines?",
+      "url": "https://leadgreen.ai/grids/the-philippines/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 196,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in The Philippines?",
+      "url": "https://leadgreen.ai/grids/the-philippines/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 197,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in The Philippines cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/the-philippines/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 198,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in The Philippines?",
+      "url": "https://leadgreen.ai/grids/the-philippines/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 199,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/the-philippines/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 200,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Qatar?",
+      "url": "https://leadgreen.ai/grids/qatar/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 201,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Qatar?",
+      "url": "https://leadgreen.ai/grids/qatar/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 202,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Qatar cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/qatar/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 203,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Qatar?",
+      "url": "https://leadgreen.ai/grids/qatar/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 204,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/qatar/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 205,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Australia?",
+      "url": "https://leadgreen.ai/grids/australia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 206,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Australia?",
+      "url": "https://leadgreen.ai/grids/australia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 207,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Australia cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/australia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 208,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Australia?",
+      "url": "https://leadgreen.ai/grids/australia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 209,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/australia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 210,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Singapore?",
+      "url": "https://leadgreen.ai/grids/singapore/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 211,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Singapore?",
+      "url": "https://leadgreen.ai/grids/singapore/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 212,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Singapore cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/singapore/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 213,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Singapore?",
+      "url": "https://leadgreen.ai/grids/singapore/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 214,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/singapore/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 215,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Japan?",
+      "url": "https://leadgreen.ai/grids/japan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 216,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Japan?",
+      "url": "https://leadgreen.ai/grids/japan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 217,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Japan cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/japan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 218,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Japan?",
+      "url": "https://leadgreen.ai/grids/japan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 219,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/japan/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 220,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of United Arab Emirates?",
+      "url": "https://leadgreen.ai/grids/united-arab-emirates/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 221,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in United Arab Emirates?",
+      "url": "https://leadgreen.ai/grids/united-arab-emirates/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 222,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in United Arab Emirates cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/united-arab-emirates/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 223,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in United Arab Emirates?",
+      "url": "https://leadgreen.ai/grids/united-arab-emirates/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 224,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/united-arab-emirates/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 225,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Sri Lanka?",
+      "url": "https://leadgreen.ai/grids/sri-lanka/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 226,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Sri Lanka?",
+      "url": "https://leadgreen.ai/grids/sri-lanka/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 227,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Sri Lanka cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/sri-lanka/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 228,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Sri Lanka?",
+      "url": "https://leadgreen.ai/grids/sri-lanka/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 229,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/sri-lanka/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 230,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of United States?",
+      "url": "https://leadgreen.ai/grids/united-states/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 231,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in United States?",
+      "url": "https://leadgreen.ai/grids/united-states/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 232,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in United States cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/united-states/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 233,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in United States?",
+      "url": "https://leadgreen.ai/grids/united-states/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 234,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/united-states/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 235,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Germany?",
+      "url": "https://leadgreen.ai/grids/germany/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 236,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Germany?",
+      "url": "https://leadgreen.ai/grids/germany/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 237,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Germany cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/germany/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 238,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Germany?",
+      "url": "https://leadgreen.ai/grids/germany/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 239,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/germany/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 240,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Bulgaria?",
+      "url": "https://leadgreen.ai/grids/bulgaria/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 241,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Bulgaria?",
+      "url": "https://leadgreen.ai/grids/bulgaria/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 242,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Bulgaria cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/bulgaria/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 243,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Bulgaria?",
+      "url": "https://leadgreen.ai/grids/bulgaria/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 244,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/bulgaria/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 245,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Ireland?",
+      "url": "https://leadgreen.ai/grids/ireland/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 246,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Ireland?",
+      "url": "https://leadgreen.ai/grids/ireland/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 247,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Ireland cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/ireland/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 248,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Ireland?",
+      "url": "https://leadgreen.ai/grids/ireland/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 249,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/ireland/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 250,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of United Kingdom?",
+      "url": "https://leadgreen.ai/grids/united-kingdom/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 251,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in United Kingdom?",
+      "url": "https://leadgreen.ai/grids/united-kingdom/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 252,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in United Kingdom cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/united-kingdom/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 253,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in United Kingdom?",
+      "url": "https://leadgreen.ai/grids/united-kingdom/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 254,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/united-kingdom/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 255,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Hungary?",
+      "url": "https://leadgreen.ai/grids/hungary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 256,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Hungary?",
+      "url": "https://leadgreen.ai/grids/hungary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 257,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Hungary cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/hungary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 258,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Hungary?",
+      "url": "https://leadgreen.ai/grids/hungary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 259,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/hungary/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 260,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of New Zealand?",
+      "url": "https://leadgreen.ai/grids/new-zealand/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 261,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in New Zealand?",
+      "url": "https://leadgreen.ai/grids/new-zealand/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 262,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in New Zealand cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/new-zealand/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 263,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in New Zealand?",
+      "url": "https://leadgreen.ai/grids/new-zealand/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 264,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/new-zealand/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 265,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Slovakia?",
+      "url": "https://leadgreen.ai/grids/slovakia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 266,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Slovakia?",
+      "url": "https://leadgreen.ai/grids/slovakia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 267,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Slovakia cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/slovakia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 268,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Slovakia?",
+      "url": "https://leadgreen.ai/grids/slovakia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 269,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/slovakia/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 270,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of France?",
+      "url": "https://leadgreen.ai/grids/france/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 271,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in France?",
+      "url": "https://leadgreen.ai/grids/france/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 272,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in France cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/france/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 273,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in France?",
+      "url": "https://leadgreen.ai/grids/france/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 274,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/france/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 275,
+     "item": {
+      "@type": "Question",
+      "name": "What is the grid carbon intensity of Norway?",
+      "url": "https://leadgreen.ai/grids/norway/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 276,
+     "item": {
+      "@type": "Question",
+      "name": "How much CO2 does a million AI tokens produce in Norway?",
+      "url": "https://leadgreen.ai/grids/norway/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 277,
+     "item": {
+      "@type": "Question",
+      "name": "Is running AI in Norway cleaner than the world average?",
+      "url": "https://leadgreen.ai/grids/norway/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 278,
+     "item": {
+      "@type": "Question",
+      "name": "Can I use this figure for my Scope 2 report in Norway?",
+      "url": "https://leadgreen.ai/grids/norway/#faq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 279,
+     "item": {
+      "@type": "Question",
+      "name": "Where do these figures come from?",
+      "url": "https://leadgreen.ai/grids/norway/#faq"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Lead Green",
+     "item": "https://leadgreen.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Questions",
+     "item": "https://leadgreen.ai/faq/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../index/" data-nav="index">The index</a></li>
+        <li><a href="../models/" data-nav="models">Models</a></li>
+        <li><a href="../api/" data-nav="api">Data API</a></li>
+        <li><a href="../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow">Questions</p>
+  <h1>Every question the site answers</h1>
+  <p class="stand">279 questions from 53 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. FAQ: 279 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#lead-green">Lead Green</a></li><li><a href="#why-it-matters">Why it matters</a></li><li><a href="#per-query">Per query</a></li><li><a href="#h100-vs-b200">H100 vs B200</a></li><li><a href="#watt-hours-per-million-output-tokens-wh-m">Watt-hours per million output tokens (Wh/M)</a></li><li><a href="#energy-per-token">Energy per token</a></li><li><a href="#running-batch">Running batch</a></li><li><a href="#floor">Floor</a></li><li><a href="#gpu-only-boundary">GPU-only boundary</a></li><li><a href="#location-based-grid-intensity">Location-based grid intensity</a></li><li><a href="#kg-co2e-per-billion-output-tokens">kg CO2e per billion output tokens</a></li><li><a href="#inter-token-latency-ceiling">Inter-token latency ceiling</a></li><li><a href="#power-usage-effectiveness-pue">Power usage effectiveness (PUE)</a></li><li><a href="#models">Models</a></li><li><a href="#grids">Grids</a></li></ul>
+</div>
+<p class="after-tiles">Each page's questions are also published as FAQPage structured data on that page, so an assistant that reads one page gets the full answers; this hub is the human index of them. The glossary defines the terms the answers use.</p>
+<section id="lead-green"><p class="eyebrow">5 questions</p><h2><a href="../">Lead Green</a></h2><div class="prose faq"><h3>What is Lead Green?</h3><p>A public index of the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. <a href="../#faq">Full answer</a></p><h3>What unit does the index use?</h3><p>Watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token. <a href="../#faq">Full answer</a></p><h3>Where do the figures come from?</h3><p>Energy per token from the ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026); grid carbon intensity from Ember&#x27;s yearly electricity data (October 2026 release, 2024); GPU power ceilings from NVIDIA&#x27;s... <a href="../#faq">Full answer</a></p><h3>Is the data open, and how do I get it?</h3><p>Yes. The compilation and site text are CC BY 4.0 and the sources keep their own licences. <a href="../#faq">Full answer</a></p><h3>Who runs and pays for Lead Green?</h3><p>Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. <a href="../#faq">Full answer</a></p></div></section>
+<section id="why-it-matters"><p class="eyebrow">6 questions</p><h2><a href="../why/">Why it matters</a></h2><div class="prose faq"><h3>Does the EU AI Act require reporting the energy used by AI inference?</h3><p>Not per inference. Regulation (EU) 2024/1689 requires providers of general-purpose AI models to keep technical documentation for the AI Office, and Annex XI, section 1, point 2(e) names the model&#x27;s known or estimated energy consumption: a... <a href="../why/#faq">Full answer</a></p><h3>Which line of ESRS E1 does AI inference energy go on?</h3><p>For GPUs you run, the electricity is energy consumption from own operations under ESRS E1-5 (paragraph 37) and its emissions are Scope 2 under E1-6, location-based and market-based. <a href="../why/#faq">Full answer</a></p><h3>How do I put AI energy efficiency in an RFP?</h3><p>Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with... <a href="../why/#faq">Full answer</a></p><h3>Why does an idle GPU use more energy per token than a busy one?</h3><p>Because the cards&#x27; power does not fall in step with their work. <a href="../why/#faq">Full answer</a></p><h3>Does where I run AI change its energy per token?</h3><p>No; it changes the carbon. The same tokens on the same GPUs use the same energy anywhere. <a href="../why/#faq">Full answer</a></p><h3>Is the electricity for AI inference expensive?</h3><p>No, and that is the point. At the reference row and USD 0.10 per kWh the electricity costs about 0.6 cents per million tokens at the floor; a lightly loaded server pays several times that. <a href="../why/#faq">Full answer</a></p></div></section>
+<section id="per-query"><p class="eyebrow">6 questions</p><h2><a href="../per-query/">Per query</a></h2><div class="prose faq"><h3>How much energy does an AI query use?</h3><p>It depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. <a href="../per-query/#faq">Full answer</a></p><h3>Why is Google&#x27;s 0.24 Wh per prompt higher than the index&#x27;s figure?</h3><p>Mostly boundary. Google counts the whole stack: the accelerators are 58 percent of its 0.24 Wh, about 0.14 Wh, with host machines, idle capacity held for peaks and data-centre overhead making up the rest, and it also publishes a narrow... <a href="../per-query/#faq">Full answer</a></p><h3>How do I convert watt-hours per prompt into watt-hours per million tokens?</h3><p>Divide the energy per answer by the answer&#x27;s output tokens and multiply by a million: Wh/M = Wh per answer ÷ output tokens × 1,000,000. <a href="../per-query/#faq">Full answer</a></p><h3>Can the AI Energy Score&#x27;s Wh per 1,000 queries be converted to Wh per million tokens?</h3><p>No. The AI Energy Score runs one query at a time (batch size 1) with the answer fixed at ten tokens for non-reasoning models, so the arithmetic (tencent/Hunyuan-1.8B-Instruct: 4.2 Wh per 1,000 queries ÷ 1,000 ÷ 10 tokens × 1,000,000 = 420... <a href="../per-query/#faq">Full answer</a></p><h3>Does how busy the server is change the energy of one query?</h3><p>More than anything else. Qwen 3 32B on 2 × H100 goes from 63.5 Wh/M at a running batch of 256 to 452 Wh/M at 8, 7.1× on the same hardware, because the cards draw only 39 percent more power serving 256 requests than 8. <a href="../per-query/#faq">Full answer</a></p><h3>What about the carbon and water of one query?</h3><p>Google puts the median Gemini Apps text prompt at 0.03 g CO2e and 0.26 mL of water (August 2025); Mistral puts a 400-token reply from its large model at 1.14 g CO2e and 45 mL (July 2025), without a watt-hour figure. <a href="../per-query/#faq">Full answer</a></p></div></section>
+<section id="h100-vs-b200"><p class="eyebrow">6 questions</p><h2><a href="../h100-vs-b200/">H100 vs B200</a></h2><div class="prose faq"><h3>Is the B200 more energy-efficient than the H100 for LLM inference?</h3><p>On the ML.ENERGY Leaderboard&#x27;s index rows, yes for all 14 models measured on both: <a href="../h100-vs-b200/#faq">Full answer</a></p><h3>How much energy does a B200 save over an H100 per million tokens?</h3><p>It depends on the model: for the reference model, Qwen 3 32B, the index rows are 63.5 Wh/M on 2 × H100 against 39.1 Wh/M on 1 × B200. <a href="../h100-vs-b200/#faq">Full answer</a></p><h3>Does the B200 draw more power than the H100?</h3><p>A B200 card draws more power than an H100: NVIDIA rates the H100 SXM at up to 700 W and the B200 configurable up to 1,000 W, and on these index rows the cards averaged 612 W per H100 and 868 W per B200. <a href="../h100-vs-b200/#faq">Full answer</a></p><h3>Should I buy B200s to cut the energy of AI inference?</h3><p>Not first. The same model on the same H100 cards moves 7.1× in energy per token between a running batch of 8 and 256, which is more than the widest generation gap here (4.55×). <a href="../h100-vs-b200/#faq">Full answer</a></p><h3>Why do the two rows of a pair have different card counts?</h3><p>The leaderboard picks each GPU&#x27;s configurations separately; a B200 has more memory, so a model that needs eight H100s can fit fewer B200s. <a href="../h100-vs-b200/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... <a href="../h100-vs-b200/#faq">Full answer</a></p></div></section>
+<section id="watt-hours-per-million-output-tokens-wh-m"><p class="eyebrow">4 questions</p><h2><a href="../glossary/watt-hours-per-million-output-tokens/">Watt-hours per million output tokens (Wh/M)</a></h2><div class="prose faq"><h3>What does Wh/M mean?</h3><p>Watt-hours per million output tokens: the GPU energy a serving configuration uses to generate a million output tokens. <a href="../glossary/watt-hours-per-million-output-tokens/#faq">Full answer</a></p><h3>How do I convert joules per token to watt-hours per million tokens?</h3><p>Multiply joules per token by 1,000,000 and divide by 3,600. The reference row&#x27;s 0.2285 J per token becomes 63.5 Wh/M. <a href="../glossary/watt-hours-per-million-output-tokens/#faq">Full answer</a></p><h3>Is Wh per million tokens the same as kWh per billion tokens?</h3><p>Yes, and the same as MWh per trillion tokens; the three scale together. <a href="../glossary/watt-hours-per-million-output-tokens/#faq">Full answer</a></p><h3>Does the unit include the prompt?</h3><p>The energy includes prompt processing, because the benchmark divides steady-state GPU energy by the output tokens generated in the window; the denominator counts output tokens only. <a href="../glossary/watt-hours-per-million-output-tokens/#faq">Full answer</a></p></div></section>
+<section id="energy-per-token"><p class="eyebrow">4 questions</p><h2><a href="../glossary/energy-per-token/">Energy per token</a></h2><div class="prose faq"><h3>What is energy per token?</h3><p>GPU energy divided by the output tokens generated in the same steady-state window, in joules per output token. <a href="../glossary/energy-per-token/#faq">Full answer</a></p><h3>How is energy per token measured?</h3><p>By reading the GPU&#x27;s energy counter (through NVML or DCGM; the leaderboard uses Zeus) at the start and end of a steady-state window under a fixed load, and dividing the difference by the output tokens generated in that window. <a href="../glossary/energy-per-token/#faq">Full answer</a></p><h3>Why do estimates of energy per token differ so much from measurements?</h3><p>Estimates multiply a rated power by an assumed utilisation and divide by an assumed throughput, usually a single request at a time. <a href="../glossary/energy-per-token/#faq">Full answer</a></p><h3>Does energy per token include the host, the network and cooling?</h3><p>Not on this index. The figures are GPU energy only. A whole-system reading adds the host, memory, network and fans (about 1.79× for a DGX B200, from NVIDIA&#x27;s rated system and GPU power), and the facility&#x27;s PUE adds cooling and distribution... <a href="../glossary/energy-per-token/#faq">Full answer</a></p></div></section>
+<section id="running-batch"><p class="eyebrow">4 questions</p><h2><a href="../glossary/running-batch/">Running batch</a></h2><div class="prose faq"><h3>What is running batch?</h3><p>The average number of requests a serving engine was decoding at once over the measurement window (vLLM&#x27;s num_requests_running). <a href="../glossary/running-batch/#faq">Full answer</a></p><h3>Why does an idle GPU use more energy per token than a busy one?</h3><p>Because a GPU&#x27;s power does not fall in step with its work. On the index, Qwen 3 32B on 2 × H100 draws 850 W serving 8 requests at once and 1,178 W serving 256, 39 percent more power for 9.9× the tokens per second. <a href="../glossary/running-batch/#faq">Full answer</a></p><h3>What is the difference between running batch and batch size?</h3><p>Batch size is usually a configured limit (the cap, vLLM&#x27;s max_num_seqs) or a fixed count in an offline benchmark. <a href="../glossary/running-batch/#faq">Full answer</a></p><h3>What running batch should I ask a vendor to measure at?</h3><p>The one you expect in production, stated as a number, with the median and p99 inter-token latency your users will accept. <a href="../glossary/running-batch/#faq">Full answer</a></p></div></section>
+<section id="floor"><p class="eyebrow">4 questions</p><h2><a href="../glossary/floor/">Floor</a></h2><div class="prose faq"><h3>What does the index mean by a floor?</h3><p>The lowest GPU energy per output token measured for a model and GPU among configurations at or under a 500 ms median inter-token latency, at high concurrency. <a href="../glossary/floor/#faq">Full answer</a></p><h3>Is the floor what my deployment will use?</h3><p>No. It is the best measured configuration on a busy server, GPU only. <a href="../glossary/floor/#faq">Full answer</a></p><h3>What should I do with a vendor figure below the floor?</h3><p>Ask for the measurement: the running batch held, the latency over the window, the method, the tool and the logs. <a href="../glossary/floor/#faq">Full answer</a></p><h3>Does the floor change if the latency ceiling changes?</h3><p>It can. At 500 ms, the leaderboard&#x27;s default, no measured configuration is excluded. <a href="../glossary/floor/#faq">Full answer</a></p></div></section>
+<section id="gpu-only-boundary"><p class="eyebrow">4 questions</p><h2><a href="../glossary/gpu-only-boundary/">GPU-only boundary</a></h2><div class="prose faq"><h3>What does GPU-only mean on the index?</h3><p>That the energy was read from the GPU devices alone over a steady-state window. <a href="../glossary/gpu-only-boundary/#faq">Full answer</a></p><h3>How do I take a GPU-only figure to the facility meter?</h3><p>Multiply by the system-to-GPU power ratio (1.79 for a DGX B200: 14.3 kW rated against 8.0 kW of GPUs) and by the site&#x27;s PUE. <a href="../glossary/gpu-only-boundary/#faq">Full answer</a></p><h3>Why not publish whole-system figures?</h3><p>Because they cannot be compared across vendors or sites: the host, the fans and the cooling design differ with every server and building, while the GPU figure for a named model on a named card at a stated load can be measured anywhere. <a href="../glossary/gpu-only-boundary/#faq">Full answer</a></p><h3>Does the boundary include the energy of processing the prompt?</h3><p>Yes. The benchmark divides steady-state GPU energy, which includes prefill, by the output tokens generated; the prompt&#x27;s tokens are not in the denominator. <a href="../glossary/gpu-only-boundary/#faq">Full answer</a></p></div></section>
+<section id="location-based-grid-intensity"><p class="eyebrow">4 questions</p><h2><a href="../glossary/location-based-intensity/">Location-based grid intensity</a></h2><div class="prose faq"><h3>What is location-based grid carbon intensity?</h3><p>The average carbon intensity of the electricity generated where the load runs, in gCO2e per kWh, before contracts or certificates. <a href="../glossary/location-based-intensity/#faq">Full answer</a></p><h3>What is the difference between location-based and market-based?</h3><p>Location-based uses the average intensity of the grid where the electricity was consumed. <a href="../glossary/location-based-intensity/#faq">Full answer</a></p><h3>How much does location change the carbon of AI inference?</h3><p>On the reference row, 23× between Saudi Arabia (43.7 kg CO2e per billion tokens) and Norway (1.9 kg), 2024 averages. <a href="../glossary/location-based-intensity/#faq">Full answer</a></p><h3>Can I file Ember&#x27;s figure in my Scope 2 report?</h3><p>Use it for comparison, not as the filed factor. It is a lifecycle, production-based figure on net generation, not a Scope 2 combustion factor, and it is an annual average that a round-the-clock GPU load does not follow hour by hour. <a href="../glossary/location-based-intensity/#faq">Full answer</a></p></div></section>
+<section id="kg-co2e-per-billion-output-tokens"><p class="eyebrow">4 questions</p><h2><a href="../glossary/kg-co2e-per-billion-tokens/">kg CO2e per billion output tokens</a></h2><div class="prose faq"><h3>How much CO2 does a million AI tokens produce?</h3><p>On the index&#x27;s reference row (Qwen 3 32B, 2 × H100, 63.5 Wh per million output tokens, GPU only), about 43.7 g CO2e per million tokens on Saudi Arabia&#x27;s 2024 grid, 44.9 g on India&#x27;s, 30.0 g on the world average and 1.9 g on Norway&#x27;s. <a href="../glossary/kg-co2e-per-billion-tokens/#faq">Full answer</a></p><h3>How do I calculate kg CO2e per billion tokens?</h3><p>Multiply watt-hours per million output tokens by the grid&#x27;s gCO2e per kWh and divide by 1,000. <a href="../glossary/kg-co2e-per-billion-tokens/#faq">Full answer</a></p><h3>Why are some published figures thousands of times higher?</h3><p>Usually because they start from an estimate of energy per token for a single request at a time, or from a whole-stack figure, and then multiply by a grid factor. <a href="../glossary/kg-co2e-per-billion-tokens/#faq">Full answer</a></p><h3>Is this a Scope 2 figure?</h3><p>It is a location-based GPU-side figure for comparison. GPUs you run put their electricity in your own Scope 2 (ESRS E1-6, location-based matches this method; market-based needs your contracts). <a href="../glossary/kg-co2e-per-billion-tokens/#faq">Full answer</a></p></div></section>
+<section id="inter-token-latency-ceiling"><p class="eyebrow">4 questions</p><h2><a href="../glossary/inter-token-latency-ceiling/">Inter-token latency ceiling</a></h2><div class="prose faq"><h3>What is the inter-token latency ceiling on the index?</h3><p>A median inter-token latency of at most 500 ms, the ML.ENERGY Leaderboard&#x27;s default for every LLM task. <a href="../glossary/inter-token-latency-ceiling/#faq">Full answer</a></p><h3>What is inter-token latency?</h3><p>The time between one output token and the next for a single request while the model is generating, usually reported as a median and a p99 over a window. <a href="../glossary/inter-token-latency-ceiling/#faq">Full answer</a></p><h3>Would a stricter latency limit change the index?</h3><p>Yes. At 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B... <a href="../glossary/inter-token-latency-ceiling/#faq">Full answer</a></p><h3>Why state a latency ceiling with an energy figure at all?</h3><p>Because energy per token falls as the running batch rises and latency rises with it; a figure without its latency can be made arbitrarily good by loading the server until users wait. <a href="../glossary/inter-token-latency-ceiling/#faq">Full answer</a></p></div></section>
+<section id="power-usage-effectiveness-pue"><p class="eyebrow">4 questions</p><h2><a href="../glossary/pue/">Power usage effectiveness (PUE)</a></h2><div class="prose faq"><h3>What is PUE?</h3><p>Power usage effectiveness: a data centre&#x27;s total facility energy divided by the energy delivered to its IT equipment, per ISO/IEC 30134-2. <a href="../glossary/pue/#faq">Full answer</a></p><h3>How do I use PUE with watt-hours per million tokens?</h3><p>Multiply the GPU figure by the system-to-GPU power ratio and by the PUE. <a href="../glossary/pue/#faq">Full answer</a></p><h3>Does a low PUE mean efficient AI inference?</h3><p>No. PUE measures the building&#x27;s overhead, not the work the GPUs did. <a href="../glossary/pue/#faq">Full answer</a></p><h3>Which regulation asks for PUE?</h3><p>In the EU, the Energy Efficiency Directive (EU) 2023/1791, Article 12, with Commission Delegated Regulation (EU) 2024/1364: data centres with an installed IT power demand of at least 500 kW report facility indicators including PUE. <a href="../glossary/pue/#faq">Full answer</a></p></div></section>
+<section id="models"><p class="eyebrow">6 questions</p><h2><a href="../models/llama-3-1-8b-instruct/">Llama 3.1 8B Instruct</a></h2><div class="prose faq"><h3>How much energy does Llama 3.1 8B Instruct use per million output tokens?</h3><p>Llama 3.1 8B Instruct uses 13.0 Wh of GPU energy per million output tokens on 1 × B200 and 19.5 Wh of GPU energy per million output tokens on 1 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text... <a href="../models/llama-3-1-8b-instruct/#faq">Full answer</a></p><h3>Is Llama 3.1 8B Instruct more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.50× the energy per token of the B200 configuration: 19.5 Wh/M on 1 × H100 against 13.0 Wh/M on 1 × B200. <a href="../models/llama-3-1-8b-instruct/#faq">Full answer</a></p><h3>How much does load change the energy per token of Llama 3.1 8B Instruct?</h3><p>On 1 × H100, energy per token falls 6.5× between a running batch of 8 (126.3 Wh/M) and 511 (19.5 Wh/M), because the cards&#x27; power rises only 41 percent while throughput rises 9.2×. <a href="../models/llama-3-1-8b-instruct/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Llama 3.1 8B Instruct?</h3><p>A billion output tokens of Llama 3.1 8B Instruct on 1 × B200 at its index row carries about 8.9 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). <a href="../models/llama-3-1-8b-instruct/#faq">Full answer</a></p><h3>Is this the energy my Llama 3.1 8B Instruct deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/llama-3-1-8b-instruct/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 20 stable configurations of Llama 3.1 8B Instruct measured with Zeus under vLLM on H100 80GB... <a href="../models/llama-3-1-8b-instruct/#faq">Full answer</a></p></div></section>
+<section id="qwen-3-8b"><p class="eyebrow">7 questions</p><h2><a href="../models/qwen-3-8b/">Qwen 3 8B</a></h2><div class="prose faq"><h3>How much energy does Qwen 3 8B use per million output tokens?</h3><p>Qwen 3 8B uses 14.7 Wh of GPU energy per million output tokens on 1 × B200 and 20.0 Wh of GPU energy per million output tokens on 1 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation... <a href="../models/qwen-3-8b/#faq">Full answer</a></p><h3>Is Qwen 3 8B more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.36× the energy per token of the B200 configuration: 20.0 Wh/M on 1 × H100 against 14.7 Wh/M on 1 × B200. <a href="../models/qwen-3-8b/#faq">Full answer</a></p><h3>How much does load change the energy per token of Qwen 3 8B?</h3><p>On 1 × H100, energy per token falls 6.2× between a running batch of 8 (123.3 Wh/M) and 474 (20.0 Wh/M), because the cards&#x27; power rises only 44 percent while throughput rises 8.9×. <a href="../models/qwen-3-8b/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Qwen 3 8B?</h3><p>A billion output tokens of Qwen 3 8B on 1 × B200 at its index row carries about 10.2 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 0.4 kg on the Norwegian grid (30). <a href="../models/qwen-3-8b/#faq">Full answer</a></p><h3>Does Qwen 3 8B use more energy for reasoning or problem-solving tasks?</h3><p>On the leaderboard&#x27;s Problem Solving task, Qwen 3 8B costs 38.3× the energy per response and 3.06× the energy per token on 1 × H100 (answers of 8,052 tokens against 645; running batch 82 against 474) and 40.6× the energy per response and... <a href="../models/qwen-3-8b/#faq">Full answer</a></p><h3>Is this the energy my Qwen 3 8B deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/qwen-3-8b/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 19 stable configurations of Qwen 3 8B measured with Zeus under vLLM on H100 80GB and B200... <a href="../models/qwen-3-8b/#faq">Full answer</a></p></div></section>
+<section id="qwen-3-14b"><p class="eyebrow">7 questions</p><h2><a href="../models/qwen-3-14b/">Qwen 3 14B</a></h2><div class="prose faq"><h3>How much energy does Qwen 3 14B use per million output tokens?</h3><p>Qwen 3 14B uses 15.2 Wh of GPU energy per million output tokens on 1 × B200 and 31.1 Wh of GPU energy per million output tokens on 1 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation... <a href="../models/qwen-3-14b/#faq">Full answer</a></p><h3>Is Qwen 3 14B more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 2.04× the energy per token of the B200 configuration: 31.1 Wh/M on 1 × H100 against 15.2 Wh/M on 1 × B200. <a href="../models/qwen-3-14b/#faq">Full answer</a></p><h3>How much does load change the energy per token of Qwen 3 14B?</h3><p>On 1 × B200, energy per token falls 12.8× between a running batch of 8 (194.3 Wh/M) and 2,045 (15.2 Wh/M), because the cards&#x27; power rises only 14 percent while throughput rises 14.6×. <a href="../models/qwen-3-14b/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Qwen 3 14B?</h3><p>A billion output tokens of Qwen 3 14B on 1 × B200 at its index row carries about 10.5 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 0.5 kg on the Norwegian grid (30). <a href="../models/qwen-3-14b/#faq">Full answer</a></p><h3>Does Qwen 3 14B use more energy for reasoning or problem-solving tasks?</h3><p>On the leaderboard&#x27;s Problem Solving task, Qwen 3 14B costs 26.8× the energy per response and 2.50× the energy per token on 1 × H100 (answers of 6,711 tokens against 625; running batch 59 against 253) and 39.8× the energy per response and... <a href="../models/qwen-3-14b/#faq">Full answer</a></p><h3>Is this the energy my Qwen 3 14B deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/qwen-3-14b/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 17 stable configurations of Qwen 3 14B measured with Zeus under vLLM on H100 80GB and B200... <a href="../models/qwen-3-14b/#faq">Full answer</a></p></div></section>
+<section id="qwen-3-30b-a3b-instruct"><p class="eyebrow">6 questions</p><h2><a href="../models/qwen-3-30b-a3b-instruct/">Qwen 3 30B A3B Instruct</a></h2><div class="prose faq"><h3>How much energy does Qwen 3 30B A3B Instruct use per million output tokens?</h3><p>Qwen 3 30B A3B Instruct uses 15.7 Wh of GPU energy per million output tokens on 1 × B200 and 24.7 Wh of GPU energy per million output tokens on 2 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text... <a href="../models/qwen-3-30b-a3b-instruct/#faq">Full answer</a></p><h3>Is Qwen 3 30B A3B Instruct more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.58× the energy per token of the B200 configuration: 24.7 Wh/M on 2 × H100 against 15.7 Wh/M on 1 × B200. <a href="../models/qwen-3-30b-a3b-instruct/#faq">Full answer</a></p><h3>How much does load change the energy per token of Qwen 3 30B A3B Instruct?</h3><p>On 2 × H100, energy per token falls 9.3× between a running batch of 8 (228.6 Wh/M) and 1,019 (24.7 Wh/M), because the cards&#x27; power rises only 64 percent while throughput rises 15.2×. <a href="../models/qwen-3-30b-a3b-instruct/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Qwen 3 30B A3B Instruct?</h3><p>A billion output tokens of Qwen 3 30B A3B Instruct on 1 × B200 at its index row carries about 10.8 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 0.5 kg on the Norwegian grid (30). <a href="../models/qwen-3-30b-a3b-instruct/#faq">Full answer</a></p><h3>Is this the energy my Qwen 3 30B A3B Instruct deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/qwen-3-30b-a3b-instruct/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 31 stable configurations of Qwen 3 30B A3B Instruct measured with Zeus under vLLM on H100... <a href="../models/qwen-3-30b-a3b-instruct/#faq">Full answer</a></p></div></section>
+<section id="gemma-3-12b"><p class="eyebrow">6 questions</p><h2><a href="../models/gemma-3-12b/">Gemma 3 12B</a></h2><div class="prose faq"><h3>How much energy does Gemma 3 12B use per million output tokens?</h3><p>Gemma 3 12B uses 26.5 Wh of GPU energy per million output tokens on 1 × B200 and 46.1 Wh of GPU energy per million output tokens on 1 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text... <a href="../models/gemma-3-12b/#faq">Full answer</a></p><h3>Is Gemma 3 12B more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.74× the energy per token of the B200 configuration: 46.1 Wh/M on 1 × H100 against 26.5 Wh/M on 1 × B200. <a href="../models/gemma-3-12b/#faq">Full answer</a></p><h3>How much does load change the energy per token of Gemma 3 12B?</h3><p>On 1 × B200, energy per token falls 7.0× between a running batch of 8 (185.9 Wh/M) and 487 (26.5 Wh/M), because the cards&#x27; power rises only 39 percent while throughput rises 9.8×. <a href="../models/gemma-3-12b/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Gemma 3 12B?</h3><p>A billion output tokens of Gemma 3 12B on 1 × B200 at its index row carries about 18.3 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 0.8 kg on the Norwegian grid (30). <a href="../models/gemma-3-12b/#faq">Full answer</a></p><h3>Is this the energy my Gemma 3 12B deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/gemma-3-12b/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 13 stable configurations of Gemma 3 12B measured with Zeus under vLLM on H100 80GB and B200... <a href="../models/gemma-3-12b/#faq">Full answer</a></p></div></section>
+<section id="qwen-3-32b"><p class="eyebrow">7 questions</p><h2><a href="../models/qwen-3-32b/">Qwen 3 32B</a></h2><div class="prose faq"><h3>How much energy does Qwen 3 32B use per million output tokens?</h3><p>Qwen 3 32B uses 39.1 Wh of GPU energy per million output tokens on 1 × B200 and 63.5 Wh of GPU energy per million output tokens on 2 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation... <a href="../models/qwen-3-32b/#faq">Full answer</a></p><h3>Is Qwen 3 32B more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.63× the energy per token of the B200 configuration: 63.5 Wh/M on 2 × H100 against 39.1 Wh/M on 1 × B200. <a href="../models/qwen-3-32b/#faq">Full answer</a></p><h3>How much does load change the energy per token of Qwen 3 32B?</h3><p>On 1 × B200, energy per token falls 11.0× between a running batch of 8 (429.2 Wh/M) and 383 (39.1 Wh/M), because the cards&#x27; power rises only 13 percent while throughput rises 12.4×. <a href="../models/qwen-3-32b/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Qwen 3 32B?</h3><p>A billion output tokens of Qwen 3 32B on 1 × B200 at its index row carries about 26.9 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 1.2 kg on the Norwegian grid (30). <a href="../models/qwen-3-32b/#faq">Full answer</a></p><h3>Does Qwen 3 32B use more energy for reasoning or problem-solving tasks?</h3><p>On the leaderboard&#x27;s Problem Solving task, Qwen 3 32B costs 24.6× the energy per response and 2.22× the energy per token on 1 × B200 (answers of 7,035 tokens against 635; running batch 111 against 383) and 26.1× the energy per response and... <a href="../models/qwen-3-32b/#faq">Full answer</a></p><h3>Is this the energy my Qwen 3 32B deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/qwen-3-32b/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 22 stable configurations of Qwen 3 32B measured with Zeus under vLLM on H100 80GB and B200... <a href="../models/qwen-3-32b/#faq">Full answer</a></p></div></section>
+<section id="nvidia-nemotron-nano-12b-v2"><p class="eyebrow">7 questions</p><h2><a href="../models/nvidia-nemotron-nano-12b-v2/">NVIDIA Nemotron Nano 12B V2</a></h2><div class="prose faq"><h3>How much energy does NVIDIA Nemotron Nano 12B V2 use per million output tokens?</h3><p>NVIDIA Nemotron Nano 12B V2 uses 39.4 Wh of GPU energy per million output tokens on 1 × B200 and 50.1 Wh of GPU energy per million output tokens on 1 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0... <a href="../models/nvidia-nemotron-nano-12b-v2/#faq">Full answer</a></p><h3>Is NVIDIA Nemotron Nano 12B V2 more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.27× the energy per token of the B200 configuration: 50.1 Wh/M on 1 × H100 against 39.4 Wh/M on 1 × B200. <a href="../models/nvidia-nemotron-nano-12b-v2/#faq">Full answer</a></p><h3>How much does load change the energy per token of NVIDIA Nemotron Nano 12B V2?</h3><p>On 1 × H100, energy per token falls 4.1× between a running batch of 8 (207.6 Wh/M) and 241 (50.1 Wh/M), because the cards&#x27; power rises only 39 percent while throughput rises 5.8×. <a href="../models/nvidia-nemotron-nano-12b-v2/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of NVIDIA Nemotron Nano 12B V2?</h3><p>A billion output tokens of NVIDIA Nemotron Nano 12B V2 on 1 × B200 at its index row carries about 27.2 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 1.2 kg on the Norwegian grid (30). <a href="../models/nvidia-nemotron-nano-12b-v2/#faq">Full answer</a></p><h3>Does NVIDIA Nemotron Nano 12B V2 use more energy for reasoning or problem-solving tasks?</h3><p>On the leaderboard&#x27;s Problem Solving task, NVIDIA Nemotron Nano 12B V2 costs 3.9× the energy per response and 1.02× the energy per token on 1 × B200 (answers of 5,646 tokens against 1,464; running batch 256 against 256) and 8.7× the energy... <a href="../models/nvidia-nemotron-nano-12b-v2/#faq">Full answer</a></p><h3>Is this the energy my NVIDIA Nemotron Nano 12B V2 deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/nvidia-nemotron-nano-12b-v2/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 14 stable configurations of NVIDIA Nemotron Nano 12B V2 measured with Zeus under vLLM on H100... <a href="../models/nvidia-nemotron-nano-12b-v2/#faq">Full answer</a></p></div></section>
+<section id="nvidia-nemotron-nano-9b-v2"><p class="eyebrow">7 questions</p><h2><a href="../models/nvidia-nemotron-nano-9b-v2/">NVIDIA Nemotron Nano 9B V2</a></h2><div class="prose faq"><h3>How much energy does NVIDIA Nemotron Nano 9B V2 use per million output tokens?</h3><p>NVIDIA Nemotron Nano 9B V2 uses 40.9 Wh of GPU energy per million output tokens on 1 × B200 and 43.1 Wh of GPU energy per million output tokens on 1 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0... <a href="../models/nvidia-nemotron-nano-9b-v2/#faq">Full answer</a></p><h3>Is NVIDIA Nemotron Nano 9B V2 more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.05× the energy per token of the B200 configuration: 43.1 Wh/M on 1 × H100 against 40.9 Wh/M on 1 × B200. <a href="../models/nvidia-nemotron-nano-9b-v2/#faq">Full answer</a></p><h3>How much does load change the energy per token of NVIDIA Nemotron Nano 9B V2?</h3><p>On 1 × H100, energy per token falls 3.8× between a running batch of 8 (162.7 Wh/M) and 255 (43.1 Wh/M), because the cards&#x27; power rises only 48 percent while throughput rises 5.6×. <a href="../models/nvidia-nemotron-nano-9b-v2/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of NVIDIA Nemotron Nano 9B V2?</h3><p>A billion output tokens of NVIDIA Nemotron Nano 9B V2 on 1 × B200 at its index row carries about 28.2 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 1.2 kg on the Norwegian grid (30). <a href="../models/nvidia-nemotron-nano-9b-v2/#faq">Full answer</a></p><h3>Does NVIDIA Nemotron Nano 9B V2 use more energy for reasoning or problem-solving tasks?</h3><p>On the leaderboard&#x27;s Problem Solving task, NVIDIA Nemotron Nano 9B V2 costs 3.4× the energy per response and 0.79× the energy per token on 1 × B200 (answers of 5,361 tokens against 1,242; running batch 512 against 255) and 7.6× the energy... <a href="../models/nvidia-nemotron-nano-9b-v2/#faq">Full answer</a></p><h3>Is this the energy my NVIDIA Nemotron Nano 9B V2 deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/nvidia-nemotron-nano-9b-v2/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 14 stable configurations of NVIDIA Nemotron Nano 9B V2 measured with Zeus under vLLM on H100... <a href="../models/nvidia-nemotron-nano-9b-v2/#faq">Full answer</a></p></div></section>
+<section id="gemma-3-27b"><p class="eyebrow">6 questions</p><h2><a href="../models/gemma-3-27b/">Gemma 3 27B</a></h2><div class="prose faq"><h3>How much energy does Gemma 3 27B use per million output tokens?</h3><p>Gemma 3 27B uses 49.1 Wh of GPU energy per million output tokens on 1 × B200 and 80.4 Wh of GPU energy per million output tokens on 2 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text... <a href="../models/gemma-3-27b/#faq">Full answer</a></p><h3>Is Gemma 3 27B more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.64× the energy per token of the B200 configuration: 80.4 Wh/M on 2 × H100 against 49.1 Wh/M on 1 × B200. <a href="../models/gemma-3-27b/#faq">Full answer</a></p><h3>How much does load change the energy per token of Gemma 3 27B?</h3><p>On 2 × H100, energy per token falls 5.3× between a running batch of 8 (430.2 Wh/M) and 187 (80.4 Wh/M), because the cards&#x27; power rises only 49 percent while throughput rises 8.0×. <a href="../models/gemma-3-27b/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Gemma 3 27B?</h3><p>A billion output tokens of Gemma 3 27B on 1 × B200 at its index row carries about 33.8 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 1.5 kg on the Norwegian grid (30). <a href="../models/gemma-3-27b/#faq">Full answer</a></p><h3>Is this the energy my Gemma 3 27B deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/gemma-3-27b/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 16 stable configurations of Gemma 3 27B measured with Zeus under vLLM on H100 80GB and B200... <a href="../models/gemma-3-27b/#faq">Full answer</a></p></div></section>
+<section id="llama-3-1-70b-instruct"><p class="eyebrow">6 questions</p><h2><a href="../models/llama-3-1-70b-instruct/">Llama 3.1 70B Instruct</a></h2><div class="prose faq"><h3>How much energy does Llama 3.1 70B Instruct use per million output tokens?</h3><p>Llama 3.1 70B Instruct uses 52.4 Wh of GPU energy per million output tokens on 2 × B200 and 103.7 Wh of GPU energy per million output tokens on 4 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text... <a href="../models/llama-3-1-70b-instruct/#faq">Full answer</a></p><h3>Is Llama 3.1 70B Instruct more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.98× the energy per token of the B200 configuration: 103.7 Wh/M on 4 × H100 against 52.4 Wh/M on 2 × B200. <a href="../models/llama-3-1-70b-instruct/#faq">Full answer</a></p><h3>How much does load change the energy per token of Llama 3.1 70B Instruct?</h3><p>On 4 × H100, energy per token falls 10.1× between a running batch of 8 (1,044.1 Wh/M) and 898 (103.7 Wh/M), because the cards&#x27; power rises only 44 percent while throughput rises 14.5×. <a href="../models/llama-3-1-70b-instruct/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Llama 3.1 70B Instruct?</h3><p>A billion output tokens of Llama 3.1 70B Instruct on 2 × B200 at its index row carries about 36.1 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 1.6 kg on the Norwegian grid (30). <a href="../models/llama-3-1-70b-instruct/#faq">Full answer</a></p><h3>Is this the energy my Llama 3.1 70B Instruct deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/llama-3-1-70b-instruct/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 22 stable configurations of Llama 3.1 70B Instruct measured with Zeus under vLLM on H100 80GB... <a href="../models/llama-3-1-70b-instruct/#faq">Full answer</a></p></div></section>
+<section id="llama-3-3-70b-instruct"><p class="eyebrow">6 questions</p><h2><a href="../models/llama-3-3-70b-instruct/">Llama 3.3 70B Instruct</a></h2><div class="prose faq"><h3>How much energy does Llama 3.3 70B Instruct use per million output tokens?</h3><p>Llama 3.3 70B Instruct uses 60.7 Wh of GPU energy per million output tokens on 2 × B200 and 117.5 Wh of GPU energy per million output tokens on 4 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text... <a href="../models/llama-3-3-70b-instruct/#faq">Full answer</a></p><h3>Is Llama 3.3 70B Instruct more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.94× the energy per token of the B200 configuration: 117.5 Wh/M on 4 × H100 against 60.7 Wh/M on 2 × B200. <a href="../models/llama-3-3-70b-instruct/#faq">Full answer</a></p><h3>How much does load change the energy per token of Llama 3.3 70B Instruct?</h3><p>On 4 × H100, energy per token falls 9.1× between a running batch of 8 (1,068.6 Wh/M) and 724 (117.5 Wh/M), because the cards&#x27; power rises only 42 percent while throughput rises 13.0×. <a href="../models/llama-3-3-70b-instruct/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Llama 3.3 70B Instruct?</h3><p>A billion output tokens of Llama 3.3 70B Instruct on 2 × B200 at its index row carries about 41.8 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 1.8 kg on the Norwegian grid (30). <a href="../models/llama-3-3-70b-instruct/#faq">Full answer</a></p><h3>Is this the energy my Llama 3.3 70B Instruct deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/llama-3-3-70b-instruct/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 19 stable configurations of Llama 3.3 70B Instruct measured with Zeus under vLLM on H100 80GB... <a href="../models/llama-3-3-70b-instruct/#faq">Full answer</a></p></div></section>
+<section id="qwen-3-235b-a22b-instruct"><p class="eyebrow">6 questions</p><h2><a href="../models/qwen-3-235b-a22b-instruct/">Qwen 3 235B A22B Instruct</a></h2><div class="prose faq"><h3>How much energy does Qwen 3 235B A22B Instruct use per million output tokens?</h3><p>Qwen 3 235B A22B Instruct uses 66.7 Wh of GPU energy per million output tokens on 4 × B200 and 303.5 Wh of GPU energy per million output tokens on 8 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0... <a href="../models/qwen-3-235b-a22b-instruct/#faq">Full answer</a></p><h3>Is Qwen 3 235B A22B Instruct more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 4.55× the energy per token of the B200 configuration: 303.5 Wh/M on 8 × H100 against 66.7 Wh/M on 4 × B200. <a href="../models/qwen-3-235b-a22b-instruct/#faq">Full answer</a></p><h3>How much does load change the energy per token of Qwen 3 235B A22B Instruct?</h3><p>On 4 × B200, energy per token falls 26.9× between a running batch of 8 (1,793.5 Wh/M) and 3,765 (66.7 Wh/M), because the cards&#x27; power rises only 25 percent while throughput rises 33.5×. <a href="../models/qwen-3-235b-a22b-instruct/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Qwen 3 235B A22B Instruct?</h3><p>A billion output tokens of Qwen 3 235B A22B Instruct on 4 × B200 at its index row carries about 46.0 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 2.0 kg on the Norwegian grid (30). <a href="../models/qwen-3-235b-a22b-instruct/#faq">Full answer</a></p><h3>Is this the energy my Qwen 3 235B A22B Instruct deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/qwen-3-235b-a22b-instruct/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 31 stable configurations of Qwen 3 235B A22B Instruct measured with Zeus under vLLM on H100... <a href="../models/qwen-3-235b-a22b-instruct/#faq">Full answer</a></p></div></section>
+<section id="llama-4-scout-17b-16e-instruct"><p class="eyebrow">5 questions</p><h2><a href="../models/llama-4-scout-17b-16e-instruct/">Llama 4 Scout 17B 16E Instruct</a></h2><div class="prose faq"><h3>How much energy does Llama 4 Scout 17B 16E Instruct use per million output tokens?</h3><p>Llama 4 Scout 17B 16E Instruct uses 93.4 Wh of GPU energy per million output tokens on 4 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026). <a href="../models/llama-4-scout-17b-16e-instruct/#faq">Full answer</a></p><h3>How much does load change the energy per token of Llama 4 Scout 17B 16E Instruct?</h3><p>On 4 × H100, energy per token falls 11.8× between a running batch of 8 (1,104.8 Wh/M) and 473 (93.4 Wh/M), because the cards&#x27; power rises only 47 percent while throughput rises 17.4×. <a href="../models/llama-4-scout-17b-16e-instruct/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Llama 4 Scout 17B 16E Instruct?</h3><p>A billion output tokens of Llama 4 Scout 17B 16E Instruct on 4 × H100 at its index row carries about 64.3 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 2.8 kg on the Norwegian grid (30). <a href="../models/llama-4-scout-17b-16e-instruct/#faq">Full answer</a></p><h3>Is this the energy my Llama 4 Scout 17B 16E Instruct deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/llama-4-scout-17b-16e-instruct/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 20 stable configurations of Llama 4 Scout 17B 16E Instruct measured with Zeus under vLLM on... <a href="../models/llama-4-scout-17b-16e-instruct/#faq">Full answer</a></p></div></section>
+<section id="llama-4-maverick-17b-128e-instruct-fp8"><p class="eyebrow">5 questions</p><h2><a href="../models/llama-4-maverick-17b-128e-instruct-fp8/">Llama 4 Maverick 17B 128E Instruct FP8</a></h2><div class="prose faq"><h3>How much energy does Llama 4 Maverick 17B 128E Instruct FP8 use per million output tokens?</h3><p>Llama 4 Maverick 17B 128E Instruct FP8 uses 134.5 Wh of GPU energy per million output tokens on 8 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026). <a href="../models/llama-4-maverick-17b-128e-instruct-fp8/#faq">Full answer</a></p><h3>How much does load change the energy per token of Llama 4 Maverick 17B 128E Instruct FP8?</h3><p>On 8 × H100, energy per token falls 5.8× between a running batch of 8 (779.0 Wh/M) and 383 (134.5 Wh/M), because the cards&#x27; power rises only 88 percent while throughput rises 10.9×. <a href="../models/llama-4-maverick-17b-128e-instruct-fp8/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Llama 4 Maverick 17B 128E Instruct FP8?</h3><p>A billion output tokens of Llama 4 Maverick 17B 128E Instruct FP8 on 8 × H100 at its index row carries about 92.7 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 4.0 kg on the Norwegian grid (30). <a href="../models/llama-4-maverick-17b-128e-instruct-fp8/#faq">Full answer</a></p><h3>Is this the energy my Llama 4 Maverick 17B 128E Instruct FP8 deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/llama-4-maverick-17b-128e-instruct-fp8/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 9 stable configurations of Llama 4 Maverick 17B 128E Instruct FP8 measured with Zeus under... <a href="../models/llama-4-maverick-17b-128e-instruct-fp8/#faq">Full answer</a></p></div></section>
+<section id="qwen-3-235b-a22b-instruct-fp8"><p class="eyebrow">6 questions</p><h2><a href="../models/qwen-3-235b-a22b-instruct-fp8/">Qwen 3 235B A22B Instruct FP8</a></h2><div class="prose faq"><h3>How much energy does Qwen 3 235B A22B Instruct FP8 use per million output tokens?</h3><p>Qwen 3 235B A22B Instruct FP8 uses 139.1 Wh of GPU energy per million output tokens on 2 × B200 and 206.0 Wh of GPU energy per million output tokens on 8 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard... <a href="../models/qwen-3-235b-a22b-instruct-fp8/#faq">Full answer</a></p><h3>Is Qwen 3 235B A22B Instruct FP8 more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.48× the energy per token of the B200 configuration: 206.0 Wh/M on 8 × H100 against 139.1 Wh/M on 2 × B200. <a href="../models/qwen-3-235b-a22b-instruct-fp8/#faq">Full answer</a></p><h3>How much does load change the energy per token of Qwen 3 235B A22B Instruct FP8?</h3><p>On 8 × H100, energy per token falls 15.4× between a running batch of 8 (3,163.8 Wh/M) and 511 (206.0 Wh/M), because the cards&#x27; power rises only 10 percent while throughput rises 16.9×. <a href="../models/qwen-3-235b-a22b-instruct-fp8/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Qwen 3 235B A22B Instruct FP8?</h3><p>A billion output tokens of Qwen 3 235B A22B Instruct FP8 on 2 × B200 at its index row carries about 95.8 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 4.1 kg on the Norwegian grid (30). <a href="../models/qwen-3-235b-a22b-instruct-fp8/#faq">Full answer</a></p><h3>Is this the energy my Qwen 3 235B A22B Instruct FP8 deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/qwen-3-235b-a22b-instruct-fp8/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 23 stable configurations of Qwen 3 235B A22B Instruct FP8 measured with Zeus under vLLM on... <a href="../models/qwen-3-235b-a22b-instruct-fp8/#faq">Full answer</a></p></div></section>
+<section id="deepseek-v3-1"><p class="eyebrow">6 questions</p><h2><a href="../models/deepseek-v3-1/">DeepSeek V3.1</a></h2><div class="prose faq"><h3>How much energy does DeepSeek V3.1 use per million output tokens?</h3><p>DeepSeek V3.1 uses 168.4 Wh of GPU energy per million output tokens on 8 × B200 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026). <a href="../models/deepseek-v3-1/#faq">Full answer</a></p><h3>How much does load change the energy per token of DeepSeek V3.1?</h3><p>On 8 × B200, energy per token falls 14.1× between a running batch of 8 (2,379.3 Wh/M) and 3,008 (168.4 Wh/M), because the cards&#x27; power rises only 42 percent while throughput rises 20.1×. <a href="../models/deepseek-v3-1/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of DeepSeek V3.1?</h3><p>A billion output tokens of DeepSeek V3.1 on 8 × B200 at its index row carries about 116.1 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 5.0 kg on the Norwegian grid (30). <a href="../models/deepseek-v3-1/#faq">Full answer</a></p><h3>Does DeepSeek V3.1 use more energy for reasoning or problem-solving tasks?</h3><p>On the leaderboard&#x27;s Problem Solving task, DeepSeek V3.1 costs 23.5× the energy per response and 2.20× the energy per token on 8 × B200 (answers of 8,969 tokens against 842; running batch 256 against 3,008), compared with Text Conversation. <a href="../models/deepseek-v3-1/#faq">Full answer</a></p><h3>Is this the energy my DeepSeek V3.1 deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/deepseek-v3-1/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 11 stable configurations of DeepSeek V3.1 measured with Zeus under vLLM on H100 80GB and B200... <a href="../models/deepseek-v3-1/#faq">Full answer</a></p></div></section>
+<section id="llama-3-1-405b-instruct"><p class="eyebrow">5 questions</p><h2><a href="../models/llama-3-1-405b-instruct/">Llama 3.1 405B Instruct</a></h2><div class="prose faq"><h3>How much energy does Llama 3.1 405B Instruct use per million output tokens?</h3><p>Llama 3.1 405B Instruct uses 282.0 Wh of GPU energy per million output tokens on 8 × B200 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026). <a href="../models/llama-3-1-405b-instruct/#faq">Full answer</a></p><h3>How much does load change the energy per token of Llama 3.1 405B Instruct?</h3><p>On 8 × B200, energy per token falls 21.5× between a running batch of 8 (6,073.4 Wh/M) and 3,589 (282.0 Wh/M), because the cards&#x27; power rises only 28 percent while throughput rises 27.6×. <a href="../models/llama-3-1-405b-instruct/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Llama 3.1 405B Instruct?</h3><p>A billion output tokens of Llama 3.1 405B Instruct on 8 × B200 at its index row carries about 194.3 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 8.4 kg on the Norwegian grid (30). <a href="../models/llama-3-1-405b-instruct/#faq">Full answer</a></p><h3>Is this the energy my Llama 3.1 405B Instruct deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/llama-3-1-405b-instruct/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 12 stable configurations of Llama 3.1 405B Instruct measured with Zeus under vLLM on H100... <a href="../models/llama-3-1-405b-instruct/#faq">Full answer</a></p></div></section>
+<section id="llama-3-1-405b-instruct-fp8"><p class="eyebrow">6 questions</p><h2><a href="../models/llama-3-1-405b-instruct-fp8/">Llama 3.1 405B Instruct FP8</a></h2><div class="prose faq"><h3>How much energy does Llama 3.1 405B Instruct FP8 use per million output tokens?</h3><p>Llama 3.1 405B Instruct FP8 uses 318.5 Wh of GPU energy per million output tokens on 4 × B200 and 572.9 Wh of GPU energy per million output tokens on 8 × H100 at the most energy-efficient configuration measured (ML.ENERGY Leaderboard v3.0... <a href="../models/llama-3-1-405b-instruct-fp8/#faq">Full answer</a></p><h3>Is Llama 3.1 405B Instruct FP8 more energy-efficient on B200 or H100?</h3><p>On the index rows, the H100 configuration uses 1.80× the energy per token of the B200 configuration: 572.9 Wh/M on 8 × H100 against 318.5 Wh/M on 4 × B200. <a href="../models/llama-3-1-405b-instruct-fp8/#faq">Full answer</a></p><h3>How much does load change the energy per token of Llama 3.1 405B Instruct FP8?</h3><p>On 8 × H100, energy per token falls 6.8× between a running batch of 8 (3,881.9 Wh/M) and 255 (572.9 Wh/M), because the cards&#x27; power rises only 50 percent while throughput rises 10.1×. <a href="../models/llama-3-1-405b-instruct-fp8/#faq">Full answer</a></p><h3>What is the carbon footprint of a billion tokens of Llama 3.1 405B Instruct FP8?</h3><p>A billion output tokens of Llama 3.1 405B Instruct FP8 on 4 × B200 at its index row carries about 219.5 kg CO2e of GPU-side emissions on the Saudi grid (689 gCO2e per kWh, Ember 2024) and 9.4 kg on the Norwegian grid (30). <a href="../models/llama-3-1-405b-instruct-fp8/#faq">Full answer</a></p><h3>Is this the energy my Llama 3.1 405B Instruct FP8 deployment will use?</h3><p>No. Every figure here is the lowest-energy configuration under the leaderboard&#x27;s 500 ms median inter-token latency ceiling, on a busy server, GPU only. <a href="../models/llama-3-1-405b-instruct-fp8/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2025, data compiled 16 February 2026, retrieved 26 September 2026: 15 stable configurations of Llama 3.1 405B Instruct FP8 measured with Zeus under vLLM on H100... <a href="../models/llama-3-1-405b-instruct-fp8/#faq">Full answer</a></p></div></section>
+<section id="grids"><p class="eyebrow">5 questions</p><h2><a href="../grids/india/">India</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of India?</h3><p>707 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.5× the world average of 473. <a href="../grids/india/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in India?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 44.9 grams of CO2e per million tokens, or 44.9 kg per billion, on India&#x27;s 2024 grid. <a href="../grids/india/#faq">Full answer</a></p><h3>Is running AI in India cleaner than the world average?</h3><p>India&#x27;s 2024 intensity of 707 gCO2e per kWh is 1.5× the world average of 473 (473 gCO2e per kWh). <a href="../grids/india/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in India?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/india/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/india/#faq">Full answer</a></p></div></section>
+<section id="saudi-arabia"><p class="eyebrow">5 questions</p><h2><a href="../grids/saudi-arabia/">Saudi Arabia</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Saudi Arabia?</h3><p>689 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.5× the world average of 473. <a href="../grids/saudi-arabia/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Saudi Arabia?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 43.7 grams of CO2e per million tokens, or 43.7 kg per billion, on Saudi Arabia&#x27;s 2024 grid. <a href="../grids/saudi-arabia/#faq">Full answer</a></p><h3>Is running AI in Saudi Arabia cleaner than the world average?</h3><p>Saudi Arabia&#x27;s 2024 intensity of 689 gCO2e per kWh is 1.5× the world average of 473 (473 gCO2e per kWh). <a href="../grids/saudi-arabia/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Saudi Arabia?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/saudi-arabia/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/saudi-arabia/#faq">Full answer</a></p></div></section>
+<section id="hong-kong"><p class="eyebrow">5 questions</p><h2><a href="../grids/hong-kong/">Hong Kong</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Hong Kong?</h3><p>676 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.4× the world average of 473. <a href="../grids/hong-kong/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Hong Kong?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 42.9 grams of CO2e per million tokens, or 42.9 kg per billion, on Hong Kong&#x27;s 2024 grid. <a href="../grids/hong-kong/#faq">Full answer</a></p><h3>Is running AI in Hong Kong cleaner than the world average?</h3><p>Hong Kong&#x27;s 2024 intensity of 676 gCO2e per kWh is 1.4× the world average of 473 (473 gCO2e per kWh). <a href="../grids/hong-kong/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Hong Kong?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/hong-kong/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/hong-kong/#faq">Full answer</a></p></div></section>
+<section id="serbia"><p class="eyebrow">5 questions</p><h2><a href="../grids/serbia/">Serbia</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Serbia?</h3><p>668 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.4× the world average of 473. <a href="../grids/serbia/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Serbia?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 42.4 grams of CO2e per million tokens, or 42.4 kg per billion, on Serbia&#x27;s 2024 grid. <a href="../grids/serbia/#faq">Full answer</a></p><h3>Is running AI in Serbia cleaner than the world average?</h3><p>Serbia&#x27;s 2024 intensity of 668 gCO2e per kWh is 1.4× the world average of 473 (473 gCO2e per kWh). <a href="../grids/serbia/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Serbia?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/serbia/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/serbia/#faq">Full answer</a></p></div></section>
+<section id="taiwan"><p class="eyebrow">5 questions</p><h2><a href="../grids/taiwan/">Taiwan</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Taiwan?</h3><p>635 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.3× the world average of 473. <a href="../grids/taiwan/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Taiwan?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 40.3 grams of CO2e per million tokens, or 40.3 kg per billion, on Taiwan&#x27;s 2024 grid. <a href="../grids/taiwan/#faq">Full answer</a></p><h3>Is running AI in Taiwan cleaner than the world average?</h3><p>Taiwan&#x27;s 2024 intensity of 635 gCO2e per kWh is 1.3× the world average of 473 (473 gCO2e per kWh). <a href="../grids/taiwan/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Taiwan?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/taiwan/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/taiwan/#faq">Full answer</a></p></div></section>
+<section id="the-philippines"><p class="eyebrow">5 questions</p><h2><a href="../grids/the-philippines/">The Philippines</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of The Philippines?</h3><p>629 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.3× the world average of 473. <a href="../grids/the-philippines/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in The Philippines?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 40.0 grams of CO2e per million tokens, or 40.0 kg per billion, on The Philippines&#x27;s 2024 grid. <a href="../grids/the-philippines/#faq">Full answer</a></p><h3>Is running AI in The Philippines cleaner than the world average?</h3><p>The Philippines&#x27;s 2024 intensity of 629 gCO2e per kWh is 1.3× the world average of 473 (473 gCO2e per kWh). <a href="../grids/the-philippines/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in The Philippines?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/the-philippines/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/the-philippines/#faq">Full answer</a></p></div></section>
+<section id="qatar"><p class="eyebrow">5 questions</p><h2><a href="../grids/qatar/">Qatar</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Qatar?</h3><p>582 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.2× the world average of 473. <a href="../grids/qatar/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Qatar?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 36.9 grams of CO2e per million tokens, or 36.9 kg per billion, on Qatar&#x27;s 2024 grid. <a href="../grids/qatar/#faq">Full answer</a></p><h3>Is running AI in Qatar cleaner than the world average?</h3><p>Qatar&#x27;s 2024 intensity of 582 gCO2e per kWh is 1.2× the world average of 473 (473 gCO2e per kWh). <a href="../grids/qatar/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Qatar?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/qatar/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/qatar/#faq">Full answer</a></p></div></section>
+<section id="australia"><p class="eyebrow">5 questions</p><h2><a href="../grids/australia/">Australia</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Australia?</h3><p>549 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.2× the world average of 473. <a href="../grids/australia/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Australia?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 34.9 grams of CO2e per million tokens, or 34.9 kg per billion, on Australia&#x27;s 2024 grid. <a href="../grids/australia/#faq">Full answer</a></p><h3>Is running AI in Australia cleaner than the world average?</h3><p>Australia&#x27;s 2024 intensity of 549 gCO2e per kWh is 1.2× the world average of 473 (473 gCO2e per kWh). <a href="../grids/australia/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Australia?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/australia/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/australia/#faq">Full answer</a></p></div></section>
+<section id="singapore"><p class="eyebrow">5 questions</p><h2><a href="../grids/singapore/">Singapore</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Singapore?</h3><p>499 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.1× the world average of 473. <a href="../grids/singapore/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Singapore?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 31.6 grams of CO2e per million tokens, or 31.6 kg per billion, on Singapore&#x27;s 2024 grid. <a href="../grids/singapore/#faq">Full answer</a></p><h3>Is running AI in Singapore cleaner than the world average?</h3><p>Singapore&#x27;s 2024 intensity of 499 gCO2e per kWh is 1.1× the world average of 473 (473 gCO2e per kWh). <a href="../grids/singapore/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Singapore?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/singapore/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/singapore/#faq">Full answer</a></p></div></section>
+<section id="japan"><p class="eyebrow">5 questions</p><h2><a href="../grids/japan/">Japan</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Japan?</h3><p>484 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, close to the world average of 473. <a href="../grids/japan/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Japan?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 30.7 grams of CO2e per million tokens, or 30.7 kg per billion, on Japan&#x27;s 2024 grid. <a href="../grids/japan/#faq">Full answer</a></p><h3>Is running AI in Japan cleaner than the world average?</h3><p>Japan&#x27;s 2024 intensity of 484 gCO2e per kWh is close to the world average of 473 (473 gCO2e per kWh). <a href="../grids/japan/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Japan?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/japan/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/japan/#faq">Full answer</a></p></div></section>
+<section id="united-arab-emirates"><p class="eyebrow">5 questions</p><h2><a href="../grids/united-arab-emirates/">United Arab Emirates</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of United Arab Emirates?</h3><p>477 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, close to the world average of 473. <a href="../grids/united-arab-emirates/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in United Arab Emirates?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 30.3 grams of CO2e per million tokens, or 30.3 kg per billion, on United Arab Emirates&#x27;s 2024 grid. <a href="../grids/united-arab-emirates/#faq">Full answer</a></p><h3>Is running AI in United Arab Emirates cleaner than the world average?</h3><p>United Arab Emirates&#x27;s 2024 intensity of 477 gCO2e per kWh is close to the world average of 473 (473 gCO2e per kWh). <a href="../grids/united-arab-emirates/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in United Arab Emirates?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/united-arab-emirates/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/united-arab-emirates/#faq">Full answer</a></p></div></section>
+<section id="sri-lanka"><p class="eyebrow">5 questions</p><h2><a href="../grids/sri-lanka/">Sri Lanka</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Sri Lanka?</h3><p>393 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.2× cleaner than the world average of 473. <a href="../grids/sri-lanka/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Sri Lanka?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 24.9 grams of CO2e per million tokens, or 24.9 kg per billion, on Sri Lanka&#x27;s 2024 grid. <a href="../grids/sri-lanka/#faq">Full answer</a></p><h3>Is running AI in Sri Lanka cleaner than the world average?</h3><p>Sri Lanka&#x27;s 2024 intensity of 393 gCO2e per kWh is 1.2× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/sri-lanka/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Sri Lanka?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/sri-lanka/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/sri-lanka/#faq">Full answer</a></p></div></section>
+<section id="united-states"><p class="eyebrow">5 questions</p><h2><a href="../grids/united-states/">United States</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of United States?</h3><p>384 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.2× cleaner than the world average of 473. <a href="../grids/united-states/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in United States?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 24.4 grams of CO2e per million tokens, or 24.4 kg per billion, on United States&#x27;s 2024 grid. <a href="../grids/united-states/#faq">Full answer</a></p><h3>Is running AI in United States cleaner than the world average?</h3><p>United States&#x27;s 2024 intensity of 384 gCO2e per kWh is 1.2× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/united-states/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in United States?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/united-states/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/united-states/#faq">Full answer</a></p></div></section>
+<section id="germany"><p class="eyebrow">5 questions</p><h2><a href="../grids/germany/">Germany</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Germany?</h3><p>340 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.4× cleaner than the world average of 473. <a href="../grids/germany/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Germany?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 21.6 grams of CO2e per million tokens, or 21.6 kg per billion, on Germany&#x27;s 2024 grid. <a href="../grids/germany/#faq">Full answer</a></p><h3>Is running AI in Germany cleaner than the world average?</h3><p>Germany&#x27;s 2024 intensity of 340 gCO2e per kWh is 1.4× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/germany/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Germany?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/germany/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/germany/#faq">Full answer</a></p></div></section>
+<section id="bulgaria"><p class="eyebrow">5 questions</p><h2><a href="../grids/bulgaria/">Bulgaria</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Bulgaria?</h3><p>279 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.7× cleaner than the world average of 473. <a href="../grids/bulgaria/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Bulgaria?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 17.7 grams of CO2e per million tokens, or 17.7 kg per billion, on Bulgaria&#x27;s 2024 grid. <a href="../grids/bulgaria/#faq">Full answer</a></p><h3>Is running AI in Bulgaria cleaner than the world average?</h3><p>Bulgaria&#x27;s 2024 intensity of 279 gCO2e per kWh is 1.7× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/bulgaria/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Bulgaria?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/bulgaria/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/bulgaria/#faq">Full answer</a></p></div></section>
+<section id="ireland"><p class="eyebrow">5 questions</p><h2><a href="../grids/ireland/">Ireland</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Ireland?</h3><p>271 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 1.7× cleaner than the world average of 473. <a href="../grids/ireland/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Ireland?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 17.2 grams of CO2e per million tokens, or 17.2 kg per billion, on Ireland&#x27;s 2024 grid. <a href="../grids/ireland/#faq">Full answer</a></p><h3>Is running AI in Ireland cleaner than the world average?</h3><p>Ireland&#x27;s 2024 intensity of 271 gCO2e per kWh is 1.7× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/ireland/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Ireland?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/ireland/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/ireland/#faq">Full answer</a></p></div></section>
+<section id="united-kingdom"><p class="eyebrow">5 questions</p><h2><a href="../grids/united-kingdom/">United Kingdom</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of United Kingdom?</h3><p>216 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 2.2× cleaner than the world average of 473. <a href="../grids/united-kingdom/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in United Kingdom?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 13.7 grams of CO2e per million tokens, or 13.7 kg per billion, on United Kingdom&#x27;s 2024 grid. <a href="../grids/united-kingdom/#faq">Full answer</a></p><h3>Is running AI in United Kingdom cleaner than the world average?</h3><p>United Kingdom&#x27;s 2024 intensity of 216 gCO2e per kWh is 2.2× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/united-kingdom/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in United Kingdom?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/united-kingdom/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/united-kingdom/#faq">Full answer</a></p></div></section>
+<section id="hungary"><p class="eyebrow">5 questions</p><h2><a href="../grids/hungary/">Hungary</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Hungary?</h3><p>184 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 2.6× cleaner than the world average of 473. <a href="../grids/hungary/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Hungary?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 11.7 grams of CO2e per million tokens, or 11.7 kg per billion, on Hungary&#x27;s 2024 grid. <a href="../grids/hungary/#faq">Full answer</a></p><h3>Is running AI in Hungary cleaner than the world average?</h3><p>Hungary&#x27;s 2024 intensity of 184 gCO2e per kWh is 2.6× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/hungary/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Hungary?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/hungary/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/hungary/#faq">Full answer</a></p></div></section>
+<section id="new-zealand"><p class="eyebrow">5 questions</p><h2><a href="../grids/new-zealand/">New Zealand</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of New Zealand?</h3><p>112 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 4.2× cleaner than the world average of 473. <a href="../grids/new-zealand/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in New Zealand?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 7.1 grams of CO2e per million tokens, or 7.1 kg per billion, on New Zealand&#x27;s 2024 grid. <a href="../grids/new-zealand/#faq">Full answer</a></p><h3>Is running AI in New Zealand cleaner than the world average?</h3><p>New Zealand&#x27;s 2024 intensity of 112 gCO2e per kWh is 4.2× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/new-zealand/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in New Zealand?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/new-zealand/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/new-zealand/#faq">Full answer</a></p></div></section>
+<section id="slovakia"><p class="eyebrow">5 questions</p><h2><a href="../grids/slovakia/">Slovakia</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Slovakia?</h3><p>97 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 4.9× cleaner than the world average of 473. <a href="../grids/slovakia/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Slovakia?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 6.2 grams of CO2e per million tokens, or 6.2 kg per billion, on Slovakia&#x27;s 2024 grid. <a href="../grids/slovakia/#faq">Full answer</a></p><h3>Is running AI in Slovakia cleaner than the world average?</h3><p>Slovakia&#x27;s 2024 intensity of 97 gCO2e per kWh is 4.9× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/slovakia/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Slovakia?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/slovakia/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/slovakia/#faq">Full answer</a></p></div></section>
+<section id="france"><p class="eyebrow">5 questions</p><h2><a href="../grids/france/">France</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of France?</h3><p>40 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 11.7× cleaner than the world average of 473. <a href="../grids/france/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in France?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 2.6 grams of CO2e per million tokens, or 2.6 kg per billion, on France&#x27;s 2024 grid. <a href="../grids/france/#faq">Full answer</a></p><h3>Is running AI in France cleaner than the world average?</h3><p>France&#x27;s 2024 intensity of 40 gCO2e per kWh is 11.7× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/france/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in France?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/france/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/france/#faq">Full answer</a></p></div></section>
+<section id="norway"><p class="eyebrow">5 questions</p><h2><a href="../grids/norway/">Norway</a></h2><div class="prose faq"><h3>What is the grid carbon intensity of Norway?</h3><p>30 gCO2e per kWh in 2024, on Ember&#x27;s yearly electricity data: a lifecycle, location-based figure for the country&#x27;s own generation, 16.0× cleaner than the world average of 473. <a href="../grids/norway/#faq">Full answer</a></p><h3>How much CO2 does a million AI tokens produce in Norway?</h3><p>At the index&#x27;s reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, GPU only), about 1.9 grams of CO2e per million tokens, or 1.9 kg per billion, on Norway&#x27;s 2024 grid. <a href="../grids/norway/#faq">Full answer</a></p><h3>Is running AI in Norway cleaner than the world average?</h3><p>Norway&#x27;s 2024 intensity of 30 gCO2e per kWh is 16.0× cleaner than the world average of 473 (473 gCO2e per kWh). <a href="../grids/norway/#faq">Full answer</a></p><h3>Can I use this figure for my Scope 2 report in Norway?</h3><p>As a comparison, not as a filing. Ember&#x27;s intensity is a lifecycle figure on net generation, not a Scope 2 combustion factor, and it is location-based; a market-based figure needs your own contracted supply. <a href="../grids/norway/#faq">Full answer</a></p><h3>Where do these figures come from?</h3><p>Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. <a href="../grids/norway/#faq">Full answer</a></p></div></section>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../index/">The index</a>
+      <a href="../api/">Data API</a>
+      <a href="../mcp/">MCP server</a>
+      <a href="../feed.xml">RSS</a>
+      <a href="../glossary/">Glossary</a>
+      <a href="../faq/">Questions</a>
+      <a href="../llms.txt">llms.txt</a>
+      <a href="../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

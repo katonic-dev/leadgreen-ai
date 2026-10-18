@@ -8,6 +8,8 @@
 
 Lead Green is small and it is public. Its value is the number of independent, reproducible measurements on the index and the care with which each one is checked. Both grow faster with volunteers. Here is what is needed, how to do it, and the rules that keep a row defensible.
 
+Cite this page: Lead Green, a Katonic project. Contribute. https://leadgreen.ai/contribute/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 *Roles*
 
 ## Five ways to help  Measurers

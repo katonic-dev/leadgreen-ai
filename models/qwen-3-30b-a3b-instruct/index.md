@@ -10,6 +10,8 @@ Qwen 3 30B A3B Instruct serves a million output tokens for **15.7 Wh/M** on 1 ×
 
 **Model** [Qwen/Qwen3-30B-A3B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507), a mixture-of-experts model (3 B of 30 B parameters active per token), weights in BF16. **Measured** 31 configurations on B200 and H100. **Data** [models/qwen-3-30b-a3b-instruct.json](https://leadgreen.ai/api/v1/models/qwen-3-30b-a3b-instruct.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Qwen 3 30B A3B Instruct: energy per million output tokens. https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#generations)
 - [Carbon](https://leadgreen.ai/models/qwen-3-30b-a3b-instruct/#carbon)

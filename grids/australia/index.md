@@ -10,6 +10,8 @@ Australia's grid ran at **549 gCO2e per kWh** in 2024 on Ember's yearly figures,
 
 **Area** Australia (AUS, AU). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Australia: carbon of AI inference per billion tokens. https://leadgreen.ai/grids/australia/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Trend](https://leadgreen.ai/grids/australia/#trend)
 - [Every model](https://leadgreen.ai/grids/australia/#models)
 - [Reporting](https://leadgreen.ai/grids/australia/#reporting)

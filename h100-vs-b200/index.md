@@ -10,6 +10,8 @@ On the index rows, the B200 uses less GPU energy per output token than the H100 
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [index.json](https://leadgreen.ai/api/v1/index.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. H100 vs B200: GPU energy per million output tokens, 14 models. https://leadgreen.ai/h100-vs-b200/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [The 14 pairs](https://leadgreen.ai/h100-vs-b200/#pairs)
 - [The sweep](https://leadgreen.ai/h100-vs-b200/#sweep)
 - [Power against energy](https://leadgreen.ai/h100-vs-b200/#power)

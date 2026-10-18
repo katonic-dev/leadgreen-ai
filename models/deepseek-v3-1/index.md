@@ -10,6 +10,8 @@ DeepSeek V3.1 serves a million output tokens for **168.4 Wh/M** on 8 × B200 (ru
 
 **Model** [deepseek-ai/DeepSeek-V3.1](https://huggingface.co/deepseek-ai/DeepSeek-V3.1), a mixture-of-experts model (37 B of 671 B parameters active per token), weights in FP8. **Measured** 11 configurations on B200. **Data** [models/deepseek-v3-1.json](https://leadgreen.ai/api/v1/models/deepseek-v3-1.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. DeepSeek V3.1: energy per million output tokens. https://leadgreen.ai/models/deepseek-v3-1/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/deepseek-v3-1/#configurations)
 - [Carbon](https://leadgreen.ai/models/deepseek-v3-1/#carbon)
 - [Two tasks](https://leadgreen.ai/models/deepseek-v3-1/#workloads)

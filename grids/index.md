@@ -10,6 +10,8 @@ Energy per token does not change with geography; carbon per token does. Each pag
 
 **Basis** Ember yearly emissions intensity, 2024, lifecycle, location-based, gCO2e per kWh. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2, a spread of 55.6×. Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Grids: the carbon of AI inference by country. https://leadgreen.ai/grids/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 *Highest intensity first*
 
 ## Pick a grid  Asia

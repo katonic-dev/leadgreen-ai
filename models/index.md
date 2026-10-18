@@ -10,6 +10,8 @@ Every model on the Green Tokens index has its own page: the index row per GPU, e
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Models: GPU energy per million output tokens, by model. https://leadgreen.ai/models/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 *Lowest index row first*
 
 ## Pick a model  B200 and H100

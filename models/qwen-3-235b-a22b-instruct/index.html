@@ -197,6 +197,7 @@
   <h1>Qwen 3 235B A22B Instruct: GPU energy per million output tokens</h1>
   <p class="stand">Qwen 3 235B A22B Instruct serves a million output tokens for <b>66.7 Wh/M</b> on 4 × B200 (running batch 3,765, median inter-token latency 68 ms) and <b>303.5 Wh/M</b> on 8 × H100 (running batch 228, median inter-token latency 55 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.</p>
   <p class="unit"><b>Model</b> <a href="https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507">Qwen/Qwen3-235B-A22B-Instruct-2507</a>, a mixture-of-experts model (22 B of 235 B parameters active per token), weights in BF16. <b>Measured</b> 31 configurations on B200 and H100. <b>Data</b> <a href="../../api/v1/models/qwen-3-235b-a22b-instruct.json">models/qwen-3-235b-a22b-instruct.json</a>. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct: energy per million output tokens. https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#configurations">Every configuration</a></li><li><a href="#generations">Two generations</a></li><li><a href="#carbon">Carbon</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 <div class="tiles auto n2" role="group" aria-label="Index rows"><div class="tile"><span class="lbl">Index row, B200</span><span class="val">66.7<small>Wh/M</small></span><span class="sub">4 × B200, BF16. Running batch 3,765, median ITL 68 ms, 3,196 W across the cards, 13,303 tokens a second.</span></div><div class="tile"><span class="lbl">Index row, H100</span><span class="val">303.5<small>Wh/M</small></span><span class="sub">8 × H100, BF16. Running batch 228, median ITL 55 ms, 4,038 W across the cards, 3,696 tokens a second.</span></div></div>
@@ -276,6 +277,8 @@
       <a href="../../api/">Data API</a>
       <a href="../../mcp/">MCP server</a>
       <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
       <a href="../../llms.txt">llms.txt</a>
       <a href="../../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>

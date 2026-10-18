@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>GPU-only boundary: definition and the figure | Lead Green glossary</title>
+<meta name="description" content="The measurement boundary of every index row: energy read from the GPUs alone, with host, network, cooling, idle time and embodied carbon outside it.">
+<link rel="canonical" href="https://leadgreen.ai/glossary/gpu-only-boundary/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="GPU-only boundary: definition and the figure | Lead Green glossary">
+<meta property="og:description" content="The measurement boundary of every index row: energy read from the GPUs alone, with host, network, cooling, idle time and embodied carbon outside it.">
+<meta property="og:url" content="https://leadgreen.ai/glossary/gpu-only-boundary/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/glossary/gpu-only-boundary/index.md">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://leadgreen.ai/glossary/gpu-only-boundary/",
+   "name": "GPU-only boundary: definition and the figure | Lead Green glossary",
+   "description": "The measurement boundary of every index row: energy read from the GPUs alone, with host, network, cooling, idle time and embodied carbon outside it.",
+   "url": "https://leadgreen.ai/glossary/gpu-only-boundary/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-18",
+   "license": "https://creativecommons.org/licenses/by/4.0/",
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/"
+   },
+   "mainEntity": {
+    "@type": "DefinedTerm",
+    "@id": "https://leadgreen.ai/glossary/gpu-only-boundary/#term",
+    "name": "GPU-only boundary",
+    "description": "The measurement boundary of every index row: energy read from the GPUs alone, with host, network, cooling, idle time and embodied carbon outside it.",
+    "url": "https://leadgreen.ai/glossary/gpu-only-boundary/",
+    "inDefinedTermSet": {
+     "@type": "DefinedTermSet",
+     "name": "Lead Green glossary",
+     "url": "https://leadgreen.ai/glossary/"
+    }
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What does GPU-only mean on the index?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "That the energy was read from the GPU devices alone over a steady-state window. Host, network, storage, cooling, idle time between requests and embodied carbon are not counted. Google's August 2025 figures show accelerators at 58 percent of a prompt's whole-stack energy."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I take a GPU-only figure to the facility meter?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Multiply by the system-to-GPU power ratio (1.79 for a DGX B200: 14.3 kW rated against 8.0 kW of GPUs) and by the site's PUE. With a PUE of 1.3, 63.5 Wh/M at the GPU is about 148 Wh/M at the meter. Both multipliers are the operator's own."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why not publish whole-system figures?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Because they cannot be compared across vendors or sites: the host, the fans and the cooling design differ with every server and building, while the GPU figure for a named model on a named card at a stated load can be measured anywhere. The index publishes the comparable part and names the multipliers for the rest."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does the boundary include the energy of processing the prompt?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. The benchmark divides steady-state GPU energy, which includes prefill, by the output tokens generated; the prompt's tokens are not in the denominator."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Lead Green",
+     "item": "https://leadgreen.ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Glossary",
+     "item": "https://leadgreen.ai/glossary/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "GPU-only boundary",
+     "item": "https://leadgreen.ai/glossary/gpu-only-boundary/"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<div class="title">
+  <p class="eyebrow"><a href="../../glossary/">Glossary</a></p>
+  <h1>GPU-only boundary</h1>
+  <p class="stand"><b>The GPU-only boundary</b> is the measurement boundary of every index row: energy read from the GPU devices themselves over the steady-state window, with the host CPU and memory, the network and storage, cooling and the rest of the facility, time the GPU spends idle between requests, and the carbon embodied in the hardware all outside it. Google's August 2025 disclosure shows the size of what sits outside: accelerators were <b>58 percent</b> of its 0.24 Wh median prompt, and NVIDIA rates a DGX B200 at 14.3 kW against 8.0 kW for its 8 GPUs, a system-to-GPU ratio of <b>1.79</b>.</p>
+  <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 18 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. GPU-only boundary: definition and the figure. https://leadgreen.ai/glossary/gpu-only-boundary/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+<div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile"><span class="lbl">Accelerator share</span><span class="val">58<small>%</small></span><span class="sub">of Google's 0.24 Wh median prompt, August 2025</span></div><div class="tile ref"><span class="lbl">System to GPU</span><span class="val">1.79<small>×</small></span><span class="sub">DGX B200: 14.3 kW rated against 8.0 kW of GPUs</span></div><div class="tile"><span class="lbl">At the meter</span><span class="val">148<small>Wh/M</small></span><span class="sub">Reference row × 1.79 × PUE 1.3; illustration, not a measurement</span></div></div>
+<section id="working" class="first">
+  <p class="eyebrow">The working</p>
+  <h2>How the term is used on the index</h2>
+  <div class="prose"><p>Two multipliers take a GPU figure to the facility meter, and both belong to the operator. The system-to-GPU power ratio covers the host, memory, network and fans; the site's power usage effectiveness (<a href="../../glossary/pue/">PUE</a>) covers cooling and distribution. As an illustration, with the DGX B200 ratio of 1.79 and a PUE of 1.3, the reference row's 63.5 Wh/M becomes about 148 Wh/M at the meter, and a gigawatt-hour at the meter serves about 6.8 billion tokens instead of 15.8 billion per megawatt-hour of GPU energy. The PUE is the operator's own figure and the index publishes none.</p><p>The boundary is drawn at the GPU because it is the only part a buyer can measure, compare across vendors and hold a vendor to; the rest depends on the site. For scale on embodied carbon, NVIDIA's cradle-to-gate footprint for one HGX B200 baseboard, eight GPUs, is 2,274 kg CO2e. Water is outside the boundary too: the index measures electricity, and the only public per-prompt water figures are Google's 0.26 mL and Mistral's 45 mL per reply.</p></div>
+</section>
+
+<section id="used">
+  <p class="eyebrow">Where it is used</p>
+  <h2>Pages that rely on this term</h2>
+  <div class="prose"><ul><li><a href="../../index/#method">The index method</a></li><li><a href="../../per-query/">How much energy does an AI query use?</a></li><li><a href="../../why/#power">Why it matters: power</a></li></ul>
+  <p>Other terms: </p><ul><li><a href="../../glossary/watt-hours-per-million-output-tokens/">Watt-hours per million output tokens (Wh/M)</a></li><li><a href="../../glossary/energy-per-token/">Energy per token</a></li><li><a href="../../glossary/running-batch/">Running batch</a></li><li><a href="../../glossary/floor/">Floor</a></li><li><a href="../../glossary/location-based-intensity/">Location-based grid intensity</a></li><li><a href="../../glossary/kg-co2e-per-billion-tokens/">kg CO2e per billion output tokens</a></li><li><a href="../../glossary/inter-token-latency-ceiling/">Inter-token latency ceiling</a></li><li><a href="../../glossary/pue/">Power usage effectiveness (PUE)</a></li></ul></div>
+</section>
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about this term</h2><div class="prose faq"><h3>What does GPU-only mean on the index?</h3><p>That the energy was read from the GPU devices alone over a steady-state window. Host, network, storage, cooling, idle time between requests and embodied carbon are not counted. Google&#x27;s August 2025 figures show accelerators at 58 percent of a prompt&#x27;s whole-stack energy.</p><h3>How do I take a GPU-only figure to the facility meter?</h3><p>Multiply by the system-to-GPU power ratio (1.79 for a DGX B200: 14.3 kW rated against 8.0 kW of GPUs) and by the site&#x27;s PUE. With a PUE of 1.3, 63.5 Wh/M at the GPU is about 148 Wh/M at the meter. Both multipliers are the operator&#x27;s own.</p><h3>Why not publish whole-system figures?</h3><p>Because they cannot be compared across vendors or sites: the host, the fans and the cooling design differ with every server and building, while the GPU figure for a named model on a named card at a stated load can be measured anywhere. The index publishes the comparable part and names the multipliers for the rest.</p><h3>Does the boundary include the energy of processing the prompt?</h3><p>Yes. The benchmark divides steady-state GPU energy, which includes prefill, by the output tokens generated; the prompt&#x27;s tokens are not in the denominator.</p></div></section>
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
+  <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, October 2026 release, 2024, CC BY 4.0, retrieved 17 October 2026. Hardware: NVIDIA product specifications and the HGX B200 product carbon footprint summary (July 2025), retrieved 26 September 2026. Per-prompt figures: Google, <a href="https://arxiv.org/abs/2508.15734">arXiv 2508.15734</a> (August 2025); Mistral AI, July 2025.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+</section>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

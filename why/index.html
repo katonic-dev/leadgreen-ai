@@ -27,22 +27,81 @@
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
- "@type": "WebPage",
- "name": "Why it matters | Lead Green",
- "description": "Why GPU energy per million output tokens belongs in procurement, operations and reporting, with the working, the sources and an RFP clause to paste.",
- "url": "https://leadgreen.ai/why/",
- "publisher": {
-  "@type": "Organization",
-  "name": "Lead Green",
-  "url": "https://leadgreen.ai/",
-  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
-  "parentOrganization": {
-   "@type": "Organization",
-   "name": "Katonic",
-   "url": "https://www.katonic.ai"
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "name": "Why it matters | Lead Green",
+   "description": "Why GPU energy per million output tokens belongs in procurement, operations and reporting, with the working, the sources and an RFP clause to paste.",
+   "url": "https://leadgreen.ai/why/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    }
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-18",
+   "@id": "https://leadgreen.ai/why/"
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Does the EU AI Act require reporting the energy used by AI inference?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not per inference. Regulation (EU) 2024/1689 requires providers of general-purpose AI models to keep technical documentation for the AI Office, and Annex XI, section 1, point 2(e) names the model's known or estimated energy consumption: a training figure in MWh, held by the provider, which does not reach buyers. Article 53(2) lifts the duty from models released under a free and open-source licence with public weights unless they carry systemic risk, and Article 111(3) gives models placed on the market before 2 August 2025 until 2 August 2027. No law asks anyone for serving energy per token. Regulatory summaries on this site are as at 27 September 2026, for orientation, and are not legal advice."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which line of ESRS E1 does AI inference energy go on?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "For GPUs you run, the electricity is energy consumption from own operations under ESRS E1-5 (paragraph 37) and its emissions are Scope 2 under E1-6, location-based and market-based. Tokens bought from a hosted API are the provider's Scope 2 and your Scope 3, category 1, purchased goods and services. In both cases the forecasting unit is energy per million tokens: tokens served next year multiplied by Wh/M gives the MWh."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I put AI energy efficiency in an RFP?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with median and p99 inter-token latency reported, on the buyer's prompt set or the ML.ENERGY Leaderboard's conversation sample, GPU energy only, naming the method, the tool, the versions and the date. Score it with a gate on completeness, a floor from the index's rows for the same model and GPU, a challenge at 10 percent below the floor, and the consistency check Wh/M = average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. The clause and the scoring box on this page are ready to paste."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why does an idle GPU use more energy per token than a busy one?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Because the cards' power does not fall in step with their work. On the index, Qwen 3 32B on 2 × H100 goes from 452 Wh/M at a running batch of 8 to 63.5 Wh/M at 256, 7.1× on the same hardware, while the cards' draw rises only 39 percent. A high energy per token is what an under-used server looks like from the wall socket: you are paying for silicon that is waiting."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does where I run AI change its energy per token?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No; it changes the carbon. The same tokens on the same GPUs use the same energy anywhere. On Ember's 2024 figures the reference row carries 43.7 kg CO2e per billion tokens on Saudi Arabia's grid (689 gCO2e per kWh) and 1.9 kg on Norway's (30), 23× apart."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is the electricity for AI inference expensive?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No, and that is the point. At the reference row and USD 0.10 per kWh the electricity costs about 0.6 cents per million tokens at the floor; a lightly loaded server pays several times that. Trivial as a bill, decisive as a signal: energy per token tracks GPU-hours, which is where the real money goes."
+     }
+    }
+   ]
   }
- },
- "inLanguage": "en"
+ ]
 }
 </script>
 <script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
@@ -74,6 +133,7 @@
   <p class="eyebrow">Why it matters</p>
   <h1>Nine reasons to know your watt-hours per million tokens</h1>
   <p class="stand">The number is small, cheap to buy and easy to ignore. It is also the only figure that ties a model, a GPU and a workload to a power feed, a carbon line and a utilisation rate at the same time. Here is why each of those matters, with the working shown.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Why it matters. https://leadgreen.ai/why/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page">
     <li><a href="#utilisation">1 Utilisation</a></li>
     <li><a href="#power">2 Power</a></li>
@@ -85,6 +145,7 @@
     <li><a href="#mig">8 Sliced GPUs</a></li>
     <li><a href="#monday">9 Monday</a></li>
     <li><a href="#hosted">Hosted API</a></li>
+    <li><a href="#faq">Questions</a></li>
   </ul>
 </div>
 
@@ -228,6 +289,8 @@
   <p class="note">Use it as the second lot beside the on-premise clause above, so a tender with both lots scores both. The cannot-measure and confidential rules in "Scoring the answers" apply to it too.</p>
 </section>
 
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about why the number matters</h2><div class="prose faq"><h3>Does the EU AI Act require reporting the energy used by AI inference?</h3><p>Not per inference. Regulation (EU) 2024/1689 requires providers of general-purpose AI models to keep technical documentation for the AI Office, and Annex XI, section 1, point 2(e) names the model&#x27;s known or estimated energy consumption: a training figure in MWh, held by the provider, which does not reach buyers. Article 53(2) lifts the duty from models released under a free and open-source licence with public weights unless they carry systemic risk, and Article 111(3) gives models placed on the market before 2 August 2025 until 2 August 2027. No law asks anyone for serving energy per token. Regulatory summaries on this site are as at 27 September 2026, for orientation, and are not legal advice.</p><h3>Which line of ESRS E1 does AI inference energy go on?</h3><p>For GPUs you run, the electricity is energy consumption from own operations under ESRS E1-5 (paragraph 37) and its emissions are Scope 2 under E1-6, location-based and market-based. Tokens bought from a hosted API are the provider&#x27;s Scope 2 and your Scope 3, category 1, purchased goods and services. In both cases the forecasting unit is energy per million tokens: tokens served next year multiplied by Wh/M gives the MWh.</p><h3>How do I put AI energy efficiency in an RFP?</h3><p>Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with median and p99 inter-token latency reported, on the buyer&#x27;s prompt set or the ML.ENERGY Leaderboard&#x27;s conversation sample, GPU energy only, naming the method, the tool, the versions and the date. Score it with a gate on completeness, a floor from the index&#x27;s rows for the same model and GPU, a challenge at 10 percent below the floor, and the consistency check Wh/M = average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. The clause and the scoring box on this page are ready to paste.</p><h3>Why does an idle GPU use more energy per token than a busy one?</h3><p>Because the cards&#x27; power does not fall in step with their work. On the index, Qwen 3 32B on 2 × H100 goes from 452 Wh/M at a running batch of 8 to 63.5 Wh/M at 256, 7.1× on the same hardware, while the cards&#x27; draw rises only 39 percent. A high energy per token is what an under-used server looks like from the wall socket: you are paying for silicon that is waiting.</p><h3>Does where I run AI change its energy per token?</h3><p>No; it changes the carbon. The same tokens on the same GPUs use the same energy anywhere. On Ember&#x27;s 2024 figures the reference row carries 43.7 kg CO2e per billion tokens on Saudi Arabia&#x27;s grid (689 gCO2e per kWh) and 1.9 kg on Norway&#x27;s (30), 23× apart.</p><h3>Is the electricity for AI inference expensive?</h3><p>No, and that is the point. At the reference row and USD 0.10 per kWh the electricity costs about 0.6 cents per million tokens at the floor; a lightly loaded server pays several times that. Trivial as a bill, decisive as a signal: energy per token tracks GPU-hours, which is where the real money goes.</p></div><p class="note">Every question on the site, with a link to the page that answers it, is on <a href="../faq/">the questions page</a>; the terms are defined in <a href="../glossary/">the glossary</a>.</p></section>
+
   </main>
 
   <footer>
@@ -237,6 +300,8 @@
       <a href="../api/">Data API</a>
       <a href="../mcp/">MCP server</a>
       <a href="../feed.xml">RSS</a>
+      <a href="../glossary/">Glossary</a>
+      <a href="../faq/">Questions</a>
       <a href="../llms.txt">llms.txt</a>
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>

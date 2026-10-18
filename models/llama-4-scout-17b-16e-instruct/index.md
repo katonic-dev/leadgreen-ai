@@ -10,6 +10,8 @@ Llama 4 Scout 17B 16E Instruct serves a million output tokens for **93.4 Wh/M** 
 
 **Model** [meta-llama/Llama-4-Scout-17B-16E-Instruct](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct), a mixture-of-experts model (17 B of 109 B parameters active per token), weights in BF16. **Measured** 20 configurations on H100. **Data** [models/llama-4-scout-17b-16e-instruct.json](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Llama 4 Scout 17B 16E Instruct: energy per million output tokens. https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#configurations)
 - [Carbon](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#carbon)
 - [Questions](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#faq)

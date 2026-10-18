@@ -10,6 +10,8 @@ United Kingdom's grid ran at **216 gCO2e per kWh** in 2024 on Ember's yearly fig
 
 **Area** United Kingdom (GBR, GB). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. United Kingdom: carbon of AI inference per billion tokens. https://leadgreen.ai/grids/united-kingdom/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Trend](https://leadgreen.ai/grids/united-kingdom/#trend)
 - [Every model](https://leadgreen.ai/grids/united-kingdom/#models)
 - [Reporting](https://leadgreen.ai/grids/united-kingdom/#reporting)

@@ -10,6 +10,8 @@ Qwen 3 32B serves a million output tokens for **39.1 Wh/M** on 1 × B200 (runnin
 
 **Model** [Qwen/Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B), a dense transformer, weights in BF16. **Measured** 22 configurations on B200 and H100. **Data** [models/qwen-3-32b.json](https://leadgreen.ai/api/v1/models/qwen-3-32b.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Qwen 3 32B: energy per million output tokens. https://leadgreen.ai/models/qwen-3-32b/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/qwen-3-32b/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-32b/#generations)
 - [Carbon](https://leadgreen.ai/models/qwen-3-32b/#carbon)

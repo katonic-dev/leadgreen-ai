@@ -10,6 +10,8 @@ Llama 4 Maverick 17B 128E Instruct FP8 serves a million output tokens for **134.
 
 **Model** [meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8), a mixture-of-experts model (17 B of 400 B parameters active per token), weights in FP8. **Measured** 9 configurations on H100. **Data** [models/llama-4-maverick-17b-128e-instruct-fp8.json](https://leadgreen.ai/api/v1/models/llama-4-maverick-17b-128e-instruct-fp8.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Llama 4 Maverick 17B 128E Instruct FP8: energy per million output tokens. https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/#configurations)
 - [Carbon](https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/#carbon)
 - [Questions](https://leadgreen.ai/models/llama-4-maverick-17b-128e-instruct-fp8/#faq)

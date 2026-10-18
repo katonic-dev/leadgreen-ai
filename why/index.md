@@ -8,6 +8,8 @@
 
 The number is small, cheap to buy and easy to ignore. It is also the only figure that ties a model, a GPU and a workload to a power feed, a carbon line and a utilisation rate at the same time. Here is why each of those matters, with the working shown.
 
+Cite this page: Lead Green, a Katonic project. Why it matters. https://leadgreen.ai/why/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [1 Utilisation](https://leadgreen.ai/why/#utilisation)
 - [2 Power](https://leadgreen.ai/why/#power)
 - [3 The board](https://leadgreen.ai/why/#board)
@@ -18,6 +20,7 @@ The number is small, cheap to buy and easy to ignore. It is also the only figure
 - [8 Sliced GPUs](https://leadgreen.ai/why/#mig)
 - [9 Monday](https://leadgreen.ai/why/#monday)
 - [Hosted API](https://leadgreen.ai/why/#hosted)
+- [Questions](https://leadgreen.ai/why/#faq)
 
 *1*
 
@@ -160,3 +163,33 @@ Together they give the supplier-specific figure your Scope 3 category 1 line nee
 "For a hosted or shared inference service, the bidder shall state, for each proposed model and service tier, the fleet-average GPU energy per million output tokens (Wh/M) over the preceding quarter at the fleet's actual utilisation, and shall state whether host, network and cooling energy are included; where they are measured they shall be reported as separate figures and not folded in. The bidder shall name the facilities and grid regions that will serve the buyer's traffic and the grid or contracted supply behind each, shall state their power usage effectiveness and the host-to-GPU power ratio of the serving systems, and shall state the rule by which the energy of a shared fleet is allocated to the buyer. Any carbon figure quoted shall name the grid, the emission factor source and year, whether the factor is combustion-only or lifecycle, and whether any market-based instruments have been applied, with the location-based figure stated in all cases. Any per-prompt or per-request figure offered shall state the output length, the concurrency and the boundary behind it. The bidder shall restate these figures to the buyer every quarter for the term of the contract. A bidder that cannot state the fleet figure shall say so; that answer is scored as not stated, not compared."
 
 Use it as the second lot beside the on-premise clause above, so a tender with both lots scores both. The cannot-measure and confidential rules in "Scoring the answers" apply to it too.
+
+*Questions*
+
+## Asked about why the number matters
+
+### Does the EU AI Act require reporting the energy used by AI inference?
+
+Not per inference. Regulation (EU) 2024/1689 requires providers of general-purpose AI models to keep technical documentation for the AI Office, and Annex XI, section 1, point 2(e) names the model's known or estimated energy consumption: a training figure in MWh, held by the provider, which does not reach buyers. Article 53(2) lifts the duty from models released under a free and open-source licence with public weights unless they carry systemic risk, and Article 111(3) gives models placed on the market before 2 August 2025 until 2 August 2027. No law asks anyone for serving energy per token. Regulatory summaries on this site are as at 27 September 2026, for orientation, and are not legal advice.
+
+### Which line of ESRS E1 does AI inference energy go on?
+
+For GPUs you run, the electricity is energy consumption from own operations under ESRS E1-5 (paragraph 37) and its emissions are Scope 2 under E1-6, location-based and market-based. Tokens bought from a hosted API are the provider's Scope 2 and your Scope 3, category 1, purchased goods and services. In both cases the forecasting unit is energy per million tokens: tokens served next year multiplied by Wh/M gives the MWh.
+
+### How do I put AI energy efficiency in an RFP?
+
+Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with median and p99 inter-token latency reported, on the buyer's prompt set or the ML.ENERGY Leaderboard's conversation sample, GPU energy only, naming the method, the tool, the versions and the date. Score it with a gate on completeness, a floor from the index's rows for the same model and GPU, a challenge at 10 percent below the floor, and the consistency check Wh/M = average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. The clause and the scoring box on this page are ready to paste.
+
+### Why does an idle GPU use more energy per token than a busy one?
+
+Because the cards' power does not fall in step with their work. On the index, Qwen 3 32B on 2 × H100 goes from 452 Wh/M at a running batch of 8 to 63.5 Wh/M at 256, 7.1× on the same hardware, while the cards' draw rises only 39 percent. A high energy per token is what an under-used server looks like from the wall socket: you are paying for silicon that is waiting.
+
+### Does where I run AI change its energy per token?
+
+No; it changes the carbon. The same tokens on the same GPUs use the same energy anywhere. On Ember's 2024 figures the reference row carries 43.7 kg CO2e per billion tokens on Saudi Arabia's grid (689 gCO2e per kWh) and 1.9 kg on Norway's (30), 23× apart.
+
+### Is the electricity for AI inference expensive?
+
+No, and that is the point. At the reference row and USD 0.10 per kWh the electricity costs about 0.6 cents per million tokens at the floor; a lightly loaded server pays several times that. Trivial as a bill, decisive as a signal: energy per token tracks GPU-hours, which is where the real money goes.
+
+Every question on the site, with a link to the page that answers it, is on [the questions page](https://leadgreen.ai/faq/); the terms are defined in [the glossary](https://leadgreen.ai/glossary/).

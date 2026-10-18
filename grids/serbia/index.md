@@ -10,6 +10,8 @@ Serbia's grid ran at **668 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.
 
 **Area** Serbia (SRB, RS). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Serbia: carbon of AI inference per billion tokens. https://leadgreen.ai/grids/serbia/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Trend](https://leadgreen.ai/grids/serbia/#trend)
 - [Every model](https://leadgreen.ai/grids/serbia/#models)
 - [Reporting](https://leadgreen.ai/grids/serbia/#reporting)

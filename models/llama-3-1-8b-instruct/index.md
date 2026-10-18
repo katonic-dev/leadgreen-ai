@@ -10,6 +10,8 @@ Llama 3.1 8B Instruct serves a million output tokens for **13.0 Wh/M** on 1 × B
 
 **Model** [meta-llama/Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct), a dense transformer, weights in BF16. **Measured** 20 configurations on B200 and H100. **Data** [models/llama-3-1-8b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-1-8b-instruct.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Llama 3.1 8B Instruct: energy per million output tokens. https://leadgreen.ai/models/llama-3-1-8b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/llama-3-1-8b-instruct/#configurations)
 - [Two generations](https://leadgreen.ai/models/llama-3-1-8b-instruct/#generations)
 - [Carbon](https://leadgreen.ai/models/llama-3-1-8b-instruct/#carbon)

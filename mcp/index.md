@@ -10,6 +10,8 @@ The Model Context Protocol (MCP) is an open standard that lets an AI assistant c
 
 **Package** leadgreen-mcp 0.2.0 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `83c0551b5fcd1d3d78f73a3c33d73385110cf0452203dad638fafe9923ec0f60`
 
+Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/mcp/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 *Install*
 
 ## One line

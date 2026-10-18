@@ -10,6 +10,8 @@ Qwen 3 235B A22B Instruct serves a million output tokens for **66.7 Wh/M** on 4 
 
 **Model** [Qwen/Qwen3-235B-A22B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507), a mixture-of-experts model (22 B of 235 B parameters active per token), weights in BF16. **Measured** 31 configurations on B200 and H100. **Data** [models/qwen-3-235b-a22b-instruct.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json). Updated 18 October 2026.
 
+Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct: energy per million output tokens. https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+
 - [Every configuration](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#generations)
 - [Carbon](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#carbon)
