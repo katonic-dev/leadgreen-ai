@@ -27,7 +27,7 @@ REPO_URL = "https://github.com/katonic-dev/leadgreen-ai"
 # T2 / G6: the Hugging Face dataset. HF_DATASET_REPO is the target hf_dataset.py pushes to; HF_DATASET_URL stays ""
 # until the first push has landed, so sameAs never points at a page that does not exist yet.
 HF_DATASET_REPO = "leadgreen/green-token-index"
-HF_DATASET_URL = ""   # set to "https://huggingface.co/datasets/leadgreen/green-token-index" after the first push
+HF_DATASET_URL = "https://huggingface.co/datasets/leadgreen/green-token-index"   # first push 19 October 2026
 
 # T3 / G7: the Zenodo concept DOI for the project (one DOI that always resolves to the latest release), e.g.
 # "10.5281/zenodo.1234567". "" until the first deposit exists. Per-release DOIs live on Zenodo itself.
