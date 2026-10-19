@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-10-18",
-  "data_version": "2026-10-18",
+  "updated": "2026-10-19",
+  "data_version": "2026-10-19",
   "year": "2024",
   "unit": "gCO2e per kWh",
   "basis": "Lifecycle emissions intensity: CO2e per kWh of net generation, built from per-technology lifecycle factors (IPCC AR5 WG3 Annex III midpoints, all gases at GWP-100), so upstream methane, supply chains and plant manufacture are included. Production-based: imports and grid losses are excluded. A location-based figure for comparing places, not a Scope 2 combustion factor to file as reported. Annual averages: hourly intensity, contracted supply and self-generation are not reflected.",

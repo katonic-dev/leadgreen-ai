@@ -30,7 +30,10 @@ https://leadgreen.ai/api/v1/openapi.json
 https://leadgreen.ai/api/v1/per-query.json
 https://leadgreen.ai/api/v1/schema/measurement.schema.json
 https://leadgreen.ai/blog/
+https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/
 https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/
+https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/
+https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/
 https://leadgreen.ai/compare/
 https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/
 https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/

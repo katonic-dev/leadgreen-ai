@@ -2,15 +2,15 @@
 
 > One page per model on the Green Tokens index: GPU watt-hours per million output tokens on H100 and B200, every measured load, and carbon by grid.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/models/ (this file: https://leadgreen.ai/models/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/models/ (this file: https://leadgreen.ai/models/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Models*
 
 Every model on the Green Tokens index has its own page: the index row per GPU, every measured configuration from a running batch of eight upward, H100 against B200 where both were measured, carbon on a spread of grids, and the questions people ask about it. Every figure comes from the same dated snapshot as [the index](https://leadgreen.ai/index/).
 
-**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Models: GPU energy per million output tokens, by model. https://leadgreen.ai/models/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Models: GPU energy per million output tokens, by model. https://leadgreen.ai/models/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 *Lowest index row first*
 

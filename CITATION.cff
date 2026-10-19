@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this index, cite the dated release you used; the list is at https://leadgreen.ai/api/v1/releases/index.json."
 type: dataset
 title: "Green Tokens: GPU energy per million output tokens, by model, GPU and configuration, with grid carbon intensity"
-version: "2026-10-18"
-date-released: "2026-10-18"
+version: "2026-10-19"
+date-released: "2026-10-19"
 url: "https://leadgreen.ai/"
 repository-code: "https://github.com/katonic-dev/leadgreen-ai"
 license: CC-BY-4.0

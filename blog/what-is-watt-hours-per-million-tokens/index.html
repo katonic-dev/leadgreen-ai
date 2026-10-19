@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>What is watt-hours per million tokens, and why not joules per token?</title>
+<meta name="description" content="The unit behind the index: what Wh/M counts, what it leaves out, how it converts to kWh, carbon and the meter, and why joules per token became watt-hours.">
+<link rel="canonical" href="https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="What is watt-hours per million tokens, and why not joules per token?">
+<meta property="og:description" content="The unit behind the index: what Wh/M counts, what it leaves out, how it converts to kWh, carbon and the meter, and why joules per token became watt-hours.">
+<meta property="og:url" content="https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/index.md">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BlogPosting",
+ "headline": "What is watt-hours per million tokens, and why not joules per token?",
+ "description": "The unit behind the index: what Wh/M counts, what it leaves out, how it converts to kWh, carbon and the meter, and why joules per token became watt-hours.",
+ "datePublished": "2026-10-19",
+ "dateModified": "2026-10-19",
+ "author": {
+  "@type": "Person",
+  "name": "Prem Naraindas",
+  "url": "https://www.linkedin.com/in/premnaraindas/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "Lead Green",
+  "url": "https://leadgreen.ai/",
+  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+  "parentOrganization": {
+   "@type": "Organization",
+   "name": "Katonic",
+   "url": "https://www.katonic.ai"
+  },
+  "sameAs": [
+   "https://github.com/katonic-dev/leadgreen-ai",
+   "https://www.linkedin.com/showcase/leadgreen-ai/"
+  ]
+ },
+ "mainEntityOfPage": "https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/",
+ "url": "https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/",
+ "inLanguage": "en",
+ "license": "https://creativecommons.org/licenses/by/4.0/",
+ "isAccessibleForFree": true
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog" aria-current="page">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<article class="post">
+<div class="title">
+<p class="eyebrow">Blog</p>
+<h1>What is watt-hours per million tokens, and why not joules per token?</h1>
+<p class="byline">By Prem Naraindas · <time datetime="2026-10-19">19 October 2026</time> · Lead Green, a Katonic project</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. What is watt-hours per million tokens, and why not joules per token?. https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
+</div>
+<div class="body">
+<p>Look, every table on this site is in one unit, watt-hours per million output tokens, and I get asked why. The benchmark we build on publishes joules per token. Finance thinks in kilowatt-hours. Facilities thinks in kilowatts. Sustainability wants kilograms of CO2e. So this post is the unit, start to finish: what it counts, what it leaves out, how to move between it and every other number people ask for, and why I picked it over the alternatives.</p>
+
+<h2>The definition</h2>
+<p>Take the GPU energy a server used while it was serving, in joules. Divide by the output tokens it produced in the same window. That is joules per output token, which is what the ML.ENERGY benchmark measures. Multiply by a million, divide by 3,600, and you have watt-hours per million output tokens, Wh/M. One Wh/M is 0.0036 joules per token; the arithmetic never changes, so you can go back and forth without losing anything. The reference row on the index is 0.2285 J per token, which is 63.5 Wh/M.</p>
+<p>Two words in that definition carry the weight. <b>GPU energy:</b> the cards and nothing else. The host, the network, the cooling and the building are outside the figure. <b>Output tokens:</b> the tokens the model produced, not the ones it read. The prompt still costs energy to process, and that energy is inside the figure, because the benchmark divides everything the GPUs used by the outputs alone. So Wh/M is the whole GPU bill per unit of what you got.</p>
+
+<h2>Why not joules per token?</h2>
+<p>Because the numbers are hard to hold in your head. Across the index, joules per token run from 0.047 to 2.06. Those are decimals with the interesting part in the second and third place, and nobody in a capacity meeting is going to compare 0.047 with 0.2285 and feel the difference. The same rows in Wh/M are 13.0 to 572.9: whole numbers, a 44× spread you can see. The scaling is the only change; the information is identical.</p>
+<p>The second reason is the bill. Tokens are sold by the million, and electricity is sold by the kilowatt-hour. A unit that is watt-hours over millions of tokens sits between the two invoices, which is where the question lives. See, 63.5 Wh per million tokens is 63.5 kWh per billion tokens, no conversion table needed, and that is the number a finance person can multiply by a tariff.</p>
+
+<h2>Why not energy per request?</h2>
+<p>Because requests are not the same size. On the index's chat workload, the average answer runs from 462 to 1,464 tokens depending on the model; on the same leaderboard's problem-solving task, answers run 5,361 to 8,969 tokens. Energy per request is what a bill sees, and it is the right number to ask for when you are forecasting a particular product, but it mixes the model's efficiency with how talkative it is. Energy per token separates the two. When you want per request, multiply by your own average output length: the reference row's 634-token answers cost about 145 joules each, which is 0.040 Wh.</p>
+
+<h2>Why not power?</h2>
+<p>Power, in watts, is what the facility engineer sees and what the feed is sized for. It is not efficiency. A card at full draw producing few tokens and a card at full draw producing many read the same on a power meter, and the difference between them is the whole point. Energy per token is power divided by throughput: watts divided by tokens per second gives joules per token, and the same scaling gives Wh/M. On the reference row that is 1,177.9 W divided by 5,155.5 tokens per second, times a million, over 3,600, equals 63.47 Wh/M. I put that identity in the RFP scoring box on the <a href="../../why/#monday">why page</a>, because any bidder's figure that fails it was not measured.</p>
+
+<h2>The conditions that travel with the number</h2>
+<p>A Wh/M figure without its conditions is a number without a unit. Three conditions must come with it. The <b>running batch</b>: how many requests the server was decoding at once, averaged over the window; the same model on the same cards moves 7.1× between a batch of 8 and 256. The <b>latency</b>: the median inter-token latency users were getting, 44 ms on the reference row, under the leaderboard's 500 ms ceiling. And the <b>boundary</b>: GPU only, or with the host, network and cooling, and if so how much. Every row on the index states all three. Every vendor figure you are given should too, and if it does not, ask.</p>
+
+<h2>From Wh/M to everything else</h2>
+<ul>
+  <li><b>Kilowatt-hours.</b> Wh/M × millions of tokens ÷ 1,000. A billion tokens at 63.5 Wh/M is 63.5 kWh.</li>
+  <li><b>Tokens per megawatt-hour</b>, the capacity planner's number. One MWh of GPU energy at the reference row serves 15.8 billion output tokens; at the top of the concurrency ladder, 2.2 billion. Same cards, same MWh.</li>
+  <li><b>Carbon.</b> Wh/M × the grid's grams of CO2e per kWh ÷ 1,000 gives kilograms per billion tokens. The reference row on Serbia's grid (668 gCO2e per kWh, Ember 2024) is 42.4 kg per billion. The grid figure is location-based and lifecycle; the <a href="../../grids/">grid pages</a> say what that means for your report.</li>
+  <li><b>The meter.</b> Multiply by the system-to-GPU power ratio (a DGX B200 is 1.79) and the site's PUE, which only the operator knows. With an assumed PUE of 1.3, the reference row is about 148 Wh/M at the meter, 6.8 billion tokens per facility MWh. Both multipliers are assumptions in that example, and I say so every time I use it.</li>
+  <li><b>Money.</b> At USD 0.10 per kWh, my assumption, the reference row is 0.6 cents per million tokens. Small. The number matters because it tracks GPU-hours, which are not small.</li>
+</ul>
+
+<h2>What the unit does not tell you</h2>
+<p>It does not tell you what your deployment uses. Every index row is a floor: the most efficient configuration measured, on a busy server, GPU only. It does not tell you about water, which the index does not measure. It does not tell you about closed models behind an API, which nobody outside the operator can measure. And it does not rank anyone as green. In my view it is the one number that ties a model, a card and a load to a feed, a bill and a carbon line at the same time, and that is the case for it. The rows are on <a href="../../index/">the index</a>, the same numbers are in <a href="../../api/">the API</a>, and the <a href="../../mcp/">MCP server</a> will do the conversions above for you and repeat the caveat every time.</p>
+
+<div class="refs">
+  <p class="eyebrow">References</p>
+  <ol>
+    <li><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</li>
+    <li>Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, 2024, CC BY 4.0. <a href="https://ember-energy.org/data/yearly-electricity-data/">ember-energy.org</a>.</li>
+    <li>NVIDIA DGX B200 product page, for the system power rating behind the system-to-GPU ratio. The PUE of 1.3 and the electricity price of USD 0.10 per kWh are stated assumptions, not source figures.</li>
+    <li>Conversions: Wh/M = J per token × 1,000,000 ÷ 3,600; kWh per billion tokens = Wh/M; kg CO2e per billion tokens = Wh/M × gCO2e per kWh ÷ 1,000. Method and every row: <a href="../../index/#method">the index</a>.</li>
+  </ol>
+</div>
+
+</div>
+</article>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

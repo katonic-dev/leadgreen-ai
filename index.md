@@ -2,13 +2,13 @@
 
 > A public index of the GPU energy it takes to serve a million output tokens, by model and GPU, with grid carbon, open data, an API and an MCP server.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/ (this file: https://leadgreen.ai/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/ (this file: https://leadgreen.ai/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 Lead Green is a public index of the **GPU watt-hours it takes to serve a million output tokens**, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open, there is a JSON API and an MCP server, and anyone with a GPU will be able to add a measurement.
 
-**Unit** watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. Updated 18 October 2026.
+**Unit** watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Lead Green: the energy behind the token. https://leadgreen.ai/, release 2026-10-18, retrieved [date]. CC BY 4.0.  [Read the index](https://leadgreen.ai/index/) [Why it matters](https://leadgreen.ai/why/) [Use the data](https://leadgreen.ai/api/)
+Cite this page: Lead Green, a Katonic project. Lead Green: the energy behind the token. https://leadgreen.ai/, release 2026-10-19, retrieved [date]. CC BY 4.0.  [Read the index](https://leadgreen.ai/index/) [Why it matters](https://leadgreen.ai/why/) [Use the data](https://leadgreen.ai/api/)
 -  **Lowest floor on the index:**  13.0 Wh/M  Llama 3.1 8B Instruct, 1 × B200. Running batch 2,043, median ITL 125 ms.
 -  **Reference floor:**  63.5 Wh/M  Qwen 3 32B, 2 × H100. Running batch 256, median ITL 44 ms. The carbon table is priced on this row.
 -  **Highest floor on the index:**  572.9 Wh/M  Llama 3.1 405B Instruct FP8, 8 × H100. Running batch 255, median ITL 67 ms.
@@ -103,7 +103,7 @@ You own the feed, the power envelope and the capacity meeting. The index gives y
 2. **Compute.** Pull `index.json` and `grid.json` from the [API](https://leadgreen.ai/api/). Multiply Wh per million by your monthly tokens for energy; multiply by your grid's gCO2e per kWh and divide by 1,000 for kg CO2e per billion tokens.
 3. **Ask.** Add the [MCP server](https://leadgreen.ai/mcp/) to your assistant and ask in plain words. It answers with the row, the source and the caveat.
 
-Latest from the blog: [What a million tokens costs in watt-hours](https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/).
+Latest from the blog: [How much energy does an AI query use?](https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/).
 
 *Questions*
 

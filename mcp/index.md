@@ -2,15 +2,15 @@
 
 > An MCP server that gives Claude, Cursor and other assistants the Green Tokens index as tools: energy by model and GPU, estimates, carbon and sources.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/mcp/ (this file: https://leadgreen.ai/mcp/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/mcp/ (this file: https://leadgreen.ai/mcp/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *MCP server*
 
 The Model Context Protocol (MCP) is an open standard that lets an AI assistant call tools a server exposes. Lead Green ships a small MCP server so that Claude, Cursor or any MCP-capable client can answer questions about the index with the row, the source and the caveat attached, instead of guessing.
 
-**Package** leadgreen-mcp 0.2.0 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `83c0551b5fcd1d3d78f73a3c33d73385110cf0452203dad638fafe9923ec0f60`
+**Package** leadgreen-mcp 0.2.0 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `5f4b0a112c3b75bb1ae5347b8d66fd6c1d5a1edcdf1654702c8a31629b6970c1`
 
-Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/mcp/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/mcp/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 *Install*
 

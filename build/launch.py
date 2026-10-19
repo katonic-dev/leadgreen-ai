@@ -127,9 +127,10 @@ def main() -> None:
         print(f"    {whl.name} sha256 {h1}")
         print("5. build again: the install line follows the wheel")
         build()
-        if f"sha256={h1}" not in (SITE / "mcp" / "index.html").read_text(encoding="utf-8"):
-            sys.exit("the install line on /mcp/ does not carry the new wheel's hash")
-        print("    /mcp/ install line carries it")
+        # with REPO_URL set the install line is the git+ form and the hash sits beside it as the wheel's SHA-256
+        if h1 not in (SITE / "mcp" / "index.html").read_text(encoding="utf-8"):
+            sys.exit("/mcp/ does not carry the new wheel's hash")
+        print("    /mcp/ carries it")
 
     if a.no_freeze:
         print("6. freeze skipped (--no-freeze)")

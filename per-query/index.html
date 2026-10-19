@@ -50,7 +50,7 @@
     ]
    },
    "inLanguage": "en",
-   "dateModified": "2026-10-18",
+   "dateModified": "2026-10-19",
    "license": "https://creativecommons.org/licenses/by/4.0/",
    "isPartOf": {
     "@type": "WebSite",
@@ -77,7 +77,7 @@
       "https://www.linkedin.com/showcase/leadgreen-ai/"
      ]
     },
-    "dateModified": "2026-10-18",
+    "dateModified": "2026-10-19",
     "isBasedOn": [
      "https://ml.energy/leaderboard/",
      "https://huggingface.co/spaces/AIEnergyScore/Leaderboard",
@@ -200,8 +200,8 @@
   <p class="eyebrow"><a href="../index/">The index</a> · Per query</p>
   <h1>How much energy does an AI query use?</h1>
   <p class="stand">One answer from a busy open-weight model costs about <b>0.040 Wh</b> of GPU energy on the index's reference row (Qwen 3 32B on 2 × H100: 63.5 Wh per million output tokens, answers averaging 634 tokens, 256 requests in flight). Google puts the median Gemini Apps text prompt at <b>0.24 Wh</b> across its whole serving stack (August 2025), of which the accelerators are 58 percent, and its narrow accelerator-only figure is 0.10 Wh. The gap between a per-prompt figure and a per-million-tokens figure is boundary, load and answer length, and this page converts one into the other with each of them stated.</p>
-  <p class="unit"><b>Units</b> watt-hours per answer (Wh) and watt-hours per million output tokens (Wh/M). Wh per answer = Wh/M × output tokens ÷ 1,000,000. <b>Data</b> <a href="../api/v1/index.json">index.json</a>, <a href="../api/v1/per-query.json">per-query.json</a>. Updated 18 October 2026.</p>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. How much energy does an AI query use? Per prompt against per million tokens. https://leadgreen.ai/per-query/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <p class="unit"><b>Units</b> watt-hours per answer (Wh) and watt-hours per million output tokens (Wh/M). Wh per answer = Wh/M × output tokens ÷ 1,000,000. <b>Data</b> <a href="../api/v1/index.json">index.json</a>, <a href="../api/v1/per-query.json">per-query.json</a>. Updated 19 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. How much energy does an AI query use? Per prompt against per million tokens. https://leadgreen.ai/per-query/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#bridge">The bridge</a></li><li><a href="#published">What vendors published</a></li><li><a href="#batch-one">Batch size one</a></li><li><a href="#budget">To a budget</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 <div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile ref"><span class="lbl">One answer, reference row</span><span class="val">0.040<small>Wh</small></span><span class="sub">Qwen 3 32B, 2 × H100, 63.5 Wh/M × 634 output tokens. GPU only, busy server, a floor.</span></div><div class="tile"><span class="lbl">Google, median prompt</span><span class="val">0.24<small>Wh</small></span><span class="sub">Gemini Apps text prompt, August 2025, whole stack: accelerators 58 percent (0.14 Wh), narrow accelerator-only figure 0.10 Wh.</span></div><div class="tile"><span class="lbl">AI Energy Score, one query</span><span class="val">0.0042<small>to 1.27 Wh</small></span><span class="sub">22 models, batch size 1, answers fixed at ten tokens, H100 80GB, December 2025 round. A probe, not a serving load.</span></div></div>
@@ -260,7 +260,7 @@
   <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>. Per-answer figures are Wh per million output tokens multiplied by the row's own average output length.</p>
   <p class="note">Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, August 2025: 0.24 Wh, 0.03 g CO2e and 0.26 mL per median Gemini Apps text prompt; accelerators 58 percent; narrow boundary 0.10 Wh. <a href="https://arxiv.org/abs/2508.15734">arXiv 2508.15734</a>, retrieved 26 September 2026. Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): 1.14 g CO2e and 45 mL per 400-token reply. <a href="https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai">mistral.ai</a>, retrieved 26 September 2026.</p>
   <p class="note"><a href="https://huggingface.co/spaces/AIEnergyScore/Leaderboard">AI Energy Score leaderboard</a> (AI Energy Score (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University)), December 2025 round, retrieved 26 September 2026: GPU energy per 1,000 text-generation queries at batch size 1 on NVIDIA H100 80GB GPUs (one card for class A and B models, several for class C). Grid intensity in the carbon question: Ember, Yearly electricity data, October 2026 release, 2024.</p>
-  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
 </section>
   </main>
 
@@ -277,7 +277,7 @@
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
   </footer>
 
 </div>

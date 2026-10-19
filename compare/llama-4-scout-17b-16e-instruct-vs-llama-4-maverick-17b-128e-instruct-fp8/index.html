@@ -50,7 +50,7 @@
     ]
    },
    "inLanguage": "en",
-   "dateModified": "2026-10-18",
+   "dateModified": "2026-10-19",
    "license": "https://creativecommons.org/licenses/by/4.0/",
    "isPartOf": {
     "@type": "WebSite",
@@ -77,7 +77,7 @@
       "https://www.linkedin.com/showcase/leadgreen-ai/"
      ]
     },
-    "dateModified": "2026-10-18",
+    "dateModified": "2026-10-19",
     "isBasedOn": "https://ml.energy/leaderboard/",
     "distribution": [
      {
@@ -188,8 +188,8 @@
   <p class="eyebrow"><a href="../../compare/">Compare</a> · Two expert counts · H100</p>
   <h1>Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8: GPU energy per million output tokens</h1>
   <p class="stand">On the index rows, Llama 4 Maverick 17B 128E Instruct FP8 uses <b>1.44×</b> the GPU energy per output token of Llama 4 Scout 17B 16E Instruct on the H100 (134.5 against 93.4 Wh/M, on eight cards and four cards at running batches of 383 and 473), GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it (data compiled 16 February 2026). Llama 4 Scout 17B 16E Instruct has 109 B parameters, 17 B active per token; Llama 4 Maverick 17B 128E Instruct FP8 has 400 B parameters, 17 B active per token. Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.</p>
-  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="../../api/v1/models/llama-4-scout-17b-16e-instruct.json">llama-4-scout-17b-16e-instruct.json</a>, <a href="../../api/v1/models/llama-4-maverick-17b-128e-instruct-fp8.json">llama-4-maverick-17b-128e-instruct-fp8.json</a>. Updated 18 October 2026.</p>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8: GPU energy per million output tokens. https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="../../api/v1/models/llama-4-scout-17b-16e-instruct.json">llama-4-scout-17b-16e-instruct.json</a>, <a href="../../api/v1/models/llama-4-maverick-17b-128e-instruct-fp8.json">llama-4-maverick-17b-128e-instruct-fp8.json</a>. Updated 19 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8: GPU energy per million output tokens. https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#rows">The rows</a></li><li><a href="#why">What explains it</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 <div class="tiles auto n2" role="group" aria-label="Headline readings"><div class="tile ref"><span class="lbl">H100, index rows</span><span class="val">1.44<small>×</small></span><span class="sub">Llama 4 Maverick 17B 128E Instruct FP8 134.5 Wh/M on 8 × H100 against Llama 4 Scout 17B 16E Instruct 93.4 Wh/M on 4 × H100.</span></div><div class="tile"><span class="lbl">Parameters</span><span class="val">3.7<small>×</small></span><span class="sub">Llama 4 Maverick 17B 128E Instruct FP8 400 B parameters, 17 B active per token; Llama 4 Scout 17B 16E Instruct 109 B parameters, 17 B active per token.</span></div></div>
@@ -218,7 +218,7 @@
   <h2>Where every figure came from</h2>
   <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
   <p class="note">Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.</p>
-  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
 </section>
   </main>
 
@@ -235,7 +235,7 @@
       <a href="../../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
   </footer>
 
 </div>

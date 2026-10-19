@@ -2,13 +2,13 @@
 
 > What the public measurements say a million output tokens takes in GPU watt-hours, and why a busy server uses a fraction of the energy of a quiet one.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/ (this file: https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/ (this file: https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Blog*
 
 By Prem Naraindas · 26 September 2026 · Lead Green, a Katonic project
 
-Cite this page: Lead Green, a Katonic project. What a million tokens costs in watt-hours. https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. What a million tokens costs in watt-hours. https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 Look, everybody in this industry now buys tokens. Per million, on an invoice, from a cloud or from their own GPUs. And nobody gets told what a million of them costs in electricity. I have sat in enough capacity meetings to know the question is coming, so this is the baseline: what the public measurements say a million output tokens takes in watt-hours, and what moves the number.
 

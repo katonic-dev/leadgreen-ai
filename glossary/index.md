@@ -2,15 +2,15 @@
 
 > Nine defined terms behind the index, one page each with the figure and the source: Wh per million tokens, energy per token, running batch, floor, PUE.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/ (this file: https://leadgreen.ai/glossary/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/ (this file: https://leadgreen.ai/glossary/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Glossary*
 
 Every figure on this site depends on a handful of defined terms: the unit, the boundary, the load, the latency limit and the carbon factor. Each has one page that states the definition, the figure and the source in its first paragraph, with the working underneath. Read them once and every row on the index reads the same way.
 
-**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Glossary: the terms behind GPU energy per token. https://leadgreen.ai/glossary/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Glossary: the terms behind GPU energy per token. https://leadgreen.ai/glossary/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 *Terms*
 

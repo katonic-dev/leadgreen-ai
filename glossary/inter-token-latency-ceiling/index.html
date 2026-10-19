@@ -50,7 +50,7 @@
     ]
    },
    "inLanguage": "en",
-   "dateModified": "2026-10-18",
+   "dateModified": "2026-10-19",
    "license": "https://creativecommons.org/licenses/by/4.0/",
    "isPartOf": {
     "@type": "WebSite",
@@ -162,8 +162,8 @@
   <p class="eyebrow"><a href="../../glossary/">Glossary</a></p>
   <h1>Inter-token latency ceiling</h1>
   <p class="stand"><b>The inter-token latency ceiling</b> is the limit that decides which measured configurations may be an index row: the median time between one output token and the next must be at or under <b>500 ms</b>, the ML.ENERGY Leaderboard's own default for every LLM task. Each index row is the lowest-energy configuration for its model and GPU under that ceiling. No measured configuration reaches it (the slowest Text Conversation row is 326 ms), so at 500 ms the ceiling excludes nothing; it is stated because any energy figure needs the latency it was measured at.</p>
-  <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 18 October 2026.</p>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. Inter-token latency ceiling: definition and the figure. https://leadgreen.ai/glossary/inter-token-latency-ceiling/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 19 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Inter-token latency ceiling: definition and the figure. https://leadgreen.ai/glossary/inter-token-latency-ceiling/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 <div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile"><span class="lbl">Ceiling</span><span class="val">500<small>ms median ITL</small></span><span class="sub">The leaderboard's default for every LLM task</span></div><div class="tile ref"><span class="lbl">Slowest measured row</span><span class="val">326<small>ms</small></span><span class="sub">Text Conversation; the ceiling excludes nothing at 500 ms</span></div><div class="tile"><span class="lbl">Reference row</span><span class="val">44<small>ms median</small></span><span class="sub">p99 148 ms at a running batch of 256</span></div></div>
@@ -185,7 +185,7 @@
   <h2>Where every figure came from</h2>
   <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
   <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, October 2026 release, 2024, CC BY 4.0, retrieved 17 October 2026. Hardware: NVIDIA product specifications and the HGX B200 product carbon footprint summary (July 2025), retrieved 26 September 2026. Per-prompt figures: Google, <a href="https://arxiv.org/abs/2508.15734">arXiv 2508.15734</a> (August 2025); Mistral AI, July 2025.</p>
-  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
 </section>
   </main>
 
@@ -202,7 +202,7 @@
       <a href="../../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
   </footer>
 
 </div>

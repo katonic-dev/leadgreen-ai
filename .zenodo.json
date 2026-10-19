@@ -1,8 +1,8 @@
 {
   "upload_type": "dataset",
   "title": "Green Tokens: GPU energy per million output tokens, by model, GPU and configuration, with grid carbon intensity",
-  "version": "2026-10-18",
-  "publication_date": "2026-10-18",
+  "version": "2026-10-19",
+  "publication_date": "2026-10-19",
   "language": "eng",
   "access_right": "open",
   "license": "cc-by-4.0",
@@ -35,7 +35,7 @@
       "resource_type": "other"
     },
     {
-      "identifier": "https://leadgreen.ai/api/v1/releases/2026-10-18/",
+      "identifier": "https://leadgreen.ai/api/v1/releases/2026-10-19/",
       "relation": "isVariantFormOf",
       "resource_type": "dataset"
     },

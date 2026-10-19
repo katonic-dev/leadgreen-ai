@@ -5,8 +5,32 @@
   <link>https://leadgreen.ai/blog/</link>
   <description>The energy behind the token. Public measurements of GPU energy per million output tokens, and what they mean for the people who buy, run and audit AI.</description>
   <language>en</language>
-  <lastBuildDate>Sun, 18 Oct 2026 06:00:00 +0000</lastBuildDate>
+  <lastBuildDate>Mon, 19 Oct 2026 06:00:00 +0000</lastBuildDate>
   <atom:link href="https://leadgreen.ai/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>How much energy does an AI query use?</title>
+    <link>https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/</link>
+    <guid isPermaLink="true">https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/</guid>
+    <pubDate>Mon, 19 Oct 2026 06:00:00 +0000</pubDate>
+    <dc:creator>Prem Naraindas</dc:creator>
+    <description>One answer from a busy 32B model costs about 0.040 Wh of GPU energy; Google says 0.24 Wh per median prompt. Both are right. Here is why.</description>
+  </item>
+  <item>
+    <title>What is watt-hours per million tokens, and why not joules per token?</title>
+    <link>https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/</link>
+    <guid isPermaLink="true">https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/</guid>
+    <pubDate>Mon, 19 Oct 2026 06:00:00 +0000</pubDate>
+    <dc:creator>Prem Naraindas</dc:creator>
+    <description>The unit behind the index: what Wh/M counts, what it leaves out, how it converts to kWh, carbon and the meter, and why joules per token became watt-hours.</description>
+  </item>
+  <item>
+    <title>Why an idle GPU wastes energy: the concurrency ladder</title>
+    <link>https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/</link>
+    <guid isPermaLink="true">https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/</guid>
+    <pubDate>Mon, 19 Oct 2026 06:00:00 +0000</pubDate>
+    <dc:creator>Prem Naraindas</dc:creator>
+    <description>Same model, same two H100 cards: 7.1× in GPU energy per token between a running batch of 8 and 256. Why the under-used card is the expensive one.</description>
+  </item>
   <item>
     <title>What a million tokens costs in watt-hours</title>
     <link>https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/</link>

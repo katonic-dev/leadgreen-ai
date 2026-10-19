@@ -2,13 +2,13 @@
 
 > The Green Tokens newsletter: one number from the index, one note on what moved, one pointer to read further. Monthly, by email.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/newsletter/ (this file: https://leadgreen.ai/newsletter/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/newsletter/ (this file: https://leadgreen.ai/newsletter/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Newsletter*
 
 The Green Tokens edition is deliberately short: **one number** from the index, **one note** on what moved it or what it means, and **one pointer** to something worth reading. If the index did not change, the note says so. No round-ups, no sponsors.
 
-Cite this page: Lead Green, a Katonic project. Newsletter. https://leadgreen.ai/newsletter/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Newsletter. https://leadgreen.ai/newsletter/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 *Subscribe*
 
