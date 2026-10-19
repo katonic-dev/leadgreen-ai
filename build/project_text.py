@@ -36,7 +36,10 @@ ZENODO_CONCEPT_DOI = ""
 # T6: the Wikidata item, e.g. "https://www.wikidata.org/wiki/Q123456789". "" until created.
 WIKIDATA_URL = ""
 
+# The LinkedIn Showcase Page under the Katonic company page (D-LI1, 19 October 2026): a project page, not a company page.
+LINKEDIN_PAGE_URL = "https://www.linkedin.com/showcase/leadgreen-ai/"
+
 ZENODO_DOI_URL = f"https://doi.org/{ZENODO_CONCEPT_DOI}" if ZENODO_CONCEPT_DOI else ""
 
 # The same project elsewhere, for schema.org sameAs. Only homes that exist are listed.
-SAME_AS = [u for u in (REPO_URL, HF_DATASET_URL, ZENODO_DOI_URL, WIKIDATA_URL) if u]
+SAME_AS = [u for u in (REPO_URL, HF_DATASET_URL, ZENODO_DOI_URL, WIKIDATA_URL, LINKEDIN_PAGE_URL) if u]
