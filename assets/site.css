@@ -51,7 +51,7 @@ img { max-width: 100%; height: auto; }
 .skip:focus { left: 16px; z-index: 10; }
 
 /* masthead + nav */
-.mast { display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; padding-block: 1rem; border-bottom: 1px solid var(--rule); }
+.mast { display: flex; justify-content: space-between; align-items: center; gap: 1rem 1.5rem; flex-wrap: wrap; padding-block: 1rem; border-bottom: 1px solid var(--rule); }
 .wordmark { display: inline-flex; align-items: center; gap: .55rem; font-family: var(--display); font-weight: 700; font-size: 1.25rem; letter-spacing: -.02em; line-height: 1; color: var(--ink); text-decoration: none; white-space: nowrap; }
 .wordmark .mark { width: 22px; height: 22px; flex: none; }
 .wordmark b { color: var(--accent); font-weight: 700; }
@@ -62,7 +62,7 @@ img { max-width: 100%; height: auto; }
 .pubtag { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; color: var(--muted); white-space: nowrap; }
 .pubtag a { color: var(--ink-2); }
 .mast-right { display: flex; align-items: center; gap: .8rem; }
-.theme { display: none; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; color: var(--ink-2); background: none; border: 1px solid var(--rule); border-radius: 3px; padding: .25rem .55rem; cursor: pointer; line-height: 1.2; }
+.theme { display: none; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; color: var(--ink-2); background: none; border: 1px solid var(--rule); border-radius: 3px; padding: .25rem .55rem; cursor: pointer; line-height: 1.2; min-width: 3.7rem; text-align: center; }  /* same width for "Dark" and "Light", so the toggle never reflows the masthead */
 .js .theme { display: inline-block; }
 .theme:hover { color: var(--ink); border-color: var(--accent); }
 
