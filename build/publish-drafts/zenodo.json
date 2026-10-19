@@ -1,0 +1,36 @@
+{
+  "_comment": "DRAFT, not published. Copy to .zenodo.json at the repository root once G4 (named outside reviewer) and G7 (Zenodo yes) are ruled. Zenodo reads it on each GitHub release; the release tag should be the dated api/v1 release, and the uploaded asset the release zip. The concept DOI (one for the project) and the version DOI (one per release) are printed on /index/#cite after the first record exists.",
+  "title": "Lead Green Green Tokens index: GPU energy per million output tokens, release [RELEASE-DATE]",
+  "upload_type": "dataset",
+  "description": "<p>[G1 once approved; the home page's sentences until then:] Lead Green is a public index of the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. This record is the api/v1 release [RELEASE-DATE] of leadgreen.ai, as served: 32 index rows (one per model and GPU, the lowest-energy configuration at or under a 500 ms median inter-token latency), every measured configuration for 18 open-weight models (328 configurations), grid carbon intensity for 193 countries plus World, GPU hardware ceilings and the AI Energy Score per-query rows.</p><p>Unit: watt-hours per million output tokens (one Wh/M is 0.0036 joules per output token). Boundary: GPU energy only, measured at steady state on a busy server, at the most energy-efficient configuration measured; every row is a floor. Host, network, cooling, idle time and embodied carbon are outside it.</p><p>Sources: ML.ENERGY Leaderboard v3.0 (Chung et al., NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371; Apache 2.0 per the ml-energy/benchmark-v3 dataset card), Ember Yearly electricity data (CC BY 4.0), NVIDIA product specifications, AI Energy Score (December 2025 round). The compilation and text are CC BY 4.0; third-party figures keep their sources' licences. Lead Green is a Katonic project, run and paid for by Katonic, which sells a sovereign AI platform; it takes no money from hardware, cloud or model vendors.</p>",
+  "creators": [
+    {"name": "Naraindas, Prem", "affiliation": "Katonic AI Technology Ltd", "orcid": "[ORCID, optional]"}
+  ],
+  "contributors": [
+    {"name": "[G4-REVIEWER]", "type": "Other", "affiliation": "[no Katonic affiliation]"}
+  ],
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "version": "[RELEASE-DATE]",
+  "language": "eng",
+  "keywords": [
+    "LLM inference energy",
+    "watt-hours per million output tokens",
+    "energy per token",
+    "GPU energy",
+    "grid carbon intensity",
+    "H100",
+    "B200",
+    "ML.ENERGY",
+    "open data"
+  ],
+  "related_identifiers": [
+    {"identifier": "https://leadgreen.ai/", "relation": "isSupplementTo", "resource_type": "other", "scheme": "url"},
+    {"identifier": "https://leadgreen.ai/api/v1/releases/[RELEASE-DATE]/", "relation": "isIdenticalTo", "resource_type": "dataset", "scheme": "url"},
+    {"identifier": "arXiv:2505.06371", "relation": "isDerivedFrom", "resource_type": "publication-article", "scheme": "arxiv"},
+    {"identifier": "https://huggingface.co/datasets/ml-energy/benchmark-v3", "relation": "isDerivedFrom", "resource_type": "dataset", "scheme": "url"},
+    {"identifier": "https://ember-energy.org/data/yearly-electricity-data/", "relation": "isDerivedFrom", "resource_type": "dataset", "scheme": "url"},
+    {"identifier": "[G2-REPO-URL]", "relation": "isSupplementedBy", "resource_type": "software", "scheme": "url"}
+  ],
+  "notes": "A release listed as published on leadgreen.ai never changes; cite the release, not the live files. The ML.ENERGY leaderboard JSON is reproduced as published measurements on the basis of the dataset card's Apache 2.0 licence while the ML.ENERGY team is asked to confirm that it covers the leaderboard files; see build/data/NOTICE.md."
+}

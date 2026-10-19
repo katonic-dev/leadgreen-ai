@@ -1,0 +1,45 @@
+# DRAFT, not applied. Merge into leadgreen-mcp/pyproject.toml [project] with the 0.3.0 release (T4).
+# Not applied to 0.2.0 because rebuilding the wheel changes the SHA-256 printed in the install line on /mcp/.
+# The package name leadgreen-mcp was free on PyPI on 18 October 2026. Publishing needs Prem's word and a PyPI
+# account for the project (2FA, a scoped API token stored as a repository secret, trusted publishing from the
+# public repository once G2 exists).
+
+[project]
+# existing: name, version, description, readme, requires-python, license = "Apache-2.0", license-files, dependencies
+authors = [{ name = "Prem Naraindas", email = "hello@leadgreen.ai" }]
+maintainers = [{ name = "Lead Green, a Katonic project", email = "hello@leadgreen.ai" }]
+keywords = [
+  "mcp", "model-context-protocol", "llm", "inference", "energy", "watt-hours", "tokens",
+  "gpu", "h100", "b200", "carbon", "sustainability", "ml-energy", "leadgreen",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://leadgreen.ai/"
+Documentation = "https://leadgreen.ai/mcp/"
+"Data API" = "https://leadgreen.ai/api/"
+Changes = "https://leadgreen.ai/index/#changes"
+Source = "[G2-REPO-URL]"
+Issues = "[G2-REPO-URL]/issues"
+
+# README note for the PyPI page (the long description is leadgreen-mcp/README.md): add at the top the canonical
+# description [G1] and the sentence "Lead Green is run and paid for by Katonic, which sells a sovereign AI platform;
+# it takes no money from hardware, cloud or model vendors", and change the install section to
+#   pip install leadgreen-mcp
+#   uvx leadgreen-mcp
+# with the wheel URL kept as the fallback. The data snapshot inside the wheel is the dated release named in
+# leadgreen_mcp/data/manifest.json; the package version and the data release are stated separately.
