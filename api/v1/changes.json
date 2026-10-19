@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-10-18",
-  "data_version": "2026-10-18",
+  "updated": "2026-10-19",
+  "data_version": "2026-10-19",
   "note": "One entry per change to the published data or its description, newest last.",
   "changes": [
     {
@@ -39,6 +39,13 @@
         "manifest.json"
       ],
       "reason": "publisher",
+      "source_version": "3.0 (released 2025-12-01); data compiled 2026-02-16"
+    },
+    {
+      "date": "2026-10-19",
+      "summary": "Launch. Three blog posts: how much energy an AI query uses, what watt-hours per million tokens means, and why an idle GPU wastes energy. The site now serves from GitHub Pages at leadgreen.ai. No change to the data or its description.",
+      "documents": [],
+      "reason": "launch",
       "source_version": "3.0 (released 2025-12-01); data compiled 2026-02-16"
     }
   ]

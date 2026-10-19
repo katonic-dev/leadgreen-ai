@@ -2,15 +2,15 @@
 
 > One page per grid for 22 countries: Ember's carbon intensity, what a billion AI output tokens cost in CO2e there, every index model priced on it.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/ (this file: https://leadgreen.ai/grids/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/ (this file: https://leadgreen.ai/grids/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Grids*
 
 Energy per token does not change with geography; carbon per token does. Each page prices the whole index on one country's grid, shows the grid's trend since 2023, and says which reporting line the figure belongs on. The 22 grids are 15 markets Katonic sells in or expects to, plus seven reference grids; all 193 areas Ember covers are in [grid.json](https://leadgreen.ai/api/v1/grid.json).
 
-**Basis** Ember yearly emissions intensity, 2024, lifecycle, location-based, gCO2e per kWh. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2, a spread of 55.6×. Updated 18 October 2026.
+**Basis** Ember yearly emissions intensity, 2024, lifecycle, location-based, gCO2e per kWh. Ember's 2024 figures run from Ethiopia at 23.5 to Turkmenistan at 1,306.2, a spread of 55.6×. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Grids: the carbon of AI inference by country. https://leadgreen.ai/grids/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Grids: the carbon of AI inference by country. https://leadgreen.ai/grids/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 *Highest intensity first*
 

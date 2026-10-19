@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-10-18",
-  "data_version": "2026-10-18",
+  "updated": "2026-10-19",
+  "data_version": "2026-10-19",
   "site": "https://leadgreen.ai",
   "name": "Lead Green Green Tokens API",
   "description": "GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity and GPU hardware reference data. Static JSON, GET only, CORS open.",

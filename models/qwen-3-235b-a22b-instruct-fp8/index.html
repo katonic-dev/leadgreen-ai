@@ -50,7 +50,7 @@
     ]
    },
    "inLanguage": "en",
-   "dateModified": "2026-10-18",
+   "dateModified": "2026-10-19",
    "license": "https://creativecommons.org/licenses/by/4.0/",
    "isPartOf": {
     "@type": "WebSite",
@@ -84,7 +84,7 @@
       "https://www.linkedin.com/showcase/leadgreen-ai/"
      ]
     },
-    "dateModified": "2026-10-18",
+    "dateModified": "2026-10-19",
     "isBasedOn": "https://ml.energy/leaderboard/",
     "variableMeasured": "GPU watt-hours per million output tokens",
     "distribution": [
@@ -204,8 +204,8 @@
   <p class="eyebrow"><a href="../../models/">Models</a> · B200 and H100</p>
   <h1>Qwen 3 235B A22B Instruct FP8: GPU energy per million output tokens</h1>
   <p class="stand">Qwen 3 235B A22B Instruct FP8 serves a million output tokens for <b>139.1 Wh/M</b> on 2 × B200 (running batch 256, median inter-token latency 64 ms) and <b>206.0 Wh/M</b> on 8 × H100 (running batch 511, median inter-token latency 76 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.</p>
-  <p class="unit"><b>Model</b> <a href="https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507-FP8">Qwen/Qwen3-235B-A22B-Instruct-2507-FP8</a>, a mixture-of-experts model (22 B of 235 B parameters active per token), weights in FP8. <b>Measured</b> 23 configurations on B200 and H100. <b>Data</b> <a href="../../api/v1/models/qwen-3-235b-a22b-instruct-fp8.json">models/qwen-3-235b-a22b-instruct-fp8.json</a>. Updated 18 October 2026.</p>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct FP8: energy per million output tokens. https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <p class="unit"><b>Model</b> <a href="https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507-FP8">Qwen/Qwen3-235B-A22B-Instruct-2507-FP8</a>, a mixture-of-experts model (22 B of 235 B parameters active per token), weights in FP8. <b>Measured</b> 23 configurations on B200 and H100. <b>Data</b> <a href="../../api/v1/models/qwen-3-235b-a22b-instruct-fp8.json">models/qwen-3-235b-a22b-instruct-fp8.json</a>. Updated 19 October 2026.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct FP8: energy per million output tokens. https://leadgreen.ai/models/qwen-3-235b-a22b-instruct-fp8/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#configurations">Every configuration</a></li><li><a href="#generations">Two generations</a></li><li><a href="#carbon">Carbon</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 <div class="tiles auto n2" role="group" aria-label="Index rows"><div class="tile"><span class="lbl">Index row, B200</span><span class="val">139.1<small>Wh/M</small></span><span class="sub">2 × B200, FP8. Running batch 256, median ITL 64 ms, 1,891 W across the cards, 3,776 tokens a second.</span></div><div class="tile"><span class="lbl">Index row, H100</span><span class="val">206.0<small>Wh/M</small></span><span class="sub">8 × H100, FP8. Running batch 511, median ITL 76 ms, 3,961 W across the cards, 5,342 tokens a second.</span></div></div>
@@ -265,7 +265,7 @@
   <h2>Where every figure came from</h2>
   <p class="note"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</p>
   <p class="note">Grid intensity: <a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a>, October 2026 release, 2024 (CC BY 4.0). Model card: <a href="https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507-FP8">Hugging Face</a>.</p>
-  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+  <p class="note"><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
   <p class="note">This page is generated from the same dated snapshot as <a href="../../index/">the index</a> and <a href="../../api/v1/models/qwen-3-235b-a22b-instruct-fp8.json">the API</a>; no figure on it is typed by hand. Ask the <a href="../../mcp/">MCP server</a> for Qwen 3 235B A22B Instruct FP8 on your own grid and load.</p>
 </section>
   </main>
@@ -283,7 +283,7 @@
       <a href="../../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
   </footer>
 
 </div>

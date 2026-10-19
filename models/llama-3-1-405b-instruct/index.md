@@ -2,15 +2,15 @@
 
 > GPU watt-hours per million output tokens for Llama 3.1 405B Instruct: 12 measured configurations, load curve and carbon by grid. From ML.ENERGY v3.0.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/models/llama-3-1-405b-instruct/ (this file: https://leadgreen.ai/models/llama-3-1-405b-instruct/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/models/llama-3-1-405b-instruct/ (this file: https://leadgreen.ai/models/llama-3-1-405b-instruct/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Models](https://leadgreen.ai/models/) · B200*
 
 Llama 3.1 405B Instruct serves a million output tokens for **282.0 Wh/M** on 8 × B200 (running batch 3,589, median inter-token latency 272 ms), GPU energy only, at the most energy-efficient configuration the ML.ENERGY Leaderboard measured. That is the floor: a lightly loaded server sits above it.
 
-**Model** [meta-llama/Llama-3.1-405B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct), a dense transformer, weights in BF16. **Measured** 12 configurations on B200. **Data** [models/llama-3-1-405b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct.json). Updated 18 October 2026.
+**Model** [meta-llama/Llama-3.1-405B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct), a dense transformer, weights in BF16. **Measured** 12 configurations on B200. **Data** [models/llama-3-1-405b-instruct.json](https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Llama 3.1 405B Instruct: energy per million output tokens. https://leadgreen.ai/models/llama-3-1-405b-instruct/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Llama 3.1 405B Instruct: energy per million output tokens. https://leadgreen.ai/models/llama-3-1-405b-instruct/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 - [Every configuration](https://leadgreen.ai/models/llama-3-1-405b-instruct/#configurations)
 - [Carbon](https://leadgreen.ai/models/llama-3-1-405b-instruct/#carbon)
@@ -98,6 +98,6 @@ The ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative), released 1 December 2
 
 Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/yearly-electricity-data/), October 2026 release, 2024 (CC BY 4.0). Model card: [Hugging Face](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct).
 
-**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/llama-3-1-405b-instruct.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Llama 3.1 405B Instruct on your own grid and load.

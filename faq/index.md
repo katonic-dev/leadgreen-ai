@@ -2,15 +2,15 @@
 
 > Every question the site answers, from 62 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/faq/ (this file: https://leadgreen.ai/faq/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/faq/ (this file: https://leadgreen.ai/faq/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Questions*
 
 324 questions from 62 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
 
-**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. FAQ: 324 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. FAQ: 324 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 - [Lead Green](https://leadgreen.ai/faq/#lead-green)
 - [Why it matters](https://leadgreen.ai/faq/#why-it-matters)

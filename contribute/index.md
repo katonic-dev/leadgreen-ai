@@ -2,13 +2,13 @@
 
 > How to add a measurement, review a claim or write for Lead Green: the measurement protocol, the review rules, what is needed first and the licences.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/contribute/ (this file: https://leadgreen.ai/contribute/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/contribute/ (this file: https://leadgreen.ai/contribute/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Contribute*
 
 Lead Green is small and it is public. Its value is the number of independent, reproducible measurements on the index and the care with which each one is checked. Both grow faster with volunteers. Here is what is needed, how to do it, and the rules that keep a row defensible.
 
-Cite this page: Lead Green, a Katonic project. Contribute. https://leadgreen.ai/contribute/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Contribute. https://leadgreen.ai/contribute/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 *Roles*
 

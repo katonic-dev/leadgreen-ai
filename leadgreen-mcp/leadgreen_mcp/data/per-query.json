@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "updated": "2026-10-18",
-  "data_version": "2026-10-18",
+  "updated": "2026-10-19",
+  "data_version": "2026-10-19",
   "unit": "Wh per 1,000 queries",
   "round": "December 2025",
   "setup": "text generation, 1,000 queries one at a time (batch size 1) on NVIDIA H100 80GB GPUs: one card for class A and B models, several cards for class C; output length fixed at 10 tokens for non-reasoning runs; the score averages ten passes; GPU energy only",

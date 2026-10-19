@@ -1,6 +1,6 @@
 # Lead Green
 
-> Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens, Wh/M), by model, GPU and configuration, with grid carbon intensity to price it anywhere. Every figure comes from a named public source with a retrieval date. It is a Katonic project. Updated 18 October 2026.
+> Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens, Wh/M), by model, GPU and configuration, with grid carbon intensity to price it anywhere. Every figure comes from a named public source with a retrieval date. It is a Katonic project. Updated 19 October 2026.
 
 Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-optimal configuration at or under a 500 ms median inter-token latency, the leaderboard's default ceiling, which no configuration reaches):
 - Lowest on the index: 13.0 Wh/M (Llama 3.1 8B Instruct, 1 × B200)
@@ -83,8 +83,11 @@ Compilation and site text: CC BY 4.0. Code: Apache 2.0. Third-party figures rema
 Every page has a Markdown copy at its URL followed by index.md, generated from the same build and linked from the page head (rel=alternate, text/markdown).
 - https://leadgreen.ai/about/index.md
 - https://leadgreen.ai/api/index.md
+- https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/index.md
 - https://leadgreen.ai/blog/index.md
 - https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md
+- https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/index.md
+- https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/index.md
 - https://leadgreen.ai/compare/index.md
 - https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/index.md
 - https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/index.md
@@ -158,4 +161,4 @@ Every page has a Markdown copy at its URL followed by index.md, generated from t
 - https://leadgreen.ai/why/index.md
 
 ## Full text
-- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 75 pages.
+- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 78 pages.

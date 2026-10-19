@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>How much energy does an AI query use?</title>
+<meta name="description" content="One answer from a busy 32B model costs about 0.040 Wh of GPU energy; Google says 0.24 Wh per median prompt. Both are right. Here is why.">
+<link rel="canonical" href="https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="How much energy does an AI query use?">
+<meta property="og:description" content="One answer from a busy 32B model costs about 0.040 Wh of GPU energy; Google says 0.24 Wh per median prompt. Both are right. Here is why.">
+<meta property="og:url" content="https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/index.md">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BlogPosting",
+ "headline": "How much energy does an AI query use?",
+ "description": "One answer from a busy 32B model costs about 0.040 Wh of GPU energy; Google says 0.24 Wh per median prompt. Both are right. Here is why.",
+ "datePublished": "2026-10-19",
+ "dateModified": "2026-10-19",
+ "author": {
+  "@type": "Person",
+  "name": "Prem Naraindas",
+  "url": "https://www.linkedin.com/in/premnaraindas/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "Lead Green",
+  "url": "https://leadgreen.ai/",
+  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+  "parentOrganization": {
+   "@type": "Organization",
+   "name": "Katonic",
+   "url": "https://www.katonic.ai"
+  },
+  "sameAs": [
+   "https://github.com/katonic-dev/leadgreen-ai",
+   "https://www.linkedin.com/showcase/leadgreen-ai/"
+  ]
+ },
+ "mainEntityOfPage": "https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/",
+ "url": "https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/",
+ "inLanguage": "en",
+ "license": "https://creativecommons.org/licenses/by/4.0/",
+ "isAccessibleForFree": true
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog" aria-current="page">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<article class="post">
+<div class="title">
+<p class="eyebrow">Blog</p>
+<h1>How much energy does an AI query use?</h1>
+<p class="byline">By Prem Naraindas · <time datetime="2026-10-19">19 October 2026</time> · Lead Green, a Katonic project</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. How much energy does an AI query use?. https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
+</div>
+<div class="body">
+<p>Look, this is the question I get asked most, usually by someone who has just signed off a token budget. "How much energy does one of these queries actually use?" And the honest first answer is that nobody who quotes a single figure is telling you the whole story, because the number depends on four things: which model, on which GPUs, how busy the server was, and how long the answer ran. So here is the number the public measurements give, with those four things stated, and then the two figures the vendors have published, and why they are different without either being wrong.</p>
+
+<h2>The number</h2>
+<p>On the index's reference row, Qwen 3 32B on 2 × H100, a busy server produces a million output tokens for 63.5 Wh of GPU energy. The benchmark's answers on that row averaged 634 tokens, so one answer costs about <b>0.040 Wh</b>. That is a kilowatt-hour for roughly 24,800 answers. A 10 W LED bulb uses the same energy in about 14 seconds. The bulb is my assumption, not a source; the tokens are.</p>
+<p>Three qualifications, and they are not fine print. It is GPU energy only: the host, the network, the cooling and the building are outside it. It was measured with the server running 256 requests at once, which is a busy server. And it is one model on one card count. Change any of those and the number moves, sometimes by a lot.</p>
+
+<h2>What Google and Mistral published</h2>
+<p>In August 2025 Google put the median Gemini Apps text prompt at <b>0.24 Wh</b>, 0.03 g of CO2e and 0.26 mL of water. In July 2025 Mistral put a 400-token reply from its large model at 1.14 g of CO2e and 45 mL of water, without a watt-hour figure. Those are the only two per-prompt disclosures from model vendors I know of, and I am glad they exist.</p>
+<p>Google's 0.24 Wh is about 6× my 0.040 Wh. See, that gap is the interesting part, and it is mostly boundary. Google counts the whole stack: the accelerators are 58 percent of its figure, so about 0.14 Wh, with the host machines, idle capacity held for peaks, and the data centre's overhead making up the rest. Google also reports a narrow, accelerator-only figure of 0.10 Wh, which is the boundary this index uses. So on a like-for-like boundary its number is 3.5× mine, and the rest of the difference is a different model, a different prompt length, and a fleet running at whatever utilisation Google's traffic gives it rather than a benchmark holding a server full.</p>
+<p>None of that makes either figure wrong. They answer different questions. Google's tells you what a prompt costs a hyperscaler across its whole estate. The index tells you what a named model on named GPUs costs at a stated load, which is the figure you can hold a vendor to, because you can measure it yourself.</p>
+
+<h2>What moves it most: how busy the server is</h2>
+<p>Take the same Qwen 3 32B on the same 2 × H100 and run it with 8 requests at once instead of 256. Energy per million tokens goes from 63.5 to 452 Wh, and one answer goes from 0.040 Wh to about <b>0.29 Wh</b>. Same model, same cards, same prompts, 7.1× the energy, because the cards draw only about 39 percent more power serving two hundred and fifty people than eight, and at eight they are mostly waiting.</p>
+<p>Think of a bakery oven. It costs about the same gas to run whether there are two loaves in it or forty. The gas per loaf is a different matter. In the deployments I see, most enterprise assistants are the oven with two loaves in it: a department, a few dozen users, a handful of requests at any moment. Their energy per answer is at the top of that range, not the bottom, and nothing on their invoice says so.</p>
+
+<h2>The range</h2>
+<p>Across the whole index, the lowest row is Llama 3.1 8B Instruct on 1 × B200 at 13.0 Wh per million tokens, which is about 0.005 Wh for one of its 396-token answers. The highest configuration the benchmark measured at all, not an index row but a real run, is Llama 3.1 405B Instruct on 8 × B200 holding 8 requests: 6,073 Wh per million tokens, about 2.2 Wh an answer, 10.6× the highest index row. So "how much energy does an AI query use" has a defensible answer somewhere between a few thousandths of a watt-hour and a couple of watt-hours, and the four things above decide where.</p>
+
+<h2>What I am not telling you</h2>
+<p>Closed models served over an API. Nobody outside the operator can measure them, so I say nothing about them beyond what the operator publishes, which for most of them is nothing. Water: the index measures electricity and not water; Google and Mistral both publish a water figure and I think that is the right thing to do, but neither is per million tokens at a stated load, so it stays out of the tables. And the meter: to get from a GPU figure to what the building draws, multiply by the system's host-to-GPU ratio and the site's PUE, which only the operator knows. The <a href="../../index/#method">method</a> works one example.</p>
+
+<h2>What to do with it</h2>
+<p>If you buy tokens from a hosted API, the concurrency is theirs and you cannot measure it; ask the provider the <a href="../../why/#hosted">seven questions</a> instead. If you run the GPUs, ask your vendor for watt-hours per million output tokens at your running batch, not theirs, and hold the answer against the <a href="../../models/qwen-3-32b/">model's page</a>. Or ask the <a href="../../mcp/">MCP server</a> in plain words; it will give you the row, the source and the caveat, which is more than most invoices do.</p>
+
+<div class="refs">
+  <p class="eyebrow">References</p>
+  <ol>
+    <li><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</li>
+    <li>Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, August 2025: 0.24 Wh, 0.03 gCO2e and 0.26 mL per median Gemini Apps text prompt; accelerators 58 percent; narrow boundary 0.10 Wh. <a href="https://arxiv.org/abs/2508.15734">arXiv 2508.15734</a>.</li>
+    <li>Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): 1.14 gCO2e and 45 mL per 400-token reply. <a href="https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai">mistral.ai</a>.</li>
+    <li>Per-answer figures are Wh per million output tokens multiplied by the row's own average output length; the LED bulb (10 W) is a stated assumption. Every row: <a href="../../index/">the index</a> and <a href="../../api/">the API</a>.</li>
+  </ol>
+</div>
+
+</div>
+</article>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

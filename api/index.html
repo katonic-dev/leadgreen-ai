@@ -80,8 +80,8 @@
   <p class="eyebrow">Data API</p>
   <h1>Every table, as JSON</h1>
   <p class="stand">The index is published as static JSON files under <code>/api/v1/</code>. No key, no tracking, no rate limit beyond what a static host imposes. Fetch them from a browser, a spreadsheet, a notebook or a build pipeline. Version 1 only ever adds fields; it never renames or removes them.</p>
-  <p class="unit"><b>Base URL</b> https://leadgreen.ai/api/v1/ · <b>Updated</b> 18 October 2026 · <b>Licence</b> CC BY 4.0 for the compilation; sources keep theirs</p>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. Data API. https://leadgreen.ai/api/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <p class="unit"><b>Base URL</b> https://leadgreen.ai/api/v1/ · <b>Updated</b> 19 October 2026 · <b>Licence</b> CC BY 4.0 for the compilation; sources keep theirs</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Data API. https://leadgreen.ai/api/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
 </div>
 
 <section class="first" id="endpoints">
@@ -117,8 +117,8 @@ curl -s https://leadgreen.ai/api/v1/grid.json  | jq '.areas[] | select(.iso3 == 
   <h3>index.json, trimmed</h3>
 <pre><code>{
   &quot;version&quot;: &quot;1&quot;,
-  &quot;updated&quot;: &quot;2026-10-18&quot;,
-  &quot;data_version&quot;: &quot;2026-10-18&quot;,
+  &quot;updated&quot;: &quot;2026-10-19&quot;,
+  &quot;data_version&quot;: &quot;2026-10-19&quot;,
   &quot;unit&quot;: &quot;Wh per million output tokens&quot;,
   &quot;workload&quot;: &quot;text-conversation&quot;,
   &quot;itl_deadline_ms&quot;: 500,
@@ -503,7 +503,7 @@ print(index["caveat"])</code></pre>
     <p><b>Caching and limits.</b> The files are served by GitHub Pages, which sends <code>Cache-Control: max-age=600</code>, an ETag and Last-Modified. Poll with <code>If-None-Match</code>, no more than hourly, and mirror the files rather than fetching them for each of your users: the host has a soft bandwidth limit of 100 GB a month and does not allow software-as-a-service use. There is no uptime promise. The data is refreshed when a source publishes a new release, checked monthly; the date is in every document and in <a href="../api/v1/changes.json"><code>changes.json</code></a>.</p>
     <p><b>Version 1.</b> Fields are added, never renamed or removed. A new source or a re-measurement changes values, <code>data_version</code> and the <code>updated</code> date, and the change is recorded in <a href="../api/v1/changes.json"><code>changes.json</code></a> and on <a href="../index/#changes">the index's change list</a>. <code>row_id</code> identifies a row across releases. A breaking change would ship as <code>/api/v2/</code> with v1 left in place.</p>
     <p><b>Licence.</b> The compilation, the derived figures and the site text are offered under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>: use them, credit Lead Green and the underlying source. Each source keeps its own licence, stated per source in <code>manifest.json</code> with the evidence. ML.ENERGY: The leaderboard repository the JSON comes from carries no licence file; the benchmark data is published under Apache 2.0 on the dataset card and in the NeurIPS 2025 paper, and the JSON is reproduced here as published measurements on that basis while the ML.ENERGY team is asked to confirm that the licence covers it. Ember's data is CC BY 4.0. AI Energy Score: Apache-2.0 as tagged on the Hugging Face Space; the project states no separate licence for the results file, which is reproduced as facts with attribution. NVIDIA's figures are reproduced as facts with attribution; NVIDIA grants no licence and none is claimed. The Apache License 2.0 text is in <a href="../LICENSE"><code>LICENSE</code></a>, and <code>build/data/NOTICE.md</code> records each snapshot's source, retrieval date and terms.</p>
-    <p><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
+    <p><b>Cite as.</b> Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p>
     <p><b>Attribution.</b> If you republish the data, this line covers the CC BY 4.0 credit (it is also the <code>attribution</code> field in <code>manifest.json</code>): Green Tokens index, Lead Green, a Katonic project, https://leadgreen.ai/api/v1/, CC BY 4.0. Contains data from the ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled 2026-02-16, retrieved 2026-09-26) and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe].</p>
     <p><b>Releases.</b> Every dated release is kept unchanged at <code>https://leadgreen.ai/api/v1/releases/&lt;date&gt;/</code> with a zip of the whole release; <a href="../api/v1/releases/index.json"><code>releases/index.json</code></a> lists them with each zip's SHA-256. Cite a release, not the live files.</p>
     <p><b>OpenAPI.</b> A machine-readable description is at <a href="../api/v1/openapi.json"><code>openapi.json</code></a>. The <a href="../mcp/">MCP server</a> is built on these same files.</p>
@@ -525,7 +525,7 @@ print(index["caveat"])</code></pre>
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
   </footer>
 
 </div>

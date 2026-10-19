@@ -2,7 +2,7 @@
 
 > Short, sourced pieces on what GPU energy per token means: the baseline, the idle server, sliced GPUs, where the electricity is, what the law asks.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/blog/ (this file: https://leadgreen.ai/blog/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/blog/ (this file: https://leadgreen.ai/blog/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Blog*
 
@@ -10,12 +10,27 @@ Each post takes one question the index raises and answers it with public data, t
 
 **Feed** [RSS](https://leadgreen.ai/feed.xml) · **Editor** Prem Naraindas · **Licence** CC BY 4.0
 
-Cite this page: Lead Green, a Katonic project. Blog. https://leadgreen.ai/blog/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Blog. https://leadgreen.ai/blog/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 *Posts*
 
 ## Published
 
+- 19 October 2026 · Prem Naraindas
+
+### [How much energy does an AI query use?](https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/)
+
+One answer from a busy 32B model costs about 0.040 Wh of GPU energy; Google says 0.24 Wh per median prompt. Both are right. Here is why.
+- 19 October 2026 · Prem Naraindas
+
+### [What is watt-hours per million tokens, and why not joules per token?](https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/)
+
+The unit behind the index: what Wh/M counts, what it leaves out, how it converts to kWh, carbon and the meter, and why joules per token became watt-hours.
+- 19 October 2026 · Prem Naraindas
+
+### [Why an idle GPU wastes energy: the concurrency ladder](https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/)
+
+Same model, same two H100 cards: 7.1× in GPU energy per token between a running batch of 8 and 256. Why the under-used card is the expensive one.
 - 26 September 2026 · Prem Naraindas
 
 ### [What a million tokens costs in watt-hours](https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/)

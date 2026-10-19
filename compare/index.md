@@ -2,15 +2,15 @@
 
 > Model pairs people ask about, side by side on GPU energy per output token: small against large, dense against MoE, FP8 against BF16, two families.
 >
-> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/ (this file: https://leadgreen.ai/compare/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/ (this file: https://leadgreen.ai/compare/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Compare*
 
 The comparisons people ask for, each on one page: a small model against a large one, two families at the same size, dense against mixture of experts, FP8 against BF16, and two expert counts at the same active size. Every page sets the two models' index rows beside each other on each GPU both were measured on, states the card count and running batch behind each row, and says what explains the gap. The GPU generations themselves are compared on [H100 vs B200](https://leadgreen.ai/h100-vs-b200/).
 
-**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.
+**Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Compare: 9 model pairs on GPU energy per million output tokens. https://leadgreen.ai/compare/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Compare: 9 model pairs on GPU energy per million output tokens. https://leadgreen.ai/compare/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 *Pairs*
 

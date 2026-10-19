@@ -62,8 +62,8 @@
    "https://www.linkedin.com/showcase/leadgreen-ai/"
   ]
  },
- "dateModified": "2026-10-18",
- "version": "2026-10-18",
+ "dateModified": "2026-10-19",
+ "version": "2026-10-19",
  "inLanguage": "en",
  "keywords": [
   "LLM inference energy",
@@ -182,10 +182,10 @@
 <div class="title">
   <p class="eyebrow">The index</p>
   <h1>Green Tokens</h1>
-  <p class="stand">The GPU energy it takes to serve a million tokens, by model, GPU and configuration. Every figure is from a public measurement or a manufacturer's specification, and every source is listed at the foot of the page. Updated 18 October 2026.</p>
+  <p class="stand">The GPU energy it takes to serve a million tokens, by model, GPU and configuration. Every figure is from a public measurement or a manufacturer's specification, and every source is listed at the foot of the page. Updated 19 October 2026.</p>
   <p class="stand">Green here is a direction, not a verdict. This table ranks serving configurations by GPU energy per token and by nothing else.</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. The same data as <a href="../api/">JSON</a> and through the <a href="../mcp/">MCP server</a>.</p>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. CC BY 4.0.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page">
     <li><a href="#index">Index</a></li>
     <li><a href="#generations">Two generations</a></li>
@@ -605,7 +605,7 @@
 <section id="cite">
   <p class="eyebrow">Cite as</p>
   <h2>How to credit this index</h2>
-  <div class="prose"><p>Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-18, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p><p>In a tender where Katonic may bid, read <a href="../about/#tender">Using the index in a tender</a> first.</p></div>
+  <div class="prose"><p>Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.</p><p>In a tender where Katonic may bid, read <a href="../about/#tender">Using the index in a tender</a> first.</p></div>
 </section>
 
 <section id="sources">
@@ -614,11 +614,11 @@
   <ol class="ledger">
     <li><div><div class="src"><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a>, The ML.ENERGY Initiative (started at SymbioticLab, University of Michigan)</div><div class="use">Index, two-generation table, concurrency tables, the workload comparison and the measured GPU power figures. Text Conversation, all 328 stable configurations; Problem Solving, all 187. The leaderboard publishes the runs that passed its stability filter as JSON in its repository; every run, including the unstable ones, is in the gated Hugging Face dataset <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a>. The leaderboard repository the JSON comes from carries no licence file; the benchmark data is published under Apache 2.0 on the dataset card and in the NeurIPS 2025 paper, and the JSON is reproduced here as published measurements on that basis while the ML.ENERGY team is asked to confirm that the licence covers it. Cite: <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371</a>.</div><div class="meta">Version 3.0, released 1 December 2025; data compiled 16 February 2026 (the leaderboard's index.json). Retrieved 26 September 2026.</div></div></li>
     <li><div><div class="src"><a href="https://ember-energy.org/data/yearly-electricity-data/">Ember, Yearly electricity data</a></div><div class="use">Carbon table and the grid API. Emissions intensity of total generation, gCO2e per kWh, 2024. CC BY 4.0.</div><div class="meta">October 2026 release. Retrieved 17 October 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles</a></div><div class="use">MIG profile table.</div><div class="meta">Last updated 11 September 2026. Retrieved 18 October 2026.</div></div></li>
-    <li><div><div class="src">NVIDIA product specifications: <a href="https://www.nvidia.com/en-us/data-center/a100/">A100</a>, <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a>, <a href="https://www.nvidia.com/en-us/data-center/h200/">H200</a>, <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a></div><div class="use">Maximum TDP and memory in the hardware table; the DGX B200 system power figure used on the "why" page.</div><div class="meta">Retrieved 18 October 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200</a></div><div class="use">B200 maximum TDP (configurable up to 1,000 W per GPU) and the 2,274 kg CO2e cradle-to-gate figure in the method.</div><div class="meta">July 2025. Retrieved 18 October 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://huggingface.co/spaces/AIEnergyScore/Leaderboard">AI Energy Score leaderboard</a> (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University), with its <a href="https://huggingface.github.io/AIEnergyScore/">documentation</a></div><div class="use">Per-query table. Text generation task, December 2025 round, all 22 rows. Apache-2.0 as tagged on the Space; the project states no separate licence for the results file, which is reproduced as facts with attribution.</div><div class="meta">Retrieved 18 October 2026.</div></div></li>
-    <li><div><div class="src"><a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">OpenAI, What are tokens and how to count them</a></div><div class="use">The rough words-per-token conversion in the opening paragraph.</div><div class="meta">Retrieved 18 October 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://docs.nvidia.com/datacenter/tesla/mig-user-guide/supported-mig-profiles.html">NVIDIA Multi-Instance GPU User Guide, Supported MIG Profiles</a></div><div class="use">MIG profile table.</div><div class="meta">Last updated 11 September 2026. Retrieved 19 October 2026.</div></div></li>
+    <li><div><div class="src">NVIDIA product specifications: <a href="https://www.nvidia.com/en-us/data-center/a100/">A100</a>, <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a>, <a href="https://www.nvidia.com/en-us/data-center/h200/">H200</a>, <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a></div><div class="use">Maximum TDP and memory in the hardware table; the DGX B200 system power figure used on the "why" page.</div><div class="meta">Retrieved 19 October 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">NVIDIA, Product Carbon Footprint Summary for NVIDIA HGX B200</a></div><div class="use">B200 maximum TDP (configurable up to 1,000 W per GPU) and the 2,274 kg CO2e cradle-to-gate figure in the method.</div><div class="meta">July 2025. Retrieved 19 October 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://huggingface.co/spaces/AIEnergyScore/Leaderboard">AI Energy Score leaderboard</a> (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University), with its <a href="https://huggingface.github.io/AIEnergyScore/">documentation</a></div><div class="use">Per-query table. Text generation task, December 2025 round, all 22 rows. Apache-2.0 as tagged on the Space; the project states no separate licence for the results file, which is reproduced as facts with attribution.</div><div class="meta">Retrieved 19 October 2026.</div></div></li>
+    <li><div><div class="src"><a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">OpenAI, What are tokens and how to count them</a></div><div class="use">The rough words-per-token conversion in the opening paragraph.</div><div class="meta">Retrieved 19 October 2026.</div></div></li>
   </ol>
   <p class="note">Snapshots of every data file used, as retrieved, are kept alongside the page so each figure can be recomputed. Corrections are welcome and are recorded below.</p>
 </section>
@@ -627,6 +627,7 @@
   <p class="eyebrow">Changes</p>
   <h2>Record</h2>
   <ul class="changes">
+    <li><time datetime="2026-10-19">19 Oct 2026</time><span>Launch. Three blog posts: how much energy an AI query uses, what watt-hours per million tokens means, and why an idle GPU wastes energy. The site now serves from GitHub Pages at leadgreen.ai. No change to the data or its description.</span></li>
     <li><time datetime="2026-10-18">18 Oct 2026</time><span>The publisher&#x27;s registered office is added to About and to the manifest. No change to the data or its description.</span></li>
     <li><time datetime="2026-10-17">17 Oct 2026</time><span>Ember&#x27;s October 2026 release of its yearly electricity data (file dated 6 October 2026) replaces the September 2026 release. The 2024 emissions intensity moves for 26 of the 193 grids and World, seven of them on the carbon table (United Arab Emirates 467.5 to 477.3 gCO2e per kWh, Sri Lanka 386.8 to 392.8, Australia 554.0 to 549.5, Saudi Arabia 691.9 to 689.1, Taiwan 636.2 to 635.2, Japan 483.6 to 484.3, Serbia 668.0 to 668.4), and every kilogram figure priced on them follows. 2025 rows are added for Saudi Arabia and the United Arab Emirates. The reference year stays 2024, the latest with every listed grid present. No energy figure changes.</span></li>
     <li><time datetime="2026-09-27">27 Sep 2026</time><span>Corrections after a nine-reader review, before launch. The ML.ENERGY data is dated to its compile date, not a banner update; the latency ceiling is the leaderboard&#x27;s own 500 ms (no row moved); &quot;requests in flight&quot; is renamed running batch; full concurrency ladders; all AI Energy Score December rows; a two-task table; the carbon basis, grid years and display names; seven-decimal joules; additive API fields (data_version, row_id, repeat, p95_itl_ms, avg_running_batch, boundary, years, latest_year, iso2, display_name, source_label); changes.json, measurements.json, the measurement schema, a dated release archive, CSV, zip and TypeScript types.</span></li>
@@ -649,7 +650,7 @@
       <a href="../contribute/">Contribute</a>
       <a href="https://www.katonic.ai">katonic.ai</a>
     </div>
-    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 18 October 2026.</p>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
   </footer>
 
 </div>

@@ -1,4 +1,4 @@
-// Lead Green API v1 types, generated from the published documents on 2026-10-18 (data_version 2026-10-18).
+// Lead Green API v1 types, generated from the published documents on 2026-10-19 (data_version 2026-10-19).
 // Additive only within v1: new optional fields may appear.
 
 export type Manifest = {

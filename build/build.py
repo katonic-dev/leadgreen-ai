@@ -50,7 +50,7 @@ MCP_DATA = ROOT / "leadgreen-mcp" / "leadgreen_mcp" / "data"
 
 # ----------------------------------------------------------------- settings
 SITE = "https://leadgreen.ai"
-UPDATED = "2026-10-18"                 # bump on every data or content change
+UPDATED = "2026-10-19"                 # bump on every data or content change
 DATA_VERSION = UPDATED                 # D20: carried by every API document; a published release never changes
 RETRIEVED = "2026-09-26"               # when the ML.ENERGY, AI Energy Score and NVIDIA snapshots in build/data were retrieved; not the same as UPDATED
 EMBER_RETRIEVED = "2026-10-17"         # the Ember snapshot is refreshed on its own: Ember re-issues the yearly file monthly
@@ -1336,6 +1336,8 @@ CHANGES = [
      "documents": ["grid.json", "manifest.json"], "reason": "source release", "source_version": SRC_EMBER["version"]},
     {"date": "2026-10-18", "summary": "The publisher's registered office is added to About and to the manifest. No change to the data or its description.",
      "documents": ["manifest.json"], "reason": "publisher", "source_version": SRC_MLE["version"]},
+    {"date": "2026-10-19", "summary": "Launch. Three blog posts: how much energy an AI query uses, what watt-hours per million tokens means, and why an idle GPU wastes energy. The site now serves from GitHub Pages at leadgreen.ai. No change to the data or its description.",
+     "documents": [], "reason": "launch", "source_version": SRC_MLE["version"]},
 ]
 assert CHANGES[-1]["date"] == DATA_VERSION, "add a CHANGES entry for this DATA_VERSION"
 api_docs["changes.json"] = {"version": "1", "updated": UPDATED, "note": "One entry per change to the published data or its description, newest last.",
