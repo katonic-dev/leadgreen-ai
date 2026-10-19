@@ -48,7 +48,7 @@ python -m pip wheel ./leadgreen-mcp -w dist --no-deps
 
 The MCP server works with the `mcp` Python SDK 1.x and 2.x (guarded import in `server.py`). To exercise it, run any MCP client against `python -m leadgreen_mcp.server` with `PYTHONPATH=leadgreen-mcp` and `LEADGREEN_API_BASE` set to the `api/v1` folder; an example client script that checks the worked example (50 million tokens of Qwen 3 32B on H100 in Serbia = about 3,173 Wh and 2.12 kg CO2e) is described in the handover.
 
-Preview: the Browser pane config `leadgreen-site-static` in `.claude/launch.json` (Python `http.server` on port 8171, bound to this folder). Folder-style links need a server; opening the files directly works for single pages only.
+Preview: serve the folder locally, for example `python -m http.server 8171` from the site root, so folder-style links resolve; opening the files directly also works for single pages.
 
 ## Edit
 
