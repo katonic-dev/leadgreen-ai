@@ -10,7 +10,7 @@ Thank you. The site's value is the number of independent, reproducible measureme
 - **A translation** of the index or the "why" page, checked by a second speaker.
 - **Code**: the build script, the API, the MCP server.
 
-Open an issue first if you want to discuss scope. Otherwise send a pull request, with a Developer Certificate of Origin line (`Signed-off-by`) on each commit. If you would rather not open a pull request, email the file and logs to hello@leadgreen.ai and it will be added under your name.
+Open an issue on the public mirror, [katonic-dev/leadgreen-ai](https://github.com/katonic-dev/leadgreen-ai), if you want to discuss scope. Otherwise send a pull request there, with a Developer Certificate of Origin line (`Signed-off-by`) on each commit. If you would rather not open a pull request, email the file and logs to hello@leadgreen.ai and it will be added under your name.
 
 ## Submitting a measurement
 

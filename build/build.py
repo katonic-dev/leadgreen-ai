@@ -59,7 +59,9 @@ INDEX_NAME = "Green Tokens"            # D1: "Green Tokens" or "The Green Token 
 EDITOR = "Prem Naraindas"
 LINKEDIN_URL = "https://www.linkedin.com/in/premnaraindas/"
 OWN_YOUR_AI_URL = "https://www.linkedin.com/newsletters/own-your-ai-7508174547041292288/"
-REPO_URL = "https://github.com/katonic-dev/leadgreen-ai"   # G2 ruled 19 Oct 2026: public mirror (katonicai is an EMU enterprise, its repos cannot be public); "" omits the links
+# D6 / G2 / T6: REPO_URL (the public mirror), the Hugging Face and Zenodo identifiers, the canonical description and the funder line
+# live in build/project_text.py, shared with hf_dataset.py. "" for REPO_URL omits the repository links.
+from project_text import FUNDING, HF_DATASET_URL, PROJECT_DESCRIPTION, REPO_URL, SAME_AS, ZENODO_CONCEPT_DOI, ZENODO_DOI_URL  # noqa: E402
 NEWSLETTER_SIGNUP_URL = ""             # D2: set when the email provider is chosen; never a fake form
 MCP_VERSION = "0.2.0"
 WHEEL_NAME = f"leadgreen_mcp-{MCP_VERSION}-py3-none-any.whl"
@@ -214,8 +216,6 @@ CAVEAT = ("GPU energy only, measured at steady state on a busy server (the most 
 BOUNDARY = "gpu_only"
 NVIDIA_LABEL = "manufacturer specifications transcribed as facts; NVIDIA retains its rights in the source documents"
 PUBLISHED_RELEASES = DATA / "published-releases.txt"   # D16: dates listed here are frozen; the build refuses to change them
-FUNDING = ("Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the "
-           "questions on this site. It takes no money from hardware, cloud or model vendors.")
 LICENCE_TEXT = ("Compilation and site text: CC BY 4.0. Code: Apache 2.0. Third-party figures remain subject to their sources' "
                 "terms, listed per source.")
 
@@ -1614,7 +1614,8 @@ def ld(obj) -> str:
 
 
 ORG = {"@type": "Organization", "name": "Lead Green", "url": SITE + "/", "logo": SITE + "/assets/logo/leadgreen-icon-512.png",
-       "parentOrganization": {"@type": "Organization", "name": "Katonic", "url": "https://www.katonic.ai"}}
+       "parentOrganization": {"@type": "Organization", "name": "Katonic", "url": "https://www.katonic.ai"},
+       **({"sameAs": SAME_AS} if SAME_AS else {})}   # T6: the same project elsewhere (public repository, dataset, DOI, Wikidata)
 PERSON = {"@type": "Person", "name": EDITOR, "url": LINKEDIN_URL}
 
 
@@ -1634,6 +1635,7 @@ def jsonld_for(kind: str, title: str, desc: str, url: str, post: dict | None = N
                    "creator": ORG, "publisher": ORG, "dateModified": UPDATED, "version": UPDATED, "inLanguage": "en",
                    "keywords": ["LLM inference energy", "watt-hours per token", "GPU energy", "grid carbon intensity", "H100", "B200"],
                    "variableMeasured": "GPU watt-hours per million output tokens",
+                   **({"sameAs": HF_DATASET_URL} if HF_DATASET_URL else {}), **({"identifier": ZENODO_DOI_URL} if ZENODO_DOI_URL else {}),
                    "isBasedOn": [SRC_MLE["url"], SRC_EMBER["url"], SRC_AIES["url"], hw["sources"][0]["url"]],
                    "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": f"{SITE}/api/v1/{p}"}
                                     for p, _ in ENDPOINTS if "{" not in p]})
@@ -3426,6 +3428,47 @@ for d in sorted((p.name for p in RELEASES.iterdir() if p.is_dir()), reverse=True
 shutil.copyfile(zip_path, API_DIR / "all.zip")
 
 sync_tree(API_DIR, MCP_DATA, skip=("releases", "all.zip", "index.csv", "types.d.ts"))
+
+# T3: citation metadata at the repository root, regenerated every build so version and date never drift from DATA_VERSION.
+# CITATION.cff is what GitHub renders as "Cite this repository"; .zenodo.json is the metadata Zenodo reads when it archives a release.
+_given, _family = EDITOR.split(" ", 1)
+_cite_title = f"{INDEX_NAME}: GPU energy per million output tokens, by model, GPU and configuration, with grid carbon intensity"
+_keywords = ["LLM inference energy", "watt-hours per token", "GPU energy", "grid carbon intensity", "green AI", "open data", "MCP server"]
+def _yq(v: str) -> str:
+    return json.dumps(v, ensure_ascii=False)   # a JSON string is a valid double-quoted YAML scalar
+_cff = ["cff-version: 1.2.0",
+        f"message: {_yq('If you use this index, cite the dated release you used; the list is at ' + SITE + '/api/v1/releases/index.json.')}",
+        "type: dataset", f"title: {_yq(_cite_title)}", f"version: {_yq(DATA_VERSION)}", f"date-released: {_yq(DATA_VERSION)}",
+        f"url: {_yq(SITE + '/')}", *([f"repository-code: {_yq(REPO_URL)}"] if REPO_URL else []), "license: CC-BY-4.0",
+        *([f"doi: {_yq(ZENODO_CONCEPT_DOI)}"] if ZENODO_CONCEPT_DOI else []),
+        "authors:", f"  - family-names: {_yq(_family)}", f"    given-names: {_yq(_given)}", "    affiliation: Katonic",
+        f"  - name: {_yq(PUBLISHER_ENTITY + ' (Lead Green, a Katonic project)')}",
+        f"abstract: {_yq(PROJECT_DESCRIPTION + ' ' + CAVEAT)}",
+        "keywords:", *[f"  - {_yq(k)}" for k in _keywords],
+        "references:",
+        "  - type: conference-paper", f"    title: {_yq('The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization')}",
+        "    authors:", "      - name: Chung et al.", f"    url: {_yq(SRC_MLE['cite_url'])}", "    notes: NeurIPS 2025 Datasets and Benchmarks",
+        "  - type: data", f"    title: {_yq(SRC_EMBER['name'])}", "    authors:", "      - name: Ember", f"    url: {_yq(SRC_EMBER['url'])}",
+        f"    notes: {_yq(SRC_EMBER['version'])}"]
+(ROOT / "CITATION.cff").write_text("\n".join(_cff) + "\n", encoding="utf-8", newline="\n")
+_zenodo = {
+    "upload_type": "dataset", "title": _cite_title, "version": DATA_VERSION, "publication_date": DATA_VERSION, "language": "eng",
+    "access_right": "open", "license": "cc-by-4.0",
+    "creators": [{"name": f"{_family}, {_given}", "affiliation": "Katonic"}],
+    "contributors": [{"name": PUBLISHER_ENTITY, "type": "HostingInstitution"}],
+    "description": "<p>" + "</p><p>".join(esc(t) for t in (PROJECT_DESCRIPTION, CAVEAT, FUNDING, LICENCE_TEXT +
+                   " The archive deposited from GitHub holds the site source and code (Apache 2.0) together with the data (CC BY 4.0).")) + "</p>",
+    "keywords": _keywords,
+    "related_identifiers": [
+        {"identifier": SITE + "/", "relation": "isDocumentedBy", "resource_type": "other"},
+        {"identifier": f"{SITE}/api/v1/releases/{DATA_VERSION}/", "relation": "isVariantFormOf", "resource_type": "dataset"},
+        {"identifier": SRC_MLE["data_url"], "relation": "isDerivedFrom", "resource_type": "dataset"},
+        {"identifier": SRC_EMBER["url"], "relation": "isDerivedFrom", "resource_type": "dataset"},
+        {"identifier": SRC_MLE["cite_url"], "relation": "cites", "resource_type": "publication-preprint"},
+    ],
+    "notes": ATTRIBUTION,
+}
+(ROOT / ".zenodo.json").write_text(jdump(_zenodo), encoding="utf-8", newline="\n")
 
 wheel = ROOT / "dist" / WHEEL_NAME
 print(f"wrote {len(outputs)} pages/files, {len(outputs_bin)} social cards and {len(api_docs)} API documents; {len(index_rows)} index rows from {len(cfgs)} configurations; "

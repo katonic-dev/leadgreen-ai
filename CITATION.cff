@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this index, cite the dated release you used; the list is at https://leadgreen.ai/api/v1/releases/index.json."
+type: dataset
+title: "Green Tokens: GPU energy per million output tokens, by model, GPU and configuration, with grid carbon intensity"
+version: "2026-10-18"
+date-released: "2026-10-18"
+url: "https://leadgreen.ai/"
+repository-code: "https://github.com/katonic-dev/leadgreen-ai"
+license: CC-BY-4.0
+authors:
+  - family-names: "Naraindas"
+    given-names: "Prem"
+    affiliation: Katonic
+  - name: "Katonic AI Technology Ltd (Lead Green, a Katonic project)"
+abstract: "Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open data with a JSON API and an MCP server under CC BY 4.0. Every figure comes from a named public source with a retrieval date; it is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or model vendors. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it."
+keywords:
+  - "LLM inference energy"
+  - "watt-hours per token"
+  - "GPU energy"
+  - "grid carbon intensity"
+  - "green AI"
+  - "open data"
+  - "MCP server"
+references:
+  - type: conference-paper
+    title: "The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization"
+    authors:
+      - name: Chung et al.
+    url: "https://arxiv.org/abs/2505.06371"
+    notes: NeurIPS 2025 Datasets and Benchmarks
+  - type: data
+    title: "Ember, Yearly electricity data"
+    authors:
+      - name: Ember
+    url: "https://ember-energy.org/data/yearly-electricity-data/"
+    notes: "October 2026 release (file last modified 2026-10-06)"

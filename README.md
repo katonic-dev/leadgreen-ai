@@ -24,6 +24,12 @@ Dockerfile .dockerignore docker/nginx.conf   the production container image (ngi
 k8s/leadgreen-website.yaml      its Kubernetes Deployment, Service, Istio Gateway and VirtualService
 ```
 
+## Where this lives
+
+- The working repository sits in Katonic's GitHub Enterprise organisation, which cannot host public repositories; the site image is built and deployed from its `master`.
+- The public mirror is [katonic-dev/leadgreen-ai](https://github.com/katonic-dev/leadgreen-ai): `master` is pushed there after every merge, and it is where issues and pull requests from outside are opened. A change accepted there is merged into the working repository and reaches the mirror on the next push.
+- The project's other homes (the Hugging Face dataset, the Zenodo DOI, Wikidata) are set in `build/project_text.py`; the build writes them into the pages' JSON-LD `sameAs`, `CITATION.cff` and `.zenodo.json`. `build/hf_dataset.py` assembles and pushes the dataset.
+
 ## Build
 
 From this folder:
