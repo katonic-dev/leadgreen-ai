@@ -31,7 +31,7 @@ HF_DATASET_URL = "https://huggingface.co/datasets/leadgreen/green-token-index"  
 
 # T3 / G7: the Zenodo concept DOI for the project (one DOI that always resolves to the latest release), e.g.
 # "10.5281/zenodo.1234567". "" until the first deposit exists. Per-release DOIs live on Zenodo itself.
-ZENODO_CONCEPT_DOI = ""
+ZENODO_CONCEPT_DOI = "10.5281/zenodo.23478909"   # concept DOI, first deposit release-2026-10-19 (version DOI 10.5281/zenodo.23478910)
 
 # T6: the Wikidata item, e.g. "https://www.wikidata.org/wiki/Q123456789". "" until created.
 WIKIDATA_URL = ""
