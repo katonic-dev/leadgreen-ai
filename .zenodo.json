@@ -53,6 +53,11 @@
       "identifier": "https://arxiv.org/abs/2505.06371",
       "relation": "cites",
       "resource_type": "publication-preprint"
+    },
+    {
+      "identifier": "https://www.wikidata.org/wiki/Q141778099",
+      "relation": "isIdenticalTo",
+      "resource_type": "other"
     }
   ],
   "notes": "Green Tokens index, Lead Green, a Katonic project, https://leadgreen.ai/api/v1/, CC BY 4.0. Contains data from the ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; data compiled 2026-02-16, retrieved 2026-09-26) and Ember Yearly Electricity Data (CC BY 4.0). Changes: [none | describe]."

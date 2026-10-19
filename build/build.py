@@ -61,7 +61,7 @@ LINKEDIN_URL = "https://www.linkedin.com/in/premnaraindas/"
 OWN_YOUR_AI_URL = "https://www.linkedin.com/newsletters/own-your-ai-7508174547041292288/"
 # D6 / G2 / T6: REPO_URL (the public mirror), the Hugging Face and Zenodo identifiers, the canonical description and the funder line
 # live in build/project_text.py, shared with hf_dataset.py. "" for REPO_URL omits the repository links.
-from project_text import FUNDING, HF_DATASET_URL, PROJECT_DESCRIPTION, REPO_URL, SAME_AS, ZENODO_CONCEPT_DOI, ZENODO_DOI_URL  # noqa: E402
+from project_text import FUNDING, HF_DATASET_URL, PROJECT_DESCRIPTION, REPO_URL, SAME_AS, WIKIDATA_URL, ZENODO_CONCEPT_DOI, ZENODO_DOI_URL  # noqa: E402
 NEWSLETTER_SIGNUP_URL = ""             # D2: set when the email provider is chosen; never a fake form
 MCP_VERSION = "0.2.0"
 WHEEL_NAME = f"leadgreen_mcp-{MCP_VERSION}-py3-none-any.whl"
@@ -3467,6 +3467,8 @@ _zenodo = {
         {"identifier": SRC_MLE["data_url"], "relation": "isDerivedFrom", "resource_type": "dataset"},
         {"identifier": SRC_EMBER["url"], "relation": "isDerivedFrom", "resource_type": "dataset"},
         {"identifier": SRC_MLE["cite_url"], "relation": "cites", "resource_type": "publication-preprint"},
+        # T6: the Wikidata item for the project, so the archive and the knowledge graph point at each other.
+        *([{"identifier": WIKIDATA_URL, "relation": "isIdenticalTo", "resource_type": "other"}] if WIKIDATA_URL else []),
     ],
     "notes": ATTRIBUTION,
 }
