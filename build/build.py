@@ -59,7 +59,7 @@ INDEX_NAME = "Green Tokens"            # D1: "Green Tokens" or "The Green Token 
 EDITOR = "Prem Naraindas"
 LINKEDIN_URL = "https://www.linkedin.com/in/premnaraindas/"
 OWN_YOUR_AI_URL = "https://www.linkedin.com/newsletters/own-your-ai-7508174547041292288/"
-REPO_URL = ""                          # D6: set when the repository is public; links are omitted while empty
+REPO_URL = "https://github.com/katonicai/leadgreen-ai"   # D6: set 19 Oct 2026 when the repository went public; "" omits the links
 NEWSLETTER_SIGNUP_URL = ""             # D2: set when the email provider is chosen; never a fake form
 MCP_VERSION = "0.2.0"
 WHEEL_NAME = f"leadgreen_mcp-{MCP_VERSION}-py3-none-any.whl"
@@ -1093,6 +1093,11 @@ subs.update({
     "REVIEWERS_PHRASE": (and_list([esc(n) for n in REVIEWERS]) if REVIEWERS else "two named reviewers, listed here before the first contributed row is accepted"),
     "OUTSIDE_REVIEWER_PHRASE": (esc(OUTSIDE_REVIEWER) if OUTSIDE_REVIEWER else "a named reviewer with no Katonic affiliation, to be named here before the first Katonic row is published"),
     "SUBMISSIONS_OPEN_PHRASE": (f"on {long_date(SUBMISSIONS_OPEN)}" if SUBMISSIONS_OPEN else "on a date to be announced on this page"),
+    "SUBMISSIONS_SENTENCE": (
+        f"If you would rather not open a pull request, send a measurement or a correction to <a href=\"mailto:{CONTACT_EMAIL}\">{CONTACT_EMAIL}</a>; it will be added under your name."
+        if REPO_URL else
+        f"The repository opens {f'on {long_date(SUBMISSIONS_OPEN)}' if SUBMISSIONS_OPEN else 'on a date to be announced on this page'}. "
+        f"Until then, send a measurement or a correction to <a href=\"mailto:{CONTACT_EMAIL}\">{CONTACT_EMAIL}</a>; it will be moved into the repository under your name when the repository opens."),
     "LEGAL_AS_AT_LONG": long_date(LEGAL_AS_AT), "RETRIEVED_LONG": long_date(RETRIEVED), "DATA_VERSION": DATA_VERSION,
     "EMBER_RELEASE": EMBER_RELEASE, "EMBER_RETRIEVED_LONG": long_date(EMBER_RETRIEVED),
     # sources (D21)
