@@ -2602,6 +2602,236 @@ render("glossary/index.html", "", "Glossary: the terms behind GPU energy per tok
        "website", "glossary", _gl_body, {"date": UPDATED, "terms": GLOSSARY})
 
 
+# ---- compare pages: the model pairs people ask about, generated from the index rows (GEO strategy 6.2)
+# Each page compares two models' index rows on every GPU both were measured on. The ratio is the second
+# model's energy per token over the first's; the sweep caveat (card count, running batch) is stated on every page.
+# The first model is the smaller, the FP8 variant or the mixture-of-experts one, so a ratio above 1 reads as "the second costs more".
+COMPARE_PAIRS = [  # (first model, second model, angle)
+    ("Llama 3.1 8B Instruct", "Llama 3.3 70B Instruct", "size"),
+    ("Llama 3.3 70B Instruct", "Llama 3.1 405B Instruct FP8", "size"),
+    ("Qwen 3 32B", "Llama 3.3 70B Instruct", "cross"),
+    ("Qwen 3 235B A22B Instruct", "DeepSeek V3.1", "moe-size"),
+    ("Qwen 3 30B A3B Instruct", "Qwen 3 32B", "dense-vs-moe"),
+    ("Qwen 3 235B A22B Instruct FP8", "Qwen 3 235B A22B Instruct", "precision"),
+    ("Llama 3.1 405B Instruct FP8", "Llama 3.1 405B Instruct", "precision"),
+    ("Qwen 3 8B", "Llama 3.1 8B Instruct", "family"),
+    ("Llama 4 Scout 17B 16E Instruct", "Llama 4 Maverick 17B 128E Instruct FP8", "moe-experts"),
+]
+for _a, _b, _ in COMPARE_PAIRS:
+    assert slug(_a) in models and slug(_b) in models, f"compare pair names a model that is not on the index: {_a} / {_b}"
+
+
+def _cmp_slug(a: str, b: str) -> str:
+    return f"{slug(a)}-vs-{slug(b)}"
+
+
+def _params(m: dict) -> str:
+    t, act = m["params_b"], m["active_params_b"]
+    return f"{t:g} B parameters" + (f", {act:g} B active per token" if act and abs(act - t) > 0.01 else "")
+
+
+def _per_answer(c) -> float:
+    return cfg_wh(c) * c["avg_output_len"] / 1e6
+
+
+def _cards(n: int) -> str:
+    return f"{word(n)} card{'s' if n > 1 else ''}"
+
+
+def _more_less(r: float) -> str:
+    """'1.85× the' or '0.68× the (less)': a ratio read aloud without pretending 0.9× is 'more'."""
+    return f"{r:.2f}× the" if r >= 1 else f"{r:.2f}× the (that is, less)"
+
+
+def compare_pair_page(a_name: str, b_name: str, angle: str) -> tuple[str, str, str, list[tuple[str, str]], dict]:
+    ma, mb = models[slug(a_name)], models[slug(b_name)]
+    gpus = [g for g in ("H100", "B200") if (a_name, g) in best and (b_name, g) in best]
+    assert gpus, f"{a_name} and {b_name} share no GPU on the index"
+    rows = [(g, best[(a_name, g)], best[(b_name, g)], cfg_wh(best[(b_name, g)]) / cfg_wh(best[(a_name, g)])) for g in gpus]
+    ratios = {g: r for g, _, _, r in rows}
+    lead_g, lead_a, lead_b, lead_r = rows[0]
+    b_more_everywhere = all(r > 1 for r in ratios.values())
+    b_less_everywhere = all(r < 1 for r in ratios.values())
+
+    def row_phrase(g) -> str:
+        ca, cb = best[(a_name, g)], best[(b_name, g)]
+        cards = (f"both on {_cards(cb['num_gpus'])}" if cb['num_gpus'] == ca['num_gpus'] else f"on {_cards(cb['num_gpus'])} and {_cards(ca['num_gpus'])}")
+        return (f"on the {g} ({fmt(cfg_wh(cb))} against {fmt(cfg_wh(ca))} Wh/M, {cards} "
+                f"at running batches of {fmt(cb['avg_batch_size'], 0)} and {fmt(ca['avg_batch_size'], 0)})")
+
+    per_gpu = (f"<b>{ratios[gpus[0]]:.2f}×</b> the GPU energy per output token of {esc(a_name)} {row_phrase(gpus[0])}"
+               + (f" and <b>{ratios[gpus[1]]:.2f}×</b> {row_phrase(gpus[1])}" if len(gpus) > 1 else ""))
+    answer = (f"On the index rows, {esc(b_name)} uses {per_gpu}, GPU only, each at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for it "
+              f"(data compiled {long_date(SRC_MLE['compiled'])}). {esc(a_name)} has {_params(ma)}; {esc(b_name)} has {_params(mb)}. "
+              f"Part of each gap is the sweep rather than the model: the two rows of a pair differ in card count and running batch, and the table states both.")
+    pa, pb = ma["params_b"], mb["params_b"]
+    aa, ab = ma["active_params_b"] or pa, mb["active_params_b"] or pb
+    pr = pb / pa
+    gap_vs_params = ("smaller than" if lead_r < pr * 0.9 else "larger than" if lead_r > pr * 1.1 else "close to")
+    sweep_note = ((f"On the {lead_g} both rows sit on {_cards(lead_a['num_gpus'])}" if lead_a['num_gpus'] == lead_b['num_gpus'] else
+                   f"On the {lead_g} the rows sit on {_cards(lead_a['num_gpus'])} ({esc(a_name)}) and {_cards(lead_b['num_gpus'])} ({esc(b_name)})")
+                  + f", at running batches of {fmt(lead_a['avg_batch_size'], 0)} ({esc(a_name)}) and {fmt(lead_b['avg_batch_size'], 0)} ({esc(b_name)}).")
+    if angle == "size":
+        why = (f"The second model has {pr:.1f}× the parameters of the first, and a dense model reads every parameter for every output token, so the weights moved per token scale with size and so does the memory needed to hold them. {sweep_note} "
+               f"The energy gap on the {lead_g} ({lead_r:.2f}×) is {gap_vs_params} the parameter gap ({pr:.1f}×), because each row runs at its own card count and running batch, where its fixed draw is spread over its own number of tokens. "
+               f"Size is the largest lever after load; the question for a buyer is whether the task needs the larger model's answers.")
+    elif angle == "cross":
+        why = (f"Two families and two sizes: {esc(a_name)} ({_params(ma)}, {esc(ma['architecture'])}) against {esc(b_name)} ({_params(mb)}, {esc(mb['architecture'])}), {pr:.1f}× the parameters. "
+               f"{sweep_note} The energy gap on the {lead_g} ({lead_r:.2f}×) is {gap_vs_params} the parameter gap ({pr:.1f}×); architecture, vocabulary and the configuration each model was swept at account for the rest. "
+               f"{esc(a_name)} is the index's reference model, so its full ladder of measured loads is on <a href=\"{{{{ROOT}}}}index/#concurrency\">the index</a>, and both models' every configuration is on their pages.")
+    elif angle == "family":
+        why = (f"Two models of the same size class from different families: {esc(a_name)} ({_params(ma)}, {esc(ma['architecture'])}) against {esc(b_name)} ({_params(mb)}, {esc(mb['architecture'])}). "
+               f"At the same size the energy per token depends on the architecture's depth and width, the vocabulary, the attention design and, on the leaderboard, the configuration swept for each: card count, cap and the running batch reached. {sweep_note} "
+               f"The gap here is {'under' if max(abs(1 - r) for r in ratios.values()) < 0.2 else 'about'} {max(abs(1 - r) for r in ratios.values()) * 100:.0f} percent, which is inside what load alone moves; read the ratio with the running batches beside it.")
+    elif angle == "dense-vs-moe":
+        why = (f"A dense model reads all of its weights for every output token; a mixture-of-experts model routes each token through a few experts and reads only those. {esc(a_name)} activates {aa:g} B of its {pa:g} B parameters per token; {esc(b_name)} is dense at {pb:g} B. "
+               f"So the mixture-of-experts model reads about {ab / aa:.0f}× fewer weights per token at a similar total size, and on the {lead_g} its index row uses {1 / lead_r:.2f}× less GPU energy per output token "
+               f"({fmt(cfg_wh(lead_a))} against {fmt(cfg_wh(lead_b))} Wh/M). The whole model must still fit in memory: {sweep_note} The saving is in weights read per token, not in cards.")
+    elif angle == "moe-size":
+        why = (f"Two mixture-of-experts models of different total size: {esc(a_name)} activates {aa:g} B of {pa:g} B parameters per token, {esc(b_name)} {ab:g} B of {pb:g} B. "
+               f"Weights read per token scale with the active parameters ({ab / aa:.1f}× here), memory with the total ({pr:.1f}×), so the larger model needs more cards to hold its experts and spreads each token's work across them. {sweep_note} "
+               f"The index row ratio on the {lead_g} is {lead_r:.2f}×, between the active-parameter gap and the total-parameter gap.")
+    elif angle == "precision":
+        fp8_saves = [g for g in gpus if ratios[g] > 1]
+        fp8_costs = [g for g in gpus if ratios[g] <= 1]
+        verdict = ("On both GPUs the FP8 row uses less energy per token" if len(fp8_saves) == len(gpus) and len(gpus) > 1 else
+                   "On this GPU the FP8 row uses less energy per token" if len(fp8_saves) == len(gpus) else
+                   "On these index rows FP8 does not come out ahead" if not fp8_saves else
+                   f"The FP8 row uses less energy per token on the {and_list(fp8_saves)} and more on the {and_list(fp8_costs)}")
+        detail = "; ".join(f"{g}: FP8 {fmt(cfg_wh(best[(a_name, g)]))} Wh/M on {_cards(best[(a_name, g)]['num_gpus'])} at a running batch of {fmt(best[(a_name, g)]['avg_batch_size'], 0)}, "
+                           f"BF16 {fmt(cfg_wh(best[(b_name, g)]))} Wh/M on {_cards(best[(b_name, g)]['num_gpus'])} at {fmt(best[(b_name, g)]['avg_batch_size'], 0)}" for g in gpus)
+        why = (f"The same model weights at two precisions. FP8 stores each weight in one byte and BF16 in two, so an FP8 row moves half the bytes per token from memory and the model fits on fewer cards or leaves more memory for batching. "
+               f"{verdict} ({detail}). Where the FP8 row costs more, the reason is in the table: the two rows were swept to different card counts and reached different running batches, and a quieter row carries a higher energy per token whatever its precision. "
+               f"Quantisation is the cheapest energy lever after load, but these rows show it only pays when the serving configuration is matched; the model pages hold every configuration so the pair can be re-cut at the same cards and cap.")
+    else:  # moe-experts
+        why = (f"Two mixture-of-experts models with the same active parameters per token ({aa:g} B) and very different totals: {esc(a_name)} routes across 16 experts ({pa:g} B in all), {esc(b_name)} across 128 ({pb:g} B). "
+               f"The work per token is similar; the memory is not, so the larger model needs more cards to hold its experts and spreads each token's work across them. {sweep_note} "
+               f"The index row ratio on the {lead_g} is {lead_r:.2f}×: the price of holding the extra experts, at the running batches stated in the table.")
+    tiles_html = "".join(
+        f"<div class=\"tile{' ref' if i == 0 else ''}\"><span class=\"lbl\">{g}, index rows</span><span class=\"val\">{ratios[g]:.2f}<small>×</small></span>"
+        f"<span class=\"sub\">{esc(b_name)} {fmt(cfg_wh(best[(b_name, g)]))} Wh/M on {best[(b_name, g)]['num_gpus']} × {g} against {esc(a_name)} {fmt(cfg_wh(best[(a_name, g)]))} Wh/M on {best[(a_name, g)]['num_gpus']} × {g}.</span></div>"
+        for i, g in enumerate(gpus))
+    tiles_html += (f"<div class=\"tile\"><span class=\"lbl\">Parameters</span><span class=\"val\">{pr:.1f}<small>×</small></span>"
+                   f"<span class=\"sub\">{esc(b_name)} {_params(mb)}; {esc(a_name)} {_params(ma)}.</span></div>")
+    tiles = f"<div class=\"tiles auto n{len(gpus) + 1}\" role=\"group\" aria-label=\"Headline readings\">{tiles_html}</div>"
+    table_rows = "\n".join(
+        f"<tr><th scope=\"row\">{g}</th><td><a class=\"model\" href=\"{{{{ROOT}}}}models/{slug(n)}/\">{esc(n)}</a></td><td class=\"num\">{c['num_gpus']} × {g}</td><td class=\"num\">{precision_label(c['weight_precision'])}</td>"
+        f"<td class=\"num\">{fmt(c['avg_batch_size'], 0)}</td><td class=\"num\">{fmt(c['avg_power_watts'], 0)}</td><td class=\"num\">{fmt(c['output_throughput_tokens_per_sec'], 0)}</td>"
+        f"<td class=\"num key\">{fmt(cfg_wh(c))}</td><td class=\"num\">{fmt(c['avg_output_len'], 0)}</td><td class=\"num\">{_per_answer(c):.3f}</td><td class=\"num\">{fmt(kg_per_billion(cfg_wh(c), world))}</td></tr>"
+        for g, ca, cb, _ in rows for n, c in ((a_name, ca), (b_name, cb)))
+    diff_rows = and_list([f"{fmt(abs(cfg_wh(cb) - cfg_wh(ca)))} Wh/M on the {g} ({fmt(abs(cfg_wh(cb) - cfg_wh(ca)))} kWh per billion tokens)" for g, ca, cb, _ in rows])
+    yes_no = ("Yes, on these rows: " if b_more_everywhere else "No, on these rows: " if b_less_everywhere else "It depends on the GPU: ")
+    faq = [
+        (f"Is {a_name} more energy-efficient than {b_name}?",
+         yes_no + f"on the ML.ENERGY Leaderboard's index rows, {b_name} uses " + and_list([f"{ratios[g]:.2f}× the GPU energy per output token of {a_name} on the {g} ({fmt(cfg_wh(best[(b_name, g)]))} against {fmt(cfg_wh(best[(a_name, g)]))} Wh per million output tokens)" for g in gpus])
+         + ". These are floors at high load, GPU only, and the two rows of a pair differ in card count and running batch."),
+        (f"How much more energy does {b_name} use per million tokens than {a_name}?",
+         (f"The index rows differ by {diff_rows}" + ("" if b_more_everywhere else f"; where the ratio is under 1, {b_name} is the lower row") + f". Per answer, at each row's own average output length, {a_name} costs "
+          + and_list([f"{_per_answer(best[(a_name, g)]):.3f} Wh on the {g}" for g in gpus]) + f" and {b_name} " + and_list([f"{_per_answer(best[(b_name, g)]):.3f} Wh on the {g}" for g in gpus]) + ".")),
+        {"size": (f"Does the bigger model cost more per answer?",
+                  f"Yes, at these rows: on the {lead_g}, {_per_answer(lead_a):.3f} Wh for {a_name} against {_per_answer(lead_b):.3f} Wh for {b_name}, using each row's own average output length ({fmt(lead_a['avg_output_len'], 0)} and {fmt(lead_b['avg_output_len'], 0)} tokens). The larger model also needs more cards to hold its weights ({lead_a['num_gpus']} against {lead_b['num_gpus']} on the {lead_g}). Whether its answers are worth the difference is a question about the task, not the index."),
+         "cross": (f"Does {b_name} cost more per answer than {a_name}?",
+                   f"At these rows, on the {lead_g}: {_per_answer(lead_a):.3f} Wh for {a_name} against {_per_answer(lead_b):.3f} Wh for {b_name}, using each row's own average output length ({fmt(lead_a['avg_output_len'], 0)} and {fmt(lead_b['avg_output_len'], 0)} tokens). The two differ in family and in size ({pr:.1f}× the parameters), and the rows differ in cards ({lead_a['num_gpus']} against {lead_b['num_gpus']}) and running batch, so the per-answer figure is a reading, not a verdict on either architecture."),
+         "family": (f"Why do two models of the same size differ in energy per token?",
+                    f"Architecture (depth, width, attention design), vocabulary and, on the leaderboard, the configuration swept for each model: card count, cap and the running batch actually reached. On the {lead_g} the rows here ran at running batches of {fmt(lead_a['avg_batch_size'], 0)} ({a_name}) and {fmt(lead_b['avg_batch_size'], 0)} ({b_name}); a quieter row carries a higher energy per token whatever its architecture. The gap is {max(abs(1 - r) for r in ratios.values()) * 100:.0f} percent at most, inside what load alone moves."),
+         "dense-vs-moe": (f"Does a mixture-of-experts model use less energy per token than a dense one?",
+                          f"At a similar total size, on these rows, yes: {a_name} activates {aa:g} B of {pa:g} B parameters per token and its {lead_g} index row uses {fmt(cfg_wh(lead_a))} Wh/M against {fmt(cfg_wh(lead_b))} for the dense {b_name} ({pb:g} B), {1 / lead_r:.2f}× less. The mixture-of-experts model reads about {ab / aa:.0f}× fewer weights per token; it still needs memory for all of them, so the saving is in energy per token, not in cards."),
+         "moe-size": (f"Does the larger mixture-of-experts model cost more energy per token?",
+                      f"On the {lead_g} index rows, yes: {b_name} ({ab:g} B active of {pb:g} B) uses {lead_r:.2f}× the GPU energy per output token of {a_name} ({aa:g} B active of {pa:g} B), {fmt(cfg_wh(lead_b))} against {fmt(cfg_wh(lead_a))} Wh/M, on {lead_b['num_gpus']} and {lead_a['num_gpus']} cards at running batches of {fmt(lead_b['avg_batch_size'], 0)} and {fmt(lead_a['avg_batch_size'], 0)}. Active parameters set the work per token; total parameters set the cards."),
+         "precision": (f"Does FP8 save energy compared with BF16 for the same model?",
+                       (("Not consistently on these index rows. " if any(r <= 1 for r in ratios.values()) and any(r > 1 for r in ratios.values()) else
+                         "Not on these index rows. " if all(r <= 1 for r in ratios.values()) else "Yes, on these index rows. ")
+                        + (lambda t: t[0].upper() + t[1:])("; ".join(f"on the {g} the FP8 row ({a_name}) uses {fmt(cfg_wh(best[(a_name, g)]))} Wh/M on {best[(a_name, g)]['num_gpus']} card{'s' if best[(a_name, g)]['num_gpus'] > 1 else ''} at a running batch of {fmt(best[(a_name, g)]['avg_batch_size'], 0)} and the BF16 row {fmt(cfg_wh(best[(b_name, g)]))} Wh/M on {best[(b_name, g)]['num_gpus']} at {fmt(best[(b_name, g)]['avg_batch_size'], 0)}" for g in gpus))
+                        + ". FP8 halves the bytes moved per token and the memory the weights take, but the leaderboard swept the two variants to different card counts and loads, and load moves energy per token more than precision does. A matched run, same cards and same cap, is the comparison to ask a vendor for.")),
+         "moe-experts": (f"Do more experts cost more energy per token at the same active parameters?",
+                         f"On these rows, yes: with {aa:g} B active parameters each, {b_name} ({pb:g} B in all) uses {lead_r:.2f}× the GPU energy per output token of {a_name} ({pa:g} B) on the {lead_g}, {fmt(cfg_wh(lead_b))} against {fmt(cfg_wh(lead_a))} Wh/M. The extra experts must be held in memory and the token's work spread across more cards ({lead_b['num_gpus']} against {lead_a['num_gpus']}), which is the energy the table shows.")}[angle],
+        ("Why are the two rows not like for like?",
+         f"The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. On the {lead_g} the rows here ran on {lead_a['num_gpus']} and {lead_b['num_gpus']} cards at running batches of {fmt(lead_a['avg_batch_size'], 0)} and {fmt(lead_b['avg_batch_size'], 0)}. The ratio compares the best measured row on each side, not a matched run; every configuration is on the model pages and in the API, so any pair can be re-cut at a matched cap or running batch."),
+        ("Where do these figures come from?",
+         f"The ML.ENERGY Leaderboard v3.0 (data compiled {long_date(SRC_MLE['compiled'])}, retrieved {long_date(RETRIEVED)}), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration for its model and GPU at or under {ITL_DEADLINE_MS} ms median inter-token latency. Carbon per billion tokens multiplies the row by the world average grid intensity, {fmt(world, 0)} gCO2e per kWh (Ember, {EMBER_YEAR})."),
+    ]
+    faq_html = "<section id=\"faq\"><p class=\"eyebrow\">Questions</p><h2>Asked about " + esc(a_name) + " against " + esc(b_name) + "</h2><div class=\"prose faq\">" + "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq) + "</div></section>"
+    angle_label = {"size": "Two sizes", "cross": "Two families, two sizes", "family": "Two families, one size", "dense-vs-moe": "Dense against mixture of experts",
+                   "moe-size": "Two mixture-of-experts sizes", "precision": "Two precisions", "moe-experts": "Two expert counts"}[angle]
+    body = f"""<div class="title">
+  <p class="eyebrow"><a href="{{{{ROOT}}}}compare/">Compare</a> · {angle_label} · {and_list(gpus)}</p>
+  <h1>{esc(a_name)} vs {esc(b_name)}: GPU energy per million output tokens</h1>
+  <p class="stand">{answer}</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="{{{{ROOT}}}}api/v1/models/{slug(a_name)}.json">{slug(a_name)}.json</a>, <a href="{{{{ROOT}}}}api/v1/models/{slug(b_name)}.json">{slug(b_name)}.json</a>. Updated {{{{UPDATED_LONG}}}}.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#rows">The rows</a></li><li><a href="#why">What explains it</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+</div>
+{tiles}
+<p class="after-tiles">Each ratio compares the two models' index rows on the same GPU: the lowest-energy configuration the leaderboard measured for each, at or under {{{{ITL}}}} ms median inter-token latency. The ratio is the second model's energy per token over the first's, so a figure under 1 means the second model's row is the lower one. Card count and running batch differ between the rows and are shown in the table.</p>
+
+<section id="rows" class="first">
+  <p class="eyebrow">The rows</p>
+  <h2>Index rows on every GPU both models share</h2>
+  <div class="table-scroll"><table><caption>Index rows for {esc(a_name)} and {esc(b_name)}, with the configuration behind each and the per-answer and carbon readings</caption>
+  <thead><tr><th scope="col">GPU</th><th scope="col">Model</th><th scope="col" class="num">Cards</th><th scope="col" class="num">Precision</th><th scope="col" class="num">Running batch</th><th scope="col" class="num">GPU W</th><th scope="col" class="num">Tokens / s</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">Output tokens</th><th scope="col" class="num">Wh per answer</th><th scope="col" class="num">kg CO2e / bn tokens, world grid</th></tr></thead><tbody>
+{table_rows}
+  </tbody></table></div>
+  <p class="note">Running batch is the average number of requests the server was decoding at once over the steady-state window (vLLM's <code>num_requests_running</code>). GPU W is the measured average power summed across the cards. Wh per answer is Wh/M times the row's own average output length. Carbon uses the world average grid, {fmt(world, 0)} gCO2e per kWh (Ember, {EMBER_YEAR}); the <a href="{{{{ROOT}}}}grids/">grid pages</a> price every model on each listed grid. Model names link to every measured configuration.</p>
+</section>
+
+<section id="why">
+  <p class="eyebrow">What explains it</p>
+  <h2>{angle_label}</h2>
+  <div class="prose"><p>{why}</p>
+  <p>Load still moves the number more than either model does: {esc(l32['model'])} on {l32['gpus']} spans {l32['ratio']:.1f}× between a running batch of {fmt(l32['first_batch'], 0)} and {fmt(l32['best_batch'], 0)} on the same cards, which is wider than the gap on this page. Pick the model for the task, then run it busy. The <a href="{{{{ROOT}}}}glossary/running-batch/">running batch</a> and <a href="{{{{ROOT}}}}glossary/floor/">floor</a> entries define the terms.</p></div>
+</section>
+{faq_html}
+<section id="sources">
+  <p class="eyebrow">Sources</p>
+  <h2>Where every figure came from</h2>
+  <p class="note">{{{{MLE_BLOCK}}}}</p>
+  <p class="note">Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, {EMBER_RELEASE}, world average {EMBER_YEAR}, CC BY 4.0, retrieved {{{{EMBER_RETRIEVED_LONG}}}}.</p>
+  <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
+</section>"""
+    assert l32["ratio"] > max(ratios.values()), f"the load sentence claims the ladder is wider than the gap; not true for {a_name} vs {b_name}"
+    title = f"{a_name} vs {b_name}: GPU energy per million output tokens | Lead Green"
+    desc_parts = and_list([f"{ratios[g]:.2f}× on the {g}" for g in gpus])
+    for desc in (f"{b_name} uses {desc_parts} the GPU energy per output token of {a_name}, from the ML.ENERGY index rows: the figures, the sweep caveat and what explains the gap.",
+                 f"{b_name} uses {desc_parts} the GPU energy per output token of {a_name}: the index rows, the sweep caveat and what explains the gap.",
+                 f"{b_name} against {a_name} on GPU energy per output token: {desc_parts}, from the index rows.",
+                 f"Two models on GPU energy per million output tokens: {desc_parts}, from the ML.ENERGY index rows."):
+        if len(desc) <= 155:
+            break
+    card = {"a": a_name, "b": b_name, "angle": angle_label, "gpus": gpus, "ratios": ratios, "slug": _cmp_slug(a_name, b_name)}
+    return title, desc, body, faq, card
+
+
+compare_cards = []
+for _a, _b, _angle in COMPARE_PAIRS:
+    ct2, cd2, cb2, cfaq2, card_ = compare_pair_page(_a, _b, _angle)
+    render(f"compare/{card_['slug']}/index.html", "models", ct2, cd2, "article", "answer", cb2,
+           {"date": UPDATED, "faq": cfaq2, "name": f"{_a} vs {_b}", "crumbs": [("Compare", f"{SITE}/compare/")],
+            "dataset": {"name": f"{_a} vs {_b}: GPU energy per million output tokens", "distribution": f"{SITE}/api/v1/index.json", "isBasedOn": SRC_MLE["url"]}})
+    _lead_g = card_["gpus"][0]
+    compare_cards.append(
+        f"<div class=\"card\"><span class=\"k\">{esc(card_['angle'])} · {esc(and_list(card_['gpus']))}</span><h3><a href=\"{{{{ROOT}}}}compare/{card_['slug']}/\">{esc(_a)} vs {esc(_b)}</a></h3>"
+        f"<span class=\"n\">{card_['ratios'][_lead_g]:.2f}×<small>{_lead_g} index rows</small></span>"
+        f"<p>{esc(_b)} over {esc(_a)}, GPU energy per output token" + (f"; {card_['ratios'][card_['gpus'][1]]:.2f}× on the {card_['gpus'][1]}" if len(card_['gpus']) > 1 else "") + ".</p></div>")
+
+_cmp_body = f"""<div class="title">
+  <p class="eyebrow">Compare</p>
+  <h1>{len(COMPARE_PAIRS)} model pairs, side by side</h1>
+  <p class="stand">The comparisons people ask for, each on one page: a small model against a large one, two families at the same size, dense against mixture of experts, FP8 against BF16, and two expert counts at the same active size. Every page sets the two models' index rows beside each other on each GPU both were measured on, states the card count and running batch behind each row, and says what explains the gap. The GPU generations themselves are compared on <a href="{{{{ROOT}}}}h100-vs-b200/">H100 vs B200</a>.</p>
+  <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated {{{{UPDATED_LONG}}}}.</p>
+</div>
+
+<section id="pairs" class="first">
+  <p class="eyebrow">Pairs</p>
+  <h2>Pick a comparison</h2>
+  <div class="cards">
+{chr(10).join(compare_cards)}
+  </div>
+  <p class="note">The ratio on each card is the second model's energy per token over the first's, on the GPU named, at the index rows; under 1 means the second model's row is the lower one. Any other pair can be read off <a href="{{{{ROOT}}}}models/">the model pages</a> or asked of the <a href="{{{{ROOT}}}}mcp/">MCP server</a>. Source: {{{{MLE_SHORT}}}}, Text Conversation, retrieved {{{{RETRIEVED_LONG}}}}.</p>
+</section>"""
+render("compare/index.html", "models", f"Compare: {len(COMPARE_PAIRS)} model pairs on GPU energy per million output tokens | Lead Green",
+       "Model pairs people ask about, side by side on GPU energy per output token: small against large, dense against MoE, FP8 against BF16, two families.",
+       "website", "page", _cmp_body)
+
+
 # ---- FAQ hub: every FAQPage question on the site, each linking its canonical page (the per-page FAQPage stays the structured data)
 def _first_sentence(a: str, limit: int = 240) -> str:
     a = a.strip()
@@ -2618,6 +2848,7 @@ def _first_sentence(a: str, limit: int = 240) -> str:
 
 _faq_groups = []   # (page name, url, [(q, a)]) in site order: home, why, per query, compare, glossary, models, grids
 _order = [SITE + "/", f"{SITE}/why/", f"{SITE}/per-query/", f"{SITE}/h100-vs-b200/"]
+_order += [f"{SITE}/compare/{_cmp_slug(a, b)}/" for a, b, _ in COMPARE_PAIRS]
 _order += [f"{SITE}/glossary/{t['slug']}/" for t in GLOSSARY]
 _seen_faq = set()
 for _u in _order + [u for _, u, _ in faq_all]:
@@ -2702,6 +2933,7 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 - [H100 vs B200]({SITE}/h100-vs-b200/): the {len(pairs)} models measured on both cards, the gap per model and how much of it is the sweep
 - [Grids]({SITE}/grids/): one page per listed grid, the whole index priced on it, the trend since 2023 and the reporting line
 - [How much energy does an AI query use?]({SITE}/per-query/): per prompt against per million tokens, with Google's and Mistral's published figures and the AI Energy Score on one page
+- [Compare]({SITE}/compare/): {len(COMPARE_PAIRS)} model pairs side by side on GPU energy per output token (small against large, dense against MoE, BF16 against FP8, two families, two expert counts), one page each
 - [Glossary]({SITE}/glossary/): {len(GLOSSARY)} defined terms, one page each with the figure and the source (Wh/M, energy per token, running batch, floor, GPU-only boundary, location-based intensity, kg CO2e per billion tokens, inter-token latency ceiling, PUE)
 - [Questions]({SITE}/faq/): every question the site answers, each linking the page with the full answer
 - [Data API]({SITE}/api/): read-only JSON, CORS open, CC BY 4.0

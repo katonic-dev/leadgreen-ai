@@ -1,30 +1,30 @@
 # Every question the site answers
 
-> Every question the site answers, from 53 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
+> Every question the site answers, from 62 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/faq/ (this file: https://leadgreen.ai/faq/index.md). Updated 18 October 2026, data version 2026-10-18. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Questions*
 
-279 questions from 53 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
+324 questions from 62 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 18 October 2026.
 
-Cite this page: Lead Green, a Katonic project. FAQ: 279 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-18, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. FAQ: 324 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-18, retrieved [date]. CC BY 4.0.
 
 - [Lead Green](https://leadgreen.ai/faq/#lead-green)
 - [Why it matters](https://leadgreen.ai/faq/#why-it-matters)
 - [Per query](https://leadgreen.ai/faq/#per-query)
 - [H100 vs B200](https://leadgreen.ai/faq/#h100-vs-b200)
-- [Watt-hours per million output tokens (Wh/M)](https://leadgreen.ai/faq/#watt-hours-per-million-output-tokens-wh-m)
-- [Energy per token](https://leadgreen.ai/faq/#energy-per-token)
-- [Running batch](https://leadgreen.ai/faq/#running-batch)
-- [Floor](https://leadgreen.ai/faq/#floor)
-- [GPU-only boundary](https://leadgreen.ai/faq/#gpu-only-boundary)
-- [Location-based grid intensity](https://leadgreen.ai/faq/#location-based-grid-intensity)
-- [kg CO2e per billion output tokens](https://leadgreen.ai/faq/#kg-co2e-per-billion-output-tokens)
-- [Inter-token latency ceiling](https://leadgreen.ai/faq/#inter-token-latency-ceiling)
-- [Power usage effectiveness (PUE)](https://leadgreen.ai/faq/#power-usage-effectiveness-pue)
+- [Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct](https://leadgreen.ai/faq/#llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct)
+- [Llama 3.3 70B Instruct vs Llama 3.1 405B Instruct FP8](https://leadgreen.ai/faq/#llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8)
+- [Qwen 3 32B vs Llama 3.3 70B Instruct](https://leadgreen.ai/faq/#qwen-3-32b-vs-llama-3-3-70b-instruct)
+- [Qwen 3 235B A22B Instruct vs DeepSeek V3.1](https://leadgreen.ai/faq/#qwen-3-235b-a22b-instruct-vs-deepseek-v3-1)
+- [Qwen 3 30B A3B Instruct vs Qwen 3 32B](https://leadgreen.ai/faq/#qwen-3-30b-a3b-instruct-vs-qwen-3-32b)
+- [Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct](https://leadgreen.ai/faq/#qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct)
+- [Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct](https://leadgreen.ai/faq/#llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct)
+- [Qwen 3 8B vs Llama 3.1 8B Instruct](https://leadgreen.ai/faq/#qwen-3-8b-vs-llama-3-1-8b-instruct)
+- [Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/faq/#llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8)
 - [Models](https://leadgreen.ai/faq/#models)
 - [Grids](https://leadgreen.ai/faq/#grids)
 
@@ -137,6 +137,222 @@ The leaderboard picks each GPU's configurations separately; a B200 has more memo
 ### Where do these figures come from?
 
 The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/h100-vs-b200/#faq)
+
+*5 questions*
+
+## [Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/)
+
+### Is Llama 3.1 8B Instruct more energy-efficient than Llama 3.3 70B Instruct?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.3 70B Instruct uses 6.03× the GPU energy per output token of Llama 3.1 8B Instruct on the H100 (117.5 against 19.5 Wh per million output tokens) and 4.68× the GPU... [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+### How much more energy does Llama 3.3 70B Instruct use per million tokens than Llama 3.1 8B Instruct?
+
+The index rows differ by 98.0 Wh/M on the H100 (98.0 kWh per billion tokens) and 47.7 Wh/M on the B200 (47.7 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+### Does the bigger model cost more per answer?
+
+Yes, at these rows: on the H100, 0.008 Wh for Llama 3.1 8B Instruct against 0.049 Wh for Llama 3.3 70B Instruct, using each row's own average output length (397 and 413 tokens). [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/#faq)
+
+*5 questions*
+
+## [Llama 3.3 70B Instruct vs Llama 3.1 405B Instruct FP8](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/)
+
+### Is Llama 3.3 70B Instruct more energy-efficient than Llama 3.1 405B Instruct FP8?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 405B Instruct FP8 uses 4.88× the GPU energy per output token of Llama 3.3 70B Instruct on the H100 (572.9 against 117.5 Wh per million output tokens) and 5.25× the... [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+### How much more energy does Llama 3.1 405B Instruct FP8 use per million tokens than Llama 3.3 70B Instruct?
+
+The index rows differ by 455.4 Wh/M on the H100 (455.4 kWh per billion tokens) and 257.8 Wh/M on the B200 (257.8 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+### Does the bigger model cost more per answer?
+
+Yes, at these rows: on the H100, 0.049 Wh for Llama 3.3 70B Instruct against 0.210 Wh for Llama 3.1 405B Instruct FP8, using each row's own average output length (413 and 367 tokens). [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/llama-3-3-70b-instruct-vs-llama-3-1-405b-instruct-fp8/#faq)
+
+*5 questions*
+
+## [Qwen 3 32B vs Llama 3.3 70B Instruct](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/)
+
+### Is Qwen 3 32B more energy-efficient than Llama 3.3 70B Instruct?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.3 70B Instruct uses 1.85× the GPU energy per output token of Qwen 3 32B on the H100 (117.5 against 63.5 Wh per million output tokens) and 1.55× the GPU energy per... [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+### How much more energy does Llama 3.3 70B Instruct use per million tokens than Qwen 3 32B?
+
+The index rows differ by 54.1 Wh/M on the H100 (54.1 kWh per billion tokens) and 21.7 Wh/M on the B200 (21.7 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+### Does Llama 3.3 70B Instruct cost more per answer than Qwen 3 32B?
+
+At these rows, on the H100: 0.040 Wh for Qwen 3 32B against 0.049 Wh for Llama 3.3 70B Instruct, using each row's own average output length (634 and 413 tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-32b-vs-llama-3-3-70b-instruct/#faq)
+
+*5 questions*
+
+## [Qwen 3 235B A22B Instruct vs DeepSeek V3.1](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/)
+
+### Is Qwen 3 235B A22B Instruct more energy-efficient than DeepSeek V3.1?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, DeepSeek V3.1 uses 2.52× the GPU energy per output token of Qwen 3 235B A22B Instruct on the B200 (168.4 against 66.7 Wh per million output tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+### How much more energy does DeepSeek V3.1 use per million tokens than Qwen 3 235B A22B Instruct?
+
+The index rows differ by 101.7 Wh/M on the B200 (101.7 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+### Does the larger mixture-of-experts model cost more energy per token?
+
+On the B200 index rows, yes: DeepSeek V3.1 (37 B active of 671 B) uses 2.52× the GPU energy per output token of Qwen 3 235B A22B Instruct (22 B active of 235 B), 168.4 against 66.7 Wh/M, on 8 and 4 cards at running batches of 3,008 and... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
+
+*5 questions*
+
+## [Qwen 3 30B A3B Instruct vs Qwen 3 32B](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/)
+
+### Is Qwen 3 30B A3B Instruct more energy-efficient than Qwen 3 32B?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Qwen 3 32B uses 2.57× the GPU energy per output token of Qwen 3 30B A3B Instruct on the H100 (63.5 against 24.7 Wh per million output tokens) and 2.49× the GPU energy per... [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+### How much more energy does Qwen 3 32B use per million tokens than Qwen 3 30B A3B Instruct?
+
+The index rows differ by 38.8 Wh/M on the H100 (38.8 kWh per billion tokens) and 23.4 Wh/M on the B200 (23.4 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+### Does a mixture-of-experts model use less energy per token than a dense one?
+
+At a similar total size, on these rows, yes: Qwen 3 30B A3B Instruct activates 3 B of 30 B parameters per token and its H100 index row uses 24.7 Wh/M against 63.5 for the dense Qwen 3 32B (32 B), 0.39× less. [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-30b-a3b-instruct-vs-qwen-3-32b/#faq)
+
+*5 questions*
+
+## [Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/)
+
+### Is Qwen 3 235B A22B Instruct FP8 more energy-efficient than Qwen 3 235B A22B Instruct?
+
+It depends on the GPU: on the ML.ENERGY Leaderboard's index rows, Qwen 3 235B A22B Instruct uses 1.47× the GPU energy per output token of Qwen 3 235B A22B Instruct FP8 on the H100 (303.5 against 206.0 Wh per million output tokens) and... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+### How much more energy does Qwen 3 235B A22B Instruct use per million tokens than Qwen 3 235B A22B Instruct FP8?
+
+The index rows differ by 97.6 Wh/M on the H100 (97.6 kWh per billion tokens) and 72.3 Wh/M on the B200 (72.3 kWh per billion tokens); where the ratio is under 1, Qwen 3 235B A22B Instruct is the lower row. [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+### Does FP8 save energy compared with BF16 for the same model?
+
+Not consistently on these index rows. On the H100 the FP8 row (Qwen 3 235B A22B Instruct FP8) uses 206.0 Wh/M on 8 cards at a running batch of 511 and the BF16 row 303.5 Wh/M on 8 at 228; on the B200 the FP8 row (Qwen 3 235B A22B Instruct... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/#faq)
+
+*5 questions*
+
+## [Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/)
+
+### Is Llama 3.1 405B Instruct FP8 more energy-efficient than Llama 3.1 405B Instruct?
+
+No, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 405B Instruct uses 0.89× the GPU energy per output token of Llama 3.1 405B Instruct FP8 on the B200 (282.0 against 318.5 Wh per million output tokens). [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+### How much more energy does Llama 3.1 405B Instruct use per million tokens than Llama 3.1 405B Instruct FP8?
+
+The index rows differ by 36.6 Wh/M on the B200 (36.6 kWh per billion tokens); where the ratio is under 1, Llama 3.1 405B Instruct is the lower row. [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+### Does FP8 save energy compared with BF16 for the same model?
+
+Not on these index rows. On the B200 the FP8 row (Llama 3.1 405B Instruct FP8) uses 318.5 Wh/M on 4 cards at a running batch of 510 and the BF16 row 282.0 Wh/M on 8 at 3,589. [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/#faq)
+
+*5 questions*
+
+## [Qwen 3 8B vs Llama 3.1 8B Instruct](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/)
+
+### Is Qwen 3 8B more energy-efficient than Llama 3.1 8B Instruct?
+
+No, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 3.1 8B Instruct uses 0.97× the GPU energy per output token of Qwen 3 8B on the H100 (19.5 against 20.0 Wh per million output tokens) and 0.88× the GPU energy per output... [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+### How much more energy does Llama 3.1 8B Instruct use per million tokens than Qwen 3 8B?
+
+The index rows differ by 0.5 Wh/M on the H100 (0.5 kWh per billion tokens) and 1.8 Wh/M on the B200 (1.8 kWh per billion tokens); where the ratio is under 1, Llama 3.1 8B Instruct is the lower row. [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+### Why do two models of the same size differ in energy per token?
+
+Architecture (depth, width, attention design), vocabulary and, on the leaderboard, the configuration swept for each model: card count, cap and the running batch actually reached. [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/qwen-3-8b-vs-llama-3-1-8b-instruct/#faq)
+
+*5 questions*
+
+## [Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/)
+
+### Is Llama 4 Scout 17B 16E Instruct more energy-efficient than Llama 4 Maverick 17B 128E Instruct FP8?
+
+Yes, on these rows: on the ML.ENERGY Leaderboard's index rows, Llama 4 Maverick 17B 128E Instruct FP8 uses 1.44× the GPU energy per output token of Llama 4 Scout 17B 16E Instruct on the H100 (134.5 against 93.4 Wh per million output... [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+
+### How much more energy does Llama 4 Maverick 17B 128E Instruct FP8 use per million tokens than Llama 4 Scout 17B 16E Instruct?
+
+The index rows differ by 41.1 Wh/M on the H100 (41.1 kWh per billion tokens). [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+
+### Do more experts cost more energy per token at the same active parameters?
+
+On these rows, yes: with 17 B active parameters each, Llama 4 Maverick 17B 128E Instruct FP8 (400 B in all) uses 1.44× the GPU energy per output token of Llama 4 Scout 17B 16E Instruct (109 B) on the H100, 134.5 against 93.4 Wh/M. [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+
+### Why are the two rows not like for like?
+
+The leaderboard sweeps each model separately: card count, the cap on requests in flight and the precision are chosen per model, and the running batch actually reached differs. [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
+
+### Where do these figures come from?
+
+The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026), Text Conversation task, GPU energy measured with Zeus under vLLM on H100 80GB HBM3 and B200 servers; each row is the lowest-energy configuration... [Full answer](https://leadgreen.ai/compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/#faq)
 
 *4 questions*
 
