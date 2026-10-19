@@ -26,8 +26,8 @@ k8s/leadgreen-website.yaml      its Kubernetes Deployment, Service, Istio Gatewa
 
 ## Where this lives
 
-- The working repository sits in Katonic's GitHub Enterprise organisation, which cannot host public repositories; the site image is built and deployed from its `master`.
-- The public mirror is [katonic-dev/leadgreen-ai](https://github.com/katonic-dev/leadgreen-ai): `master` is pushed there after every merge, and it is where issues and pull requests from outside are opened. A change accepted there is merged into the working repository and reaches the mirror on the next push.
+- The working repository sits in Katonic's GitHub Enterprise organisation, which cannot host public repositories; changes are merged there first.
+- The public mirror is [katonic-dev/leadgreen-ai](https://github.com/katonic-dev/leadgreen-ai): `master` is pushed there after every merge, GitHub Pages serves leadgreen.ai from it, and it is where issues and pull requests from outside are opened. A change accepted there is merged into the working repository and reaches the mirror on the next push.
 - The project's other homes (the Hugging Face dataset, the Zenodo DOI, Wikidata) are set in `build/project_text.py`; the build writes them into the pages' JSON-LD `sameAs`, `CITATION.cff` and `.zenodo.json`. `build/hf_dataset.py` assembles and pushes the dataset.
 
 ## Build
@@ -69,18 +69,17 @@ Preview: the Browser pane config `leadgreen-site-static` in `.claude/launch.json
 4. Run the build, then rebuild the wheel.
 5. Open the home page and the index locally and read the three tiles and the first rows before pushing.
 
-## Deploy (container)
+## Deploy (GitHub Pages)
 
-The site is served from a container, not from GitHub Pages (Pages hosted it until 5 October 2026; keep Pages switched off in the repository settings so no second copy of the site exists). The image serves the committed folder with unprivileged nginx, minus `build/`, `leadgreen-mcp/` and the repository docs (see `.dockerignore`). It does not run the build: build and commit first. New page folders need no change to the image.
+Since 19 October 2026 the site is served by GitHub Pages from the public mirror `katonic-dev/leadgreen-ai`: source branch `master`, folder `/`, custom domain `leadgreen.ai` (the `CNAME` file at the root), HTTPS enforced. Every push of `master` to the mirror is a deploy; there is no image to build and nothing to apply. `.nojekyll` keeps Pages from running Jekyll over the generated files.
 
-```
-docker build -t leadgreen-site .
-docker run --rm -p 8080:8080 leadgreen-site
-```
+What Pages gives for free: folder-style URLs, `404.html` as the not-found page, `Access-Control-Allow-Origin: *` on every file (so the API's "CORS open" claim holds), `www.leadgreen.ai` redirected to the apex, HTTP redirected to HTTPS. What it cannot do: custom response headers (no HSTS, `X-Content-Type-Options`, `Referrer-Policy` or `Content-Security-Policy`) and no access log, so there is no server-side record of crawlers; Search Console and Bing Webmaster Tools are the only visibility.
 
-On Kubernetes, `k8s/leadgreen-website.yaml` runs it as `docker.io/katonic/leadgreen-website` in the `application` namespace: two replicas behind the ClusterIP Service `leadgreen-website:80`, published through the cluster's Istio ingress gateway (`leadgreen-gateway` and a VirtualService; `www.leadgreen.ai` redirects to `leadgreen.ai`). DNS: an `A` record for the apex pointing at the ingress gateway's address (`kubectl -n istio-system get svc istio-ingressgateway`), and `www` as a `CNAME` to the apex. TLS comes from the secret `leadgreen-tls` in `istio-system`: a Let's Encrypt certificate issued by DNS-01 and renewed by hand, after which the secret is replaced with the new files. Apply it with `kubectl apply -f k8s/leadgreen-website.yaml`; for a new image, push a new tag and change `image:`. What the pod spec relies on: container port 8080; it runs as UID 101, so `runAsNonRoot: true` works; point the liveness and readiness probes at `GET /healthz`. With `readOnlyRootFilesystem: true`, mount an `emptyDir` at `/tmp`, the only path nginx writes to. TLS and the `leadgreen.ai` host belong on the ingress, and the VirtualService sets HSTS on the HTTPS route; nginx serves `/404.html` for unknown paths and answers `/api/v1/` with CORS headers; redirects are relative, so they keep the client's scheme and host.
+DNS at the registrar: `A` records for the apex to `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` (and the matching `AAAA` records `2606:50c0:8000::153` to `2606:50c0:8003::153`), `CNAME www` to `katonic-dev.github.io`. The mail records (`MX`, SPF) stay as they are.
 
-After a deploy: fetch `https://leadgreen.ai/api/v1/manifest.json` and the wheel named on the `/mcp/` page once to confirm both are served; run `python build/indexnow.py` (`--all` the first time, then only the URLs whose content changed; the key file it checks is served at the site root). The sitemap is submitted once in Google Search Console and Bing Webmaster Tools; Bing's index also feeds ChatGPT search.
+After a deploy: fetch `https://leadgreen.ai/api/v1/manifest.json` and the wheel named on the `/mcp/` page once to confirm both are served; run `python build/indexnow.py` (`--all` the first time, then only the URLs whose content changed, which the build lists in `build/indexnow-changed.txt`).
+
+The container path (`Dockerfile`, `docker/nginx.conf`, `k8s/leadgreen-website.yaml`) served the site from a Katonic Kubernetes cluster from 14 to 19 October 2026 and is retired; the files stay until the cluster resources are removed, then they go.
 
 ## Logo
 
