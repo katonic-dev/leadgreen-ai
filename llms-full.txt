@@ -978,13 +978,13 @@ Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/
 ## One line
 
 ```
-pip install "git+https://github.com/katonicai/leadgreen-ai#subdirectory=leadgreen-mcp"
+pip install "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp"
 ```
 
 Or run it without installing, with [uv](https://docs.astral.sh/uv/):
 
 ```
-uvx --from "git+https://github.com/katonicai/leadgreen-ai#subdirectory=leadgreen-mcp" leadgreen-mcp
+uvx --from "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp" leadgreen-mcp
 ```
 
 pip checks the wheel against the SHA-256 in the line above and refuses a file that does not match. To rebuild it byte for byte from the site source: `SOURCE_DATE_EPOCH=1790467200 python -m pip wheel ./leadgreen-mcp --no-deps`. Python 3.10 or later. The server works with the `mcp` Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline. Every response says which it used.
@@ -1069,7 +1069,7 @@ Pass `running_batch` (`requests_in_flight` is still accepted as an alias) and th
 | LEADGREEN_API_BASE | Another base URL, or a local folder holding the API files. Default https://leadgreen.ai/api/v1. |
 | LEADGREEN_TIMEOUT | Seconds to wait for the site before falling back to the bundled snapshot. Default 10. |
 
-A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in [the repository](https://github.com/katonicai/leadgreen-ai).
+A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in [the repository](https://github.com/katonic-dev/leadgreen-ai).
 
 ---
 
@@ -1187,7 +1187,7 @@ The build script, the JSON API and the MCP server are small Python. A hosted MCP
 
 ## Issues and pull requests
 
-Everything lives in [the repository](https://github.com/katonicai/leadgreen-ai): the page sources, the build script, the dated data snapshots, the API and the MCP server. Propose a change as a pull request, or open an issue if you want to discuss it first. A measurement is submitted as a JSON file in the [measurement schema](https://leadgreen.ai/api/v1/schema/measurement.schema.json) plus the logs it was computed from; a correction is submitted with a link to the primary source. If you would rather not open a pull request, send a measurement or a correction to [hello@leadgreen.ai](mailto:hello@leadgreen.ai); it will be added under your name.
+Everything lives in [the repository](https://github.com/katonic-dev/leadgreen-ai): the page sources, the build script, the dated data snapshots, the API and the MCP server. Propose a change as a pull request, or open an issue if you want to discuss it first. A measurement is submitted as a JSON file in the [measurement schema](https://leadgreen.ai/api/v1/schema/measurement.schema.json) plus the logs it was computed from; a correction is submitted with a link to the primary source. If you would rather not open a pull request, send a measurement or a correction to [hello@leadgreen.ai](mailto:hello@leadgreen.ai); it will be added under your name.
 
 Contributors are credited by name on the change record and, for measurements, on the row itself. Bylines on blog posts are the author's own.
 
@@ -1299,7 +1299,7 @@ Founder and CEO of Katonic, author of *Own Your AI*, and the person who reads ev
 
 - [Prem Naraindas on LinkedIn](https://www.linkedin.com/in/premnaraindas/), where the [Own Your AI](https://www.linkedin.com/newsletters/own-your-ai-7508174547041292288/) newsletter also lives.
 - [hello@leadgreen.ai](mailto:hello@leadgreen.ai), for corrections, measurements and data requests, answered within ten working days.
-- [The repository](https://github.com/katonicai/leadgreen-ai), for issues, corrections and pull requests.
+- [The repository](https://github.com/katonic-dev/leadgreen-ai), for issues, corrections and pull requests.
 
 ---
 
