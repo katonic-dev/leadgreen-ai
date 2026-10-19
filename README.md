@@ -8,6 +8,7 @@ why/ index/ api/ mcp/ blog/ newsletter/ contribute/ about/   one index.html each
 blog/<slug>/index.html          one folder per post (generated)
 api/v1/                         the read-only JSON API (generated)
 feed.xml sitemap.xml robots.txt llms.txt llms-full.txt .nojekyll   (generated)
+assets/cards/*.png                                   (generated social cards, one number per page; needs Pillow and build/fonts)
 CNAME                           custom domain for GitHub Pages
 assets/site.css                 the one stylesheet (hand-written)
 assets/logo/                    the mark and lockups (SVG masters, light and dark), the icon master and its 512 px PNG
