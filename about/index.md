@@ -60,4 +60,4 @@ Founder and CEO of Katonic, author of *Own Your AI*, and the person who reads ev
 
 - [Prem Naraindas on LinkedIn](https://www.linkedin.com/in/premnaraindas/), where the [Own Your AI](https://www.linkedin.com/newsletters/own-your-ai-7508174547041292288/) newsletter also lives.
 - [hello@leadgreen.ai](mailto:hello@leadgreen.ai), for corrections, measurements and data requests, answered within ten working days.
-- [The repository](https://github.com/katonicai/leadgreen-ai), for issues, corrections and pull requests.
+- [The repository](https://github.com/katonic-dev/leadgreen-ai), for issues, corrections and pull requests.

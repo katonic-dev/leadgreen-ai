@@ -17,13 +17,13 @@ Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/
 ## One line
 
 ```
-pip install "git+https://github.com/katonicai/leadgreen-ai#subdirectory=leadgreen-mcp"
+pip install "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp"
 ```
 
 Or run it without installing, with [uv](https://docs.astral.sh/uv/):
 
 ```
-uvx --from "git+https://github.com/katonicai/leadgreen-ai#subdirectory=leadgreen-mcp" leadgreen-mcp
+uvx --from "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp" leadgreen-mcp
 ```
 
 pip checks the wheel against the SHA-256 in the line above and refuses a file that does not match. To rebuild it byte for byte from the site source: `SOURCE_DATE_EPOCH=1790467200 python -m pip wheel ./leadgreen-mcp --no-deps`. Python 3.10 or later. The server works with the `mcp` Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline. Every response says which it used.
@@ -108,4 +108,4 @@ Pass `running_batch` (`requests_in_flight` is still accepted as an alias) and th
 | LEADGREEN_API_BASE | Another base URL, or a local folder holding the API files. Default https://leadgreen.ai/api/v1. |
 | LEADGREEN_TIMEOUT | Seconds to wait for the site before falling back to the bundled snapshot. Default 10. |
 
-A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in [the repository](https://github.com/katonicai/leadgreen-ai).
+A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in [the repository](https://github.com/katonic-dev/leadgreen-ai).
