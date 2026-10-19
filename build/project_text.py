@@ -34,7 +34,7 @@ HF_DATASET_URL = "https://huggingface.co/datasets/leadgreen/green-token-index"  
 ZENODO_CONCEPT_DOI = "10.5281/zenodo.23478909"   # concept DOI, first deposit release-2026-10-19 (version DOI 10.5281/zenodo.23478910)
 
 # T6: the Wikidata item, e.g. "https://www.wikidata.org/wiki/Q123456789". "" until created.
-WIKIDATA_URL = ""
+WIKIDATA_URL = "https://www.wikidata.org/wiki/Q141778099"   # item created 19 October 2026
 
 # The LinkedIn Showcase Page under the Katonic company page (D-LI1, 19 October 2026): a project page, not a company page.
 LINKEDIN_PAGE_URL = "https://www.linkedin.com/showcase/leadgreen-ai/"
