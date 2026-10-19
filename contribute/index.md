@@ -38,7 +38,7 @@ The build script, the JSON API and the MCP server are small Python. A hosted MCP
 
 ## Issues and pull requests
 
-Everything lives in the repository (link to follow once it is public): the page sources, the build script, the dated data snapshots, the API and the MCP server. Propose a change as a pull request, or open an issue if you want to discuss it first. A measurement is submitted as a JSON file in the [measurement schema](https://leadgreen.ai/api/v1/schema/measurement.schema.json) plus the logs it was computed from; a correction is submitted with a link to the primary source. The repository opens on a date to be announced on this page. Until then, send a measurement or a correction to [hello@leadgreen.ai](mailto:hello@leadgreen.ai); it will be moved into the repository under your name when the repository opens.
+Everything lives in [the repository](https://github.com/katonicai/leadgreen-ai): the page sources, the build script, the dated data snapshots, the API and the MCP server. Propose a change as a pull request, or open an issue if you want to discuss it first. A measurement is submitted as a JSON file in the [measurement schema](https://leadgreen.ai/api/v1/schema/measurement.schema.json) plus the logs it was computed from; a correction is submitted with a link to the primary source. If you would rather not open a pull request, send a measurement or a correction to [hello@leadgreen.ai](mailto:hello@leadgreen.ai); it will be added under your name.
 
 Contributors are credited by name on the change record and, for measurements, on the row itself. Bylines on blog posts are the author's own.
 

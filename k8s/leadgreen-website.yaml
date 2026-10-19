@@ -113,7 +113,7 @@ spec:
       port: 80
       targetPort: http
 ---
-# Its own Gateway, like finops-gateway, so the shared main-gateway is left alone.
+# Its own Gateway, so the cluster's shared gateway is left alone.
 apiVersion: networking.istio.io/v1
 kind: Gateway
 metadata:

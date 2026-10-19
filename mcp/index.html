@@ -82,9 +82,9 @@
 <section class="first" id="install">
   <p class="eyebrow">Install</p>
   <h2>One line</h2>
-<pre><code>pip install https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl#sha256=83c0551b5fcd1d3d78f73a3c33d73385110cf0452203dad638fafe9923ec0f60</code></pre>
+<pre><code>pip install "git+https://github.com/katonicai/leadgreen-ai#subdirectory=leadgreen-mcp"</code></pre>
   <div class="prose"><p>Or run it without installing, with <a href="https://docs.astral.sh/uv/">uv</a>:</p></div>
-<pre><code>uvx --from https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl leadgreen-mcp</code></pre>
+<pre><code>uvx --from "git+https://github.com/katonicai/leadgreen-ai#subdirectory=leadgreen-mcp" leadgreen-mcp</code></pre>
   <p class="note">pip checks the wheel against the SHA-256 in the line above and refuses a file that does not match. To rebuild it byte for byte from the site source: <code>SOURCE_DATE_EPOCH=1790467200 python -m pip wheel ./leadgreen-mcp --no-deps</code>. Python 3.10 or later. The server works with the <code>mcp</code> Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline. Every response says which it used.</p>
 </section>
 
@@ -165,7 +165,7 @@
       <tr><th scope="row">LEADGREEN_TIMEOUT</th><td>Seconds to wait for the site before falling back to the bundled snapshot. Default 10.</td></tr>
     </tbody>
   </table></div>
-  <p class="note">A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in the repository (link to follow once it is public).</p>
+  <p class="note">A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in <a href="https://github.com/katonicai/leadgreen-ai">the repository</a>.</p>
 </section>
 
   </main>
