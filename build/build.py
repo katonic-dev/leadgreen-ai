@@ -63,11 +63,14 @@ OWN_YOUR_AI_URL = "https://www.linkedin.com/newsletters/own-your-ai-750817454704
 # live in build/project_text.py, shared with hf_dataset.py. "" for REPO_URL omits the repository links.
 from project_text import FUNDING, HF_DATASET_URL, PROJECT_DESCRIPTION, REPO_URL, SAME_AS, WIKIDATA_URL, ZENODO_CONCEPT_DOI, ZENODO_DOI_URL  # noqa: E402
 NEWSLETTER_SIGNUP_URL = ""             # D2: set when the email provider is chosen; never a fake form
-MCP_VERSION = "0.2.0"
+MCP_VERSION = "0.3.0"
 WHEEL_NAME = f"leadgreen_mcp-{MCP_VERSION}-py3-none-any.whl"
 WHEEL_URL = f"{SITE}/dist/{WHEEL_NAME}"
 _wheel_file = Path(__file__).resolve().parent.parent / "dist" / WHEEL_NAME   # theme 10: the install line carries the wheel hash
 WHEEL_SHA256 = hashlib.sha256(_wheel_file.read_bytes()).hexdigest() if _wheel_file.exists() else ""
+WHEEL_BUILD_DATE = "2026-10-20"        # the wheel is built with SOURCE_DATE_EPOCH = this date 00:00 UTC so it reproduces byte for byte; launch.py sets it to the release date when it rebuilds the wheel
+WHEEL_EPOCH = int(datetime.strptime(WHEEL_BUILD_DATE, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
+PYPI_URL = ""                          # T4: "https://pypi.org/project/leadgreen-mcp/" once the first upload has landed, so the install line never names a package that is not there yet
 # D16 publisher block. The address is typed only from the DIFC registry extract, after Prem confirms it.
 PUBLISHER_ENTITY = "Katonic AI Technology Ltd"
 PUBLISHER_REGISTRATION = "CL9944"
@@ -816,16 +819,22 @@ subs = {
     # site-wide
     "SITE": SITE, "INDEX_NAME": INDEX_NAME, "UPDATED": UPDATED, "UPDATED_LONG": long_date(UPDATED),
     "EDITOR": EDITOR, "LINKEDIN_URL": LINKEDIN_URL, "OWN_YOUR_AI_URL": OWN_YOUR_AI_URL,
-    "WHEEL_URL": WHEEL_URL, "WHEEL_NAME": WHEEL_NAME, "MCP_VERSION": MCP_VERSION,
+    "WHEEL_URL": WHEEL_URL, "WHEEL_NAME": WHEEL_NAME, "MCP_VERSION": MCP_VERSION, "WHEEL_EPOCH": str(WHEEL_EPOCH),
     "REPO_LINK": (f"<a href=\"{REPO_URL}\">the repository</a>" if REPO_URL else "the repository (link to follow once it is public)"),
     "REPO_LINK_CAP": (f"<a href=\"{REPO_URL}\">The repository</a>" if REPO_URL else "The repository (link to follow once it is public)"),
     # the MCP worked example reproduces what the tool returns, so it uses the API's two-decimal values
     "EST_50M_WH": fmt(ref_wh_api * 50, 1), "EST_50M_KWH": fmt(ref_wh_api * 50 / 1000, 4),
     "EST_50M_KG_SRB": fmt(ref_wh_api * 50 / 1000 * round(intensity["SRB"], 1) / 1000, 2),
-    "REPO_INSTALL": (f"pip install \"git+{REPO_URL}#subdirectory=leadgreen-mcp\"" if REPO_URL else
+    # T4: once PYPI_URL is set the one-line install is the package; until then the public source, then the wheel
+    "REPO_INSTALL": ("pip install leadgreen-mcp" if PYPI_URL else
+                     f"pip install \"git+{REPO_URL}#subdirectory=leadgreen-mcp\"" if REPO_URL else
                      f"pip install {WHEEL_URL}#sha256={WHEEL_SHA256}" if WHEEL_SHA256 else f"pip install {WHEEL_URL}"),
     "WHEEL_SHA256": WHEEL_SHA256 or "not built yet",
-    "REPO_UVX": (f"uvx --from \"git+{REPO_URL}#subdirectory=leadgreen-mcp\" leadgreen-mcp" if REPO_URL else f"uvx --from {WHEEL_URL} leadgreen-mcp"),
+    "REPO_UVX": ("uvx leadgreen-mcp" if PYPI_URL else
+                 f"uvx --from \"git+{REPO_URL}#subdirectory=leadgreen-mcp\" leadgreen-mcp" if REPO_URL else f"uvx --from {WHEEL_URL} leadgreen-mcp"),
+    "PYPI_LINE": (f"<div class=\"prose\"><p>The package is <a href=\"{PYPI_URL}\">leadgreen-mcp on PyPI</a>"
+                  + (f"; the source installs with <code>pip install \"git+{REPO_URL}#subdirectory=leadgreen-mcp\"</code>" if REPO_URL else "")
+                  + ".</p></div>" if PYPI_URL else ""),
     "NEWSLETTER_CTA": (
         f"<div class=\"actions\"><a class=\"cta solid\" href=\"{NEWSLETTER_SIGNUP_URL}\">Subscribe by email</a>"
         f"<a class=\"cta\" href=\"{OWN_YOUR_AI_URL}\">Own Your AI on LinkedIn</a></div>"

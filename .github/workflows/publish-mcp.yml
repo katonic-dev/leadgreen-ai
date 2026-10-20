@@ -1,0 +1,107 @@
+name: Publish leadgreen-mcp
+
+# Publishes the MCP server package to PyPI by trusted publishing (OpenID Connect). No API token is stored anywhere.
+#
+# Before the first run, done once by hand on the registries and in this repository's settings:
+#   1. pypi.org, signed in with 2FA: Your account > Publishing > Add a new pending publisher > GitHub
+#        PyPI project name  leadgreen-mcp
+#        Owner              katonic-dev
+#        Repository         leadgreen-ai
+#        Workflow name      publish-mcp.yml
+#        Environment name   pypi
+#      The same on test.pypi.org with the environment name testpypi.
+#   2. GitHub, this repository: Settings > Environments: create "pypi" (deployment branches and tags: tags mcp-v* only)
+#      and "testpypi". No secrets in either.
+#
+# A push of a tag mcp-v<version> publishes to PyPI. Run the workflow by hand (Actions > Publish leadgreen-mcp > Run
+# workflow) to rehearse against TestPyPI first.
+#
+# What gets published is the wheel committed under dist/, the same file https://leadgreen.ai/dist/ serves and whose
+# SHA-256 is printed on https://leadgreen.ai/mcp/, so PyPI and the site carry one and the same file. The job rebuilds the
+# wheel with the repository's SOURCE_DATE_EPOCH (WHEEL_BUILD_DATE in build/build.py, 00:00 UTC) and refuses to publish
+# when the bytes differ. The sdist is built fresh with the same epoch.
+
+on:
+  push:
+    tags: ["mcp-v*"]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Where to publish"
+        type: choice
+        options: [testpypi, pypi]
+        default: testpypi
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Read the version and the wheel build date
+        id: meta
+        run: |
+          version=$(sed -n 's/^version = "\(.*\)"/\1/p' leadgreen-mcp/pyproject.toml)
+          build_date=$(sed -n 's/^WHEEL_BUILD_DATE = "\([0-9-]*\)".*/\1/p' build/build.py)
+          epoch=$(python -c "import calendar, datetime, sys; print(calendar.timegm(datetime.date.fromisoformat(sys.argv[1]).timetuple()))" "$build_date")
+          [ -n "$version" ] && [ -n "$epoch" ] || { echo "version or WHEEL_BUILD_DATE not found"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "epoch=$epoch" >> "$GITHUB_OUTPUT"
+          echo "leadgreen-mcp $version, SOURCE_DATE_EPOCH $epoch ($build_date)"
+      - name: The tag must name the version in pyproject.toml
+        if: github.event_name == 'push'
+        run: |
+          [ "$GITHUB_REF_NAME" = "mcp-v${{ steps.meta.outputs.version }}" ] || { echo "tag $GITHUB_REF_NAME is not mcp-v${{ steps.meta.outputs.version }}"; exit 1; }
+      - name: Build the sdist and the wheel
+        env:
+          SOURCE_DATE_EPOCH: ${{ steps.meta.outputs.epoch }}
+        run: |
+          python -m pip install --upgrade pip build twine
+          python -m build leadgreen-mcp --outdir out
+          ls -l out
+      - name: The rebuilt wheel must be byte-identical to the one the site serves
+        run: |
+          name="leadgreen_mcp-${{ steps.meta.outputs.version }}-py3-none-any.whl"
+          sha_site=$(sha256sum "dist/$name" | cut -d' ' -f1)
+          sha_new=$(sha256sum "out/$name" | cut -d' ' -f1)
+          echo "site  $sha_site"
+          echo "fresh $sha_new"
+          [ "$sha_site" = "$sha_new" ] || { echo "the wheel does not reproduce; rebuild dist/$name from this commit before tagging"; exit 1; }
+          grep -q "$sha_site" mcp/index.html || { echo "/mcp/ does not print this wheel's SHA-256; run build/build.py and commit"; exit 1; }
+      - name: Check the metadata the registry will show
+        run: python -m twine check out/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: leadgreen-mcp-${{ steps.meta.outputs.version }}
+          path: out/
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.target || 'pypi' }}
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: leadgreen-mcp-${{ needs.build.outputs.version }}
+          path: out/
+      - name: Publish to TestPyPI
+        if: github.event_name == 'workflow_dispatch' && inputs.target == 'testpypi'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: out/
+          repository-url: https://test.pypi.org/legacy/
+      - name: Publish to PyPI
+        if: github.event_name == 'push' || inputs.target == 'pypi'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: out/

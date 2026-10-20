@@ -1,16 +1,32 @@
 # leadgreen-mcp
 
-MCP server for the Lead Green Green Tokens index: GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity by country and GPU hardware reference data. Every answer names its source and carries the caveat that the figures are GPU-only floors measured on a busy server.
+Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open data with a JSON API and an MCP server under CC BY 4.0. Every figure comes from a named public source with a retrieval date; it is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or model vendors.
+
+Lead Green is run and paid for by Katonic, which sells a sovereign AI platform; it takes no money from hardware, cloud or model vendors.
+
+This package is the MCP server for that index: GPU watt-hours per million output tokens by model, GPU and configuration, with grid carbon intensity by country and GPU hardware reference data. Every answer names its source and carries the caveat that the figures are GPU-only floors measured on a busy server.
 
 ## Install
 
 ```
-pip install https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl
+pip install leadgreen-mcp
 ```
 
-or, without installing, `uvx --from https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl leadgreen-mcp`.
+or, without installing, `uvx leadgreen-mcp`.
 
-Works with the `mcp` Python SDK 1.x and 2.x.
+The same wheel is served from the site, with its SHA-256 printed on <https://leadgreen.ai/mcp/>:
+
+```
+pip install https://leadgreen.ai/dist/leadgreen_mcp-0.3.0-py3-none-any.whl
+```
+
+and the source installs with `pip install "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp"`.
+
+Python 3.10 or later. Works with the `mcp` Python SDK 1.x and 2.x.
+
+## Versions
+
+Two things are versioned separately. The **package** is 0.3.0 (this file, `pyproject.toml`, the wheel name). The **data** is a dated release of the Lead Green API; the copy bundled in the package is the release named in `leadgreen_mcp/data/manifest.json` (`data_version`), and the server reads the live API first, so a session normally answers from the current release whatever package version is installed. Every response says which it used in `data_source` and `data_updated`.
 
 ## Tools
 
