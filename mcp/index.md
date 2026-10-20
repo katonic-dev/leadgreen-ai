@@ -17,14 +17,16 @@ Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/
 ## One line
 
 ```
-pip install "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp"
+pip install leadgreen-mcp
 ```
 
 Or run it without installing, with [uv](https://docs.astral.sh/uv/):
 
 ```
-uvx --from "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp" leadgreen-mcp
+uvx leadgreen-mcp
 ```
+
+The package is [leadgreen-mcp on PyPI](https://pypi.org/project/leadgreen-mcp/); the source installs with `pip install "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp"`.
 
 The wheel itself is at `https://leadgreen.ai/dist/leadgreen_mcp-0.3.0-py3-none-any.whl` and the SHA-256 above is its hash; `pip install https://leadgreen.ai/dist/leadgreen_mcp-0.3.0-py3-none-any.whl#sha256=6f332ff62dd1ed2e8673fb693ffaf42f170407d98e4179ce3e23d8c81f11a2c0` makes pip refuse a file that does not match. To rebuild it byte for byte from the site source: `SOURCE_DATE_EPOCH=1792454400 python -m pip wheel ./leadgreen-mcp --no-deps`. Python 3.10 or later. The server works with the `mcp` Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline. Every response says which it used.
 
