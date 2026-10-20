@@ -1,10 +1,10 @@
 {
-  "manifest_version": "0.4",
+  "manifest_version": "0.3",
   "name": "leadgreen",
   "display_name": "Lead Green",
   "version": "0.3.1",
   "description": "GPU energy per million output tokens by model, GPU and configuration, with grid carbon by country.",
-  "long_description": "Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open data with a JSON API and this MCP server under CC BY 4.0. Every figure comes from a named public source with a retrieval date; every answer names its source and carries the caveat that the figures are GPU-only floors measured on a busy server. The server reads the live API first and falls back to the snapshot bundled in the package, so it also works offline. It is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or model vendors.",
+  "long_description": "Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open data with a JSON API and this MCP server under CC BY 4.0. Every figure comes from a named public source with a retrieval date; every answer names its source and carries the caveat that the figures are GPU-only floors measured on a busy server. The server reads the live API first and falls back to the snapshot bundled in the package, so it also works offline. It is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or model vendors. This bundle launches the published package with uv (`uvx leadgreen-mcp==0.3.1`, the same wheel https://leadgreen.ai/dist/ serves, with PyPI provenance), so it carries no vendored code and needs uv on the machine: https://docs.astral.sh/uv/.",
   "author": {
     "name": "Lead Green, a Katonic project",
     "email": "hello@leadgreen.ai",
@@ -19,27 +19,67 @@
   },
   "icon": "icon.png",
   "server": {
-    "type": "uv",
+    "type": "python",
     "entry_point": "src/server.py",
     "mcp_config": {
-      "command": "uv",
-      "args": ["run", "--directory", "${__dirname}", "src/server.py"]
+      "command": "uvx",
+      "args": [
+        "leadgreen-mcp==0.3.1"
+      ]
     }
   },
   "tools": [
-    {"name": "list_models", "description": "Which models are on the index and on which GPUs"},
-    {"name": "energy_per_million_tokens", "description": "The best row per GPU for a model: watt-hours per million output tokens"},
-    {"name": "estimate", "description": "GPU energy in Wh and kWh for a token count, kg CO2e for a grid, and optionally energy at the meter"},
-    {"name": "compare_gpus", "description": "H100 versus B200 for a model"},
-    {"name": "concurrency_curve", "description": "Energy per token at every measured running batch"},
-    {"name": "grid_intensity", "description": "Annual average gCO2e per kWh for a country or World"},
-    {"name": "gpu_hardware", "description": "Max TDP, memory, MIG profiles and whole-system ceilings"},
-    {"name": "sources", "description": "Every source, version, retrieval date and licence"}
+    {
+      "name": "list_models",
+      "description": "Which models are on the index and on which GPUs"
+    },
+    {
+      "name": "energy_per_million_tokens",
+      "description": "The best row per GPU for a model: watt-hours per million output tokens"
+    },
+    {
+      "name": "estimate",
+      "description": "GPU energy in Wh and kWh for a token count, kg CO2e for a grid, and optionally energy at the meter"
+    },
+    {
+      "name": "compare_gpus",
+      "description": "H100 versus B200 for a model"
+    },
+    {
+      "name": "concurrency_curve",
+      "description": "Energy per token at every measured running batch"
+    },
+    {
+      "name": "grid_intensity",
+      "description": "Annual average gCO2e per kWh for a country or World"
+    },
+    {
+      "name": "gpu_hardware",
+      "description": "Max TDP, memory, MIG profiles and whole-system ceilings"
+    },
+    {
+      "name": "sources",
+      "description": "Every source, version, retrieval date and licence"
+    }
   ],
-  "keywords": ["energy", "carbon", "tokens", "gpu", "inference", "sustainability", "watt-hours", "llm", "open-data"],
+  "keywords": [
+    "energy",
+    "carbon",
+    "tokens",
+    "gpu",
+    "inference",
+    "sustainability",
+    "watt-hours",
+    "llm",
+    "open-data"
+  ],
   "license": "Apache-2.0",
   "compatibility": {
-    "platforms": ["darwin", "linux", "win32"],
+    "platforms": [
+      "darwin",
+      "linux",
+      "win32"
+    ],
     "runtimes": {
       "python": ">=3.10"
     }

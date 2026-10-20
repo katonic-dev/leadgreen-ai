@@ -1,0 +1,237 @@
+{
+  "list_models": {
+    "properties": {},
+    "type": "object",
+    "title": "list_modelsArguments"
+  },
+  "energy_per_million_tokens": {
+    "properties": {
+      "model": {
+        "title": "Model",
+        "type": "string"
+      },
+      "gpu": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Gpu"
+      },
+      "itl_deadline_ms": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Itl Deadline Ms"
+      }
+    },
+    "required": [
+      "model"
+    ],
+    "type": "object",
+    "title": "energy_per_million_tokensArguments"
+  },
+  "estimate": {
+    "properties": {
+      "model": {
+        "title": "Model",
+        "type": "string"
+      },
+      "output_tokens": {
+        "title": "Output Tokens",
+        "type": "number"
+      },
+      "gpu": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Gpu"
+      },
+      "country": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Country"
+      },
+      "running_batch": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Running Batch"
+      },
+      "num_gpus": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Num Gpus"
+      },
+      "itl_deadline_ms": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Itl Deadline Ms"
+      },
+      "pue": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Pue"
+      },
+      "system_power_ratio": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "System Power Ratio"
+      },
+      "requests_in_flight": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Requests In Flight"
+      }
+    },
+    "required": [
+      "model",
+      "output_tokens"
+    ],
+    "type": "object",
+    "title": "estimateArguments"
+  },
+  "compare_gpus": {
+    "properties": {
+      "model": {
+        "title": "Model",
+        "type": "string"
+      },
+      "itl_deadline_ms": {
+        "anyOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Itl Deadline Ms"
+      }
+    },
+    "required": [
+      "model"
+    ],
+    "type": "object",
+    "title": "compare_gpusArguments"
+  },
+  "concurrency_curve": {
+    "properties": {
+      "model": {
+        "title": "Model",
+        "type": "string"
+      },
+      "gpu": {
+        "title": "Gpu",
+        "type": "string"
+      }
+    },
+    "required": [
+      "model",
+      "gpu"
+    ],
+    "type": "object",
+    "title": "concurrency_curveArguments"
+  },
+  "grid_intensity": {
+    "properties": {
+      "country": {
+        "title": "Country",
+        "type": "string"
+      }
+    },
+    "required": [
+      "country"
+    ],
+    "type": "object",
+    "title": "grid_intensityArguments"
+  },
+  "gpu_hardware": {
+    "properties": {
+      "gpu": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Gpu"
+      }
+    },
+    "type": "object",
+    "title": "gpu_hardwareArguments"
+  },
+  "sources": {
+    "properties": {},
+    "type": "object",
+    "title": "sourcesArguments"
+  }
+}
