@@ -1,0 +1,11 @@
+# The MCPB bundle for Lead Green: a uv-type bundle that installs the published package.
+# The host runs `uv run --directory <bundle> src/server.py`; uv resolves leadgreen-mcp from PyPI
+# (the same wheel https://leadgreen.ai/dist/ serves, with PyPI provenance). Nothing is vendored.
+[project]
+name = "leadgreen-mcpb"
+version = "0.3.1"
+description = "MCPB bundle for the Lead Green MCP server (installs leadgreen-mcp from PyPI)"
+requires-python = ">=3.10"
+dependencies = [
+    "leadgreen-mcp==0.3.1",
+]
