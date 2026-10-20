@@ -1,6 +1,6 @@
 [project]
 name = "leadgreen-mcp"
-version = "0.3.0"
+version = "0.3.1"
 description = "MCP server for the Lead Green index: GPU energy per million output tokens, by model, GPU and configuration, with grid carbon."
 readme = "README.md"
 requires-python = ">=3.10"

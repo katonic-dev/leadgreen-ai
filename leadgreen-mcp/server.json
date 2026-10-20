@@ -1,0 +1,34 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "ai.leadgreen/green-token-index",
+  "title": "Lead Green",
+  "description": "GPU energy per million output tokens by model, GPU and configuration, with grid carbon by country.",
+  "repository": {
+    "url": "https://github.com/katonic-dev/leadgreen-ai",
+    "source": "github",
+    "subfolder": "leadgreen-mcp"
+  },
+  "version": "0.3.1",
+  "websiteUrl": "https://leadgreen.ai/mcp/",
+  "icons": [
+    {
+      "src": "https://leadgreen.ai/apple-touch-icon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "180x180"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "leadgreen-mcp",
+      "version": "0.3.1",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
