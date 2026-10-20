@@ -8,7 +8,7 @@
 
 The Model Context Protocol (MCP) is an open standard that lets an AI assistant call tools a server exposes. Lead Green ships a small MCP server so that Claude, Cursor or any MCP-capable client can answer questions about the index with the row, the source and the caveat attached, instead of guessing.
 
-**Package** leadgreen-mcp 0.3.0 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `6f332ff62dd1ed2e8673fb693ffaf42f170407d98e4179ce3e23d8c81f11a2c0`
+**Package** leadgreen-mcp 0.3.1 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `54a2d0b9efdb1dd0e4cfc4619adbff38824738be2b51efca16aab9dd41faaa8b`
 
 Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/mcp/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
@@ -28,7 +28,7 @@ uvx leadgreen-mcp
 
 The package is [leadgreen-mcp on PyPI](https://pypi.org/project/leadgreen-mcp/); the source installs with `pip install "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp"`.
 
-The wheel itself is at `https://leadgreen.ai/dist/leadgreen_mcp-0.3.0-py3-none-any.whl` and the SHA-256 above is its hash; `pip install https://leadgreen.ai/dist/leadgreen_mcp-0.3.0-py3-none-any.whl#sha256=6f332ff62dd1ed2e8673fb693ffaf42f170407d98e4179ce3e23d8c81f11a2c0` makes pip refuse a file that does not match. To rebuild it byte for byte from the site source: `SOURCE_DATE_EPOCH=1792454400 python -m pip wheel ./leadgreen-mcp --no-deps`. Python 3.10 or later. The server works with the `mcp` Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline. Every response says which it used.
+The wheel itself is at `https://leadgreen.ai/dist/leadgreen_mcp-0.3.1-py3-none-any.whl` and the SHA-256 above is its hash; `pip install https://leadgreen.ai/dist/leadgreen_mcp-0.3.1-py3-none-any.whl#sha256=54a2d0b9efdb1dd0e4cfc4619adbff38824738be2b51efca16aab9dd41faaa8b` makes pip refuse a file that does not match. To rebuild it byte for byte from the site source: `SOURCE_DATE_EPOCH=1792454400 python -m pip wheel ./leadgreen-mcp --no-deps`. Python 3.10 or later. The server works with the `mcp` Python SDK 1.x and 2.x. It reads the API over HTTPS on first use and falls back to the snapshot bundled in the package when the site cannot be reached, so it also works offline. Every response says which it used.
 
 *What it sends, and where*
 
@@ -67,7 +67,7 @@ Claude Desktop started from the Finder or the Start menu may not see the folder 
 
 Add the same block to `.cursor/mcp.json` in the project, or to the global file from Cursor Settings, MCP.
 
-If you run it with uv rather than installing it, use `"command": "uvx", "args": ["--from", "https://leadgreen.ai/dist/leadgreen_mcp-0.3.0-py3-none-any.whl", "leadgreen-mcp"]` instead.
+If you run it with uv rather than installing it, use `"command": "uvx", "args": ["--from", "https://leadgreen.ai/dist/leadgreen_mcp-0.3.1-py3-none-any.whl", "leadgreen-mcp"]` instead.
 
 *Tools*
 

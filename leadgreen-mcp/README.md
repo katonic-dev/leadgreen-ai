@@ -1,5 +1,7 @@
 # leadgreen-mcp
 
+<!-- mcp-name: ai.leadgreen/green-token-index -->
+
 Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open data with a JSON API and an MCP server under CC BY 4.0. Every figure comes from a named public source with a retrieval date; it is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or model vendors.
 
 Lead Green is run and paid for by Katonic, which sells a sovereign AI platform; it takes no money from hardware, cloud or model vendors.
@@ -17,16 +19,16 @@ or, without installing, `uvx leadgreen-mcp`.
 The same wheel is served from the site, with its SHA-256 printed on <https://leadgreen.ai/mcp/>:
 
 ```
-pip install https://leadgreen.ai/dist/leadgreen_mcp-0.3.0-py3-none-any.whl
+pip install https://leadgreen.ai/dist/leadgreen_mcp-0.3.1-py3-none-any.whl
 ```
 
 and the source installs with `pip install "git+https://github.com/katonic-dev/leadgreen-ai#subdirectory=leadgreen-mcp"`.
 
-Python 3.10 or later. Works with the `mcp` Python SDK 1.x and 2.x.
+Python 3.10 or later. Works with the `mcp` Python SDK 1.x and 2.x. Listed in the official MCP Registry as `ai.leadgreen/green-token-index`.
 
 ## Versions
 
-Two things are versioned separately. The **package** is 0.3.0 (this file, `pyproject.toml`, the wheel name). The **data** is a dated release of the Lead Green API; the copy bundled in the package is the release named in `leadgreen_mcp/data/manifest.json` (`data_version`), and the server reads the live API first, so a session normally answers from the current release whatever package version is installed. Every response says which it used in `data_source` and `data_updated`.
+Two things are versioned separately. The **package** is 0.3.1 (this file, `pyproject.toml`, the wheel name). The **data** is a dated release of the Lead Green API; the copy bundled in the package is the release named in `leadgreen_mcp/data/manifest.json` (`data_version`), and the server reads the live API first, so a session normally answers from the current release whatever package version is installed. Every response says which it used in `data_source` and `data_updated`.
 
 ## Tools
 

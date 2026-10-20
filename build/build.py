@@ -63,7 +63,7 @@ OWN_YOUR_AI_URL = "https://www.linkedin.com/newsletters/own-your-ai-750817454704
 # live in build/project_text.py, shared with hf_dataset.py. "" for REPO_URL omits the repository links.
 from project_text import FUNDING, HF_DATASET_URL, PROJECT_DESCRIPTION, REPO_URL, SAME_AS, WIKIDATA_URL, ZENODO_CONCEPT_DOI, ZENODO_DOI_URL  # noqa: E402
 NEWSLETTER_SIGNUP_URL = ""             # D2: set when the email provider is chosen; never a fake form
-MCP_VERSION = "0.3.0"
+MCP_VERSION = "0.3.1"
 WHEEL_NAME = f"leadgreen_mcp-{MCP_VERSION}-py3-none-any.whl"
 WHEEL_URL = f"{SITE}/dist/{WHEEL_NAME}"
 _wheel_file = Path(__file__).resolve().parent.parent / "dist" / WHEEL_NAME   # theme 10: the install line carries the wheel hash

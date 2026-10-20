@@ -1,22 +1,22 @@
 {
-  "_comment": "DRAFT, not registered. For the official MCP registry (registry.modelcontextprotocol.io) after G2 (public repository) and T4 (the package on PyPI). The reverse-DNS name under ai.leadgreen needs domain verification at publish time (a DNS TXT record on leadgreen.ai or an HTTP challenge, per the registry's publishing guide); the exact schema URL and field names must be checked against the registry's current schema on the day, since the registry was in preview through 2025. Stdio only, per G8 as drafted: no hosted remote until CORS, HSTS and a rate limit are live.",
+  "_comment": "SUPERSEDED 20 October 2026 by leadgreen-mcp/server.json, the file submitted to registry.modelcontextprotocol.io under ai.leadgreen (HTTP auth via /.well-known/mcp-registry-auth). Kept for the _listing_copy and _tools_for_listings below, for PulseMCP, Smithery and similar directories.",
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "ai.leadgreen/green-token-index",
   "description": "GPU energy per million output tokens by model, GPU and configuration, with grid carbon by country, from public measurements; every answer names its source and the GPU-only floor caveat.",
   "status": "active",
   "repository": {
-    "url": "[G2-REPO-URL]",
+    "url": "https://github.com/katonic-dev/leadgreen-ai",
     "source": "github",
     "subfolder": "leadgreen-mcp"
   },
-  "version": "0.3.0",
+  "version": "0.3.1",
   "websiteUrl": "https://leadgreen.ai/mcp/",
   "packages": [
     {
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "leadgreen-mcp",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "transport": {
         "type": "stdio"
       },
@@ -37,6 +37,6 @@
   "_listing_copy": {
     "one_line": "Sourced GPU energy per million output tokens for 18 open-weight models on H100 and B200, with carbon by country.",
     "short": "[G1 once approved.] Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open data with a JSON API and an MCP server under CC BY 4.0. Every figure comes from a named public source with a retrieval date; it is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or model vendors.",
-    "pulsemcp_and_smithery": "Same description; category: data and analytics; licence Apache 2.0 (code), data CC BY 4.0; install: uvx leadgreen-mcp (once on PyPI)."
+    "pulsemcp_and_smithery": "Same description; category: data and analytics; licence Apache 2.0 (code), data CC BY 4.0; install: uvx leadgreen-mcp."
   }
 }
