@@ -70,7 +70,7 @@ _wheel_file = Path(__file__).resolve().parent.parent / "dist" / WHEEL_NAME   # t
 WHEEL_SHA256 = hashlib.sha256(_wheel_file.read_bytes()).hexdigest() if _wheel_file.exists() else ""
 WHEEL_BUILD_DATE = "2026-10-20"        # the wheel is built with SOURCE_DATE_EPOCH = this date 00:00 UTC so it reproduces byte for byte; launch.py sets it to the release date when it rebuilds the wheel
 WHEEL_EPOCH = int(datetime.strptime(WHEEL_BUILD_DATE, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp())
-PYPI_URL = ""                          # T4: "https://pypi.org/project/leadgreen-mcp/" once the first upload has landed, so the install line never names a package that is not there yet
+PYPI_URL = "https://pypi.org/project/leadgreen-mcp/"   # T4: set 20 October 2026, once 0.3.0 landed on PyPI (run 39450980200 on the mirror)
 # D16 publisher block. The address is typed only from the DIFC registry extract, after Prem confirms it.
 PUBLISHER_ENTITY = "Katonic AI Technology Ltd"
 PUBLISHER_REGISTRATION = "CL9944"
