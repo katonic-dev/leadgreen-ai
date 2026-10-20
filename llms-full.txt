@@ -1157,7 +1157,7 @@ One table for the fields every document carries, then one per document. The buil
 
 **Releases.** Every dated release is kept unchanged at `https://leadgreen.ai/api/v1/releases/<date>/` with a zip of the whole release; [`releases/index.json`](https://leadgreen.ai/api/v1/releases/index.json) lists them with each zip's SHA-256. Cite a release, not the live files.
 
-**OpenAPI.** A machine-readable description is at [`openapi.json`](https://leadgreen.ai/api/v1/openapi.json). The [MCP server](https://leadgreen.ai/mcp/) is built on these same files.
+**OpenAPI.** A machine-readable description is at [`openapi.json`](https://leadgreen.ai/api/v1/openapi.json), with a copy at the site root ([`/openapi.json`](https://leadgreen.ai/openapi.json)) and an RFC 9727 API catalogue at [`/.well-known/api-catalog`](https://leadgreen.ai/.well-known/api-catalog). Every change to the figures is dated on the [changes page](https://leadgreen.ai/changes/). The [MCP server](https://leadgreen.ai/mcp/) is built on these same files.
 
 ---
 
@@ -6859,7 +6859,7 @@ Elsworth et al., Measuring the environmental impact of delivering AI at Google S
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Watt-hours per million output tokens (Wh/M)** is the GPU energy, in watt-hours, that a model on a stated set of GPUs at a stated load uses to generate one million output tokens. One Wh/M equals 0.0036 joules per output token (joules per token × 1,000,000 ÷ 3,600 = Wh/M). On the index the unit runs from **13.0 Wh/M** (Llama 3.1 8B Instruct, 1 × B200) to **572.9 Wh/M** (Llama 3.1 405B Instruct FP8, 8 × H100), GPU only, at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for each model and GPU (data compiled 16 February 2026).
+13.0 to 572.9 Wh per million output tokens is the index's range, from Llama 3.1 8B Instruct on 1 × B200 to Llama 3.1 405B Instruct FP8 on 8 × H100, GPU only. **Watt-hours per million output tokens (Wh/M)** is the GPU energy, in watt-hours, that a model on a stated set of GPUs at a stated load uses to generate one million output tokens. One Wh/M equals 0.0036 joules per output token (joules per token × 1,000,000 ÷ 3,600 = Wh/M). On the index the unit runs from **13.0 Wh/M** (Llama 3.1 8B Instruct, 1 × B200) to **572.9 Wh/M** (Llama 3.1 405B Instruct FP8, 8 × H100), GPU only, at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for each model and GPU (data compiled 16 February 2026).
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -6935,13 +6935,13 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 # Energy per token
 
-> GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.
+> 0.047 to 2.06 joules per output token is the index's range of GPU energy per token; 1 Wh per million tokens equals 0.0036 J per token.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/energy-per-token/ (this file: https://leadgreen.ai/glossary/energy-per-token/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Energy per token** is the GPU energy a serving system uses divided by the output tokens it generated in the same window, in joules per output token. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled 16 February 2026). On the index it runs from **0.047 J per token** (Llama 3.1 8B Instruct, 1 × B200) to **2.06 J** (Llama 3.1 405B Instruct FP8, 8 × H100); the index shows it as watt-hours per million output tokens.
+0.047 to 2.06 joules per output token is the index's range of GPU energy per token; 1 Wh per million tokens equals 0.0036 J per token. **Energy per token** is the GPU energy a serving system uses divided by the output tokens it generated in the same window, in joules per output token. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled 16 February 2026). On the index it runs from **0.047 J per token** (Llama 3.1 8B Instruct, 1 × B200) to **2.06 J** (Llama 3.1 405B Instruct FP8, 8 × H100); the index shows it as watt-hours per million output tokens.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -7013,13 +7013,13 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 # Running batch
 
-> The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.
+> Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/running-batch/ (this file: https://leadgreen.ai/glossary/running-batch/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Running batch** is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as `num_requests_running`. It is not the cap the operator set (vLLM's `max_num_seqs`) and it does not count requests waiting in the queue. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from **8 to 256** cuts energy per token from **452 to 63.5 Wh/M**, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).
+Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards. **Running batch** is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as `num_requests_running`. It is not the cap the operator set (vLLM's `max_num_seqs`) and it does not count requests waiting in the queue. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from **8 to 256** cuts energy per token from **452 to 63.5 Wh/M**, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -7095,13 +7095,13 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 # Floor
 
-> What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.
+> Every index row is a floor: Qwen 3 32B on 2 × H100 is 63.5 Wh per million tokens at a running batch of 256, and a real deployment sits above it.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/floor/ (this file: https://leadgreen.ai/glossary/floor/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**A floor** is what every row on the index is: the lowest GPU energy per output token the ML.ENERGY Leaderboard v3.0 measured for a model on a GPU, among configurations whose median inter-token latency is at or under 500 ms, at high concurrency on a busy server (data compiled 16 February 2026). A real deployment sits above its floor, often far above it: the reference row, Qwen 3 32B on 2 × H100, is **63.5 Wh/M** at a running batch of 256, and the same model on the same cards measured **452 Wh/M** at a running batch of 8.
+Every index row is a floor: Qwen 3 32B on 2 × H100 is 63.5 Wh per million tokens at a running batch of 256, and a real deployment sits above it. **A floor** is what every row on the index is: the lowest GPU energy per output token the ML.ENERGY Leaderboard v3.0 measured for a model on a GPU, among configurations whose median inter-token latency is at or under 500 ms, at high concurrency on a busy server (data compiled 16 February 2026). A real deployment sits above its floor, often far above it: the reference row, Qwen 3 32B on 2 × H100, is **63.5 Wh/M** at a running batch of 256, and the same model on the same cards measured **452 Wh/M** at a running batch of 8.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -7183,7 +7183,7 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**The GPU-only boundary** is the measurement boundary of every index row: energy read from the GPU devices themselves over the steady-state window, with the host CPU and memory, the network and storage, cooling and the rest of the facility, time the GPU spends idle between requests, and the carbon embodied in the hardware all outside it. Google's August 2025 disclosure shows the size of what sits outside: accelerators were **58 percent** of its 0.24 Wh median prompt, and NVIDIA rates a DGX B200 at 14.3 kW against 8.0 kW for its 8 GPUs, a system-to-GPU ratio of **1.79**.
+Every index row counts the GPUs alone; in Google's August 2025 disclosure accelerators were 58 percent of a prompt's energy, and the rest sits outside this boundary. **The GPU-only boundary** is the measurement boundary of every index row: energy read from the GPU devices themselves over the steady-state window, with the host CPU and memory, the network and storage, cooling and the rest of the facility, time the GPU spends idle between requests, and the carbon embodied in the hardware all outside it. Google's August 2025 disclosure shows the size of what sits outside: accelerators were **58 percent** of its 0.24 Wh median prompt, and NVIDIA rates a DGX B200 at 14.3 kW against 8.0 kW for its 8 GPUs, a system-to-GPU ratio of **1.79**.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -7265,7 +7265,7 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Location-based grid intensity** is the average carbon intensity of the electricity generated in the area where a GPU runs, in grams of CO2e per kilowatt-hour, before any contracts, certificates or self-generation are considered. The index uses Ember's yearly figures (October 2026 release, 2024, the latest year with a value for every listed grid): **689 gCO2e per kWh** for Saudi Arabia, 707 for India, 30 for Norway and 473 for the world. It is a lifecycle figure on net generation, production-based, so upstream methane and plant manufacture are in and imports are out.
+689 gCO2e per kWh for Saudi Arabia, 707 for India, 30 for Norway and 473 for the world (2024, Ember): the grid factor that turns energy per token into carbon. **Location-based grid intensity** is the average carbon intensity of the electricity generated in the area where a GPU runs, in grams of CO2e per kilowatt-hour, before any contracts, certificates or self-generation are considered. The index uses Ember's yearly figures (October 2026 release, 2024, the latest year with a value for every listed grid): **689 gCO2e per kWh** for Saudi Arabia, 707 for India, 30 for Norway and 473 for the world. It is a lifecycle figure on net generation, production-based, so upstream methane and plant manufacture are in and imports are out.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -7341,13 +7341,13 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 # kg CO2e per billion output tokens
 
-> The carbon unit of the index: energy per million tokens multiplied by the grid's carbon intensity, which gives kilograms of CO2e per billion output tokens.
+> 43.7 kg CO2e per billion output tokens for Qwen 3 32B on 2 × H100 on Saudi Arabia's grid: Wh per million tokens × gCO2e per kWh ÷ 1,000.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/ (this file: https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Kilograms of CO2e per billion output tokens** is the carbon unit of the index. It is watt-hours per million output tokens multiplied by the grid's grams of CO2e per kilowatt-hour, divided by 1,000: Wh/M × gCO2e/kWh ÷ 1,000 = kg CO2e per billion tokens, which is also grams of CO2e per million tokens. On the reference row, Qwen 3 32B on 2 × H100 at 63.5 Wh/M, a billion output tokens carries about **43.7 kg CO2e** on Saudi Arabia's 2024 grid (689 gCO2e/kWh, Ember), **44.9 kg** on India's (707), 30.0 kg on the world average (473) and 1.9 kg on Norway's (30). GPU energy only.
+43.7 kg CO2e per billion output tokens for Qwen 3 32B on 2 × H100 on Saudi Arabia's grid: Wh per million tokens × gCO2e per kWh ÷ 1,000. **Kilograms of CO2e per billion output tokens** is the carbon unit of the index. It is watt-hours per million output tokens multiplied by the grid's grams of CO2e per kilowatt-hour, divided by 1,000: Wh/M × gCO2e/kWh ÷ 1,000 = kg CO2e per billion tokens, which is also grams of CO2e per million tokens. On the reference row, Qwen 3 32B on 2 × H100 at 63.5 Wh/M, a billion output tokens carries about **43.7 kg CO2e** on Saudi Arabia's 2024 grid (689 gCO2e/kWh, Ember), **44.9 kg** on India's (707), 30.0 kg on the world average (473) and 1.9 kg on Norway's (30). GPU energy only.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -7423,13 +7423,13 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 # Inter-token latency ceiling
 
-> The latency limit that defines which configurations may be an index row: a median inter-token latency at or under 500 ms, the leaderboard's own default.
+> 500 ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is 326 ms, so today it excludes nothing.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/inter-token-latency-ceiling/ (this file: https://leadgreen.ai/glossary/inter-token-latency-ceiling/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**The inter-token latency ceiling** is the limit that decides which measured configurations may be an index row: the median time between one output token and the next must be at or under **500 ms**, the ML.ENERGY Leaderboard's own default for every LLM task. Each index row is the lowest-energy configuration for its model and GPU under that ceiling. No measured configuration reaches it (the slowest Text Conversation row is 326 ms), so at 500 ms the ceiling excludes nothing; it is stated because any energy figure needs the latency it was measured at.
+500 ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is 326 ms, so today it excludes nothing. **The inter-token latency ceiling** is the limit that decides which measured configurations may be an index row: the median time between one output token and the next must be at or under **500 ms**, the ML.ENERGY Leaderboard's own default for every LLM task. Each index row is the lowest-energy configuration for its model and GPU under that ceiling. No measured configuration reaches it (the slowest Text Conversation row is 326 ms), so at 500 ms the ceiling excludes nothing; it is stated because any energy figure needs the latency it was measured at.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -7511,7 +7511,7 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Power usage effectiveness (PUE)** is a data centre's total facility energy divided by the energy delivered to its IT equipment, as defined in ISO/IEC 30134-2. A PUE of 1.0 would mean no energy for cooling, power distribution or lighting; real sites sit above it, and the figure is the operator's own, measured at the building. The index publishes no PUE. It names it because PUE is the second of two multipliers that take a GPU-only figure to the meter: with a system-to-GPU power ratio of 1.79 (DGX B200) and an illustrative PUE of **1.3**, the reference row's 63.5 Wh/M at the GPU becomes about **148 Wh/M** at the facility meter.
+The index publishes no PUE: its figures stop at the GPU; PUE, facility energy ÷ IT energy per ISO/IEC 30134-2, is the operator's own multiplier to the meter. **Power usage effectiveness (PUE)** is a data centre's total facility energy divided by the energy delivered to its IT equipment, as defined in ISO/IEC 30134-2. A PUE of 1.0 would mean no energy for cooling, power distribution or lighting; real sites sit above it, and the figure is the operator's own, measured at the building. The index publishes no PUE. It names it because PUE is the second of two multipliers that take a GPU-only figure to the meter: with a system-to-GPU power ratio of 1.79 (DGX B200) and an illustrative PUE of **1.3**, the reference row's 63.5 Wh/M at the GPU becomes about **148 Wh/M** at the facility meter.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -8062,7 +8062,7 @@ Parameters and architecture as the leaderboard records them (total and activated
 
 # Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct: GPU energy per million output tokens
 
-> Two models on GPU energy per million output tokens: 1.47× on the H100 and 0.48× on the B200, from the ML.ENERGY index rows.
+> Qwen 3 235B A22B Instruct vs Qwen 3 235B A22B Instruct FP8: 1.47× on the H100 and 0.48× on the B200 on GPU energy per output token, from the index rows.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/ (this file: https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
@@ -10023,3 +10023,79 @@ As a comparison, not as a filing. Ember's intensity is a lifecycle figure on net
 ### Where do these figures come from?
 
 Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. [Full answer](https://leadgreen.ai/grids/norway/#faq)
+
+---
+
+# Every change, dated
+
+> The dated record: 5 changes to the published figures since 26 September 2026, every frozen data release with its hash, and each leadgreen-mcp version.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/changes/ (this file: https://leadgreen.ai/changes/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*Changes*
+
+The latest change to the data is dated 19 October 2026: Launch. Three blog posts: how much energy an AI query uses, what watt-hours per million tokens means, and why an idle GPU wastes energy. Every entry below is also in [changes.json](https://leadgreen.ai/api/v1/changes.json), and every dated release is kept unchanged for citation.
+
+**Record** 5 data changes since 26 September 2026 · 4 dated releases (3 published) · 4 MCP server versions. Updated 19 October 2026.
+
+Cite this page: Lead Green, a Katonic project. Changes: every dated update to the Lead Green data, releases and MCP server. https://leadgreen.ai/changes/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+
+- [Data changes](https://leadgreen.ai/changes/#data)
+- [Data releases](https://leadgreen.ai/changes/#releases)
+- [MCP server](https://leadgreen.ai/changes/#mcp)
+- [Citing a release](https://leadgreen.ai/changes/#cite)
+
+*Data changes*
+
+## What changed in the published figures, newest first
+
+- 19 Oct 2026Launch. Three blog posts: how much energy an AI query uses, what watt-hours per million tokens means, and why an idle GPU wastes energy. The site now serves from GitHub Pages at leadgreen.ai. No change to the data or its description.
+ Documents: none (description only). Reason: launch. Source version: 3.0 (released 2025-12-01); data compiled 2026-02-16.
+- 18 Oct 2026The publisher's registered office is added to About and to the manifest. No change to the data or its description.
+ Documents: manifest.json. Reason: publisher. Source version: 3.0 (released 2025-12-01); data compiled 2026-02-16.
+- 17 Oct 2026Ember's October 2026 release of its yearly electricity data (file dated 6 October 2026) replaces the September 2026 release. The 2024 emissions intensity moves for 26 of the 193 grids and World, seven of them on the carbon table (United Arab Emirates 467.5 to 477.3 gCO2e per kWh, Sri Lanka 386.8 to 392.8, Australia 554.0 to 549.5, Saudi Arabia 691.9 to 689.1, Taiwan 636.2 to 635.2, Japan 483.6 to 484.3, Serbia 668.0 to 668.4), and every kilogram figure priced on them follows. 2025 rows are added for Saudi Arabia and the United Arab Emirates. The reference year stays 2024, the latest with every listed grid present. No energy figure changes.
+ Documents: grid.json, manifest.json. Reason: source release. Source version: October 2026 release (file last modified 2026-10-06).
+- 27 Sep 2026Corrections after a nine-reader review, before launch. The ML.ENERGY data is dated to its compile date, not a banner update; the latency ceiling is the leaderboard's own 500 ms (no row moved); "requests in flight" is renamed running batch; full concurrency ladders; all AI Energy Score December rows; a two-task table; the carbon basis, grid years and display names; seven-decimal joules; additive API fields (data_version, row_id, repeat, p95_itl_ms, avg_running_batch, boundary, years, latest_year, iso2, display_name, source_label); changes.json, measurements.json, the measurement schema, a dated release archive, CSV, zip and TypeScript types.
+ Documents: every document. Reason: review corrections. Source version: 3.0 (released 2025-12-01); data compiled 2026-02-16.
+- 26 Sep 2026First build. 32 index rows from ML.ENERGY v3.0 (data compiled 16 February 2026), grid intensities from Ember (2024), NVIDIA specifications, AI Energy Score December 2025 round. The API, the MCP server and the first blog post.
+ Documents: every document. Reason: first build. Source version: 3.0 (released 2025-12-01); data compiled 2026-02-16.
+
+A change is recorded when a figure, a field or a description in [the data API](https://leadgreen.ai/api/) moves. Page copy that does not touch a figure is not listed. The index page carries the same record under [Changes](https://leadgreen.ai/index/#changes).
+
+*Data releases*
+
+## Dated copies of api/v1, newest first
+
+*Each release is the whole API as it stood on that date*
+
+| Release | Status | Documents that changed | Files | Zip SHA-256 |
+|---|---|---|---|---|
+| 19 Oct 2026 | published, frozen | as the previous release | [zip](https://leadgreen.ai/api/v1/releases/leadgreen-api-v1-2026-10-19.zip) · [manifest](https://leadgreen.ai/api/v1/releases/2026-10-19/manifest.json) | `6bf5e1ad57817f4a…` |
+| 18 Oct 2026 | published, frozen | manifest.json | [zip](https://leadgreen.ai/api/v1/releases/leadgreen-api-v1-2026-10-18.zip) · [manifest](https://leadgreen.ai/api/v1/releases/2026-10-18/manifest.json) | `4eed461e8f03addb…` |
+| 17 Oct 2026 | published, frozen | grid.json, manifest.json | [zip](https://leadgreen.ai/api/v1/releases/leadgreen-api-v1-2026-10-17.zip) · [manifest](https://leadgreen.ai/api/v1/releases/2026-10-17/manifest.json) | `2ead05cc4113a4bd…` |
+| 27 Sep 2026 | built, not frozen | every document | [zip](https://leadgreen.ai/api/v1/releases/leadgreen-api-v1-2026-09-27.zip) · [manifest](https://leadgreen.ai/api/v1/releases/2026-09-27/manifest.json) | `set when frozen` |
+
+A published release never changes: the build refuses to rewrite it. The current live files are release 2026-10-19. The list with full hashes is [releases/index.json](https://leadgreen.ai/api/v1/releases/index.json).
+
+*MCP server*
+
+## leadgreen-mcp versions
+
+*The package is versioned separately from the data; it reads the live API first*
+
+| Version | Date | What changed | Files |
+|---|---|---|---|
+| 0.3.1 | 20 Oct 2026 | Ownership marker for the official MCP Registry in the package README; listed as ai.leadgreen/green-token-index. No code change. | [wheel](https://leadgreen.ai/dist/leadgreen_mcp-0.3.1-py3-none-any.whl) · [PyPI](https://pypi.org/project/leadgreen-mcp/0.3.1/) |
+| 0.3.0 | 20 Oct 2026 | First release on PyPI, with provenance attestations and a reproducible wheel; the install line becomes pip install leadgreen-mcp. | [wheel](https://leadgreen.ai/dist/leadgreen_mcp-0.3.0-py3-none-any.whl) · [PyPI](https://pypi.org/project/leadgreen-mcp/0.3.0/) |
+| 0.2.0 | 28 Sep 2026 | Running batch and num_gpus parameters on estimate, PUE and system power ratio for energy at the meter, the wheel's SHA-256 on the install line. | [wheel](https://leadgreen.ai/dist/leadgreen_mcp-0.2.0-py3-none-any.whl) |
+| 0.1.0 | 26 Sep 2026 | First build: eight tools over the index, grid and hardware documents, live API first with a bundled snapshot as fallback. | not kept |
+
+Install and client configuration are on the [MCP page](https://leadgreen.ai/mcp/). The server is listed on the official MCP Registry as `ai.leadgreen/green-token-index`.
+
+*Citing a release*
+
+## Cite a date, not the live files
+
+Quote the release date with the figure, for example "Lead Green, release 2026-10-19", and link the release zip or any file under its dated folder; both stay byte for byte as published. The repository's `CITATION.cff` and the Zenodo record ([doi.org/10.5281/zenodo.23478909](https://doi.org/10.5281/zenodo.23478909)) carry the same version. The feed at [feed.xml](https://leadgreen.ai/feed.xml) announces blog posts, not data changes; watch [changes.json](https://leadgreen.ai/api/v1/changes.json) or this page for those.
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.

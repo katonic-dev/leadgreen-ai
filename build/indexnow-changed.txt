@@ -1,1 +1,14 @@
+https://leadgreen.ai/api/
+https://leadgreen.ai/changes/
+https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/
+https://leadgreen.ai/glossary/energy-per-token/
+https://leadgreen.ai/glossary/floor/
+https://leadgreen.ai/glossary/gpu-only-boundary/
+https://leadgreen.ai/glossary/inter-token-latency-ceiling/
+https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/
+https://leadgreen.ai/glossary/location-based-intensity/
+https://leadgreen.ai/glossary/pue/
+https://leadgreen.ai/glossary/running-batch/
+https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/
+https://leadgreen.ai/index/
 https://leadgreen.ai/mcp/

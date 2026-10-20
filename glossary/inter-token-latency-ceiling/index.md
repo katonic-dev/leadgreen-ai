@@ -1,12 +1,12 @@
 # Inter-token latency ceiling
 
-> The latency limit that defines which configurations may be an index row: a median inter-token latency at or under 500 ms, the leaderboard's own default.
+> 500 ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is 326 ms, so today it excludes nothing.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/inter-token-latency-ceiling/ (this file: https://leadgreen.ai/glossary/inter-token-latency-ceiling/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**The inter-token latency ceiling** is the limit that decides which measured configurations may be an index row: the median time between one output token and the next must be at or under **500 ms**, the ML.ENERGY Leaderboard's own default for every LLM task. Each index row is the lowest-energy configuration for its model and GPU under that ceiling. No measured configuration reaches it (the slowest Text Conversation row is 326 ms), so at 500 ms the ceiling excludes nothing; it is stated because any energy figure needs the latency it was measured at.
+500 ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is 326 ms, so today it excludes nothing. **The inter-token latency ceiling** is the limit that decides which measured configurations may be an index row: the median time between one output token and the next must be at or under **500 ms**, the ML.ENERGY Leaderboard's own default for every LLM task. Each index row is the lowest-energy configuration for its model and GPU under that ceiling. No measured configuration reaches it (the slowest Text Conversation row is 326 ms), so at 500 ms the ceiling excludes nothing; it is stated because any energy figure needs the latency it was measured at.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

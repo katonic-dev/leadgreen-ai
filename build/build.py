@@ -1564,6 +1564,16 @@ def _ts(s: dict, ind: str = "") -> str:
 
 
 _extra_outputs: dict[str, str] = {}
+# GEO item 6 (20 October 2026): the OpenAPI document also at the site root, where API clients and GPT builders look first,
+# and an RFC 9727 API catalogue at /.well-known/api-catalog (a linkset) pointing at it. Both are copies; /api/v1/openapi.json stays canonical.
+_extra_outputs["openapi.json"] = jdump(api_docs["openapi.json"])
+_extra_outputs[".well-known/api-catalog"] = jdump({"linkset": [{
+    "anchor": f"{SITE}/api/v1/",
+    "service-desc": [{"href": f"{SITE}/api/v1/openapi.json", "type": "application/vnd.oai.openapi+json;version=3.1"}],
+    "service-doc": [{"href": f"{SITE}/api/", "type": "text/html"}],
+    "service-meta": [{"href": f"{SITE}/api/v1/manifest.json", "type": "application/json"}],
+    "status": [{"href": f"{SITE}/api/v1/releases/index.json", "type": "application/json"}],
+}]})
 _extra_outputs["api/v1/types.d.ts"] = (f"// Lead Green API v1 types, generated from the published documents on {UPDATED} (data_version {DATA_VERSION}).\n"
                                 "// Additive only within v1: new optional fields may appear.\n\n"
                                 + "\n\n".join(f"export type {n} = {_ts(s)};" for n, s in _components.items() if n != "Measurement") + "\n")
@@ -2549,7 +2559,7 @@ render("per-query/index.html", "index", pq_t, pq_d, "article", "answer", pq_b,
 
 # ---- glossary: one URL per term, the figure and the source in the first paragraph
 def _term(slug_, name, short, definition, working, used, faq, tiles=None):
-    return {"slug": slug_, "name": name, "short": short, "definition": definition, "working": working, "used": used, "faq": faq, "tiles": tiles or []}
+    return {"slug": slug_, "name": name, "short": short, "definition": definition, "working": working, "used": used, "faq": faq, "tiles": tiles or [], "answer": ""}
 
 
 _sys_row = hw["systems"][0]
@@ -2672,6 +2682,32 @@ GLOSSARY = [
 assert len(GLOSSARY) == 9, "the strategy names nine glossary terms"
 assert len({t["slug"] for t in GLOSSARY}) == 9
 
+# GEO item 4 (20 October 2026): one figure-first sentence per term, rendered before the definition and used as the meta description
+# where it fits 155 characters, so the first sentence an extractor sees carries the number.
+GLOSSARY_ANSWERS = {
+    "watt-hours-per-million-output-tokens": (f"{fmt(raw_wh(low))} to {fmt(raw_wh(high))} Wh per million output tokens is the index's range, from {esc(low['model'])} on "
+                                             f"{low['num_gpus']} × {low['gpu']} to {esc(high['model'])} on {high['num_gpus']} × {high['gpu']}, GPU only."),
+    "energy-per-token": (f"{low['_cfg']['energy_per_token_joules']:.3f} to {high['_cfg']['energy_per_token_joules']:.2f} joules per output token is the index's range "
+                         "of GPU energy per token; 1 Wh per million tokens equals 0.0036 J per token."),
+    "running-batch": (f"Raising the running batch of {esc(l32['model'])} on {l32['gpus']} from {fmt(l32['first_batch'], 0)} to {fmt(l32['best_batch'], 0)} cuts GPU energy "
+                      f"from {fmt(l32['first'])} to {fmt(l32['best'])} Wh per million tokens, {l32['ratio']:.1f}× on the same cards."),
+    "floor": (f"Every index row is a floor: {esc(ref['model'])} on {ref['num_gpus']} × {ref['gpu']} is {fmt(raw_wh(ref))} Wh per million tokens at a running batch of "
+              f"{fmt(ref['_cfg']['avg_batch_size'], 0)}, and a real deployment sits above it."),
+    "gpu-only-boundary": (f"Every index row counts the GPUs alone; in Google's {GOOGLE_2025['date']} disclosure accelerators were "
+                          f"{GOOGLE_2025['accelerator_share'] * 100:.0f} percent of a prompt's energy, and the rest sits outside this boundary."),
+    "location-based-intensity": (f"{fmt(intensity['SAU'], 0)} gCO2e per kWh for Saudi Arabia, {fmt(intensity['IND'], 0)} for India, {fmt(intensity['NOR'], 0)} for Norway and "
+                                 f"{fmt(world, 0)} for the world ({EMBER_YEAR}, Ember): the grid factor that turns energy per token into carbon."),
+    "kg-co2e-per-billion-tokens": (f"{fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} kg CO2e per billion output tokens for {esc(ref['model'])} on {ref['num_gpus']} × "
+                                   f"{ref['gpu']} on Saudi Arabia's grid: Wh per million tokens × gCO2e per kWh ÷ 1,000."),
+    "inter-token-latency-ceiling": (f"{ITL_DEADLINE_MS} ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is "
+                                    f"{fmt(max_chat_itl, 0)} ms, so today it excludes nothing."),
+    "pue": ("The index publishes no PUE: its figures stop at the GPU; PUE, facility energy ÷ IT energy per ISO/IEC 30134-2, is the operator's own multiplier "
+            "to the meter."),
+}
+for _t in GLOSSARY:
+    _t["answer"] = GLOSSARY_ANSWERS[_t["slug"]]
+    assert "\u2013" not in _t["answer"] and "\u2014" not in _t["answer"]
+
 
 def glossary_page(t: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
     tiles = ""
@@ -2685,7 +2721,7 @@ def glossary_page(t: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
     body = f"""<div class="title">
   <p class="eyebrow"><a href="{{{{ROOT}}}}glossary/">Glossary</a></p>
   <h1>{esc(t['name'])}</h1>
-  <p class="stand">{t['definition']}</p>
+  <p class="stand">{esc(t['answer'])} {t['definition']}</p>
   <p class="unit"><b>Data</b> <a href="{{{{ROOT}}}}api/v1/index.json">index.json</a>, <a href="{{{{ROOT}}}}api/v1/grid.json">grid.json</a>, <a href="{{{{ROOT}}}}api/v1/hardware.json">hardware.json</a>. Updated {{{{UPDATED_LONG}}}}.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
@@ -2711,7 +2747,7 @@ def glossary_page(t: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
 </section>"""
     title = f"{t['name']}: definition and the figure | Lead Green glossary"
-    desc = t["short"]
+    desc = t["answer"] if 0 < len(t["answer"]) <= 155 else t["short"]
     if len(desc) > 155:
         desc = desc[:152].rsplit(" ", 1)[0] + "..."
     return title, desc, body, t["faq"]
@@ -2943,6 +2979,7 @@ def compare_pair_page(a_name: str, b_name: str, angle: str) -> tuple[str, str, s
     for desc in (f"{b_name} uses {desc_parts} the GPU energy per output token of {a_name}, from the ML.ENERGY index rows: the figures, the sweep caveat and what explains the gap.",
                  f"{b_name} uses {desc_parts} the GPU energy per output token of {a_name}: the index rows, the sweep caveat and what explains the gap.",
                  f"{b_name} against {a_name} on GPU energy per output token: {desc_parts}, from the index rows.",
+                 f"{b_name} vs {a_name}: {desc_parts} on GPU energy per output token, from the index rows.",
                  f"Two models on GPU energy per million output tokens: {desc_parts}, from the ML.ENERGY index rows."):
         if len(desc) <= 155:
             break
@@ -3047,6 +3084,92 @@ feed_items = "\n".join(
     f"    <dc:creator>{esc(p['author'])}</dc:creator>\n    <description>{esc(p['description'])}</description>\n  </item>"
     for p in posts
 )
+
+# ----------------------------------------------------------------- GEO item 5 (20 October 2026): /changes/, the dated record on one URL
+# Data changes come from CHANGES (the same list as changes.json and the index page), releases from the release folders, and the MCP
+# server versions from MCP_RELEASES below. Nothing here touches an API document, so a frozen release stays frozen.
+MCP_RELEASES = [
+    ("0.3.1", "2026-10-20", "Ownership marker for the official MCP Registry in the package README; listed as ai.leadgreen/green-token-index. No code change.", True),
+    ("0.3.0", "2026-10-20", "First release on PyPI, with provenance attestations and a reproducible wheel; the install line becomes pip install leadgreen-mcp.", True),
+    ("0.2.0", "2026-09-28", "Running batch and num_gpus parameters on estimate, PUE and system power ratio for energy at the meter, the wheel's SHA-256 on the install line.", False),
+    ("0.1.0", "2026-09-26", "First build: eight tools over the index, grid and hardware documents, live API first with a bundled snapshot as fallback.", False),
+]
+_frozen_for_page = ({l.strip() for l in (HERE / "data" / "published-releases.txt").read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")}
+                    if (HERE / "data" / "published-releases.txt").exists() else set())
+_rel_dir_for_page = API_DIR / "releases"
+_release_rows = []
+for _d in sorted((p.name for p in _rel_dir_for_page.iterdir() if p.is_dir()), reverse=True) if _rel_dir_for_page.exists() else []:
+    _z = _rel_dir_for_page / f"leadgreen-api-v1-{_d}.zip"
+    _sha = hashlib.sha256(_z.read_bytes()).hexdigest() if (_z.exists() and _d in _frozen_for_page) else ""
+    _ch = [c for c in CHANGES if c["date"] == _d]
+    _release_rows.append((_d, _d in _frozen_for_page, _sha, _ch[0]["documents"] if _ch else []))
+_chg_items = "\n".join(
+    f"    <li><time datetime=\"{c['date']}\">{short_date(c['date'])}</time><span>{esc(c['summary'])}"
+    f"<br><small>Documents: {esc(', '.join('every document' if d == '*' else d for d in c['documents'])) or 'none (description only)'}. "
+    f"Reason: {esc(c['reason'])}. Source version: {esc(str(c['source_version']))}.</small></span></li>" for c in reversed(CHANGES))
+_rel_items = "\n".join(
+    f"<tr><th scope=\"row\"><time datetime=\"{d}\">{short_date(d)}</time></th><td>{'published, frozen' if fr else 'built, not frozen'}</td>"
+    f"<td>{esc(', '.join('every document' if x == '*' else x for x in docs)) or 'as the previous release'}</td>"
+    f"<td><a href=\"{{{{ROOT}}}}api/v1/releases/leadgreen-api-v1-{d}.zip\">zip</a> · <a href=\"{{{{ROOT}}}}api/v1/releases/{d}/manifest.json\">manifest</a></td>"
+    f"<td><code>{sha[:16] + '…' if sha else 'set when frozen'}</code></td></tr>" for d, fr, sha, docs in _release_rows)
+_mcp_items = "\n".join(
+    f"<tr><th scope=\"row\">{v}</th><td><time datetime=\"{d}\">{short_date(d)}</time></td><td>{esc(what)}</td>"
+    f"<td>" + (f"<a href=\"{{{{ROOT}}}}dist/leadgreen_mcp-{v}-py3-none-any.whl\">wheel</a>" if (ROOT / "dist" / f"leadgreen_mcp-{v}-py3-none-any.whl").exists() else "not kept")
+    + (f" · <a href=\"https://pypi.org/project/leadgreen-mcp/{v}/\">PyPI</a>" if on_pypi else "") + "</td></tr>" for v, d, what, on_pypi in MCP_RELEASES)
+_latest_change = CHANGES[-1]
+_changes_stand = (f"The latest change to the data is dated {long_date(_latest_change['date'])}: "
+                  f"{_first_sentence(_latest_change['summary'], 200)} Every entry below is also in "
+                  f"<a href=\"{{{{ROOT}}}}api/v1/changes.json\">changes.json</a>, and every dated release is kept unchanged for citation.")
+_changes_body = f"""<div class="title">
+  <p class="eyebrow">Changes</p>
+  <h1>Every change, dated</h1>
+  <p class="stand">{_changes_stand}</p>
+  <p class="unit"><b>Record</b> {len(CHANGES)} data changes since {long_date(CHANGES[0]['date'])} · {len(_release_rows)} dated releases ({sum(1 for r in _release_rows if r[1])} published) · {len(MCP_RELEASES)} MCP server versions. Updated {{{{UPDATED_LONG}}}}.</p>
+  <ul class="toc" aria-label="On this page"><li><a href="#data">Data changes</a></li><li><a href="#releases">Data releases</a></li><li><a href="#mcp">MCP server</a></li><li><a href="#cite">Citing a release</a></li></ul>
+</div>
+
+<section id="data" class="first">
+  <p class="eyebrow">Data changes</p>
+  <h2>What changed in the published figures, newest first</h2>
+  <ul class="changes">
+{_chg_items}
+  </ul>
+  <p class="note">A change is recorded when a figure, a field or a description in <a href="{{{{ROOT}}}}api/">the data API</a> moves. Page copy that does not touch a figure is not listed. The index page carries the same record under <a href="{{{{ROOT}}}}index/#changes">Changes</a>.</p>
+</section>
+
+<section id="releases">
+  <p class="eyebrow">Data releases</p>
+  <h2>Dated copies of api/v1, newest first</h2>
+  <div class="table-scroll"><table class="spec"><caption>Each release is the whole API as it stood on that date</caption>
+  <thead><tr><th scope="col">Release</th><th scope="col">Status</th><th scope="col">Documents that changed</th><th scope="col">Files</th><th scope="col">Zip SHA-256</th></tr></thead>
+  <tbody>
+{_rel_items}
+  </tbody></table></div>
+  <p class="note">A published release never changes: the build refuses to rewrite it. The current live files are release {DATA_VERSION}. The list with full hashes is <a href="{{{{ROOT}}}}api/v1/releases/index.json">releases/index.json</a>.</p>
+</section>
+
+<section id="mcp">
+  <p class="eyebrow">MCP server</p>
+  <h2>leadgreen-mcp versions</h2>
+  <div class="table-scroll"><table class="spec"><caption>The package is versioned separately from the data; it reads the live API first</caption>
+  <thead><tr><th scope="col">Version</th><th scope="col">Date</th><th scope="col">What changed</th><th scope="col">Files</th></tr></thead>
+  <tbody>
+{_mcp_items}
+  </tbody></table></div>
+  <p class="note">Install and client configuration are on the <a href="{{{{ROOT}}}}mcp/">MCP page</a>. The server is listed on the official MCP Registry as <code>ai.leadgreen/green-token-index</code>.</p>
+</section>
+
+<section id="cite">
+  <p class="eyebrow">Citing a release</p>
+  <h2>Cite a date, not the live files</h2>
+  <div class="prose"><p>Quote the release date with the figure, for example "Lead Green, release {DATA_VERSION}", and link the release zip or any file under its dated folder; both stay byte for byte as published. The repository's <code>CITATION.cff</code> and the Zenodo record (<a href="{ZENODO_DOI_URL}">{ZENODO_DOI_URL.replace('https://', '')}</a>) carry the same version. The feed at <a href="{{{{ROOT}}}}feed.xml">feed.xml</a> announces blog posts, not data changes; watch <a href="{{{{ROOT}}}}api/v1/changes.json">changes.json</a> or this page for those.</p></div>
+  <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
+</section>"""
+render("changes/index.html", "", "Changes: every dated update to the Lead Green data, releases and MCP server",
+       f"The dated record: {len(CHANGES)} changes to the published figures since {long_date(CHANGES[0]['date'])}, every frozen data release with its hash, and each leadgreen-mcp version.",
+       "website", "changes", _changes_body, {"date": UPDATED})
+
+
 outputs["feed.xml"] = (
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
     "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n<channel>\n"
@@ -3291,6 +3414,7 @@ class _MD(HTMLParser):
         return s.strip() + "\n"
 
 
+
 def to_markdown(page_html: str, url: str, title: str, desc: str) -> str:
     p = _MD(url)
     p.feed(page_html)
@@ -3324,6 +3448,8 @@ outputs["llms-full.txt"] = (f"# Lead Green: every page in full\n\n> The Markdown
                             f"Each page begins with its title and canonical URL. The short index is {SITE}/llms.txt; the data is {SITE}/api/v1/. CC BY 4.0 for the compilation and text; sources keep their own licences.\n\n---\n\n"
                             + "\n---\n\n".join(_full_parts))
 outputs["llms.txt"] += f"\n## Full text\n- {SITE}/llms-full.txt: every Markdown copy above in one file, sitemap order, {len(_full_parts)} pages.\n"
+outputs["llms.txt"] += (f"\n## Changes and API description\n- {SITE}/changes/: the dated record of every change to the figures, every frozen data release with its hash, and each MCP server version.\n"
+                        f"- {SITE}/openapi.json: the OpenAPI 3.1 description, also at {SITE}/api/v1/openapi.json; the API catalogue (RFC 9727) is {SITE}/.well-known/api-catalog.\n")
 
 # IndexNow: the build cannot ping (the URLs and the key file must be live), so it records what changed and build/indexnow.py pings after a deploy.
 INDEXNOW_KEY_FILE = HERE / "indexnow-key.txt"

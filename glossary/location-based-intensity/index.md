@@ -6,7 +6,7 @@
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Location-based grid intensity** is the average carbon intensity of the electricity generated in the area where a GPU runs, in grams of CO2e per kilowatt-hour, before any contracts, certificates or self-generation are considered. The index uses Ember's yearly figures (October 2026 release, 2024, the latest year with a value for every listed grid): **689 gCO2e per kWh** for Saudi Arabia, 707 for India, 30 for Norway and 473 for the world. It is a lifecycle figure on net generation, production-based, so upstream methane and plant manufacture are in and imports are out.
+689 gCO2e per kWh for Saudi Arabia, 707 for India, 30 for Norway and 473 for the world (2024, Ember): the grid factor that turns energy per token into carbon. **Location-based grid intensity** is the average carbon intensity of the electricity generated in the area where a GPU runs, in grams of CO2e per kilowatt-hour, before any contracts, certificates or self-generation are considered. The index uses Ember's yearly figures (October 2026 release, 2024, the latest year with a value for every listed grid): **689 gCO2e per kWh** for Saudi Arabia, 707 for India, 30 for Norway and 473 for the world. It is a lifecycle figure on net generation, production-based, so upstream methane and plant manufacture are in and imports are out.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

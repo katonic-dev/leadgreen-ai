@@ -1,12 +1,12 @@
 # Floor
 
-> What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.
+> Every index row is a floor: Qwen 3 32B on 2 × H100 is 63.5 Wh per million tokens at a running batch of 256, and a real deployment sits above it.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/floor/ (this file: https://leadgreen.ai/glossary/floor/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**A floor** is what every row on the index is: the lowest GPU energy per output token the ML.ENERGY Leaderboard v3.0 measured for a model on a GPU, among configurations whose median inter-token latency is at or under 500 ms, at high concurrency on a busy server (data compiled 16 February 2026). A real deployment sits above its floor, often far above it: the reference row, Qwen 3 32B on 2 × H100, is **63.5 Wh/M** at a running batch of 256, and the same model on the same cards measured **452 Wh/M** at a running batch of 8.
+Every index row is a floor: Qwen 3 32B on 2 × H100 is 63.5 Wh per million tokens at a running batch of 256, and a real deployment sits above it. **A floor** is what every row on the index is: the lowest GPU energy per output token the ML.ENERGY Leaderboard v3.0 measured for a model on a GPU, among configurations whose median inter-token latency is at or under 500 ms, at high concurrency on a busy server (data compiled 16 February 2026). A real deployment sits above its floor, often far above it: the reference row, Qwen 3 32B on 2 × H100, is **63.5 Wh/M** at a running batch of 256, and the same model on the same cards measured **452 Wh/M** at a running batch of 8.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

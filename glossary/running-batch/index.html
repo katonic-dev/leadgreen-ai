@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Running batch: definition and the figure | Lead Green glossary</title>
-<meta name="description" content="The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.">
+<meta name="description" content="Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards.">
 <link rel="canonical" href="https://leadgreen.ai/glossary/running-batch/">
 <meta property="og:site_name" content="Lead Green">
 <meta property="og:title" content="Running batch: definition and the figure | Lead Green glossary">
-<meta property="og:description" content="The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.">
+<meta property="og:description" content="Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards.">
 <meta property="og:url" content="https://leadgreen.ai/glossary/running-batch/">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://leadgreen.ai/assets/cards/glossary-running-batch.png">
@@ -32,7 +32,7 @@
    "@type": "WebPage",
    "@id": "https://leadgreen.ai/glossary/running-batch/",
    "name": "Running batch: definition and the figure | Lead Green glossary",
-   "description": "The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.",
+   "description": "Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards.",
    "url": "https://leadgreen.ai/glossary/running-batch/",
    "publisher": {
     "@type": "Organization",
@@ -164,7 +164,7 @@
 <div class="title">
   <p class="eyebrow"><a href="../../glossary/">Glossary</a></p>
   <h1>Running batch</h1>
-  <p class="stand"><b>Running batch</b> is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as <code>num_requests_running</code>. It is not the cap the operator set (vLLM's <code>max_num_seqs</code>) and it does not count requests waiting in the queue. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from <b>8 to 256</b> cuts energy per token from <b>452 to 63.5 Wh/M</b>, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).</p>
+  <p class="stand">Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards. <b>Running batch</b> is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as <code>num_requests_running</code>. It is not the cap the operator set (vLLM's <code>max_num_seqs</code>) and it does not count requests waiting in the queue. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from <b>8 to 256</b> cuts energy per token from <b>452 to 63.5 Wh/M</b>, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).</p>
   <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 19 October 2026.</p>
   <p class="cite">Cite this page: Lead Green, a Katonic project. Running batch: definition and the figure. https://leadgreen.ai/glossary/running-batch/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>

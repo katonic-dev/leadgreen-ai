@@ -6,7 +6,7 @@
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Watt-hours per million output tokens (Wh/M)** is the GPU energy, in watt-hours, that a model on a stated set of GPUs at a stated load uses to generate one million output tokens. One Wh/M equals 0.0036 joules per output token (joules per token × 1,000,000 ÷ 3,600 = Wh/M). On the index the unit runs from **13.0 Wh/M** (Llama 3.1 8B Instruct, 1 × B200) to **572.9 Wh/M** (Llama 3.1 405B Instruct FP8, 8 × H100), GPU only, at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for each model and GPU (data compiled 16 February 2026).
+13.0 to 572.9 Wh per million output tokens is the index's range, from Llama 3.1 8B Instruct on 1 × B200 to Llama 3.1 405B Instruct FP8 on 8 × H100, GPU only. **Watt-hours per million output tokens (Wh/M)** is the GPU energy, in watt-hours, that a model on a stated set of GPUs at a stated load uses to generate one million output tokens. One Wh/M equals 0.0036 joules per output token (joules per token × 1,000,000 ÷ 3,600 = Wh/M). On the index the unit runs from **13.0 Wh/M** (Llama 3.1 8B Instruct, 1 × B200) to **572.9 Wh/M** (Llama 3.1 405B Instruct FP8, 8 × H100), GPU only, at the most energy-efficient configuration the ML.ENERGY Leaderboard v3.0 measured for each model and GPU (data compiled 16 February 2026).
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

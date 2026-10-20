@@ -1,12 +1,12 @@
 # Running batch
 
-> The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.
+> Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/running-batch/ (this file: https://leadgreen.ai/glossary/running-batch/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Running batch** is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as `num_requests_running`. It is not the cap the operator set (vLLM's `max_num_seqs`) and it does not count requests waiting in the queue. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from **8 to 256** cuts energy per token from **452 to 63.5 Wh/M**, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).
+Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards. **Running batch** is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as `num_requests_running`. It is not the cap the operator set (vLLM's `max_num_seqs`) and it does not count requests waiting in the queue. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from **8 to 256** cuts energy per token from **452 to 63.5 Wh/M**, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

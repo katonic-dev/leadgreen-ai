@@ -1,6 +1,6 @@
 # Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct: GPU energy per million output tokens
 
-> Two models on GPU energy per million output tokens: 1.47× on the H100 and 0.48× on the B200, from the ML.ENERGY index rows.
+> Qwen 3 235B A22B Instruct vs Qwen 3 235B A22B Instruct FP8: 1.47× on the H100 and 0.48× on the B200 on GPU energy per output token, from the index rows.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/ (this file: https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 

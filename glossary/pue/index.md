@@ -6,7 +6,7 @@
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Power usage effectiveness (PUE)** is a data centre's total facility energy divided by the energy delivered to its IT equipment, as defined in ISO/IEC 30134-2. A PUE of 1.0 would mean no energy for cooling, power distribution or lighting; real sites sit above it, and the figure is the operator's own, measured at the building. The index publishes no PUE. It names it because PUE is the second of two multipliers that take a GPU-only figure to the meter: with a system-to-GPU power ratio of 1.79 (DGX B200) and an illustrative PUE of **1.3**, the reference row's 63.5 Wh/M at the GPU becomes about **148 Wh/M** at the facility meter.
+The index publishes no PUE: its figures stop at the GPU; PUE, facility energy ÷ IT energy per ISO/IEC 30134-2, is the operator's own multiplier to the meter. **Power usage effectiveness (PUE)** is a data centre's total facility energy divided by the energy delivered to its IT equipment, as defined in ISO/IEC 30134-2. A PUE of 1.0 would mean no energy for cooling, power distribution or lighting; real sites sit above it, and the figure is the operator's own, measured at the building. The index publishes no PUE. It names it because PUE is the second of two multipliers that take a GPU-only figure to the meter: with a system-to-GPU power ratio of 1.79 (DGX B200) and an illustrative PUE of **1.3**, the reference row's 63.5 Wh/M at the GPU becomes about **148 Wh/M** at the facility meter.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

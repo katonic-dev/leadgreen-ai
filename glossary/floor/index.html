@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Floor: definition and the figure | Lead Green glossary</title>
-<meta name="description" content="What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.">
+<meta name="description" content="Every index row is a floor: Qwen 3 32B on 2 × H100 is 63.5 Wh per million tokens at a running batch of 256, and a real deployment sits above it.">
 <link rel="canonical" href="https://leadgreen.ai/glossary/floor/">
 <meta property="og:site_name" content="Lead Green">
 <meta property="og:title" content="Floor: definition and the figure | Lead Green glossary">
-<meta property="og:description" content="What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.">
+<meta property="og:description" content="Every index row is a floor: Qwen 3 32B on 2 × H100 is 63.5 Wh per million tokens at a running batch of 256, and a real deployment sits above it.">
 <meta property="og:url" content="https://leadgreen.ai/glossary/floor/">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://leadgreen.ai/assets/cards/glossary-floor.png">
@@ -32,7 +32,7 @@
    "@type": "WebPage",
    "@id": "https://leadgreen.ai/glossary/floor/",
    "name": "Floor: definition and the figure | Lead Green glossary",
-   "description": "What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.",
+   "description": "Every index row is a floor: Qwen 3 32B on 2 × H100 is 63.5 Wh per million tokens at a running batch of 256, and a real deployment sits above it.",
    "url": "https://leadgreen.ai/glossary/floor/",
    "publisher": {
     "@type": "Organization",
@@ -164,7 +164,7 @@
 <div class="title">
   <p class="eyebrow"><a href="../../glossary/">Glossary</a></p>
   <h1>Floor</h1>
-  <p class="stand"><b>A floor</b> is what every row on the index is: the lowest GPU energy per output token the ML.ENERGY Leaderboard v3.0 measured for a model on a GPU, among configurations whose median inter-token latency is at or under 500 ms, at high concurrency on a busy server (data compiled 16 February 2026). A real deployment sits above its floor, often far above it: the reference row, Qwen 3 32B on 2 × H100, is <b>63.5 Wh/M</b> at a running batch of 256, and the same model on the same cards measured <b>452 Wh/M</b> at a running batch of 8.</p>
+  <p class="stand">Every index row is a floor: Qwen 3 32B on 2 × H100 is 63.5 Wh per million tokens at a running batch of 256, and a real deployment sits above it. <b>A floor</b> is what every row on the index is: the lowest GPU energy per output token the ML.ENERGY Leaderboard v3.0 measured for a model on a GPU, among configurations whose median inter-token latency is at or under 500 ms, at high concurrency on a busy server (data compiled 16 February 2026). A real deployment sits above its floor, often far above it: the reference row, Qwen 3 32B on 2 × H100, is <b>63.5 Wh/M</b> at a running batch of 256, and the same model on the same cards measured <b>452 Wh/M</b> at a running batch of 8.</p>
   <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 19 October 2026.</p>
   <p class="cite">Cite this page: Lead Green, a Katonic project. Floor: definition and the figure. https://leadgreen.ai/glossary/floor/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>

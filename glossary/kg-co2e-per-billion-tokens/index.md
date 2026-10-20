@@ -1,12 +1,12 @@
 # kg CO2e per billion output tokens
 
-> The carbon unit of the index: energy per million tokens multiplied by the grid's carbon intensity, which gives kilograms of CO2e per billion output tokens.
+> 43.7 kg CO2e per billion output tokens for Qwen 3 32B on 2 × H100 on Saudi Arabia's grid: Wh per million tokens × gCO2e per kWh ÷ 1,000.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/ (this file: https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Kilograms of CO2e per billion output tokens** is the carbon unit of the index. It is watt-hours per million output tokens multiplied by the grid's grams of CO2e per kilowatt-hour, divided by 1,000: Wh/M × gCO2e/kWh ÷ 1,000 = kg CO2e per billion tokens, which is also grams of CO2e per million tokens. On the reference row, Qwen 3 32B on 2 × H100 at 63.5 Wh/M, a billion output tokens carries about **43.7 kg CO2e** on Saudi Arabia's 2024 grid (689 gCO2e/kWh, Ember), **44.9 kg** on India's (707), 30.0 kg on the world average (473) and 1.9 kg on Norway's (30). GPU energy only.
+43.7 kg CO2e per billion output tokens for Qwen 3 32B on 2 × H100 on Saudi Arabia's grid: Wh per million tokens × gCO2e per kWh ÷ 1,000. **Kilograms of CO2e per billion output tokens** is the carbon unit of the index. It is watt-hours per million output tokens multiplied by the grid's grams of CO2e per kilowatt-hour, divided by 1,000: Wh/M × gCO2e/kWh ÷ 1,000 = kg CO2e per billion tokens, which is also grams of CO2e per million tokens. On the reference row, Qwen 3 32B on 2 × H100 at 63.5 Wh/M, a billion output tokens carries about **43.7 kg CO2e** on Saudi Arabia's 2024 grid (689 gCO2e/kWh, Ember), **44.9 kg** on India's (707), 30.0 kg on the world average (473) and 1.9 kg on Norway's (30). GPU energy only.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

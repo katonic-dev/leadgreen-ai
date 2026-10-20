@@ -6,7 +6,7 @@
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**The GPU-only boundary** is the measurement boundary of every index row: energy read from the GPU devices themselves over the steady-state window, with the host CPU and memory, the network and storage, cooling and the rest of the facility, time the GPU spends idle between requests, and the carbon embodied in the hardware all outside it. Google's August 2025 disclosure shows the size of what sits outside: accelerators were **58 percent** of its 0.24 Wh median prompt, and NVIDIA rates a DGX B200 at 14.3 kW against 8.0 kW for its 8 GPUs, a system-to-GPU ratio of **1.79**.
+Every index row counts the GPUs alone; in Google's August 2025 disclosure accelerators were 58 percent of a prompt's energy, and the rest sits outside this boundary. **The GPU-only boundary** is the measurement boundary of every index row: energy read from the GPU devices themselves over the steady-state window, with the host CPU and memory, the network and storage, cooling and the rest of the facility, time the GPU spends idle between requests, and the carbon embodied in the hardware all outside it. Google's August 2025 disclosure shows the size of what sits outside: accelerators were **58 percent** of its 0.24 Wh median prompt, and NVIDIA rates a DGX B200 at 14.3 kW against 8.0 kW for its 8 GPUs, a system-to-GPU ratio of **1.79**.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

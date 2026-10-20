@@ -1,0 +1,31 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://leadgreen.ai/api/v1/",
+      "service-desc": [
+        {
+          "href": "https://leadgreen.ai/api/v1/openapi.json",
+          "type": "application/vnd.oai.openapi+json;version=3.1"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://leadgreen.ai/api/",
+          "type": "text/html"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://leadgreen.ai/api/v1/manifest.json",
+          "type": "application/json"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://leadgreen.ai/api/v1/releases/index.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}
