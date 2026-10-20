@@ -7,7 +7,7 @@ These files are the registry entries, dataset card and record metadata the proje
 | `huggingface-dataset-card.md` | The `README.md` of the Hugging Face dataset (T2) | G1 canonical description, G6 owner (`leadgreen` org or under `katonic`) | Draft; placeholders in square brackets |
 | `zenodo.json` | `.zenodo.json` at the repository root, read by Zenodo on each GitHub release (T3) | G4 named outside reviewer (a DOI should name the reviewer), G7 yes/no | Draft |
 | `mcp-registry-server.json` | `server.json` for the official MCP registry (T5), plus PulseMCP and Smithery listings | G2 public repository name, G8 stdio-only (as drafted) | Draft; the `ai.leadgreen/` namespace needs DNS or HTTP domain verification at publish time |
-| `pypi-pyproject-additions.toml` | Merged into `leadgreen-mcp/pyproject.toml` with the next package release (T4) | G5 code licence (Apache 2.0, as the package already declares); the Source URL waits for G2 | Draft; apply with the 0.3.0 release, because rebuilding the wheel changes the SHA-256 printed on `/mcp/` |
+| `pypi-pyproject-additions.toml` | Merged into `leadgreen-mcp/pyproject.toml` with the next package release (T4) | G5 code licence (Apache 2.0, as the package already declares); the Source URL waits for G2 | Applied with 0.3.0 on 20 October 2026; the publishing workflow is `.github/workflows/publish-mcp.yml` |
 
 ## Placeholders
 

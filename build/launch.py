@@ -90,6 +90,13 @@ def main() -> None:
         print(f"    UPDATED {m.group(1)} -> {a.date}")
     else:
         print(f"    UPDATED is already {a.date}")
+    if not a.skip_wheel:
+        w = re.search(r'^WHEEL_BUILD_DATE = "(\d{4}-\d{2}-\d{2})"', src, re.M)
+        if not w:
+            sys.exit("WHEEL_BUILD_DATE line not found in build/build.py")
+        if w.group(1) != a.date:
+            src = src[: w.start(1)] + a.date + src[w.end(1):]
+            print(f"    WHEEL_BUILD_DATE {w.group(1)} -> {a.date} (the wheel's SOURCE_DATE_EPOCH, printed on /mcp/)")
     if f'{{"date": "{a.date}"' in src:
         print("    a CHANGES entry for this date exists already")
     else:

@@ -1,4 +1,4 @@
-# DRAFT, not applied. Merge into leadgreen-mcp/pyproject.toml [project] with the 0.3.0 release (T4).
+# APPLIED to leadgreen-mcp/pyproject.toml with 0.3.0 on 20 October 2026 (T4); kept for the record. Publishing: .github/workflows/publish-mcp.yml.
 # Not applied to 0.2.0 because rebuilding the wheel changes the SHA-256 printed in the install line on /mcp/.
 # The package name leadgreen-mcp was free on PyPI on 18 October 2026. Publishing needs Prem's word and a PyPI
 # account for the project (2FA, a scoped API token stored as a repository secret, trusted publishing from the

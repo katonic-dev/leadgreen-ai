@@ -70,7 +70,7 @@ AT_METER_NOTE = (
     "of GPU power, a ratio of 1.79, and assumes a PUE of 1.3."
 )
 
-_FALLBACK_VERSION = "0.2.0"  # keep in step with pyproject.toml; used when running from a source checkout
+_FALLBACK_VERSION = "0.3.0"  # keep in step with pyproject.toml; used when running from a source checkout
 
 
 def _package_version() -> str:
