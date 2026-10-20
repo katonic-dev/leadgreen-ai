@@ -19,7 +19,10 @@ name: Publish leadgreen-mcp
 # What gets published is the wheel committed under dist/, the same file https://leadgreen.ai/dist/ serves and whose
 # SHA-256 is printed on https://leadgreen.ai/mcp/, so PyPI and the site carry one and the same file. The job rebuilds the
 # wheel with the repository's SOURCE_DATE_EPOCH (WHEEL_BUILD_DATE in build/build.py, 00:00 UTC) and refuses to publish
-# when the bytes differ. The sdist is built fresh with the same epoch.
+# when any file inside differs (every member is hashed in both wheels and the member lists must match).
+# The zip bytes themselves are not compared: a Windows CPython bundles zlib-ng and the Ubuntu runner uses classic zlib,
+# and the two deflate identical files to different bytes, so the committed wheel is what gets uploaded, not the rebuild.
+# The sdist is built fresh with the same epoch.
 
 on:
   push:
@@ -66,15 +69,34 @@ jobs:
           python -m pip install --upgrade pip build twine
           python -m build leadgreen-mcp --outdir out
           ls -l out
-      - name: The rebuilt wheel must be byte-identical to the one the site serves
+      - name: The rebuilt wheel must contain the same files as the one the site serves
         run: |
           name="leadgreen_mcp-${{ steps.meta.outputs.version }}-py3-none-any.whl"
+          python - "dist/$name" "out/$name" <<'PY'
+          import hashlib, sys, zipfile
+          def members(path):
+              with zipfile.ZipFile(path) as z:
+                  return {n: hashlib.sha256(z.read(n)).hexdigest() for n in z.namelist()}
+          site, fresh = members(sys.argv[1]), members(sys.argv[2])
+          for n, h in sorted(site.items()):
+              print(f"  {h[:16]}  {n}")
+          if site == fresh:
+              print(f"{len(site)} members, every file's SHA-256 identical (RECORD included)")
+              sys.exit(0)
+          print("the wheel does not reproduce; rebuild dist/" + sys.argv[1].split("/")[-1] + " from this commit before tagging")
+          for n in sorted(set(site) ^ set(fresh)):
+              print("  only in", "site" if n in site else "fresh", n)
+          for n in sorted(set(site) & set(fresh)):
+              if site[n] != fresh[n]:
+                  print(f"  differs  {n}  site {site[n][:16]}  fresh {fresh[n][:16]}")
+          sys.exit(1)
+          PY
           sha_site=$(sha256sum "dist/$name" | cut -d' ' -f1)
-          sha_new=$(sha256sum "out/$name" | cut -d' ' -f1)
           echo "site  $sha_site"
-          echo "fresh $sha_new"
-          [ "$sha_site" = "$sha_new" ] || { echo "the wheel does not reproduce; rebuild dist/$name from this commit before tagging"; exit 1; }
+          echo "fresh $(sha256sum "out/$name" | cut -d' ' -f1) (bytes may differ by zlib build; not compared)"
           grep -q "$sha_site" mcp/index.html || { echo "/mcp/ does not print this wheel's SHA-256; run build/build.py and commit"; exit 1; }
+          cp "dist/$name" "out/$name"
+          echo "out/$name is now the committed wheel, the file the site serves"
       - name: Check the metadata the registry will show
         run: python -m twine check out/*
       - uses: actions/upload-artifact@v4
