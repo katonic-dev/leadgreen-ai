@@ -1,12 +1,12 @@
 # Energy per token
 
-> GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.
+> 0.047 to 2.06 joules per output token is the index's range of GPU energy per token; 1 Wh per million tokens equals 0.0036 J per token.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/energy-per-token/ (this file: https://leadgreen.ai/glossary/energy-per-token/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-**Energy per token** is the GPU energy a serving system uses divided by the output tokens it generated in the same window, in joules per output token. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled 16 February 2026). On the index it runs from **0.047 J per token** (Llama 3.1 8B Instruct, 1 × B200) to **2.06 J** (Llama 3.1 405B Instruct FP8, 8 × H100); the index shows it as watt-hours per million output tokens.
+0.047 to 2.06 joules per output token is the index's range of GPU energy per token; 1 Wh per million tokens equals 0.0036 J per token. **Energy per token** is the GPU energy a serving system uses divided by the output tokens it generated in the same window, in joules per output token. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled 16 February 2026). On the index it runs from **0.047 J per token** (Llama 3.1 8B Instruct, 1 × B200) to **2.06 J** (Llama 3.1 405B Instruct FP8, 8 × H100); the index shows it as watt-hours per million output tokens.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 

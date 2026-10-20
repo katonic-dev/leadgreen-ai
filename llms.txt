@@ -88,6 +88,7 @@ Every page has a Markdown copy at its URL followed by index.md, generated from t
 - https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md
 - https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/index.md
 - https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/index.md
+- https://leadgreen.ai/changes/index.md
 - https://leadgreen.ai/compare/index.md
 - https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/index.md
 - https://leadgreen.ai/compare/llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct/index.md
@@ -161,4 +162,8 @@ Every page has a Markdown copy at its URL followed by index.md, generated from t
 - https://leadgreen.ai/why/index.md
 
 ## Full text
-- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 78 pages.
+- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 79 pages.
+
+## Changes and API description
+- https://leadgreen.ai/changes/: the dated record of every change to the figures, every frozen data release with its hash, and each MCP server version.
+- https://leadgreen.ai/openapi.json: the OpenAPI 3.1 description, also at https://leadgreen.ai/api/v1/openapi.json; the API catalogue (RFC 9727) is https://leadgreen.ai/.well-known/api-catalog.

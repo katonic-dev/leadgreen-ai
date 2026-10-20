@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Inter-token latency ceiling: definition and the figure | Lead Green glossary</title>
-<meta name="description" content="The latency limit that defines which configurations may be an index row: a median inter-token latency at or under 500 ms, the leaderboard&#x27;s own default.">
+<meta name="description" content="500 ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is 326 ms, so today it excludes nothing.">
 <link rel="canonical" href="https://leadgreen.ai/glossary/inter-token-latency-ceiling/">
 <meta property="og:site_name" content="Lead Green">
 <meta property="og:title" content="Inter-token latency ceiling: definition and the figure | Lead Green glossary">
-<meta property="og:description" content="The latency limit that defines which configurations may be an index row: a median inter-token latency at or under 500 ms, the leaderboard&#x27;s own default.">
+<meta property="og:description" content="500 ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is 326 ms, so today it excludes nothing.">
 <meta property="og:url" content="https://leadgreen.ai/glossary/inter-token-latency-ceiling/">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://leadgreen.ai/assets/cards/glossary-inter-token-latency-ceiling.png">
@@ -32,7 +32,7 @@
    "@type": "WebPage",
    "@id": "https://leadgreen.ai/glossary/inter-token-latency-ceiling/",
    "name": "Inter-token latency ceiling: definition and the figure | Lead Green glossary",
-   "description": "The latency limit that defines which configurations may be an index row: a median inter-token latency at or under 500 ms, the leaderboard's own default.",
+   "description": "500 ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is 326 ms, so today it excludes nothing.",
    "url": "https://leadgreen.ai/glossary/inter-token-latency-ceiling/",
    "publisher": {
     "@type": "Organization",
@@ -164,7 +164,7 @@
 <div class="title">
   <p class="eyebrow"><a href="../../glossary/">Glossary</a></p>
   <h1>Inter-token latency ceiling</h1>
-  <p class="stand"><b>The inter-token latency ceiling</b> is the limit that decides which measured configurations may be an index row: the median time between one output token and the next must be at or under <b>500 ms</b>, the ML.ENERGY Leaderboard's own default for every LLM task. Each index row is the lowest-energy configuration for its model and GPU under that ceiling. No measured configuration reaches it (the slowest Text Conversation row is 326 ms), so at 500 ms the ceiling excludes nothing; it is stated because any energy figure needs the latency it was measured at.</p>
+  <p class="stand">500 ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is 326 ms, so today it excludes nothing. <b>The inter-token latency ceiling</b> is the limit that decides which measured configurations may be an index row: the median time between one output token and the next must be at or under <b>500 ms</b>, the ML.ENERGY Leaderboard's own default for every LLM task. Each index row is the lowest-energy configuration for its model and GPU under that ceiling. No measured configuration reaches it (the slowest Text Conversation row is 326 ms), so at 500 ms the ceiling excludes nothing; it is stated because any energy figure needs the latency it was measured at.</p>
   <p class="unit"><b>Data</b> <a href="../../api/v1/index.json">index.json</a>, <a href="../../api/v1/grid.json">grid.json</a>, <a href="../../api/v1/hardware.json">hardware.json</a>. Updated 19 October 2026.</p>
   <p class="cite">Cite this page: Lead Green, a Katonic project. Inter-token latency ceiling: definition and the figure. https://leadgreen.ai/glossary/inter-token-latency-ceiling/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
