@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>H100 vs B200: GPU energy per million output tokens, 14 models | Lead Green</title>
-<meta name="description" content="H100 against B200 on GPU energy per output token, 14 open-weight models: the gap runs from 4.55× to 1.05×, and how much is the sweep. ML.ENERGY v3.0.">
+<title>H100 vs B200: which uses less GPU energy per token? 14 models | Lead Green</title>
+<meta name="description" content="B200 vs H100: the B200 uses a median 39 percent less GPU energy per output token across 14 open-weight models (1.05× to 4.55×). ML.ENERGY v3.0.">
 <link rel="canonical" href="https://leadgreen.ai/h100-vs-b200/">
 <meta property="og:site_name" content="Lead Green">
-<meta property="og:title" content="H100 vs B200: GPU energy per million output tokens, 14 models | Lead Green">
-<meta property="og:description" content="H100 against B200 on GPU energy per output token, 14 open-weight models: the gap runs from 4.55× to 1.05×, and how much is the sweep. ML.ENERGY v3.0.">
+<meta property="og:title" content="H100 vs B200: which uses less GPU energy per token? 14 models | Lead Green">
+<meta property="og:description" content="B200 vs H100: the B200 uses a median 39 percent less GPU energy per output token across 14 open-weight models (1.05× to 4.55×). ML.ENERGY v3.0.">
 <meta property="og:url" content="https://leadgreen.ai/h100-vs-b200/">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://leadgreen.ai/assets/cards/h100-vs-b200.png">
@@ -31,8 +31,8 @@
   {
    "@type": "WebPage",
    "@id": "https://leadgreen.ai/h100-vs-b200/",
-   "name": "H100 vs B200: GPU energy per million output tokens, 14 models | Lead Green",
-   "description": "H100 against B200 on GPU energy per output token, 14 open-weight models: the gap runs from 4.55× to 1.05×, and how much is the sweep. ML.ENERGY v3.0.",
+   "name": "H100 vs B200: which uses less GPU energy per token? 14 models | Lead Green",
+   "description": "B200 vs H100: the B200 uses a median 39 percent less GPU energy per output token across 14 open-weight models (1.05× to 4.55×). ML.ENERGY v3.0.",
    "url": "https://leadgreen.ai/h100-vs-b200/",
    "publisher": {
     "@type": "Organization",
@@ -63,7 +63,7 @@
    "mainEntity": {
     "@type": "Dataset",
     "name": "H100 vs B200: GPU energy per million output tokens",
-    "description": "H100 against B200 on GPU energy per output token, 14 open-weight models: the gap runs from 4.55× to 1.05×, and how much is the sweep. ML.ENERGY v3.0.",
+    "description": "B200 vs H100: the B200 uses a median 39 percent less GPU energy per output token across 14 open-weight models (1.05× to 4.55×). ML.ENERGY v3.0.",
     "license": "https://creativecommons.org/licenses/by/4.0/",
     "creator": {
      "@type": "Organization",
@@ -201,9 +201,9 @@
 <div class="title">
   <p class="eyebrow">Two generations · 14 models</p>
   <h1>H100 vs B200: GPU energy per million output tokens</h1>
-  <p class="stand">On the index rows, the B200 uses less GPU energy per output token than the H100 for <b>all 14 models</b> measured on both cards. The H100 row uses from <b>4.55×</b> the energy of the B200 row (Qwen 3 235B A22B Instruct) down to <b>1.05×</b> (NVIDIA Nemotron Nano 9B V2), with a median of 1.63×. Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.</p>
+  <p class="stand">On the index the B200 uses a median <b>39 percent less</b> GPU energy per output token than the H100, across all 14 open-weight models measured on both cards: the H100 row uses 1.63× the B200 row's energy at the median, from <b>4.55×</b> (Qwen 3 235B A22B Instruct) down to <b>1.05×</b> (NVIDIA Nemotron Nano 9B V2). Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="../api/v1/index.json">index.json</a>. Updated 19 October 2026.</p>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. H100 vs B200: GPU energy per million output tokens, 14 models. https://leadgreen.ai/h100-vs-b200/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. H100 vs B200: which uses less GPU energy per token? 14 models. https://leadgreen.ai/h100-vs-b200/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#pairs">The 14 pairs</a></li><li><a href="#sweep">The sweep</a></li><li><a href="#power">Power against energy</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 <div class="tiles auto n3" role="group" aria-label="Headline readings"><div class="tile"><span class="lbl">Widest gap</span><span class="val">4.55<small>×</small></span><span class="sub">Qwen 3 235B A22B Instruct: 303.5 Wh/M on 8 × H100 against 66.7 on 4 × B200.</span></div><div class="tile ref"><span class="lbl">Median gap, 14 pairs</span><span class="val">1.63<small>×</small></span><span class="sub">H100 row energy per token over B200 row energy per token, at each model's index rows.</span></div><div class="tile"><span class="lbl">Narrowest gap</span><span class="val">1.05<small>×</small></span><span class="sub">NVIDIA Nemotron Nano 9B V2: 43.1 Wh/M on 1 × H100 against 40.9 on 1 × B200.</span></div></div>
