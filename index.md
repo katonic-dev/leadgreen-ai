@@ -1,10 +1,10 @@
 # The energy behind the token
 
-> A public index of the GPU energy it takes to serve a million output tokens, by model and GPU, with grid carbon, open data, an API and an MCP server.
+> Lead Green is a public index of LLM inference energy per token: GPU watt-hours per million output tokens by model and GPU, with grid carbon and open API.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/ (this file: https://leadgreen.ai/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
-Lead Green is a public index of the **GPU watt-hours it takes to serve a million output tokens**, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open, there is a JSON API and an MCP server, and anyone with a GPU will be able to add a measurement.
+Lead Green is a public index of **LLM inference energy per token**: the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open, there is a JSON API and an MCP server, and anyone with a GPU will be able to add a measurement.
 
 **Unit** watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
@@ -111,7 +111,7 @@ Latest from the blog: [How much energy does an AI query use?](https://leadgreen.
 
 ### What is Lead Green?
 
-A public index of the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open under CC BY 4.0, there is a JSON API and an MCP server, and it is a Katonic project.
+A public index of LLM inference energy per token: the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open under CC BY 4.0, there is a JSON API and an MCP server, and it is a Katonic project.
 
 ### What unit does the index use?
 

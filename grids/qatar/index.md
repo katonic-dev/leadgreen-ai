@@ -1,12 +1,12 @@
 # Qatar: the carbon of AI inference per billion tokens
 
-> Qatar's grid at 582 gCO2e/kWh: what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend.
+> About 36.9 kg CO2e per billion LLM output tokens on Qatar's grid (582 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/qatar/ (this file: https://leadgreen.ai/grids/qatar/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-Qatar's grid ran at **582 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× the world average of 473, and 137th of the 193 countries Ember covers, counting from the cleanest. A billion output tokens of the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) served on it carries about **36.9 kg CO2e** of GPU-side emissions; the index's lowest row carries 7.5 kg and its highest 333.3 kg. Energy per token does not change with geography; carbon per token does.
+An LLM served on Qatar's grid emits about **36.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 7.5 kg and its highest 333.3 kg. The grid ran at **582 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× the world average of 473, and 137th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Qatar (QAT, QA). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 

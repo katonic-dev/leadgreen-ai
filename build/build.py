@@ -53,6 +53,12 @@ SITE = "https://leadgreen.ai"
 UPDATED = "2026-10-19"                 # bump on every data or content change
 DATA_VERSION = UPDATED                 # D20: carried by every API document; a published release never changes
 RETRIEVED = "2026-09-26"               # when the ML.ENERGY, AI Energy Score and NVIDIA snapshots in build/data were retrieved; not the same as UPDATED
+# The ML.ENERGY group's analysis of the same measurements (Chung et al., "Where Do the Joules Go? Diagnosing Inference
+# Energy Consumption", arXiv 2601.22076 v2, January 2026), section on H100 against B200, quoted as the paper states it:
+# "B200 wins 88% (63/72) of comparisons with a median 35% energy reduction (ranging from 53% more to 82% less)".
+ARXIV_JOULES = {"id": "2601.22076", "url": "https://arxiv.org/abs/2601.22076", "title": "Where Do the Joules Go? Diagnosing Inference Energy Consumption",
+                "authors": "Chung et al. (The ML.ENERGY Initiative, University of Michigan)", "version": "v2, January 2026",
+                "wins": "63 of 72", "wins_pct": 88, "median_pct": 35, "range": "from 53 percent more to 82 percent less", "retrieved": "2026-10-21"}
 EMBER_RETRIEVED = "2026-10-17"         # the Ember snapshot is refreshed on its own: Ember re-issues the yearly file monthly
 EMBER_RELEASE = "October 2026 release" # Ember's own label for the file, as shown on every page that cites it
 INDEX_NAME = "Green Tokens"            # D1: "Green Tokens" or "The Green Token Index"
@@ -1128,6 +1134,13 @@ subs.update({
         "configuration reaches. Apache 2.0 per the <a href=\"https://huggingface.co/datasets/ml-energy/benchmark-v3\">ml-energy/benchmark-v3</a> "
         f"dataset card. Cite <a href=\"{SRC_MLE['cite_url']}\">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>."
     ),
+    "ARXIV_BLOCK": (
+        f"Corroboration: {ARXIV_JOULES['authors']}, <i>{ARXIV_JOULES['title']}</i>, <a href=\"{ARXIV_JOULES['url']}\">arXiv:{ARXIV_JOULES['id']}</a> "
+        f"({ARXIV_JOULES['version']}), the leaderboard team's analysis of the same measurements across 46 models and 1,858 configurations: across three "
+        f"median inter-token latency limits the B200 wins {ARXIV_JOULES['wins_pct']} percent ({ARXIV_JOULES['wins']}) of comparisons with a median "
+        f"{ARXIV_JOULES['median_pct']} percent energy reduction, ranging {ARXIV_JOULES['range']}. Retrieved {long_date(ARXIV_JOULES['retrieved'])}. "
+        "This page's ratio is narrower in scope: one task, one latency limit, the index rows only."
+    ),
     "ATTRIBUTION": esc(ATTRIBUTION), "FUNDING": esc(FUNDING), "LEGAL_NOTE": esc(LEGAL_NOTE),
     # tiles (F10)
     "TILE_LOW_SUB": tile_sub(low), "TILE_HIGH_SUB": tile_sub(high),
@@ -1935,7 +1948,7 @@ subs["LATEST_POST_LINK"] = (f"<a href=\"{{{{ROOT}}}}blog/{posts[0]['slug']}/\">{
 PAGE_FAQ = {   # FAQPage structured data for the two hand-written pages the queries land on; the answers restate the page text
     "home": [
         ("What is Lead Green?",
-         f"A public index of the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open under CC BY 4.0, there is a JSON API and an MCP server, and it is a Katonic project."),
+         f"A public index of LLM inference energy per token: the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open under CC BY 4.0, there is a JSON API and an MCP server, and it is a Katonic project."),
         ("What unit does the index use?",
          f"Watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token. The index runs from {subs['TILE_LOW_WH']} Wh/M ({subs['TILE_LOW_LABEL']}) to {subs['TILE_HIGH_WH']} Wh/M ({subs['TILE_HIGH_LABEL']}), GPU only, measured on a busy server; every row is a floor that a real deployment sits above."),
         ("Where do the figures come from?",
@@ -2218,9 +2231,10 @@ def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
     vs_world = g / world
     where = f"{vs_world:.1f}× the world average of {fmt(world, 0)}" if vs_world >= 1.05 else (f"{1 / vs_world:.1f}× cleaner than the world average of {fmt(world, 0)}" if vs_world <= 0.95 else f"close to the world average of {fmt(world, 0)}")
     kg_ref, kg_low, kg_high = (kg_per_billion(w, g) for w in (ref_wh_raw, low_wh_raw, high_wh_raw))
-    answer = (f"{esc(name)}'s grid ran at <b>{fmt(g, 0)} gCO2e per kWh</b> in {EMBER_YEAR} on Ember's yearly figures, {where}, and {ordinal(rank)} of the {grid_count} countries Ember covers, counting from the cleanest. "
-              f"A billion output tokens of the index's reference row ({esc(REF_MODEL_NAME)}, {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh/M) served on it carries about <b>{fmt(kg_ref)} kg CO2e</b> of GPU-side emissions; "
-              f"the index's lowest row carries {fmt(kg_low)} kg and its highest {fmt(kg_high)} kg. Energy per token does not change with geography; carbon per token does.")
+    answer = (f"An LLM served on {esc(name)}'s grid emits about <b>{fmt(kg_ref)} kg CO2e per billion output tokens</b> at the index's reference row ({esc(REF_MODEL_NAME)}, {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh/M), GPU energy only; "
+              f"the index's lowest row emits {fmt(kg_low)} kg and its highest {fmt(kg_high)} kg. "
+              f"The grid ran at <b>{fmt(g, 0)} gCO2e per kWh</b> in {EMBER_YEAR} on Ember's yearly figures, {where}, and {ordinal(rank)} of the {grid_count} countries Ember covers, counting from the cleanest. "
+              f"Energy per token does not change with geography; carbon per token does.")
     # trend
     trend = ""
     if len(yrs) >= 2:
@@ -2304,7 +2318,8 @@ def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="note">This page is generated from the same dated snapshots as <a href="{{{{ROOT}}}}index/#carbon">the index</a>; no figure on it is typed by hand. All {{{{GRID_COUNT}}}} areas are in <a href="{{{{ROOT}}}}api/v1/grid.json">grid.json</a>; the {{{{LISTED_GRID_COUNT}}}} with a page are the markets Katonic sells in or expects to, plus seven reference grids.</p>
 </section>"""
     title = f"{name}: carbon of AI inference per billion tokens | Lead Green"
-    for desc in (f"{name}'s grid at {fmt(g, 0)} gCO2e/kWh ({EMBER_YEAR}, Ember): what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend since {min(yrs)}.",
+    for desc in (f"About {fmt(kg_ref)} kg CO2e per billion LLM output tokens on {name}'s grid ({fmt(g, 0)} gCO2e/kWh, {EMBER_YEAR}, Ember), every index model priced, trend since {min(yrs)}.",
+                 f"{name}'s grid at {fmt(g, 0)} gCO2e/kWh ({EMBER_YEAR}, Ember): what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend since {min(yrs)}.",
                  f"{name}'s grid at {fmt(g, 0)} gCO2e/kWh: what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend.",
                  f"{name}: grid carbon intensity and the CO2e of AI inference per billion output tokens, every index model priced on it."):
         if len(desc) <= 155:
@@ -2343,7 +2358,9 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
     answer = (f"On the index the B200 uses a median <b>{pct_less:.0f} percent less</b> GPU energy per output token than the H100, "
               f"{'across all ' if wins == len(pairs) else f'winning {wins} of '}{len(pairs)} open-weight models measured on both cards: "
               f"the H100 row uses {med:.2f}× the B200 row's energy at the median, from <b>{pr:.2f}×</b> ({esc(pm)}) down to <b>{lr:.2f}×</b> ({esc(lm)}). "
-              f"Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on {word(fewer)} of the {len(pairs)} pairs the B200 row holds the model on fewer cards.")
+              f"Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on {word(fewer)} of the {len(pairs)} pairs the B200 row holds the model on fewer cards. "
+              f"The leaderboard's own analysis of the wider sweep agrees: across three latency limits the B200 wins {ARXIV_JOULES['wins']} comparisons with a median {ARXIV_JOULES['median_pct']} percent less energy per token "
+              f"(<a href=\"{ARXIV_JOULES['url']}\">arXiv:{ARXIV_JOULES['id']}</a>).")
     tiles = (f"<div class=\"tiles auto n3\" role=\"group\" aria-label=\"Headline readings\">"
              f"<div class=\"tile\"><span class=\"lbl\">Widest gap</span><span class=\"val\">{pr:.2f}<small>×</small></span><span class=\"sub\">{esc(pm)}: {fmt(raw_wh(ph))} Wh/M on {ph['num_gpus']} × H100 against {fmt(raw_wh(pb))} on {pb['num_gpus']} × B200.</span></div>"
              f"<div class=\"tile ref\"><span class=\"lbl\">Median gap, {len(pairs)} pairs</span><span class=\"val\">{med:.2f}<small>×</small></span><span class=\"sub\">H100 row energy per token over B200 row energy per token, at each model's index rows.</span></div>"
@@ -2416,6 +2433,7 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="eyebrow">Sources</p>
   <h2>Where every figure came from</h2>
   <p class="note">{{{{MLE_BLOCK}}}}</p>
+  <p class="note">{{{{ARXIV_BLOCK}}}}</p>
   <p class="note">TDP and memory: NVIDIA product specifications for <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a> and <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a>, and the <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">HGX B200 product carbon footprint summary</a> (July 2025), retrieved {{{{RETRIEVED_LONG}}}}.</p>
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
 </section>"""

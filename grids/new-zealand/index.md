@@ -1,12 +1,12 @@
 # New Zealand: the carbon of AI inference per billion tokens
 
-> New Zealand's grid at 112 gCO2e/kWh: what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend.
+> About 7.1 kg CO2e per billion LLM output tokens on New Zealand's grid (112 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/new-zealand/ (this file: https://leadgreen.ai/grids/new-zealand/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Oceania · a market Katonic sells in or expects to*
 
-New Zealand's grid ran at **112 gCO2e per kWh** in 2024 on Ember's yearly figures, 4.2× cleaner than the world average of 473, and 27th of the 193 countries Ember covers, counting from the cleanest. A billion output tokens of the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) served on it carries about **7.1 kg CO2e** of GPU-side emissions; the index's lowest row carries 1.5 kg and its highest 64.1 kg. Energy per token does not change with geography; carbon per token does.
+An LLM served on New Zealand's grid emits about **7.1 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 1.5 kg and its highest 64.1 kg. The grid ran at **112 gCO2e per kWh** in 2024 on Ember's yearly figures, 4.2× cleaner than the world average of 473, and 27th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** New Zealand (NZL, NZ). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 

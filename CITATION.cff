@@ -13,7 +13,7 @@ authors:
     given-names: "Prem"
     affiliation: Katonic
   - name: "Katonic AI Technology Ltd (Lead Green, a Katonic project)"
-abstract: "Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open data with a JSON API and an MCP server under CC BY 4.0. Every figure comes from a named public source with a retrieval date; it is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or model vendors. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it."
+abstract: "Lead Green is a public index of LLM inference energy per token: the GPU energy it takes to serve a million output tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open data with a JSON API and an MCP server under CC BY 4.0. Every figure comes from a named public source with a retrieval date; it is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or model vendors. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it."
 keywords:
   - "LLM inference energy"
   - "watt-hours per token"

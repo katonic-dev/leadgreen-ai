@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Lead Green: the energy behind the token</title>
-<meta name="description" content="A public index of the GPU energy it takes to serve a million output tokens, by model and GPU, with grid carbon, open data, an API and an MCP server.">
+<meta name="description" content="Lead Green is a public index of LLM inference energy per token: GPU watt-hours per million output tokens by model and GPU, with grid carbon and open API.">
 <link rel="canonical" href="https://leadgreen.ai/">
 <meta property="og:site_name" content="Lead Green">
 <meta property="og:title" content="Lead Green: the energy behind the token">
-<meta property="og:description" content="A public index of the GPU energy it takes to serve a million output tokens, by model and GPU, with grid carbon, open data, an API and an MCP server.">
+<meta property="og:description" content="Lead Green is a public index of LLM inference energy per token: GPU watt-hours per million output tokens by model and GPU, with grid carbon and open API.">
 <meta property="og:url" content="https://leadgreen.ai/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
@@ -46,13 +46,13 @@
     "https://www.linkedin.com/showcase/leadgreen-ai/"
    ],
    "@id": "https://leadgreen.ai/#org",
-   "description": "A public index of the GPU energy it takes to serve a million output tokens, by model and GPU, with grid carbon, open data, an API and an MCP server."
+   "description": "Lead Green is a public index of LLM inference energy per token: GPU watt-hours per million output tokens by model and GPU, with grid carbon and open API."
   },
   {
    "@type": "WebSite",
    "name": "Lead Green",
    "url": "https://leadgreen.ai/",
-   "description": "A public index of the GPU energy it takes to serve a million output tokens, by model and GPU, with grid carbon, open data, an API and an MCP server.",
+   "description": "Lead Green is a public index of LLM inference energy per token: GPU watt-hours per million output tokens by model and GPU, with grid carbon and open API.",
    "publisher": {
     "@id": "https://leadgreen.ai/#org"
    },
@@ -68,7 +68,7 @@
      "name": "What is Lead Green?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "A public index of the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open under CC BY 4.0, there is a JSON API and an MCP server, and it is a Katonic project."
+      "text": "A public index of LLM inference energy per token: the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open under CC BY 4.0, there is a JSON API and an MCP server, and it is a Katonic project."
      }
     },
     {
@@ -135,7 +135,7 @@
   <main id="main">
 <div class="title">
   <h1>The energy behind the token</h1>
-  <p class="stand">Lead Green is a public index of the <b>GPU watt-hours it takes to serve a million output tokens</b>, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open, there is a JSON API and an MCP server, and anyone with a GPU will be able to add a measurement.</p>
+  <p class="stand">Lead Green is a public index of <b>LLM inference energy per token</b>: the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open, there is a JSON API and an MCP server, and anyone with a GPU will be able to add a measurement.</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. Updated 19 October 2026.</p>
   <p class="cite">Cite this page: Lead Green, a Katonic project. Lead Green: the energy behind the token. https://leadgreen.ai/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
   <div class="actions">
@@ -224,7 +224,7 @@
   <p class="note">Latest from the blog: <a href="blog/how-much-energy-does-an-ai-query-use/">How much energy does an AI query use?</a>.</p>
 </section>
 
-<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about Lead Green</h2><div class="prose faq"><h3>What is Lead Green?</h3><p>A public index of the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer&#x27;s specification, dated and linked. The data is open under CC BY 4.0, there is a JSON API and an MCP server, and it is a Katonic project.</p><h3>What unit does the index use?</h3><p>Watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token. The index runs from 13.0 Wh/M (Llama 3.1 8B Instruct, 1 × B200) to 572.9 Wh/M (Llama 3.1 405B Instruct FP8, 8 × H100), GPU only, measured on a busy server; every row is a floor that a real deployment sits above.</p><h3>Where do the figures come from?</h3><p>Energy per token from the ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026); grid carbon intensity from Ember&#x27;s yearly electricity data (October 2026 release, 2024); GPU power ceilings from NVIDIA&#x27;s published specifications; per-query energy from the AI Energy Score&#x27;s December 2025 round. Every source is listed with its version, licence and retrieval date in the index&#x27;s ledger.</p><h3>Is the data open, and how do I get it?</h3><p>Yes. The compilation and site text are CC BY 4.0 and the sources keep their own licences. Every table is static JSON under https://leadgreen.ai/api/v1/ with CORS open and no key, there is an MCP server for AI assistants, every page has a Markdown copy at its URL followed by index.md, and llms.txt at the site root lists all of it.</p><h3>Who runs and pays for Lead Green?</h3><p>Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. It takes no money from hardware, cloud or model vendors. The publisher is Katonic AI Technology Ltd, registered in the Dubai International Financial Centre (DIFC), United Arab Emirates; the editor is Prem Naraindas.</p></div><p class="note">Every question on the site, with a link to the page that answers it, is on <a href="faq/">the questions page</a>; the terms are defined in <a href="glossary/">the glossary</a>.</p></section>
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about Lead Green</h2><div class="prose faq"><h3>What is Lead Green?</h3><p>A public index of LLM inference energy per token: the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer&#x27;s specification, dated and linked. The data is open under CC BY 4.0, there is a JSON API and an MCP server, and it is a Katonic project.</p><h3>What unit does the index use?</h3><p>Watt-hours per million output tokens (Wh/M); one Wh/M is 0.0036 joules per token. The index runs from 13.0 Wh/M (Llama 3.1 8B Instruct, 1 × B200) to 572.9 Wh/M (Llama 3.1 405B Instruct FP8, 8 × H100), GPU only, measured on a busy server; every row is a floor that a real deployment sits above.</p><h3>Where do the figures come from?</h3><p>Energy per token from the ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 September 2026); grid carbon intensity from Ember&#x27;s yearly electricity data (October 2026 release, 2024); GPU power ceilings from NVIDIA&#x27;s published specifications; per-query energy from the AI Energy Score&#x27;s December 2025 round. Every source is listed with its version, licence and retrieval date in the index&#x27;s ledger.</p><h3>Is the data open, and how do I get it?</h3><p>Yes. The compilation and site text are CC BY 4.0 and the sources keep their own licences. Every table is static JSON under https://leadgreen.ai/api/v1/ with CORS open and no key, there is an MCP server for AI assistants, every page has a Markdown copy at its URL followed by index.md, and llms.txt at the site root lists all of it.</p><h3>Who runs and pays for Lead Green?</h3><p>Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. It takes no money from hardware, cloud or model vendors. The publisher is Katonic AI Technology Ltd, registered in the Dubai International Financial Centre (DIFC), United Arab Emirates; the editor is Prem Naraindas.</p></div><p class="note">Every question on the site, with a link to the page that answers it, is on <a href="faq/">the questions page</a>; the terms are defined in <a href="glossary/">the glossary</a>.</p></section>
 
   </main>
 

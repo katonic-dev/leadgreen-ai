@@ -1,12 +1,12 @@
 # Saudi Arabia: the carbon of AI inference per billion tokens
 
-> Saudi Arabia's grid at 689 gCO2e/kWh: what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend.
+> About 43.7 kg CO2e per billion LLM output tokens on Saudi Arabia's grid (689 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/saudi-arabia/ (this file: https://leadgreen.ai/grids/saudi-arabia/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-Saudi Arabia's grid ran at **689 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.5× the world average of 473, and 177th of the 193 countries Ember covers, counting from the cleanest. A billion output tokens of the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) served on it carries about **43.7 kg CO2e** of GPU-side emissions; the index's lowest row carries 8.9 kg and its highest 394.8 kg. Energy per token does not change with geography; carbon per token does.
+An LLM served on Saudi Arabia's grid emits about **43.7 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.9 kg and its highest 394.8 kg. The grid ran at **689 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.5× the world average of 473, and 177th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Saudi Arabia (SAU, SA). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 

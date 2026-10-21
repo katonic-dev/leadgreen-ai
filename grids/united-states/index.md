@@ -1,12 +1,12 @@
 # United States: the carbon of AI inference per billion tokens
 
-> United States's grid at 384 gCO2e/kWh: what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend.
+> About 24.4 kg CO2e per billion LLM output tokens on United States's grid (384 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/united-states/ (this file: https://leadgreen.ai/grids/united-states/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · North America · a reference grid*
 
-United States's grid ran at **384 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× cleaner than the world average of 473, and 81st of the 193 countries Ember covers, counting from the cleanest. A billion output tokens of the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M) served on it carries about **24.4 kg CO2e** of GPU-side emissions; the index's lowest row carries 5.0 kg and its highest 219.9 kg. Energy per token does not change with geography; carbon per token does.
+An LLM served on United States's grid emits about **24.4 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 5.0 kg and its highest 219.9 kg. The grid ran at **384 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× cleaner than the world average of 473, and 81st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** United States (USA, US). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 

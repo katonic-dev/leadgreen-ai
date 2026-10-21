@@ -36,7 +36,7 @@ Each page's questions are also published as FAQPage structured data on that page
 
 ### What is Lead Green?
 
-A public index of the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. [Full answer](https://leadgreen.ai/#faq)
+A public index of LLM inference energy per token: the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. [Full answer](https://leadgreen.ai/#faq)
 
 ### What unit does the index use?
 
