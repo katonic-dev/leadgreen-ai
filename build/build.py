@@ -121,6 +121,11 @@ AIES_FIXED_TOKENS = 10               # AI Energy Score protocol: ten generated t
 # Published per-prompt figures, cited on the site (F2, D4, D9). Neither is Wh per million output tokens at a stated load.
 GOOGLE_2025 = {"date": "August 2025", "wh": 0.24, "accelerator_share": 0.58, "narrow_wh": 0.10, "g_co2e": 0.03,
                "water_ml": 0.26, "url": "https://arxiv.org/abs/2508.15734"}
+# Two more published whole-stack per-query figures, cited on the per-query page beside Google's (GEO baseline, 21 October 2026).
+EPOCH_2025 = {"date": "February 2025", "wh": 0.3, "tokens": 500, "url": "https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use"}
+ALTMAN_2025 = {"date": "June 2025", "wh": 0.34, "url": "https://blog.samaltman.com/the-gentle-singularity"}
+WHOLE_STACK_LO = min(0.24, EPOCH_2025["wh"], ALTMAN_2025["wh"])   # 0.24 is GOOGLE_2025["wh"], defined above
+WHOLE_STACK_HI = max(0.24, EPOCH_2025["wh"], ALTMAN_2025["wh"])
 MISTRAL_2025 = {"date": "July 2025", "g_co2e": 1.14, "water_ml": 45, "tokens": 400,
                 "url": "https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai"}
 
@@ -2334,8 +2339,10 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
     h100_w = [h["_cfg"]["avg_power_watts"] / h["_cfg"]["num_gpus"] for _, h, _, _ in pairs]
     b200_w = [b["_cfg"]["avg_power_watts"] / b["_cfg"]["num_gpus"] for _, _, b, _ in pairs]
     fewer = sum(1 for _, h, b, _ in pairs if b["_cfg"]["num_gpus"] < h["_cfg"]["num_gpus"])
-    answer = (f"On the index rows, the B200 uses less GPU energy per output token than the H100 for <b>{'all ' + str(len(pairs)) if wins == len(pairs) else f'{wins} of the {len(pairs)}'} models</b> measured on both cards. "
-              f"The H100 row uses from <b>{pr:.2f}×</b> the energy of the B200 row ({esc(pm)}) down to <b>{lr:.2f}×</b> ({esc(lm)}), with a median of {med:.2f}×. "
+    pct_less = (1 - 1 / med) * 100
+    answer = (f"On the index the B200 uses a median <b>{pct_less:.0f} percent less</b> GPU energy per output token than the H100, "
+              f"{'across all ' if wins == len(pairs) else f'winning {wins} of '}{len(pairs)} open-weight models measured on both cards: "
+              f"the H100 row uses {med:.2f}× the B200 row's energy at the median, from <b>{pr:.2f}×</b> ({esc(pm)}) down to <b>{lr:.2f}×</b> ({esc(lm)}). "
               f"Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on {word(fewer)} of the {len(pairs)} pairs the B200 row holds the model on fewer cards.")
     tiles = (f"<div class=\"tiles auto n3\" role=\"group\" aria-label=\"Headline readings\">"
              f"<div class=\"tile\"><span class=\"lbl\">Widest gap</span><span class=\"val\">{pr:.2f}<small>×</small></span><span class=\"sub\">{esc(pm)}: {fmt(raw_wh(ph))} Wh/M on {ph['num_gpus']} × H100 against {fmt(raw_wh(pb))} on {pb['num_gpus']} × B200.</span></div>"
@@ -2354,7 +2361,7 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
     faq = [
         ("Is the B200 more energy-efficient than the H100 for LLM inference?",
          f"On the ML.ENERGY Leaderboard's index rows, yes for {'all' if wins == len(pairs) else wins} {len(pairs)} models measured on both: " if wins == len(pairs) else f"On the ML.ENERGY Leaderboard's index rows, yes for {wins} of the {len(pairs)} models measured on both: "
-         f"the H100 row uses {pr:.2f}× the GPU energy per output token of the B200 row for {pm} and {lr:.2f}× for {lm}, median {med:.2f}×. "
+         f"the H100 row uses {pr:.2f}× the GPU energy per output token of the B200 row for {pm} and {lr:.2f}× for {lm}, median {med:.2f}×, so the B200 uses about {pct_less:.0f} percent less at the median. "
          "These are floors at high load, GPU only, and part of each gap comes from the two rows being swept differently."),
         ("How much energy does a B200 save over an H100 per million tokens?",
          f"It depends on the model: for the reference model, {ref['model']}, the index rows are {fmt(raw_wh(ref))} Wh/M on {ref['num_gpus']} × H100 against {fmt(raw_wh(next(b for m, h, b, r in pairs if m == ref['model'])))} Wh/M on {next(b for m, h, b, r in pairs if m == ref['model'])['num_gpus']} × B200. The table on this page gives all {len(pairs)} pairs."),
@@ -2412,8 +2419,9 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="note">TDP and memory: NVIDIA product specifications for <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a> and <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a>, and the <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">HGX B200 product carbon footprint summary</a> (July 2025), retrieved {{{{RETRIEVED_LONG}}}}.</p>
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
 </section>"""
-    title = f"H100 vs B200: GPU energy per million output tokens, {len(pairs)} models | Lead Green"
-    desc = f"H100 against B200 on GPU energy per output token, {len(pairs)} open-weight models: the gap runs from {pr:.2f}× to {lr:.2f}×, and how much is the sweep. ML.ENERGY v3.0."
+    title = f"H100 vs B200: which uses less GPU energy per token? {len(pairs)} models | Lead Green"
+    desc = (f"B200 vs H100: the B200 uses a median {pct_less:.0f} percent less GPU energy per output token across {len(pairs)} open-weight models "
+            f"({lr:.2f}× to {pr:.2f}×). ML.ENERGY v3.0.")
     return title, desc, body, faq
 
 
@@ -2446,10 +2454,17 @@ _bridge_rows = [
 
 def per_query_page() -> tuple[str, str, str, list[tuple[str, str]]]:
     g = GOOGLE_2025
-    answer = (f"One answer from a busy open-weight model costs about <b>{_ref_wh_per_answer:.3f} Wh</b> of GPU energy on the index's reference row "
+    assert abs(WHOLE_STACK_LO - min(g["wh"], EPOCH_2025["wh"], ALTMAN_2025["wh"])) < 1e-9
+    lo_ans = raw_wh(low) * low["_cfg"]["avg_output_len"] / 1e6      # GPU share of one answer, lowest and highest index rows
+    hi_ans = raw_wh(high) * high["_cfg"]["avg_output_len"] / 1e6
+    answer = (f"An AI chatbot query uses about <b>{WHOLE_STACK_LO:g} to {WHOLE_STACK_HI:g} Wh</b> of electricity across the whole serving stack, by the three published "
+              f"whole-stack figures: Google {g['wh']:g} Wh per median Gemini Apps text prompt ({g['date']}), Epoch AI {EPOCH_2025['wh']:g} Wh per typical "
+              f"{EPOCH_2025['tokens']}-token ChatGPT reply ({EPOCH_2025['date']}) and OpenAI {ALTMAN_2025['wh']:g} Wh per average query ({ALTMAN_2025['date']}). "
+              f"The GPU share of one answer on this index runs from <b>{lo_ans:.3f} to {hi_ans:.2f} Wh</b> by model and GPU, measured on busy servers. "
+              f"One answer from a busy open-weight model costs about <b>{_ref_wh_per_answer:.3f} Wh</b> of GPU energy on the index's reference row "
               f"({esc(ref['model'])} on {ref['num_gpus']} × {ref['gpu']}: {fmt(raw_wh(ref))} Wh per million output tokens, answers averaging {fmt(ref['_cfg']['avg_output_len'], 0)} tokens, "
-              f"{fmt(ref['_cfg']['avg_batch_size'], 0)} requests in flight). Google puts the median Gemini Apps text prompt at <b>{g['wh']:g} Wh</b> across its whole serving stack ({g['date']}), "
-              f"of which the accelerators are {g['accelerator_share'] * 100:.0f} percent, and its narrow accelerator-only figure is {g['narrow_wh']:.2f} Wh. "
+              f"{fmt(ref['_cfg']['avg_batch_size'], 0)} requests in flight). Of Google's {g['wh']:g} Wh the accelerators are {g['accelerator_share'] * 100:.0f} percent, "
+              f"and its narrow accelerator-only figure is {g['narrow_wh']:.2f} Wh. "
               f"The gap between a per-prompt figure and a per-million-tokens figure is boundary, load and answer length, and this page converts one into the other with each of them stated.")
     tiles = (f"<div class=\"tiles auto n3\" role=\"group\" aria-label=\"Headline readings\">"
              f"<div class=\"tile ref\"><span class=\"lbl\">One answer, reference row</span><span class=\"val\">{_ref_wh_per_answer:.3f}<small>Wh</small></span><span class=\"sub\">{esc(ref['model'])}, {ref['num_gpus']} × {ref['gpu']}, {fmt(raw_wh(ref))} Wh/M × {fmt(ref['_cfg']['avg_output_len'], 0)} output tokens. GPU only, busy server, a floor.</span></div>"
@@ -2464,7 +2479,9 @@ def per_query_page() -> tuple[str, str, str, list[tuple[str, str]]]:
         for cl, d in sorted(aies_class.items()))
     faq = [
         ("How much energy does an AI query use?",
-         f"It depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. On the index's reference row ({ref['model']} on {ref['num_gpus']} × {ref['gpu']}, {fmt(raw_wh(ref))} Wh per million output tokens, {fmt(ref['_cfg']['avg_batch_size'], 0)} requests in flight), one answer of {fmt(ref['_cfg']['avg_output_len'], 0)} tokens costs about {_ref_wh_per_answer:.3f} Wh of GPU energy. "
+         f"About {WHOLE_STACK_LO:g} to {WHOLE_STACK_HI:g} Wh across the whole serving stack, by the published figures from Google ({g['wh']:g} Wh, {g['date']}), "
+         f"Epoch AI ({EPOCH_2025['wh']:g} Wh, {EPOCH_2025['date']}) and OpenAI ({ALTMAN_2025['wh']:g} Wh, {ALTMAN_2025['date']}). "
+         f"Below that headline it depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. On the index's reference row ({ref['model']} on {ref['num_gpus']} × {ref['gpu']}, {fmt(raw_wh(ref))} Wh per million output tokens, {fmt(ref['_cfg']['avg_batch_size'], 0)} requests in flight), one answer of {fmt(ref['_cfg']['avg_output_len'], 0)} tokens costs about {_ref_wh_per_answer:.3f} Wh of GPU energy. "
          f"The same model on the same cards holding {fmt(l32['first_batch'], 0)} requests costs about {l32['first'] * l32['first_out'] / 1e6:.2f} Wh an answer. Google's published median for a Gemini Apps text prompt is {g['wh']:g} Wh across the whole serving stack ({g['date']}). These figures are GPU energy from a busy server unless stated otherwise; host, network and cooling sit outside them."),
         ("Why is Google's 0.24 Wh per prompt higher than the index's figure?",
          f"Mostly boundary. Google counts the whole stack: the accelerators are {g['accelerator_share'] * 100:.0f} percent of its {g['wh']:g} Wh, about {g['wh'] * g['accelerator_share']:.2f} Wh, with host machines, idle capacity held for peaks and data-centre overhead making up the rest, and it also publishes a narrow accelerator-only figure of {g['narrow_wh']:.2f} Wh. The index counts GPU energy only, at steady state on a busy server. "
@@ -2538,12 +2555,13 @@ def per_query_page() -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="eyebrow">Sources</p>
   <h2>Where every figure came from</h2>
   <p class="note">{{{{MLE_BLOCK}}}} Per-answer figures are Wh per million output tokens multiplied by the row's own average output length.</p>
-  <p class="note">Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, {g['date']}: {g['wh']:g} Wh, {g['g_co2e']:g} g CO2e and {g['water_ml']:g} mL per median Gemini Apps text prompt; accelerators {g['accelerator_share'] * 100:.0f} percent; narrow boundary {g['narrow_wh']:.2f} Wh. <a href="{g['url']}">arXiv 2508.15734</a>, retrieved {{{{RETRIEVED_LONG}}}}. Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): {MISTRAL_2025['g_co2e']:g} g CO2e and {MISTRAL_2025['water_ml']:g} mL per {MISTRAL_2025['tokens']:,}-token reply. <a href="{MISTRAL_2025['url']}">mistral.ai</a>, retrieved {{{{RETRIEVED_LONG}}}}.</p>
+  <p class="note">Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, {g['date']}: {g['wh']:g} Wh, {g['g_co2e']:g} g CO2e and {g['water_ml']:g} mL per median Gemini Apps text prompt; accelerators {g['accelerator_share'] * 100:.0f} percent; narrow boundary {g['narrow_wh']:.2f} Wh. <a href="{g['url']}">arXiv 2508.15734</a>, retrieved {{{{RETRIEVED_LONG}}}}. Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): {MISTRAL_2025['g_co2e']:g} g CO2e and {MISTRAL_2025['water_ml']:g} mL per {MISTRAL_2025['tokens']:,}-token reply. <a href="{MISTRAL_2025['url']}">mistral.ai</a>, retrieved {{{{RETRIEVED_LONG}}}}. Epoch AI, How much energy does ChatGPT use?, {EPOCH_2025['date']}: about {EPOCH_2025['wh']:g} Wh per typical {EPOCH_2025['tokens']}-token GPT-4o reply, whole stack. <a href="{EPOCH_2025['url']}">epoch.ai</a>, retrieved 21 October 2026. Sam Altman, The Gentle Singularity, OpenAI, {ALTMAN_2025['date']}: about {ALTMAN_2025['wh']:g} Wh per average ChatGPT query, whole stack, no method given. <a href="{ALTMAN_2025['url']}">blog.samaltman.com</a>, retrieved 21 October 2026.</p>
   <p class="note"><a href="{SRC_AIES['url']}">{SRC_AIES['name']}</a> ({SRC_AIES['publisher']}), {SRC_AIES['version']}, retrieved {{{{RETRIEVED_LONG}}}}: {SRC_AIES['used_for']}. Grid intensity in the carbon question: Ember, Yearly electricity data, {EMBER_RELEASE}, {EMBER_YEAR}.</p>
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
 </section>"""
     title = "How much energy does an AI query use? Per prompt against per million tokens | Lead Green"
-    desc = f"One answer costs about {_ref_wh_per_answer:.3f} Wh of GPU energy on the index's reference row; Google says {g['wh']:g} Wh per median prompt. How the units convert."
+    desc = (f"An AI query uses about {WHOLE_STACK_LO:g} to {WHOLE_STACK_HI:g} Wh by Google's, Epoch AI's and OpenAI's whole-stack figures; "
+            f"the GPU share on this index is {lo_ans:.3f} to {hi_ans:.2f} Wh an answer.")
     return title, desc, body, faq
 
 

@@ -6613,17 +6613,17 @@ The kilogram figure on each card prices the index's reference row (Qwen 3 32B, 2
 
 # H100 vs B200: GPU energy per million output tokens
 
-> H100 against B200 on GPU energy per output token, 14 open-weight models: the gap runs from 4.55× to 1.05×, and how much is the sweep. ML.ENERGY v3.0.
+> B200 vs H100: the B200 uses a median 39 percent less GPU energy per output token across 14 open-weight models (1.05× to 4.55×). ML.ENERGY v3.0.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/h100-vs-b200/ (this file: https://leadgreen.ai/h100-vs-b200/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Two generations · 14 models*
 
-On the index rows, the B200 uses less GPU energy per output token than the H100 for **all 14 models** measured on both cards. The H100 row uses from **4.55×** the energy of the B200 row (Qwen 3 235B A22B Instruct) down to **1.05×** (NVIDIA Nemotron Nano 9B V2), with a median of 1.63×. Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.
+On the index the B200 uses a median **39 percent less** GPU energy per output token than the H100, across all 14 open-weight models measured on both cards: the H100 row uses 1.63× the B200 row's energy at the median, from **4.55×** (Qwen 3 235B A22B Instruct) down to **1.05×** (NVIDIA Nemotron Nano 9B V2). Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [index.json](https://leadgreen.ai/api/v1/index.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. H100 vs B200: GPU energy per million output tokens, 14 models. https://leadgreen.ai/h100-vs-b200/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. H100 vs B200: which uses less GPU energy per token? 14 models. https://leadgreen.ai/h100-vs-b200/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 - [The 14 pairs](https://leadgreen.ai/h100-vs-b200/#pairs)
 - [The sweep](https://leadgreen.ai/h100-vs-b200/#sweep)
@@ -6732,13 +6732,13 @@ TDP and memory: NVIDIA product specifications for [H100](https://www.nvidia.com/
 
 # How much energy does an AI query use?
 
-> One answer costs about 0.040 Wh of GPU energy on the index's reference row; Google says 0.24 Wh per median prompt. How the units convert.
+> An AI query uses about 0.24 to 0.34 Wh by Google's, Epoch AI's and OpenAI's whole-stack figures; the GPU share on this index is 0.005 to 0.21 Wh an answer.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/per-query/ (this file: https://leadgreen.ai/per-query/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[The index](https://leadgreen.ai/index/) · Per query*
 
-One answer from a busy open-weight model costs about **0.040 Wh** of GPU energy on the index's reference row (Qwen 3 32B on 2 × H100: 63.5 Wh per million output tokens, answers averaging 634 tokens, 256 requests in flight). Google puts the median Gemini Apps text prompt at **0.24 Wh** across its whole serving stack (August 2025), of which the accelerators are 58 percent, and its narrow accelerator-only figure is 0.10 Wh. The gap between a per-prompt figure and a per-million-tokens figure is boundary, load and answer length, and this page converts one into the other with each of them stated.
+An AI chatbot query uses about **0.24 to 0.34 Wh** of electricity across the whole serving stack, by the three published whole-stack figures: Google 0.24 Wh per median Gemini Apps text prompt (August 2025), Epoch AI 0.3 Wh per typical 500-token ChatGPT reply (February 2025) and OpenAI 0.34 Wh per average query (June 2025). The GPU share of one answer on this index runs from **0.005 to 0.21 Wh** by model and GPU, measured on busy servers. One answer from a busy open-weight model costs about **0.040 Wh** of GPU energy on the index's reference row (Qwen 3 32B on 2 × H100: 63.5 Wh per million output tokens, answers averaging 634 tokens, 256 requests in flight). Of Google's 0.24 Wh the accelerators are 58 percent, and its narrow accelerator-only figure is 0.10 Wh. The gap between a per-prompt figure and a per-million-tokens figure is boundary, load and answer length, and this page converts one into the other with each of them stated.
 
 **Units** watt-hours per answer (Wh) and watt-hours per million output tokens (Wh/M). Wh per answer = Wh/M × output tokens ÷ 1,000,000. **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [per-query.json](https://leadgreen.ai/api/v1/per-query.json). Updated 19 October 2026.
 
@@ -6815,7 +6815,7 @@ To take either figure to the facility meter, multiply by the system-to-GPU power
 
 ### How much energy does an AI query use?
 
-It depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. On the index's reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, 256 requests in flight), one answer of 634 tokens costs about 0.040 Wh of GPU energy. The same model on the same cards holding 8 requests costs about 0.29 Wh an answer. Google's published median for a Gemini Apps text prompt is 0.24 Wh across the whole serving stack (August 2025). These figures are GPU energy from a busy server unless stated otherwise; host, network and cooling sit outside them.
+About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025) and OpenAI (0.34 Wh, June 2025). Below that headline it depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. On the index's reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, 256 requests in flight), one answer of 634 tokens costs about 0.040 Wh of GPU energy. The same model on the same cards holding 8 requests costs about 0.29 Wh an answer. Google's published median for a Gemini Apps text prompt is 0.24 Wh across the whole serving stack (August 2025). These figures are GPU energy from a busy server unless stated otherwise; host, network and cooling sit outside them.
 
 ### Why is Google's 0.24 Wh per prompt higher than the index's figure?
 
@@ -6843,7 +6843,7 @@ Google puts the median Gemini Apps text prompt at 0.03 g CO2e and 0.26 mL of wat
 
 [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371). Per-answer figures are Wh per million output tokens multiplied by the row's own average output length.
 
-Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, August 2025: 0.24 Wh, 0.03 g CO2e and 0.26 mL per median Gemini Apps text prompt; accelerators 58 percent; narrow boundary 0.10 Wh. [arXiv 2508.15734](https://arxiv.org/abs/2508.15734), retrieved 26 September 2026. Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): 1.14 g CO2e and 45 mL per 400-token reply. [mistral.ai](https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai), retrieved 26 September 2026.
+Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, August 2025: 0.24 Wh, 0.03 g CO2e and 0.26 mL per median Gemini Apps text prompt; accelerators 58 percent; narrow boundary 0.10 Wh. [arXiv 2508.15734](https://arxiv.org/abs/2508.15734), retrieved 26 September 2026. Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): 1.14 g CO2e and 45 mL per 400-token reply. [mistral.ai](https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai), retrieved 26 September 2026. Epoch AI, How much energy does ChatGPT use?, February 2025: about 0.3 Wh per typical 500-token GPT-4o reply, whole stack. [epoch.ai](https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use), retrieved 21 October 2026. Sam Altman, The Gentle Singularity, OpenAI, June 2025: about 0.34 Wh per average ChatGPT query, whole stack, no method given. [blog.samaltman.com](https://blog.samaltman.com/the-gentle-singularity), retrieved 21 October 2026.
 
 [AI Energy Score leaderboard](https://huggingface.co/spaces/AIEnergyScore/Leaderboard) (AI Energy Score (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University)), December 2025 round, retrieved 26 September 2026: GPU energy per 1,000 text-generation queries at batch size 1 on NVIDIA H100 80GB GPUs (one card for class A and B models, several for class C). Grid intensity in the carbon question: Ember, Yearly electricity data, October 2026 release, 2024.
 
@@ -8538,7 +8538,7 @@ No, and that is the point. At the reference row and USD 0.10 per kWh the electri
 
 ### How much energy does an AI query use?
 
-It depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. [Full answer](https://leadgreen.ai/per-query/#faq)
+About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025) and OpenAI (0.34 Wh, June 2025). [Full answer](https://leadgreen.ai/per-query/#faq)
 
 ### Why is Google's 0.24 Wh per prompt higher than the index's figure?
 

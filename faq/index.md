@@ -88,7 +88,7 @@ No, and that is the point. At the reference row and USD 0.10 per kWh the electri
 
 ### How much energy does an AI query use?
 
-It depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. [Full answer](https://leadgreen.ai/per-query/#faq)
+About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025) and OpenAI (0.34 Wh, June 2025). [Full answer](https://leadgreen.ai/per-query/#faq)
 
 ### Why is Google's 0.24 Wh per prompt higher than the index's figure?
 
