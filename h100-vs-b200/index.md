@@ -6,7 +6,7 @@
 
 *Two generations · 14 models*
 
-On the index the B200 uses a median **39 percent less** GPU energy per output token than the H100, across all 14 open-weight models measured on both cards: the H100 row uses 1.63× the B200 row's energy at the median, from **4.55×** (Qwen 3 235B A22B Instruct) down to **1.05×** (NVIDIA Nemotron Nano 9B V2). Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards.
+On the index the B200 uses a median **39 percent less** GPU energy per output token than the H100, across all 14 open-weight models measured on both cards: the H100 row uses 1.63× the B200 row's energy at the median, from **4.55×** (Qwen 3 235B A22B Instruct) down to **1.05×** (NVIDIA Nemotron Nano 9B V2). Part of many gaps is the sweep rather than the silicon: the two rows of a pair often differ in card count and running batch, and on eight of the 14 pairs the B200 row holds the model on fewer cards. The leaderboard's own analysis of the wider sweep agrees: across three latency limits the B200 wins 63 of 72 comparisons with a median 35 percent less energy per token ([arXiv:2601.22076](https://arxiv.org/abs/2601.22076)).
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [index.json](https://leadgreen.ai/api/v1/index.json). Updated 19 October 2026.
 
@@ -110,6 +110,8 @@ The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 Sep
 ## Where every figure came from
 
 [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371).
+
+Corroboration: Chung et al. (The ML.ENERGY Initiative, University of Michigan), *Where Do the Joules Go? Diagnosing Inference Energy Consumption*, [arXiv:2601.22076](https://arxiv.org/abs/2601.22076) (v2, January 2026), the leaderboard team's analysis of the same measurements across 46 models and 1,858 configurations: across three median inter-token latency limits the B200 wins 88 percent (63 of 72) of comparisons with a median 35 percent energy reduction, ranging from 53 percent more to 82 percent less. Retrieved 21 October 2026. This page's ratio is narrower in scope: one task, one latency limit, the index rows only.
 
 TDP and memory: NVIDIA product specifications for [H100](https://www.nvidia.com/en-us/data-center/h100/) and [DGX B200](https://www.nvidia.com/en-us/data-center/dgx-b200/), and the [HGX B200 product carbon footprint summary](https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf) (July 2025), retrieved 26 September 2026.
 

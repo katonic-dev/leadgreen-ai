@@ -7,8 +7,9 @@ No number is typed here; figures come only from build/data through build.py.
 
 # The canonical description. Every registry, dataset card, README, profile and talk abstract uses these two sentences.
 PROJECT_DESCRIPTION = (
-    "Lead Green is a public index of the GPU energy it takes to serve a million output tokens (watt-hours per million "
-    "output tokens), by model, GPU and configuration, with grid carbon intensity to price it anywhere, published as open "
+    "Lead Green is a public index of LLM inference energy per token: the GPU energy it takes to serve a million output "
+    "tokens (watt-hours per million output tokens), by model, GPU and configuration, with grid carbon intensity to price it "
+    "anywhere, published as open "
     "data with a JSON API and an MCP server under CC BY 4.0. Every figure comes from a named public source with a "
     "retrieval date; it is a Katonic project, run and paid for by Katonic, and takes no money from hardware, cloud or "
     "model vendors."
