@@ -1655,7 +1655,7 @@ def ld(obj) -> str:
 ORG = {"@type": "Organization", "name": "Lead Green", "url": SITE + "/", "logo": SITE + "/assets/logo/leadgreen-icon-512.png",
        "parentOrganization": {"@type": "Organization", "name": "Katonic", "url": "https://www.katonic.ai"},
        **({"sameAs": SAME_AS} if SAME_AS else {})}   # T6: the same project elsewhere (public repository, dataset, DOI, Wikidata)
-PERSON = {"@type": "Person", "name": EDITOR, "url": LINKEDIN_URL}
+PERSON = {"@type": "Person", "name": EDITOR, "url": "https://premnaraindas.com", "sameAs": [LINKEDIN_URL]}
 
 
 def jsonld_for(kind: str, title: str, desc: str, url: str, post: dict | None = None) -> str:
