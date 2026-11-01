@@ -103,7 +103,7 @@ You own the feed, the power envelope and the capacity meeting. The index gives y
 2. **Compute.** Pull `index.json` and `grid.json` from the [API](https://leadgreen.ai/api/). Multiply Wh per million by your monthly tokens for energy; multiply by your grid's gCO2e per kWh and divide by 1,000 for kg CO2e per billion tokens.
 3. **Ask.** Add the [MCP server](https://leadgreen.ai/mcp/) to your assistant and ask in plain words. It answers with the row, the source and the caveat.
 
-Latest from the blog: [How much energy does an AI query use?](https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/).
+Latest from the blog: [Is the B200 more energy-efficient than the H100?](https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/).
 
 *Questions*
 
