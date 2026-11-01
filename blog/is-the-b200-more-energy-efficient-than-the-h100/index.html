@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Is the B200 more energy-efficient than the H100?</title>
+<meta name="description" content="Yes on all 14 models measured on both cards: the H100 row uses 1.05× to 4.55× the B200 row&#x27;s energy per token, median 1.63×. How much is the silicon.">
+<link rel="canonical" href="https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/">
+<meta property="og:site_name" content="Lead Green">
+<meta property="og:title" content="Is the B200 more energy-efficient than the H100?">
+<meta property="og:description" content="Yes on all 14 models measured on both cards: the H100 row uses 1.05× to 4.55× the B200 row&#x27;s energy per token, median 1.63×. How much is the silicon.">
+<meta property="og:url" content="https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lead Green: the energy behind the token">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Lead Green blog" href="https://leadgreen.ai/feed.xml">
+<link rel="alternate" type="text/markdown" href="https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/index.md">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BlogPosting",
+ "headline": "Is the B200 more energy-efficient than the H100?",
+ "description": "Yes on all 14 models measured on both cards: the H100 row uses 1.05× to 4.55× the B200 row's energy per token, median 1.63×. How much is the silicon.",
+ "datePublished": "2026-11-01",
+ "dateModified": "2026-11-01",
+ "author": {
+  "@type": "Person",
+  "name": "Prem Naraindas",
+  "url": "https://premnaraindas.com",
+  "sameAs": [
+   "https://www.linkedin.com/in/premnaraindas/"
+  ]
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "Lead Green",
+  "url": "https://leadgreen.ai/",
+  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+  "parentOrganization": {
+   "@type": "Organization",
+   "name": "Katonic",
+   "url": "https://www.katonic.ai"
+  },
+  "sameAs": [
+   "https://github.com/katonic-dev/leadgreen-ai",
+   "https://huggingface.co/datasets/leadgreen/green-token-index",
+   "https://doi.org/10.5281/zenodo.23478909",
+   "https://www.wikidata.org/wiki/Q141778099",
+   "https://www.linkedin.com/showcase/leadgreen-ai/"
+  ]
+ },
+ "mainEntityOfPage": "https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/",
+ "url": "https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/",
+ "inLanguage": "en",
+ "license": "https://creativecommons.org/licenses/by/4.0/",
+ "isAccessibleForFree": true
+}
+</script>
+<script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap">
+
+  <header class="mast">
+    <a class="wordmark" href="../../" aria-label="Lead Green, home"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect x="22" y="18" width="20" height="28" fill="var(--accent)"/><path d="M4 46H22V18H42V46H60" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg><span>Lead <b>Green</b></span></a>
+    <nav aria-label="Site">
+      <ul class="nav">
+        <li><a href="../../why/" data-nav="why">Why it matters</a></li>
+        <li><a href="../../index/" data-nav="index">The index</a></li>
+        <li><a href="../../models/" data-nav="models">Models</a></li>
+        <li><a href="../../api/" data-nav="api">Data API</a></li>
+        <li><a href="../../mcp/" data-nav="mcp">MCP</a></li>
+        <li><a href="../../blog/" data-nav="blog" aria-current="page">Blog</a></li>
+        <li><a href="../../newsletter/" data-nav="newsletter">Newsletter</a></li>
+        <li><a href="../../contribute/" data-nav="contribute">Contribute</a></li>
+        <li><a href="../../about/" data-nav="about">About</a></li>
+      </ul>
+    </nav>
+    <div class="mast-right"><span class="pubtag">A <a href="https://www.katonic.ai">Katonic</a> project</span><button class="theme" type="button" aria-label="Switch to dark theme">Dark</button></div>
+  </header>
+
+  <main id="main">
+<article class="post">
+<div class="title">
+<p class="eyebrow">Blog</p>
+<h1>Is the B200 more energy-efficient than the H100?</h1>
+<p class="byline">By Prem Naraindas · <time datetime="2026-11-01">1 November 2026</time> · Lead Green, a Katonic project</p>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Is the B200 more energy-efficient than the H100?. https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
+</div>
+<div class="body">
+<p>Look, this question usually arrives with a quote attached. Somebody has a B200 price on the desk, the H100s are two years old, and the board wants to know whether the new card is worth it on energy. The public data says yes, on all 14 models the ML.ENERGY Leaderboard measured on both cards: the H100's index row uses from 4.55× the B200 row's energy per output token (Qwen 3 235B A22B Instruct) down to 1.05× (NVIDIA Nemotron Nano 9B V2), with a median of 1.63×. So the short answer is yes. The longer answer is that the number is smaller than the headline, part of it is not the silicon, and it is the second lever, not the first.</p>
+
+<h2>The 14 pairs</h2>
+<div class="table-scroll">
+  <table>
+    <caption>Index rows paired by model, sorted by the gap. ML.ENERGY Leaderboard v3.0, Text Conversation.</caption>
+    <thead><tr><th scope="col">Model</th><th scope="col" class="num">H100 configuration</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">B200 configuration</th><th scope="col" class="num">Wh / M</th><th scope="col" class="num">B200 advantage</th></tr></thead>
+    <tbody>
+<tr><th scope="row"><span class="model">Qwen 3 235B A22B Instruct</span></th><td class="num">8 × H100</td><td class="num">303.5</td><td class="num">4 × B200</td><td class="num">66.7</td><td class="num key">4.55×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 14B</span></th><td class="num">1 × H100</td><td class="num">31.1</td><td class="num">1 × B200</td><td class="num">15.2</td><td class="num key">2.04×</td></tr>
+<tr><th scope="row"><span class="model">Llama 3.1 70B Instruct</span></th><td class="num">4 × H100</td><td class="num">103.7</td><td class="num">2 × B200</td><td class="num">52.4</td><td class="num key">1.98×</td></tr>
+<tr><th scope="row"><span class="model">Llama 3.3 70B Instruct</span></th><td class="num">4 × H100</td><td class="num">117.5</td><td class="num">2 × B200</td><td class="num">60.7</td><td class="num key">1.94×</td></tr>
+<tr><th scope="row"><span class="model">Llama 3.1 405B Instruct FP8</span></th><td class="num">8 × H100</td><td class="num">572.9</td><td class="num">4 × B200</td><td class="num">318.5</td><td class="num key">1.80×</td></tr>
+<tr><th scope="row"><span class="model">Gemma 3 12B</span></th><td class="num">1 × H100</td><td class="num">46.1</td><td class="num">1 × B200</td><td class="num">26.5</td><td class="num key">1.74×</td></tr>
+<tr><th scope="row"><span class="model">Gemma 3 27B</span></th><td class="num">2 × H100</td><td class="num">80.4</td><td class="num">1 × B200</td><td class="num">49.1</td><td class="num key">1.64×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 32B</span></th><td class="num">2 × H100</td><td class="num">63.5</td><td class="num">1 × B200</td><td class="num">39.1</td><td class="num key">1.63×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 30B A3B Instruct</span></th><td class="num">2 × H100</td><td class="num">24.7</td><td class="num">1 × B200</td><td class="num">15.7</td><td class="num key">1.58×</td></tr>
+<tr><th scope="row"><span class="model">Llama 3.1 8B Instruct</span></th><td class="num">1 × H100</td><td class="num">19.5</td><td class="num">1 × B200</td><td class="num">13.0</td><td class="num key">1.50×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 235B A22B Instruct FP8</span></th><td class="num">8 × H100</td><td class="num">206.0</td><td class="num">2 × B200</td><td class="num">139.1</td><td class="num key">1.48×</td></tr>
+<tr><th scope="row"><span class="model">Qwen 3 8B</span></th><td class="num">1 × H100</td><td class="num">20.0</td><td class="num">1 × B200</td><td class="num">14.7</td><td class="num key">1.36×</td></tr>
+<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 12B V2</span></th><td class="num">1 × H100</td><td class="num">50.1</td><td class="num">1 × B200</td><td class="num">39.4</td><td class="num key">1.27×</td></tr>
+<tr><th scope="row"><span class="model">NVIDIA Nemotron Nano 9B V2</span></th><td class="num">1 × H100</td><td class="num">43.1</td><td class="num">1 × B200</td><td class="num">40.9</td><td class="num key">1.05×</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>Each pair is a model's index row on each card: the lowest-energy configuration the leaderboard measured, at or under 500 ms median inter-token latency. The ratio is the H100 row over the B200 row. The reference model, Qwen 3 32B, goes from 63.5 Wh/M on 2 × H100 to 39.1 on one B200, 1.63×, with one card doing the work of two: a million output tokens takes 0.11 card-hours on the H100 pair and 0.04 on the single B200.</p>
+
+<h2>How much of it is the silicon</h2>
+<p>See, the leaderboard sweeps each card on its own terms. It picks the configurations it runs per GPU, and the B200's memory holds a model on fewer cards, so on eight of the 14 pairs the B200 row has fewer cards than the H100 row, and the running batches differ too. The widest gap shows what that does to the number. The 4.55× pair compares an H100 row that was run only at eight cards and a cap of at most 256 requests with a B200 row holding 3,765 requests on four cards. Re-cut the pair at the same cap of 256 and the B200 row reads 197.5 Wh/M against the H100's 303.5: a gap of 1.54×, not 4.55×. The rest was the batch. At the other end, the two Nemotron pairs compare runs whose answers were 3.2 and 2.4 times longer on the B200, which is a different workload wearing the same name.</p>
+<p>Tighten the latency and the picture moves again. At a 50 ms ceiling, 14 models still have a row on both cards, and the H100 comes out ahead on two of them: Llama 3.1 8B Instruct, 19.5 Wh/M on 1 × H100 against 19.6 on 1 × B200; Qwen 3 235B A22B Instruct FP8, 306.7 Wh/M on 8 × H100 against 408.9 on 2 × B200. I think the honest reading is this: on a busy server the generation is worth about the median, 1.63×, and on a server that is not busy it is worth less than that, because the concurrency ladder does not care which card is sitting idle.</p>
+
+<h2>Power against energy</h2>
+<p>The B200 draws more. NVIDIA rates the H100 SXM at up to 700 W and the B200 as configurable up to 1,000 W, and on these index rows the cards averaged 612 W per H100 and 868 W per B200. It uses less energy per token because it produces more tokens in every second of that draw. The distinction matters to the facility. An eight-GPU DGX B200 is rated at about 14.3 kW, 1.79× what its cards draw, so a B200 fleet is a bigger feed that produces more tokens per kilowatt-hour, and the envelope decides how many boxes you can stand up before the tokens do. Power sizes the feed. Energy per token tells you what the feed produced.</p>
+
+<h2>The second lever</h2>
+<p>Here is the part I would put in the memo. The widest generation gap on the table is 4.55×. The same model on the same H100 cards moves 7.1× in energy per token between a running batch of 8 and 256, and that lever costs nothing in hardware. A department that serves a handful of people at a time and buys B200s has bought a faster car for a road where it never gets out of second gear. In the deployments I see, that is the usual order of events: the card gets upgraded, the utilisation does not, and the energy per token barely moves. Consolidate first. Then the generation change is worth its median, and the new card carries the load on fewer cards, which is also fewer boxes to power and cool.</p>
+
+<h2>What I am not telling you</h2>
+<p>Two cards, one benchmark. The leaderboard ran B200 and H100 and nothing else, so there is nothing here about the H200, the GB200 or anyone else's silicon. On the index, two models have an H100 row and no B200 row (Llama 4 Maverick 17B 128E Instruct FP8 and Llama 4 Scout 17B 16E Instruct), and two have the reverse (DeepSeek V3.1 and Llama 3.1 405B Instruct), so the 14 pairs are the models that happen to have both. A TDP is a rating, not a reading; the measured draws above are the ones to plan on. And every row is a floor at high load: your fleet sits above it on both cards, and the question is by how much on each.</p>
+
+<h2>What to do with it</h2>
+<ul>
+  <li><b>Ask for both cards at your running batch and your latency.</b> The pairs above can be re-cut at a matched cap or a matched running batch from the <a href="../../api/">API</a>; ask the vendor to do the same with the configuration they are quoting, and refuse a ratio that comes without its two running batches.</li>
+  <li><b>Count cards, not only watts.</b> On eight of the 14 pairs the B200 holds the model on fewer cards. Fewer cards is fewer boxes, and that saving sits outside the GPU-only figure on this site; the <a href="../../index/#method">method</a> takes a figure to the meter.</li>
+  <li><b>Size the feed on the rating, judge the kit on the energy.</b> A rating of configurable up to 1,000 W per card is what the electrical engineer plans for; 868 W per card is what the benchmark saw on these rows; watt-hours per million tokens is what you are buying.</li>
+  <li><b>Fix the utilisation before the purchase order.</b> The <a href="../../blog/why-an-idle-gpu-wastes-energy/">concurrency ladder</a> is the bigger lever and the cheaper one.</li>
+</ul>
+<p>The full comparison, with every pair and the questions people ask about it, is on the <a href="../../h100-vs-b200/">H100 vs B200 page</a>; every configuration behind it is on the <a href="../../models/">model pages</a>.</p>
+
+<div class="refs">
+  <p class="eyebrow">References</p>
+  <ol>
+    <li><a href="https://ml.energy/leaderboard/">ML.ENERGY Leaderboard</a> version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the <a href="https://huggingface.co/datasets/ml-energy/benchmark-v3">ml-energy/benchmark-v3</a> dataset card. Cite <a href="https://arxiv.org/abs/2505.06371">Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks</a>.</li>
+    <li>The pairs: for each model with an index row on both cards, the H100 row's Wh/M over the B200 row's. The matched-cap figure re-cuts the widest pair at the H100 row's cap (vLLM's <code>max_num_seqs</code>) using the B200 configuration at that cap. The 50 ms figures take each card's lowest-energy configuration at or under that median inter-token latency. Card-hours per million output tokens = cards × 1,000,000 ÷ output tokens per second ÷ 3,600. Every pair and configuration: <a href="../../h100-vs-b200/">the comparison page</a> and <a href="../../api/">the API</a>.</li>
+    <li>NVIDIA product specifications for the <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a> and the <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a>, and the <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">HGX B200 product carbon footprint summary</a> (July 2025), retrieved 26 September 2026, for the TDP ratings and the system power rating. Average power per card is the benchmark's measured draw on the index rows, divided by the card count.</li>
+  </ol>
+</div>
+
+</div>
+</article>
+  </main>
+
+  <footer>
+    <p class="publine">Lead Green is a Katonic project. Public measurements, one unit, one place, for people and for machines.</p>
+    <div class="links">
+      <a href="../../index/">The index</a>
+      <a href="../../api/">Data API</a>
+      <a href="../../mcp/">MCP server</a>
+      <a href="../../feed.xml">RSS</a>
+      <a href="../../glossary/">Glossary</a>
+      <a href="../../faq/">Questions</a>
+      <a href="../../llms.txt">llms.txt</a>
+      <a href="../../contribute/">Contribute</a>
+      <a href="https://www.katonic.ai">katonic.ai</a>
+    </div>
+    <p class="fine">© 2026 Katonic. Figures on this site come from the sources named in the ledger and keep their own licences. The compilation and site text are CC BY 4.0; code Apache 2.0. Updated 19 October 2026.</p>
+  </footer>
+
+</div>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+</body>
+</html>

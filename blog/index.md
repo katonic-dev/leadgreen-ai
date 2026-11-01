@@ -16,6 +16,11 @@ Cite this page: Lead Green, a Katonic project. Blog. https://leadgreen.ai/blog/,
 
 ## Published
 
+- 1 November 2026 · Prem Naraindas
+
+### [Is the B200 more energy-efficient than the H100?](https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/)
+
+Yes on all 14 models measured on both cards: the H100 row uses 1.05× to 4.55× the B200 row's energy per token, median 1.63×. How much is the silicon.
 - 19 October 2026 · Prem Naraindas
 
 ### [How much energy does an AI query use?](https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/)

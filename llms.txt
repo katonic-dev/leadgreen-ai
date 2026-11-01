@@ -86,6 +86,7 @@ Every page has a Markdown copy at its URL followed by index.md, generated from t
 - https://leadgreen.ai/api/index.md
 - https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/index.md
 - https://leadgreen.ai/blog/index.md
+- https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/index.md
 - https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/index.md
 - https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/index.md
 - https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/index.md
@@ -164,7 +165,7 @@ Every page has a Markdown copy at its URL followed by index.md, generated from t
 - https://leadgreen.ai/why/index.md
 
 ## Full text
-- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 80 pages.
+- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 81 pages.
 
 ## Changes and API description
 - https://leadgreen.ai/changes/: the dated record of every change to the figures, every frozen data release with its hash, and each MCP server version.
