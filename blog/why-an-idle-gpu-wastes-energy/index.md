@@ -72,7 +72,7 @@ Electricity is the small part of this and I will not pretend otherwise. The numb
 
 - **Measure your running batch before you buy anything.** vLLM reports it as `num_requests_running`; average it over a busy hour. If it is in single figures you are at the top of the ladder, and no change of card on the [comparison page](https://leadgreen.ai/h100-vs-b200/) moves the number as far as filling the cards you have.
 - **Consolidate.** Fewer, busier cards. Three teams each running their own copy of the same model on their own pair of cards is the usual arrangement I see; one shared deployment carrying all three sits rows further down this table, and it costs nothing in hardware.
-- **Ask the vendor for Wh per million output tokens at your running batch,** not theirs, and put your own [N] into the RFP clause on the [why page](https://leadgreen.ai/why/#monday). A figure measured at 256 in flight tells you nothing about a service that will run at 8.
+- **Ask the vendor for Wh per million output tokens at your running batch,** not theirs, and put your own [N] into the RFP clause on the [why page](https://leadgreen.ai/rfp/). A figure measured at 256 in flight tells you nothing about a service that will run at 8.
 - **Do not chase the bottom of the table.** Past the best row the users wait and the energy does not fall. Pick the row on the [model page](https://leadgreen.ai/models/qwen-3-32b/) that matches the latency you promised, and hold the vendor to it.
 
 I think this is the table to take into the capacity meeting, because it is the lever you already hold. The full ladders, with the definitions, are on [the index](https://leadgreen.ai/index/#concurrency).

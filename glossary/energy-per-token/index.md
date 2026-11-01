@@ -21,7 +21,7 @@ Cite this page: Lead Green, a Katonic project. Energy per token: definition and 
 
 ## How the term is used on the index
 
-Energy per token is average power divided by token throughput: on the reference row, 1,177.9 W summed across 2 cards ÷ 5,155.5 output tokens per second = 0.2285 J per token, which is 63.47 Wh/M. The identity is also the consistency check the [RFP scoring box](https://leadgreen.ai/why/#monday) applies to a bidder's figure.
+Energy per token is average power divided by token throughput: on the reference row, 1,177.9 W summed across 2 cards ÷ 5,155.5 output tokens per second = 0.2285 J per token, which is 63.47 Wh/M. The identity is also the consistency check the [RFP scoring box](https://leadgreen.ai/rfp/) applies to a bidder's figure.
 
 Three ways of getting the number are not equal. A measured figure reads the GPU's energy counter (NVIDIA NVML or DCGM, which Zeus uses) over a window of steady load and divides by the tokens served. A whole-system figure reads the server's power supplies and includes host, memory, network and fans, which on a DGX B200 adds about 1.79× to the GPU figure. An estimate multiplies a rated power (TDP) by an assumed utilisation and divides by an assumed throughput; it is the kind most often quoted and the kind the index does not publish. Energy per token falls as the running batch rises because the cards' fixed draw is spread over more tokens: see [running batch](https://leadgreen.ai/glossary/running-batch/).
 

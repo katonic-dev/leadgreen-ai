@@ -1,12 +1,12 @@
 # Norway: the carbon of AI inference per billion tokens
 
-> About 1.9 kg CO2e per billion LLM output tokens on Norway's grid (30 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 1.9 kg CO2e per billion LLM output tokens (1.9 g per million) on Norway's grid (30 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/norway/ (this file: https://leadgreen.ai/grids/norway/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a reference grid*
 
-An LLM served on Norway's grid emits about **1.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 0.4 kg and its highest 17.0 kg. The grid ran at **30 gCO2e per kWh** in 2024 on Ember's yearly figures, 16.0× cleaner than the world average of 473, and 9th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Norway's grid emits about **1.9 kg CO2e per billion output tokens**, 1.9 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 0.4 kg and its highest 17.0 kg. The grid ran at **30 gCO2e per kWh** in 2024 on Ember's yearly figures, 16.0× cleaner than the world average of 473, and 9th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Norway (NOR, NO). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 

@@ -192,7 +192,7 @@ Electricity is the small part of this and I will not pretend otherwise. The numb
 
 - **Measure your running batch before you buy anything.** vLLM reports it as `num_requests_running`; average it over a busy hour. If it is in single figures you are at the top of the ladder, and no change of card on the [comparison page](https://leadgreen.ai/h100-vs-b200/) moves the number as far as filling the cards you have.
 - **Consolidate.** Fewer, busier cards. Three teams each running their own copy of the same model on their own pair of cards is the usual arrangement I see; one shared deployment carrying all three sits rows further down this table, and it costs nothing in hardware.
-- **Ask the vendor for Wh per million output tokens at your running batch,** not theirs, and put your own [N] into the RFP clause on the [why page](https://leadgreen.ai/why/#monday). A figure measured at 256 in flight tells you nothing about a service that will run at 8.
+- **Ask the vendor for Wh per million output tokens at your running batch,** not theirs, and put your own [N] into the RFP clause on the [why page](https://leadgreen.ai/rfp/). A figure measured at 256 in flight tells you nothing about a service that will run at 8.
 - **Do not chase the bottom of the table.** Past the best row the users wait and the energy does not fall. Pick the row on the [model page](https://leadgreen.ai/models/qwen-3-32b/) that matches the latency you promised, and hold the vendor to it.
 
 I think this is the table to take into the capacity meeting, because it is the lever you already hold. The full ladders, with the definitions, are on [the index](https://leadgreen.ai/index/#concurrency).
@@ -276,7 +276,7 @@ I wish I could tell you the platform we build already measures this for every te
 
 ## What to do with it
 
-Ask your vendor for Wh per million output tokens at your concurrency, not theirs. Measure your own with DCGM; one row is an afternoon's work on a card you control, and a MIG pair is an evening. And put the number in the RFP. The clause is on the [why page](https://leadgreen.ai/why/#monday). If two bidders give you the same figure at the same load, you have learned something. If neither can, you have learned more.
+Ask your vendor for Wh per million output tokens at your concurrency, not theirs. Measure your own with DCGM; one row is an afternoon's work on a card you control, and a MIG pair is an evening. And put the number in the RFP. The clause is on the [why page](https://leadgreen.ai/rfp/). If two bidders give you the same figure at the same load, you have learned something. If neither can, you have learned more.
 
 *References*
 
@@ -378,7 +378,7 @@ To see what concurrency, quantisation and GPU generation do to energy per token,
 
 ### Procurement
 
-To ask every bidder for the same figure at the same load, in [a clause](https://leadgreen.ai/why/#monday) that names the unit and the latency limit and tells you what to fill in, with a scoring method beside it.
+To ask every bidder for the same figure at the same load, in [a clause](https://leadgreen.ai/rfp/) that names the unit and the latency limit and tells you what to fill in, with a scoring method beside it.
 
 ### Facility and capacity planner
 
@@ -424,7 +424,7 @@ Every question on the site, with a link to the page that answers it, is on [the 
 
 # Nine reasons to know your watt-hours per million tokens
 
-> Why GPU energy per million output tokens belongs in procurement, operations and reporting, with the working, the sources and an RFP clause to paste.
+> Why GPU energy per million output tokens belongs in procurement, operations and reporting, with the working, the sources and what to do on Monday.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/why/ (this file: https://leadgreen.ai/why/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
@@ -546,21 +546,9 @@ Source: [NVIDIA Multi-Instance GPU User Guide, supported MIG profiles](https://d
 
 Source for the workload comparison: ML.ENERGY Leaderboard v3.0, Problem Solving (gpqa) against Text Conversation, energy-optimal rows at or under a 500 ms median inter-token latency, the leaderboard's own default for both tasks; no measured configuration exceeds 326 ms, so the limit changes no row; 11 model and GPU pairs measured on both.
 
-*RFP clause, ready to paste*
+*The clause and the scoring method*
 
-"The bidder shall state the GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state with the proposed serving engine on the proposed hardware, at an average running batch of [N] and with median inter-token latency not exceeding [T] ms and p99 inter-token latency not exceeding [T99] ms, both reported, on the prompt set supplied by the buyer in Annex [X], stating the average prompt and output token counts measured; where the buyer supplies none, on the LM Arena conversation sample used by the ML.ENERGY Leaderboard v3.0, named as such. Steady state, running batch and latency are as defined in the Lead Green measurement protocol v0.2 (leadgreen.ai/contribute/#protocol): a fixed cap of [N] sequences, held at least five minutes after warm-up and for at least 1,000 requests; the bidder shall report both the cap and the average running batch the server actually held, and the median and p99 inter-token latency over the same window. The bidder shall name the measurement method, the sampling tool, the software versions and the date. The figure shall be GPU energy only; host, network and cooling energy, where measured, shall be reported as separate figures and not folded in. The bidder shall attach the GPU power log and serving-engine log from which the figure was computed and shall state time to first token at the same load. The buyer may repeat the measurement on the delivered system at acceptance with the same prompt set; a result more than [X] percent above the stated figure is a non-conformance. Figures for sliced (MIG) configurations shall be measured with every slice on the card serving the proposed workload at the same time, reporting the card's energy per million output tokens, the slice profile, the slice count and the slices loaded. No figure may divide the card's energy by a slice count or come from a run in which any slice sat idle. A figure derived from a whole-card measurement at a different profile is not acceptable. Any carbon figure quoted shall name the grid, the emission factor source and year, whether the factor is combustion-only or lifecycle, and whether any market-based instruments have been applied, with the location-based figure stated in all cases. A bidder that cannot measure GPU energy for the proposed service, for example a hosted API on a closed-weight model, shall state that it cannot, shall attach the model provider's published energy documentation if any (Regulation (EU) 2024/1689, Annex XI, Section 1, point 2(e)), and shall not substitute a per-query or per-request figure that lacks the output token count, the concurrency and the hardware. A figure withheld as confidential is treated as not stated. The bidder may mark the raw logs confidential; the figure, the method, the running batch, the latency and the inclusion statement are not confidential and will be shared across the evaluation panel."
-
-*Scoring the answers*
-
-1. **Gate.** An answer counts only if it carries the figure, the cap and the average running batch held, median and p99 inter-token latency, average output tokens per response, output tokens per second, average GPU power summed across cards, the method, the tool, the versions, the date and the GPU-only statement. An answer missing any of them scores zero on this criterion and is not disqualified.
-2. **Floor.** For the same model and GPU, the floor is the configuration in `models/<slug>.json` with the smallest average running batch at or above [N] whose median inter-token latency is at or under [T] ms; if there is none, the configuration with the highest measured running batch.
-3. **Tolerance.** An answer more than 10 percent below the floor is challenged, and the bidder supplies the raw power and engine logs. The protocol's own repeat threshold is 5 percent.
-4. **Consistency.** Wh/M must equal average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. On the reference row: 1,177.9 W ÷ 5,155.5 tokens per second × 1,000,000 ÷ 3,600 = 63.47 Wh/M. An answer that fails the check beyond rounding is treated as not stated.
-5. **Cannot measure.** An answer that declares it cannot measure, as the clause provides, is scored as not stated, not compared.
-6. **Confidential.** A figure withheld as confidential is scored as not stated. Logs may be confidential; the figure, method, running batch, latency and inclusion statement may not.
-7. **Where Katonic bids.** Lead Green is a Katonic project. In a tender where Katonic may bid, take floor values from the ML.ENERGY rows directly and disclose the compilation, using the wording in [Using the index in a tender](https://leadgreen.ai/about/#tender).
-
-Fill [N] with the running batch you expect in production and [T] and [T99] with the latency your users will accept. The index uses 500 ms, the leaderboard's default, as a benchmark ceiling, not a recommendation, and no measured configuration reaches it. For an interactive assistant set [T] where your users would notice, and use the same [N] and [T] for every bidder. Everything else in the clause is there so that two bidders' numbers can be compared.
+Both have their own page, with a variant for hosted APIs: [How to put AI energy efficiency in an RFP](https://leadgreen.ai/rfp/). Fill [N] with the running batch you expect in production and [T] and [T99] with the latency your users will accept, and use the same values for every bidder.
 
 *Hosted API*
 
@@ -582,11 +570,7 @@ The reporting line differs too. On GPUs you run, the electricity is your own con
 
 Together they give the supplier-specific figure your Scope 3 category 1 line needs, and the index tells you whether the first number is plausible.
 
-*RFP clause, hosted or shared inference service*
-
-"For a hosted or shared inference service, the bidder shall state, for each proposed model and service tier, the fleet-average GPU energy per million output tokens (Wh/M) over the preceding quarter at the fleet's actual utilisation, and shall state whether host, network and cooling energy are included; where they are measured they shall be reported as separate figures and not folded in. The bidder shall name the facilities and grid regions that will serve the buyer's traffic and the grid or contracted supply behind each, shall state their power usage effectiveness and the host-to-GPU power ratio of the serving systems, and shall state the rule by which the energy of a shared fleet is allocated to the buyer. Any carbon figure quoted shall name the grid, the emission factor source and year, whether the factor is combustion-only or lifecycle, and whether any market-based instruments have been applied, with the location-based figure stated in all cases. Any per-prompt or per-request figure offered shall state the output length, the concurrency and the boundary behind it. The bidder shall restate these figures to the buyer every quarter for the term of the contract. A bidder that cannot state the fleet figure shall say so; that answer is scored as not stated, not compared."
-
-Use it as the second lot beside the on-premise clause above, so a tender with both lots scores both. The cannot-measure and confidential rules in "Scoring the answers" apply to it too.
+The clause for a hosted or shared inference service is on [the RFP page](https://leadgreen.ai/rfp/#hosted), as the second lot beside the on-premise clause; the cannot-measure and confidential rules apply to it too.
 
 *Questions*
 
@@ -600,10 +584,6 @@ Not per inference. Regulation (EU) 2024/1689 requires providers of general-purpo
 
 For GPUs you run, the electricity is energy consumption from own operations under ESRS E1-5 (paragraph 37) and its emissions are Scope 2 under E1-6, location-based and market-based. Tokens bought from a hosted API are the provider's Scope 2 and your Scope 3, category 1, purchased goods and services. In both cases the forecasting unit is energy per million tokens: tokens served next year multiplied by Wh/M gives the MWh.
 
-### How do I put AI energy efficiency in an RFP?
-
-Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with median and p99 inter-token latency reported, on the buyer's prompt set or the ML.ENERGY Leaderboard's conversation sample, GPU energy only, naming the method, the tool, the versions and the date. Score it with a gate on completeness, a floor from the index's rows for the same model and GPU, a challenge at 10 percent below the floor, and the consistency check Wh/M = average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. The clause and the scoring box on this page are ready to paste.
-
 ### Why does an idle GPU use more energy per token than a busy one?
 
 Because the cards' power does not fall in step with their work. On the index, Qwen 3 32B on 2 × H100 goes from 452 Wh/M at a running batch of 8 to 63.5 Wh/M at 256, 7.1× on the same hardware, while the cards' draw rises only 39 percent. A high energy per token is what an under-used server looks like from the wall socket: you are paying for silicon that is waiting.
@@ -615,6 +595,124 @@ No; it changes the carbon. The same tokens on the same GPUs use the same energy 
 ### Is the electricity for AI inference expensive?
 
 No, and that is the point. At the reference row and USD 0.10 per kWh the electricity costs about 0.6 cents per million tokens at the floor; a lightly loaded server pays several times that. Trivial as a bill, decisive as a signal: energy per token tracks GPU-hours, which is where the real money goes.
+
+Every question on the site, with a link to the page that answers it, is on [the questions page](https://leadgreen.ai/faq/); the terms are defined in [the glossary](https://leadgreen.ai/glossary/).
+
+---
+
+# How to put AI energy efficiency in an RFP
+
+> The clause to paste, the scoring box and a hosted-API variant: GPU watt-hours per million output tokens at a stated running batch and latency.
+>
+> Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/rfp/ (this file: https://leadgreen.ai/rfp/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
+
+*[Why it matters](https://leadgreen.ai/why/) · Procurement*
+
+Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with median and p99 inter-token latency reported, GPU energy only, naming the method, the tool, the versions and the date. Score the answers with a gate on completeness, a floor from [the index](https://leadgreen.ai/index/)'s rows for the same model and GPU, a challenge at 10 percent below the floor, and the consistency check Wh/M = average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. The clause, the scoring box and a second clause for hosted APIs are below, ready to paste.
+
+**Unit** watt-hours per million output tokens (Wh/M), GPU only. **Floors** [index.json](https://leadgreen.ai/api/v1/index.json) and [models.json](https://leadgreen.ai/api/v1/models.json). Updated 19 October 2026.
+
+Cite this page: Lead Green, a Katonic project. How to put AI energy efficiency in an RFP. https://leadgreen.ai/rfp/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+
+- [What to ask for](https://leadgreen.ai/rfp/#ask)
+- [The clause](https://leadgreen.ai/rfp/#clause)
+- [Scoring](https://leadgreen.ai/rfp/#scoring)
+- [Hosted API](https://leadgreen.ai/rfp/#hosted)
+- [Questions](https://leadgreen.ai/rfp/#faq)
+- [Sources](https://leadgreen.ai/rfp/#sources)
+
+*What to ask for*
+
+## Six things every answer must carry
+
+An energy figure without its load, its latency and its boundary cannot be compared with another bidder's. The clause asks for all six together; the scoring box treats an answer missing any of them as not stated.
+
+*The figures the clause asks every bidder for, and why each is there*
+
+| Ask for | Unit | Why it is in the clause |
+|---|---|---|
+| GPU energy per million output tokens | Wh/M | The comparable figure. One Wh/M is 0.0036 joules per output token; the index runs from 13.0 to 572.9 Wh/M across its rows. |
+| Average running batch held, and the cap | requests | Load moves the figure more than hardware does: 7.1× for the reference model on the same cards between a running batch of 8 and 256. A cap of 256 with eight users is a running batch of eight. |
+| Median and p99 inter-token latency | ms | The same latency limit for every bidder is what makes two figures comparable; a looser limit buys a lower number. |
+| Output tokens per second and average GPU power | tokens/s, W | The consistency check: Wh/M must equal power ÷ throughput × 1,000,000 ÷ 3,600. On the reference row, 1,177.9 W ÷ 5,155.5 tokens per second = 63.47 Wh/M. |
+| The boundary statement | GPU only | So that no bidder folds host, network or cooling into the figure, or leaves them out without saying so. Facility multipliers are the operator's own and belong in a separate line. |
+| Method, tool, versions, date, prompt set | text | What makes the measurement repeatable and the floor comparison fair; the [measurement protocol](https://leadgreen.ai/contribute/#protocol) names the defaults. |
+
+Power usage effectiveness and renewable share describe the building, not the work. Keep them in the facility section of the RFP; the clause below measures the model, the GPUs and the load.
+
+*The clause*
+
+## On-premise or dedicated GPUs, ready to paste
+
+*RFP clause, ready to paste*
+
+"The bidder shall state the GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state with the proposed serving engine on the proposed hardware, at an average running batch of [N] and with median inter-token latency not exceeding [T] ms and p99 inter-token latency not exceeding [T99] ms, both reported, on the prompt set supplied by the buyer in Annex [X], stating the average prompt and output token counts measured; where the buyer supplies none, on the LM Arena conversation sample used by the ML.ENERGY Leaderboard v3.0, named as such. Steady state, running batch and latency are as defined in the Lead Green measurement protocol v0.2 (leadgreen.ai/contribute/#protocol): a fixed cap of [N] sequences, held at least five minutes after warm-up and for at least 1,000 requests; the bidder shall report both the cap and the average running batch the server actually held, and the median and p99 inter-token latency over the same window. The bidder shall name the measurement method, the sampling tool, the software versions and the date. The figure shall be GPU energy only; host, network and cooling energy, where measured, shall be reported as separate figures and not folded in. The bidder shall attach the GPU power log and serving-engine log from which the figure was computed and shall state time to first token at the same load. The buyer may repeat the measurement on the delivered system at acceptance with the same prompt set; a result more than [X] percent above the stated figure is a non-conformance. Figures for sliced (MIG) configurations shall be measured with every slice on the card serving the proposed workload at the same time, reporting the card's energy per million output tokens, the slice profile, the slice count and the slices loaded. No figure may divide the card's energy by a slice count or come from a run in which any slice sat idle. A figure derived from a whole-card measurement at a different profile is not acceptable. Any carbon figure quoted shall name the grid, the emission factor source and year, whether the factor is combustion-only or lifecycle, and whether any market-based instruments have been applied, with the location-based figure stated in all cases. A bidder that cannot measure GPU energy for the proposed service, for example a hosted API on a closed-weight model, shall state that it cannot, shall attach the model provider's published energy documentation if any (Regulation (EU) 2024/1689, Annex XI, Section 1, point 2(e)), and shall not substitute a per-query or per-request figure that lacks the output token count, the concurrency and the hardware. A figure withheld as confidential is treated as not stated. The bidder may mark the raw logs confidential; the figure, the method, the running batch, the latency and the inclusion statement are not confidential and will be shared across the evaluation panel."
+
+Fill [N] with the running batch you expect in production and [T] and [T99] with the latency your users will accept. The index uses 500 ms, the leaderboard's default, as a benchmark ceiling, not a recommendation, and no measured configuration reaches it. For an interactive assistant set [T] where your users would notice, and use the same [N] and [T] for every bidder. Everything else in the clause is there so that two bidders' numbers can be compared.
+
+*Scoring*
+
+## How to score the answers
+
+Seven rules, in order. The floor comes from the index's rows for the same model and GPU, so a bidder's number is checked against a public measurement rather than against the other bidders.
+
+*Scoring the answers*
+
+1. **Gate.** An answer counts only if it carries the figure, the cap and the average running batch held, median and p99 inter-token latency, average output tokens per response, output tokens per second, average GPU power summed across cards, the method, the tool, the versions, the date and the GPU-only statement. An answer missing any of them scores zero on this criterion and is not disqualified.
+2. **Floor.** For the same model and GPU, the floor is the configuration in `models/<slug>.json` with the smallest average running batch at or above [N] whose median inter-token latency is at or under [T] ms; if there is none, the configuration with the highest measured running batch.
+3. **Tolerance.** An answer more than 10 percent below the floor is challenged, and the bidder supplies the raw power and engine logs. The protocol's own repeat threshold is 5 percent.
+4. **Consistency.** Wh/M must equal average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. On the reference row: 1,177.9 W ÷ 5,155.5 tokens per second × 1,000,000 ÷ 3,600 = 63.47 Wh/M. An answer that fails the check beyond rounding is treated as not stated.
+5. **Cannot measure.** An answer that declares it cannot measure, as the clause provides, is scored as not stated, not compared.
+6. **Confidential.** A figure withheld as confidential is scored as not stated. Logs may be confidential; the figure, method, running batch, latency and inclusion statement may not.
+7. **Where Katonic bids.** Lead Green is a Katonic project. In a tender where Katonic may bid, take floor values from the ML.ENERGY rows directly and disclose the compilation, using the wording in [Using the index in a tender](https://leadgreen.ai/about/#tender).
+
+*Hosted API*
+
+## If the lot is a hosted or shared inference service
+
+The index cannot measure a hosted API: its fleet is closed, its batches mix every customer's traffic and it states no concurrency. The clause below asks the provider for the fleet-average figure and the facts behind it, and the index tells the buyer whether the first answer is plausible. The [why page](https://leadgreen.ai/why/#hosted) has the seven questions to ask in writing and the reporting line the tokens land on.
+
+*RFP clause, hosted or shared inference service*
+
+"For a hosted or shared inference service, the bidder shall state, for each proposed model and service tier, the fleet-average GPU energy per million output tokens (Wh/M) over the preceding quarter at the fleet's actual utilisation, and shall state whether host, network and cooling energy are included; where they are measured they shall be reported as separate figures and not folded in. The bidder shall name the facilities and grid regions that will serve the buyer's traffic and the grid or contracted supply behind each, shall state their power usage effectiveness and the host-to-GPU power ratio of the serving systems, and shall state the rule by which the energy of a shared fleet is allocated to the buyer. Any carbon figure quoted shall name the grid, the emission factor source and year, whether the factor is combustion-only or lifecycle, and whether any market-based instruments have been applied, with the location-based figure stated in all cases. Any per-prompt or per-request figure offered shall state the output length, the concurrency and the boundary behind it. The bidder shall restate these figures to the buyer every quarter for the term of the contract. A bidder that cannot state the fleet figure shall say so; that answer is scored as not stated, not compared."
+
+Use it as the second lot beside the on-premise clause above, so a tender with both lots scores both. The cannot-measure and confidential rules in "Scoring the answers" apply to it too.
+
+*Sources*
+
+## Where the floors come from
+
+[ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371). The floor for a model and GPU is the configuration in `models/<slug>.json` that the scoring box names; the tolerance and repeat thresholds are the index's own (10 and 5 percent).
+
+**Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+*Questions*
+
+## Asked about AI energy in an RFP
+
+### How do I put AI energy efficiency in an RFP?
+
+Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with median and p99 inter-token latency reported, on the buyer's prompt set or the ML.ENERGY Leaderboard's conversation sample, GPU energy only, naming the method, the tool, the versions and the date. Score it with a gate on completeness, a floor from the index's rows for the same model and GPU, a challenge at 10 percent below the floor, and the consistency check Wh/M = average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. The clause and the scoring box on this page are ready to paste.
+
+### What unit should an RFP use for AI energy?
+
+GPU watt-hours per million output tokens (Wh/M), GPU energy only, at a stated running batch and latency. It is the one figure that ties a named model on named GPUs to a measured load, and it is what the index's rows are in, so every answer has a public floor to be checked against. Watt-hours per query need an output length and a load to mean anything, and power usage effectiveness describes the building, not the work.
+
+### What running batch and latency should the RFP specify?
+
+The running batch you expect in production, as a number [N], and the median [T] and p99 [T99] inter-token latency your users will accept, the same for every bidder. Load moves the figure more than hardware does: Qwen 3 32B on 2 × H100 runs from 452 Wh/M at a running batch of 8 to 63.5 Wh/M at 256, 7.1× on the same cards. The index uses 500 ms as a benchmark ceiling, not a recommendation.
+
+### How do I score a bidder's energy figure?
+
+Gate first: an answer counts only if it carries the figure, the cap and running batch held, median and p99 latency, output tokens per response, tokens per second, average GPU power, the method, the tool, the versions, the date and the GPU-only statement. Then compare it with the floor, the index row for the same model and GPU at or above the stated running batch; challenge any answer more than 10 percent below it and ask for the power and engine logs. Last, check Wh/M = average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600; an answer that fails beyond rounding is treated as not stated.
+
+### Can I ask a hosted API provider for energy per token?
+
+Yes, as a fleet-average figure over the preceding quarter at the fleet's actual utilisation, with the boundary stated, the serving regions and their grids named, the sites' PUE and host-to-GPU power ratio given, the rule that allocates a shared fleet's energy to your account, and a quarterly restatement for the term. The index cannot measure a hosted fleet, but it tells you whether the first answer is plausible. The electricity is the provider's Scope 2 and your Scope 3, category 1.
+
+### Is PUE enough to compare AI vendors on energy?
+
+No. Power usage effectiveness is the building's overhead on top of the IT load; it says nothing about how much work the IT load does. Two vendors at the same PUE can differ many times in GPU energy per token through model, precision, GPU generation and load. Ask for PUE in the facility section and for Wh/M at a stated load in the clause, and keep the two apart.
 
 Every question on the site, with a link to the page that answers it, is on [the questions page](https://leadgreen.ai/faq/); the terms are defined in [the glossary](https://leadgreen.ai/glossary/).
 
@@ -3974,13 +4072,13 @@ The figure on each card is the model's lowest index row across the GPUs it was m
 
 # India: the carbon of AI inference per billion tokens
 
-> About 44.9 kg CO2e per billion LLM output tokens on India's grid (707 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 44.9 kg CO2e per billion LLM output tokens (44.9 g per million) on India's grid (707 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/india/ (this file: https://leadgreen.ai/grids/india/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on India's grid emits about **44.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 9.2 kg and its highest 405.1 kg. The grid ran at **707 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.5× the world average of 473, and 181st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on India's grid emits about **44.9 kg CO2e per billion output tokens**, 44.9 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 9.2 kg and its highest 405.1 kg. The grid ran at **707 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.5× the world average of 473, and 181st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** India (IND, IN). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -4089,13 +4187,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Saudi Arabia: the carbon of AI inference per billion tokens
 
-> About 43.7 kg CO2e per billion LLM output tokens on Saudi Arabia's grid (689 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 43.7 kg CO2e per billion LLM output tokens (43.7 g per million) on Saudi Arabia's grid (689 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/saudi-arabia/ (this file: https://leadgreen.ai/grids/saudi-arabia/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on Saudi Arabia's grid emits about **43.7 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.9 kg and its highest 394.8 kg. The grid ran at **689 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.5× the world average of 473, and 177th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Saudi Arabia's grid emits about **43.7 kg CO2e per billion output tokens**, 43.7 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.9 kg and its highest 394.8 kg. The grid ran at **689 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.5× the world average of 473, and 177th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Saudi Arabia (SAU, SA). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -4204,13 +4302,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Hong Kong: the carbon of AI inference per billion tokens
 
-> About 42.9 kg CO2e per billion LLM output tokens on Hong Kong's grid (676 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 42.9 kg CO2e per billion LLM output tokens (42.9 g per million) on Hong Kong's grid (676 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/hong-kong/ (this file: https://leadgreen.ai/grids/hong-kong/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on Hong Kong's grid emits about **42.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.8 kg and its highest 387.1 kg. The grid ran at **676 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× the world average of 473, and 174th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Hong Kong's grid emits about **42.9 kg CO2e per billion output tokens**, 42.9 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.8 kg and its highest 387.1 kg. The grid ran at **676 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× the world average of 473, and 174th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Hong Kong (SAR of China) (HKG, HK). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -4318,13 +4416,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Serbia: the carbon of AI inference per billion tokens
 
-> About 42.4 kg CO2e per billion LLM output tokens on Serbia's grid (668 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 42.4 kg CO2e per billion LLM output tokens (42.4 g per million) on Serbia's grid (668 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/serbia/ (this file: https://leadgreen.ai/grids/serbia/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a market Katonic sells in or expects to*
 
-An LLM served on Serbia's grid emits about **42.4 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.7 kg and its highest 382.9 kg. The grid ran at **668 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× the world average of 473, and 172nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Serbia's grid emits about **42.4 kg CO2e per billion output tokens**, 42.4 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.7 kg and its highest 382.9 kg. The grid ran at **668 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× the world average of 473, and 172nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Serbia (SRB, RS). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -4433,13 +4531,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Taiwan: the carbon of AI inference per billion tokens
 
-> About 40.3 kg CO2e per billion LLM output tokens on Taiwan's grid (635 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 40.3 kg CO2e per billion LLM output tokens (40.3 g per million) on Taiwan's grid (635 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/taiwan/ (this file: https://leadgreen.ai/grids/taiwan/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on Taiwan's grid emits about **40.3 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.2 kg and its highest 363.9 kg. The grid ran at **635 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.3× the world average of 473, and 156th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Taiwan's grid emits about **40.3 kg CO2e per billion output tokens**, 40.3 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.2 kg and its highest 363.9 kg. The grid ran at **635 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.3× the world average of 473, and 156th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Taiwan (China) (TWN, TW). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -4548,13 +4646,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # The Philippines: the carbon of AI inference per billion tokens
 
-> About 40.0 kg CO2e per billion LLM output tokens on The Philippines's grid (629 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 40.0 kg CO2e per billion LLM output tokens (40.0 g per million) on The Philippines's grid (629 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/the-philippines/ (this file: https://leadgreen.ai/grids/the-philippines/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on The Philippines's grid emits about **40.0 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.2 kg and its highest 360.7 kg. The grid ran at **629 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.3× the world average of 473, and 151st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on The Philippines's grid emits about **40.0 kg CO2e per billion output tokens**, 40.0 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.2 kg and its highest 360.7 kg. The grid ran at **629 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.3× the world average of 473, and 151st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** The Philippines (PHL, PH). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -4663,13 +4761,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Qatar: the carbon of AI inference per billion tokens
 
-> About 36.9 kg CO2e per billion LLM output tokens on Qatar's grid (582 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 36.9 kg CO2e per billion LLM output tokens (36.9 g per million) on Qatar's grid (582 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/qatar/ (this file: https://leadgreen.ai/grids/qatar/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on Qatar's grid emits about **36.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 7.5 kg and its highest 333.3 kg. The grid ran at **582 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× the world average of 473, and 137th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Qatar's grid emits about **36.9 kg CO2e per billion output tokens**, 36.9 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 7.5 kg and its highest 333.3 kg. The grid ran at **582 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× the world average of 473, and 137th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Qatar (QAT, QA). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -4778,13 +4876,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Australia: the carbon of AI inference per billion tokens
 
-> About 34.9 kg CO2e per billion LLM output tokens on Australia's grid (549 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 34.9 kg CO2e per billion LLM output tokens (34.9 g per million) on Australia's grid (549 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/australia/ (this file: https://leadgreen.ai/grids/australia/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Oceania · a market Katonic sells in or expects to*
 
-An LLM served on Australia's grid emits about **34.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 7.1 kg and its highest 314.8 kg. The grid ran at **549 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× the world average of 473, and 125th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Australia's grid emits about **34.9 kg CO2e per billion output tokens**, 34.9 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 7.1 kg and its highest 314.8 kg. The grid ran at **549 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× the world average of 473, and 125th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Australia (AUS, AU). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -4893,13 +4991,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Singapore: the carbon of AI inference per billion tokens
 
-> About 31.6 kg CO2e per billion LLM output tokens on Singapore's grid (499 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 31.6 kg CO2e per billion LLM output tokens (31.6 g per million) on Singapore's grid (499 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/singapore/ (this file: https://leadgreen.ai/grids/singapore/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on Singapore's grid emits about **31.6 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 6.5 kg and its highest 285.7 kg. The grid ran at **499 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.1× the world average of 473, and 106th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Singapore's grid emits about **31.6 kg CO2e per billion output tokens**, 31.6 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 6.5 kg and its highest 285.7 kg. The grid ran at **499 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.1× the world average of 473, and 106th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Singapore (SGP, SG). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5008,13 +5106,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Japan: the carbon of AI inference per billion tokens
 
-> About 30.7 kg CO2e per billion LLM output tokens on Japan's grid (484 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 30.7 kg CO2e per billion LLM output tokens (30.7 g per million) on Japan's grid (484 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/japan/ (this file: https://leadgreen.ai/grids/japan/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a reference grid*
 
-An LLM served on Japan's grid emits about **30.7 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 6.3 kg and its highest 277.5 kg. The grid ran at **484 gCO2e per kWh** in 2024 on Ember's yearly figures, close to the world average of 473, and 101st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Japan's grid emits about **30.7 kg CO2e per billion output tokens**, 30.7 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 6.3 kg and its highest 277.5 kg. The grid ran at **484 gCO2e per kWh** in 2024 on Ember's yearly figures, close to the world average of 473, and 101st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Japan (JPN, JP). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5129,7 +5227,7 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on United Arab Emirates's grid emits about **30.3 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 6.2 kg and its highest 273.5 kg. The grid ran at **477 gCO2e per kWh** in 2024 on Ember's yearly figures, close to the world average of 473, and 100th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on United Arab Emirates's grid emits about **30.3 kg CO2e per billion output tokens**, 30.3 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 6.2 kg and its highest 273.5 kg. The grid ran at **477 gCO2e per kWh** in 2024 on Ember's yearly figures, close to the world average of 473, and 100th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** United Arab Emirates (ARE, AE). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5238,13 +5336,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Sri Lanka: the carbon of AI inference per billion tokens
 
-> About 24.9 kg CO2e per billion LLM output tokens on Sri Lanka's grid (393 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 24.9 kg CO2e per billion LLM output tokens (24.9 g per million) on Sri Lanka's grid (393 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/sri-lanka/ (this file: https://leadgreen.ai/grids/sri-lanka/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on Sri Lanka's grid emits about **24.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 5.1 kg and its highest 225.1 kg. The grid ran at **393 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× cleaner than the world average of 473, and 83rd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Sri Lanka's grid emits about **24.9 kg CO2e per billion output tokens**, 24.9 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 5.1 kg and its highest 225.1 kg. The grid ran at **393 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× cleaner than the world average of 473, and 83rd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Sri Lanka (LKA, LK). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5353,13 +5451,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # United States: the carbon of AI inference per billion tokens
 
-> About 24.4 kg CO2e per billion LLM output tokens on United States's grid (384 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 24.4 kg CO2e per billion LLM output tokens (24.4 g per million) on United States's grid (384 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/united-states/ (this file: https://leadgreen.ai/grids/united-states/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · North America · a reference grid*
 
-An LLM served on United States's grid emits about **24.4 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 5.0 kg and its highest 219.9 kg. The grid ran at **384 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× cleaner than the world average of 473, and 81st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on United States's grid emits about **24.4 kg CO2e per billion output tokens**, 24.4 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 5.0 kg and its highest 219.9 kg. The grid ran at **384 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.2× cleaner than the world average of 473, and 81st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** United States (USA, US). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5468,13 +5566,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Germany: the carbon of AI inference per billion tokens
 
-> About 21.6 kg CO2e per billion LLM output tokens on Germany's grid (340 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 21.6 kg CO2e per billion LLM output tokens (21.6 g per million) on Germany's grid (340 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/germany/ (this file: https://leadgreen.ai/grids/germany/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a reference grid*
 
-An LLM served on Germany's grid emits about **21.6 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 4.4 kg and its highest 194.7 kg. The grid ran at **340 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× cleaner than the world average of 473, and 73rd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Germany's grid emits about **21.6 kg CO2e per billion output tokens**, 21.6 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 4.4 kg and its highest 194.7 kg. The grid ran at **340 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× cleaner than the world average of 473, and 73rd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Germany (DEU, DE). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5583,13 +5681,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Bulgaria: the carbon of AI inference per billion tokens
 
-> About 17.7 kg CO2e per billion LLM output tokens on Bulgaria's grid (279 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 17.7 kg CO2e per billion LLM output tokens (17.7 g per million) on Bulgaria's grid (279 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/bulgaria/ (this file: https://leadgreen.ai/grids/bulgaria/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a market Katonic sells in or expects to*
 
-An LLM served on Bulgaria's grid emits about **17.7 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 3.6 kg and its highest 159.9 kg. The grid ran at **279 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.7× cleaner than the world average of 473, and 62nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Bulgaria's grid emits about **17.7 kg CO2e per billion output tokens**, 17.7 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 3.6 kg and its highest 159.9 kg. The grid ran at **279 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.7× cleaner than the world average of 473, and 62nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Bulgaria (BGR, BG). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5698,13 +5796,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Ireland: the carbon of AI inference per billion tokens
 
-> About 17.2 kg CO2e per billion LLM output tokens on Ireland's grid (271 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 17.2 kg CO2e per billion LLM output tokens (17.2 g per million) on Ireland's grid (271 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/ireland/ (this file: https://leadgreen.ai/grids/ireland/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a reference grid*
 
-An LLM served on Ireland's grid emits about **17.2 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 3.5 kg and its highest 155.1 kg. The grid ran at **271 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.7× cleaner than the world average of 473, and 60th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Ireland's grid emits about **17.2 kg CO2e per billion output tokens**, 17.2 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 3.5 kg and its highest 155.1 kg. The grid ran at **271 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.7× cleaner than the world average of 473, and 60th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Ireland (IRL, IE). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5813,13 +5911,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # United Kingdom: the carbon of AI inference per billion tokens
 
-> About 13.7 kg CO2e per billion LLM output tokens on United Kingdom's grid (216 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 13.7 kg CO2e per billion LLM output tokens (13.7 g per million) on United Kingdom's grid (216 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/united-kingdom/ (this file: https://leadgreen.ai/grids/united-kingdom/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a reference grid*
 
-An LLM served on United Kingdom's grid emits about **13.7 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 2.8 kg and its highest 124.0 kg. The grid ran at **216 gCO2e per kWh** in 2024 on Ember's yearly figures, 2.2× cleaner than the world average of 473, and 50th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on United Kingdom's grid emits about **13.7 kg CO2e per billion output tokens**, 13.7 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 2.8 kg and its highest 124.0 kg. The grid ran at **216 gCO2e per kWh** in 2024 on Ember's yearly figures, 2.2× cleaner than the world average of 473, and 50th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** United Kingdom (GBR, GB). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -5928,13 +6026,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Hungary: the carbon of AI inference per billion tokens
 
-> About 11.7 kg CO2e per billion LLM output tokens on Hungary's grid (184 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 11.7 kg CO2e per billion LLM output tokens (11.7 g per million) on Hungary's grid (184 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/hungary/ (this file: https://leadgreen.ai/grids/hungary/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a market Katonic sells in or expects to*
 
-An LLM served on Hungary's grid emits about **11.7 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 2.4 kg and its highest 105.4 kg. The grid ran at **184 gCO2e per kWh** in 2024 on Ember's yearly figures, 2.6× cleaner than the world average of 473, and 46th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Hungary's grid emits about **11.7 kg CO2e per billion output tokens**, 11.7 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 2.4 kg and its highest 105.4 kg. The grid ran at **184 gCO2e per kWh** in 2024 on Ember's yearly figures, 2.6× cleaner than the world average of 473, and 46th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Hungary (HUN, HU). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -6043,13 +6141,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # New Zealand: the carbon of AI inference per billion tokens
 
-> About 7.1 kg CO2e per billion LLM output tokens on New Zealand's grid (112 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 7.1 kg CO2e per billion LLM output tokens (7.1 g per million) on New Zealand's grid (112 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/new-zealand/ (this file: https://leadgreen.ai/grids/new-zealand/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Oceania · a market Katonic sells in or expects to*
 
-An LLM served on New Zealand's grid emits about **7.1 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 1.5 kg and its highest 64.1 kg. The grid ran at **112 gCO2e per kWh** in 2024 on Ember's yearly figures, 4.2× cleaner than the world average of 473, and 27th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on New Zealand's grid emits about **7.1 kg CO2e per billion output tokens**, 7.1 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 1.5 kg and its highest 64.1 kg. The grid ran at **112 gCO2e per kWh** in 2024 on Ember's yearly figures, 4.2× cleaner than the world average of 473, and 27th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** New Zealand (NZL, NZ). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -6158,13 +6256,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Slovakia: the carbon of AI inference per billion tokens
 
-> About 6.2 kg CO2e per billion LLM output tokens on Slovakia's grid (97 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 6.2 kg CO2e per billion LLM output tokens (6.2 g per million) on Slovakia's grid (97 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/slovakia/ (this file: https://leadgreen.ai/grids/slovakia/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a market Katonic sells in or expects to*
 
-An LLM served on Slovakia's grid emits about **6.2 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 1.3 kg and its highest 55.7 kg. The grid ran at **97 gCO2e per kWh** in 2024 on Ember's yearly figures, 4.9× cleaner than the world average of 473, and 22nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Slovakia's grid emits about **6.2 kg CO2e per billion output tokens**, 6.2 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 1.3 kg and its highest 55.7 kg. The grid ran at **97 gCO2e per kWh** in 2024 on Ember's yearly figures, 4.9× cleaner than the world average of 473, and 22nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Slovakia (SVK, SK). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -6273,13 +6371,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # France: the carbon of AI inference per billion tokens
 
-> About 2.6 kg CO2e per billion LLM output tokens on France's grid (40 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 2.6 kg CO2e per billion LLM output tokens (2.6 g per million) on France's grid (40 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/france/ (this file: https://leadgreen.ai/grids/france/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a reference grid*
 
-An LLM served on France's grid emits about **2.6 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 0.5 kg and its highest 23.1 kg. The grid ran at **40 gCO2e per kWh** in 2024 on Ember's yearly figures, 11.7× cleaner than the world average of 473, and 12th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on France's grid emits about **2.6 kg CO2e per billion output tokens**, 2.6 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 0.5 kg and its highest 23.1 kg. The grid ran at **40 gCO2e per kWh** in 2024 on Ember's yearly figures, 11.7× cleaner than the world average of 473, and 12th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** France (FRA, FR). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -6388,13 +6486,13 @@ This page is generated from the same dated snapshots as [the index](https://lead
 
 # Norway: the carbon of AI inference per billion tokens
 
-> About 1.9 kg CO2e per billion LLM output tokens on Norway's grid (30 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 1.9 kg CO2e per billion LLM output tokens (1.9 g per million) on Norway's grid (30 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/norway/ (this file: https://leadgreen.ai/grids/norway/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a reference grid*
 
-An LLM served on Norway's grid emits about **1.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 0.4 kg and its highest 17.0 kg. The grid ran at **30 gCO2e per kWh** in 2024 on Ember's yearly figures, 16.0× cleaner than the world average of 473, and 9th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Norway's grid emits about **1.9 kg CO2e per billion output tokens**, 1.9 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 0.4 kg and its highest 17.0 kg. The grid ran at **30 gCO2e per kWh** in 2024 on Ember's yearly figures, 16.0× cleaner than the world average of 473, and 9th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Norway (NOR, NO). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -6734,13 +6832,13 @@ TDP and memory: NVIDIA product specifications for [H100](https://www.nvidia.com/
 
 # How much energy does an AI query use?
 
-> An AI query uses about 0.24 to 0.34 Wh by Google's, Epoch AI's and OpenAI's whole-stack figures; the GPU share on this index is 0.005 to 0.21 Wh an answer.
+> An AI query uses about 0.24 to 0.34 Wh by four published whole-stack figures; the GPU share on this index is 0.005 to 0.21 Wh an answer.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/per-query/ (this file: https://leadgreen.ai/per-query/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[The index](https://leadgreen.ai/index/) · Per query*
 
-An AI chatbot query uses about **0.24 to 0.34 Wh** of electricity across the whole serving stack, by the three published whole-stack figures: Google 0.24 Wh per median Gemini Apps text prompt (August 2025), Epoch AI 0.3 Wh per typical 500-token ChatGPT reply (February 2025) and OpenAI 0.34 Wh per average query (June 2025). The GPU share of one answer on this index runs from **0.005 to 0.21 Wh** by model and GPU, measured on busy servers. One answer from a busy open-weight model costs about **0.040 Wh** of GPU energy on the index's reference row (Qwen 3 32B on 2 × H100: 63.5 Wh per million output tokens, answers averaging 634 tokens, 256 requests in flight). Of Google's 0.24 Wh the accelerators are 58 percent, and its narrow accelerator-only figure is 0.10 Wh. The gap between a per-prompt figure and a per-million-tokens figure is boundary, load and answer length, and this page converts one into the other with each of them stated.
+An AI chatbot query uses about **0.24 to 0.34 Wh** of electricity across the whole serving stack, by four published whole-stack figures: Google 0.24 Wh per median Gemini Apps text prompt (August 2025), Epoch AI 0.3 Wh per typical 500-token ChatGPT reply (February 2025), OpenAI 0.34 Wh per average query (June 2025) and Microsoft Research's modelled median of 0.31 Wh for a frontier-scale model on H100 nodes (interquartile range 0.16 to 0.60 Wh, June 2026). The GPU share of one answer on this index runs from **0.005 to 0.21 Wh** by model and GPU, measured on busy servers. One answer from a busy open-weight model costs about **0.040 Wh** of GPU energy on the index's reference row (Qwen 3 32B on 2 × H100: 63.5 Wh per million output tokens, answers averaging 634 tokens, 256 requests in flight). Of Google's 0.24 Wh the accelerators are 58 percent, and its narrow accelerator-only figure is 0.10 Wh. The gap between a per-prompt figure and a per-million-tokens figure is boundary, load and answer length, and this page converts one into the other with each of them stated.
 
 **Units** watt-hours per answer (Wh) and watt-hours per million output tokens (Wh/M). Wh per answer = Wh/M × output tokens ÷ 1,000,000. **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [per-query.json](https://leadgreen.ai/api/v1/per-query.json). Updated 19 October 2026.
 
@@ -6779,13 +6877,15 @@ Running batch is the average number of requests the server was decoding at once 
 
 *What vendors published*
 
-## Two per-prompt disclosures, and what they count
+## Three per-prompt figures, and what they count
 
 In August 2025 Google put the median Gemini Apps text prompt at **0.24 Wh**, 0.03 g CO2e and 0.26 mL of water. The figure counts the whole serving stack: the accelerators are 58 percent of it, about 0.14 Wh, and the host machines, idle capacity held for peaks and the data centre's overhead make up the rest. Google also reports a narrow, accelerator-only figure of 0.10 Wh, which is the boundary this index uses. So Google's own numbers say the stack multiplies the accelerator figure by 1.7× to 2.4×, depending on which accelerator figure is the base.
 
 In July 2025 Mistral put a 400-token reply from its large model at 1.14 g CO2e and 45 mL of water, without a watt-hour figure, so it cannot be placed on an energy axis at all.
 
-Neither disclosure states the model's serving load or the prompt's output length, so neither converts to watt-hours per million tokens. Set beside the index on the narrow boundary, Google's 0.10 Wh is 2.5× the reference row's 0.040 Wh answer; the rest of the difference is a different model, a different load and an unstated answer length. Google's figure tells a hyperscaler's customers what a prompt costs across its estate. The index tells a buyer what a named model on named GPUs costs at a stated load, which is the figure a vendor can be held to because the buyer can measure it.
+In June 2026 Microsoft Research (Oviedo et al., arXiv 2509.20241 v2) modelled the energy of a query to a frontier-scale model, over 200 billion parameters on H100 nodes, at a median of **0.31 Wh** with an interquartile range of 0.16 to 0.60 Wh, rising to 3.91 Wh for a long-reasoning query about fifteen times the typical length. It is a model of the serving stack, not a meter reading, and it states no running batch, so it sits beside Google's figure as a second whole-stack estimate and not as an index row.
+
+None of the three states the model's serving load, and none gives an output length with a measured load behind it, so none converts to watt-hours per million tokens. Set beside the index on the narrow boundary, Google's 0.10 Wh is 2.5× the reference row's 0.040 Wh answer; the rest of the difference is a different model, a different load and an unstated answer length. Google's figure tells a hyperscaler's customers what a prompt costs across its estate. The index tells a buyer what a named model on named GPUs costs at a stated load, which is the figure a vendor can be held to because the buyer can measure it.
 
 *Batch size one*
 
@@ -6817,7 +6917,7 @@ To take either figure to the facility meter, multiply by the system-to-GPU power
 
 ### How much energy does an AI query use?
 
-About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025) and OpenAI (0.34 Wh, June 2025). Below that headline it depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. On the index's reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, 256 requests in flight), one answer of 634 tokens costs about 0.040 Wh of GPU energy. The same model on the same cards holding 8 requests costs about 0.29 Wh an answer. Google's published median for a Gemini Apps text prompt is 0.24 Wh across the whole serving stack (August 2025). These figures are GPU energy from a busy server unless stated otherwise; host, network and cooling sit outside them.
+About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025), OpenAI (0.34 Wh, June 2025) and Microsoft Research (0.31 Wh, a modelled median for a frontier-scale model on H100 nodes, June 2026). Below that headline it depends on the model, the GPUs, how busy the server is and how long the answer runs, so a single figure needs those four stated. On the index's reference row (Qwen 3 32B on 2 × H100, 63.5 Wh per million output tokens, 256 requests in flight), one answer of 634 tokens costs about 0.040 Wh of GPU energy. The same model on the same cards holding 8 requests costs about 0.29 Wh an answer. Google's published median for a Gemini Apps text prompt is 0.24 Wh across the whole serving stack (August 2025). These figures are GPU energy from a busy server unless stated otherwise; host, network and cooling sit outside them.
 
 ### Why is Google's 0.24 Wh per prompt higher than the index's figure?
 
@@ -6845,7 +6945,7 @@ Google puts the median Gemini Apps text prompt at 0.03 g CO2e and 0.26 mL of wat
 
 [ML.ENERGY Leaderboard](https://ml.energy/leaderboard/) version 3.0 (released 1 December 2025; data compiled 16 February 2026; retrieved 26 September 2026), The ML.ENERGY Initiative, started at SymbioticLab, University of Michigan. Text Conversation task, 328 stable configurations. Energy per token is steady-state GPU energy divided by the output tokens generated in the window, measured with Zeus under vLLM 0.11.1 on H100 80GB HBM3 and B200 servers; energy per request is that figure times the average output length. Each index row is the lowest-energy configuration for its model and GPU at or under a 500 ms median inter-token latency, the leaderboard's own default ceiling, which no configuration reaches. Apache 2.0 per the [ml-energy/benchmark-v3](https://huggingface.co/datasets/ml-energy/benchmark-v3) dataset card. Cite [Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks](https://arxiv.org/abs/2505.06371). Per-answer figures are Wh per million output tokens multiplied by the row's own average output length.
 
-Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, August 2025: 0.24 Wh, 0.03 g CO2e and 0.26 mL per median Gemini Apps text prompt; accelerators 58 percent; narrow boundary 0.10 Wh. [arXiv 2508.15734](https://arxiv.org/abs/2508.15734), retrieved 26 September 2026. Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): 1.14 g CO2e and 45 mL per 400-token reply. [mistral.ai](https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai), retrieved 26 September 2026. Epoch AI, How much energy does ChatGPT use?, February 2025: about 0.3 Wh per typical 500-token GPT-4o reply, whole stack. [epoch.ai](https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use), retrieved 21 October 2026. Sam Altman, The Gentle Singularity, OpenAI, June 2025: about 0.34 Wh per average ChatGPT query, whole stack, no method given. [blog.samaltman.com](https://blog.samaltman.com/the-gentle-singularity), retrieved 21 October 2026.
+Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, August 2025: 0.24 Wh, 0.03 g CO2e and 0.26 mL per median Gemini Apps text prompt; accelerators 58 percent; narrow boundary 0.10 Wh. [arXiv 2508.15734](https://arxiv.org/abs/2508.15734), retrieved 26 September 2026. Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): 1.14 g CO2e and 45 mL per 400-token reply. [mistral.ai](https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai), retrieved 26 September 2026. Epoch AI, How much energy does ChatGPT use?, February 2025: about 0.3 Wh per typical 500-token GPT-4o reply, whole stack. [epoch.ai](https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use), retrieved 21 October 2026. Sam Altman, The Gentle Singularity, OpenAI, June 2025: about 0.34 Wh per average ChatGPT query, whole stack, no method given. [blog.samaltman.com](https://blog.samaltman.com/the-gentle-singularity), retrieved 21 October 2026. Oviedo et al., Energy Use of AI Inference, Efficiency Pathways, and Test-Time Scaling, Microsoft Research, [arXiv 2509.20241](https://arxiv.org/abs/2509.20241) v2 (June 2026): median 0.31 Wh per query for frontier-scale models on H100 nodes, interquartile range 0.16 to 0.60 Wh, 3.91 Wh under test-time scaling, a modelled figure; retrieved 1 November 2026.
 
 [AI Energy Score leaderboard](https://huggingface.co/spaces/AIEnergyScore/Leaderboard) (AI Energy Score (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University)), December 2025 round, retrieved 26 September 2026: GPU energy per 1,000 text-generation queries at batch size 1 on NVIDIA H100 80GB GPUs (one card for class A and B models, several for class C). Grid intensity in the carbon question: Ember, Yearly electricity data, October 2026 release, 2024.
 
@@ -6958,7 +7058,7 @@ Cite this page: Lead Green, a Katonic project. Energy per token: definition and 
 
 ## How the term is used on the index
 
-Energy per token is average power divided by token throughput: on the reference row, 1,177.9 W summed across 2 cards ÷ 5,155.5 output tokens per second = 0.2285 J per token, which is 63.47 Wh/M. The identity is also the consistency check the [RFP scoring box](https://leadgreen.ai/why/#monday) applies to a bidder's figure.
+Energy per token is average power divided by token throughput: on the reference row, 1,177.9 W summed across 2 cards ÷ 5,155.5 output tokens per second = 0.2285 J per token, which is 63.47 Wh/M. The identity is also the consistency check the [RFP scoring box](https://leadgreen.ai/rfp/) applies to a bidder's figure.
 
 Three ways of getting the number are not equal. A measured figure reads the GPU's energy counter (NVIDIA NVML or DCGM, which Zeus uses) over a window of steady load and divides by the tokens served. A whole-system figure reads the server's power supplies and includes host, memory, network and fans, which on a DGX B200 adds about 1.79× to the GPU figure. An estimate multiplies a rated power (TDP) by an assumed utilisation and divides by an assumed throughput; it is the kind most often quoted and the kind the index does not publish. Energy per token falls as the running batch rises because the cards' fixed draw is spread over more tokens: see [running batch](https://leadgreen.ai/glossary/running-batch/).
 
@@ -7021,7 +7121,7 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards. **Running batch** is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as `num_requests_running`. It is not the cap the operator set (vLLM's `max_num_seqs`) and it does not count requests waiting in the queue. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from **8 to 256** cuts energy per token from **452 to 63.5 Wh/M**, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).
+Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards. **Running batch** is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as `num_requests_running`. It is not the cap the operator set (vLLM's `max_num_seqs`) and it does not count requests waiting in the queue. The scheduling that keeps it high is continuous batching, also called in-flight batching: requests join and leave the batch at every decode step, and the running batch is the average that scheduler actually held over the window. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from **8 to 256** cuts energy per token from **452 to 63.5 Wh/M**, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -7042,7 +7142,7 @@ Cite this page: Lead Green, a Katonic project. Running batch: definition and the
 
 The mechanism is fixed draw spread over more work. Between those two rows the cards' power rises 39 percent, from 850 W to 1,178 W, while output throughput rises 9.9×, from 522 to 5,155 tokens per second. Energy per token is power over throughput, so it falls by nearly the whole throughput gain. Median inter-token latency rises from 15 ms to 44 ms over the same range, far under the 500 ms ceiling.
 
-Running batch, not cap, is the figure to ask a vendor for, because a cap of 256 with eight users is a running batch of eight. The [RFP clause](https://leadgreen.ai/why/#monday) asks for both, and the index's [protocol](https://leadgreen.ai/contribute/#protocol) reports both. The full ladder, 9 configurations, is on [the index](https://leadgreen.ai/index/#concurrency) and the [model's page](https://leadgreen.ai/models/qwen-3-32b/).
+Running batch, not cap, is the figure to ask a vendor for, because a cap of 256 with eight users is a running batch of eight. The [RFP clause](https://leadgreen.ai/rfp/) asks for both, and the index's [protocol](https://leadgreen.ai/contribute/#protocol) reports both. The full ladder, 9 configurations, is on [the index](https://leadgreen.ai/index/#concurrency) and the [model's page](https://leadgreen.ai/models/qwen-3-32b/).
 
 *Where it is used*
 
@@ -7050,7 +7150,7 @@ Running batch, not cap, is the figure to ask a vendor for, because a cap of 256 
 
 - [The concurrency ladder](https://leadgreen.ai/index/#concurrency)
 - [Why it matters: utilisation](https://leadgreen.ai/why/#utilisation)
-- [The RFP clause](https://leadgreen.ai/why/#monday)
+- [The RFP clause](https://leadgreen.ai/rfp/)
 
 Other terms:
 
@@ -7070,6 +7170,10 @@ Other terms:
 ### What is running batch?
 
 The average number of requests a serving engine was decoding at once over the measurement window (vLLM's num_requests_running). It is not the configured cap and it excludes queued requests. The index reports it on every row because it is the variable that moves energy per token most: 7.1× for Qwen 3 32B on 2 × H100 between 8 and 256.
+
+### Is running batch the same as continuous batching?
+
+Continuous batching, also called in-flight batching, is the scheduling: requests join and leave the batch at every decode step instead of waiting for a fixed group to finish. Running batch is the measurement: how many requests that scheduler held at once, averaged over the steady-state window. The index reports the second because it is what sets energy per token; the first is how vLLM, TensorRT-LLM and SGLang reach it.
 
 ### Why does an idle GPU use more energy per token than a busy one?
 
@@ -7122,7 +7226,7 @@ Cite this page: Lead Green, a Katonic project. Floor: definition and the figure.
 
 ## How the term is used on the index
 
-The word is chosen so that the rows are read the right way round. A floor is not a typical figure and not a target; it is the best the benchmark found, and it tells a buyer the lowest number a vendor could honestly report for that model on that GPU. An answer below the floor is the one to question: the [RFP scoring box](https://leadgreen.ai/why/#monday) challenges any figure more than 10 percent under it and asks for the raw power and engine logs.
+The word is chosen so that the rows are read the right way round. A floor is not a typical figure and not a target; it is the best the benchmark found, and it tells a buyer the lowest number a vendor could honestly report for that model on that GPU. An answer below the floor is the one to question: the [RFP scoring box](https://leadgreen.ai/rfp/) challenges any figure more than 10 percent under it and asks for the raw power and engine logs.
 
 Floors move with the ceiling that defines them. At 500 ms no measured configuration is excluded; at 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. None of those tighter ceilings is applied to the index. Above the floors sit every other measured configuration, 328 in all, on the [model pages](https://leadgreen.ai/models/); the highest the leaderboard measured is Llama 3.1 405B Instruct on 8 × B200 at 6,073 Wh/M, holding 8 requests.
 
@@ -7132,7 +7236,7 @@ Floors move with the ceiling that defines them. At 500 ms no measured configurat
 
 - [The index](https://leadgreen.ai/index/)
 - [The index method](https://leadgreen.ai/index/#method)
-- [Scoring RFP answers](https://leadgreen.ai/why/#monday)
+- [Scoring RFP answers](https://leadgreen.ai/rfp/)
 
 Other terms:
 
@@ -7452,7 +7556,7 @@ Cite this page: Lead Green, a Katonic project. Inter-token latency ceiling: defi
 
 Energy and latency trade against each other through the running batch: more requests in flight means more tokens per joule and a longer wait between each user's tokens. On the reference model's ladder, median inter-token latency rises from 15 ms at a running batch of 8 to 44 ms at 256 while energy per token falls 7.1×. The reference row's p99 is 148 ms.
 
-Tighter ceilings would change rows: at 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. None of these is applied to the index; they are reported under [Method](https://leadgreen.ai/index/#method) so a reader with a stricter requirement can see what moves. In an RFP, fill the ceiling with the latency your users will accept, state it once and use it for every bidder; the [clause](https://leadgreen.ai/why/#monday) asks for median and p99 over the same window as the energy figure.
+Tighter ceilings would change rows: at 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. None of these is applied to the index; they are reported under [Method](https://leadgreen.ai/index/#method) so a reader with a stricter requirement can see what moves. In an RFP, fill the ceiling with the latency your users will accept, state it once and use it for every bidder; the [clause](https://leadgreen.ai/rfp/) asks for median and p99 over the same window as the energy figure.
 
 *Where it is used*
 
@@ -7460,7 +7564,7 @@ Tighter ceilings would change rows: at 250 ms, 1 row changes; at 100 ms, 7 rows 
 
 - [The index method](https://leadgreen.ai/index/#method)
 - [The concurrency ladder](https://leadgreen.ai/index/#concurrency)
-- [The RFP clause](https://leadgreen.ai/why/#monday)
+- [The RFP clause](https://leadgreen.ai/rfp/)
 
 Other terms:
 
@@ -7615,7 +7719,7 @@ GPU energy divided by the output tokens generated in the same steady-state windo
 
 ### [Running batch](https://leadgreen.ai/glossary/running-batch/)
 
-The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most. Term
+The average number of requests a serving engine was decoding at once over the measurement window, under continuous batching; the variable that moves energy per token most. Term
 
 ### [Floor](https://leadgreen.ai/glossary/floor/)
 
@@ -7641,7 +7745,7 @@ The latency limit that defines which configurations may be an index row: a media
 
 Total facility energy divided by IT equipment energy, per ISO/IEC 30134-2; the operator's own multiplier that takes a GPU figure to the building's meter.
 
-Each term's page carries its own FAQ and sources, and a Markdown copy at its URL followed by `index.md`. The terms are also the vocabulary of the [measurement protocol](https://leadgreen.ai/contribute/#protocol) and the [RFP clause](https://leadgreen.ai/why/#monday).
+Each term's page carries its own FAQ and sources, and a Markdown copy at its URL followed by `index.md`. The terms are also the vocabulary of the [measurement protocol](https://leadgreen.ai/contribute/#protocol) and the [RFP clause](https://leadgreen.ai/rfp/).
 
 ---
 
@@ -8452,20 +8556,21 @@ The ratio on each card is the second model's energy per token over the first's, 
 
 # Every question the site answers
 
-> Every question the site answers, from 62 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
+> Every question the site answers, from 63 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/faq/ (this file: https://leadgreen.ai/faq/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Questions*
 
-324 questions from 62 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
+330 questions from 63 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. FAQ: 324 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. FAQ: 330 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 - [Lead Green](https://leadgreen.ai/faq/#lead-green)
 - [Why it matters](https://leadgreen.ai/faq/#why-it-matters)
+- [AI energy in an RFP](https://leadgreen.ai/faq/#ai-energy-in-an-rfp)
 - [Per query](https://leadgreen.ai/faq/#per-query)
 - [H100 vs B200](https://leadgreen.ai/faq/#h100-vs-b200)
 - [Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct](https://leadgreen.ai/faq/#llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct)
@@ -8476,7 +8581,6 @@ Cite this page: Lead Green, a Katonic project. FAQ: 324 questions about GPU ener
 - [Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct](https://leadgreen.ai/faq/#qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct)
 - [Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct](https://leadgreen.ai/faq/#llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct)
 - [Qwen 3 8B vs Llama 3.1 8B Instruct](https://leadgreen.ai/faq/#qwen-3-8b-vs-llama-3-1-8b-instruct)
-- [Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/faq/#llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8)
 - [Models](https://leadgreen.ai/faq/#models)
 - [Grids](https://leadgreen.ai/faq/#grids)
 
@@ -8506,7 +8610,7 @@ Yes. The compilation and site text are CC BY 4.0 and the sources keep their own 
 
 Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. [Full answer](https://leadgreen.ai/#faq)
 
-*6 questions*
+*5 questions*
 
 ## [Why it matters](https://leadgreen.ai/why/)
 
@@ -8517,10 +8621,6 @@ Not per inference. Regulation (EU) 2024/1689 requires providers of general-purpo
 ### Which line of ESRS E1 does AI inference energy go on?
 
 For GPUs you run, the electricity is energy consumption from own operations under ESRS E1-5 (paragraph 37) and its emissions are Scope 2 under E1-6, location-based and market-based. [Full answer](https://leadgreen.ai/why/#faq)
-
-### How do I put AI energy efficiency in an RFP?
-
-Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with... [Full answer](https://leadgreen.ai/why/#faq)
 
 ### Why does an idle GPU use more energy per token than a busy one?
 
@@ -8536,11 +8636,39 @@ No, and that is the point. At the reference row and USD 0.10 per kWh the electri
 
 *6 questions*
 
+## [AI energy in an RFP](https://leadgreen.ai/rfp/)
+
+### How do I put AI energy efficiency in an RFP?
+
+Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with... [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### What unit should an RFP use for AI energy?
+
+GPU watt-hours per million output tokens (Wh/M), GPU energy only, at a stated running batch and latency. [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### What running batch and latency should the RFP specify?
+
+The running batch you expect in production, as a number [N], and the median [T] and p99 [T99] inter-token latency your users will accept, the same for every bidder. [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### How do I score a bidder's energy figure?
+
+Gate first: an answer counts only if it carries the figure, the cap and running batch held, median and p99 latency, output tokens per response, tokens per second, average GPU power, the method, the tool, the versions, the date and the... [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### Can I ask a hosted API provider for energy per token?
+
+Yes, as a fleet-average figure over the preceding quarter at the fleet's actual utilisation, with the boundary stated, the serving regions and their grids named, the sites' PUE and host-to-GPU power ratio given, the rule that allocates a... [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### Is PUE enough to compare AI vendors on energy?
+
+No. Power usage effectiveness is the building's overhead on top of the IT load; it says nothing about how much work the IT load does. [Full answer](https://leadgreen.ai/rfp/#faq)
+
+*6 questions*
+
 ## [Per query](https://leadgreen.ai/per-query/)
 
 ### How much energy does an AI query use?
 
-About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025) and OpenAI (0.34 Wh, June 2025). [Full answer](https://leadgreen.ai/per-query/#faq)
+About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025), OpenAI (0.34 Wh, June 2025) and Microsoft Research (0.31 Wh, a modelled median for a... [Full answer](https://leadgreen.ai/per-query/#faq)
 
 ### Why is Google's 0.24 Wh per prompt higher than the index's figure?
 
@@ -8846,13 +8974,17 @@ Estimates multiply a rated power by an assumed utilisation and divide by an assu
 
 Not on this index. The figures are GPU energy only. A whole-system reading adds the host, memory, network and fans (about 1.79× for a DGX B200, from NVIDIA's rated system and GPU power), and the facility's PUE adds cooling and distribution... [Full answer](https://leadgreen.ai/glossary/energy-per-token/#faq)
 
-*4 questions*
+*5 questions*
 
 ## [Running batch](https://leadgreen.ai/glossary/running-batch/)
 
 ### What is running batch?
 
 The average number of requests a serving engine was decoding at once over the measurement window (vLLM's num_requests_running). [Full answer](https://leadgreen.ai/glossary/running-batch/#faq)
+
+### Is running batch the same as continuous batching?
+
+Continuous batching, also called in-flight batching, is the scheduling: requests join and leave the batch at every decode step instead of waiting for a fixed group to finish. [Full answer](https://leadgreen.ai/glossary/running-batch/#faq)
 
 ### Why does an idle GPU use more energy per token than a busy one?
 

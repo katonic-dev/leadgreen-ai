@@ -1,12 +1,12 @@
 # India: the carbon of AI inference per billion tokens
 
-> About 44.9 kg CO2e per billion LLM output tokens on India's grid (707 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 44.9 kg CO2e per billion LLM output tokens (44.9 g per million) on India's grid (707 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/india/ (this file: https://leadgreen.ai/grids/india/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on India's grid emits about **44.9 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 9.2 kg and its highest 405.1 kg. The grid ran at **707 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.5× the world average of 473, and 181st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on India's grid emits about **44.9 kg CO2e per billion output tokens**, 44.9 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 9.2 kg and its highest 405.1 kg. The grid ran at **707 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.5× the world average of 473, and 181st of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** India (IND, IN). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 

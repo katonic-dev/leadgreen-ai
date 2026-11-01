@@ -15,7 +15,8 @@ Key readings (ML.ENERGY Leaderboard v3.0, Text Conversation workload, energy-opt
 
 ## Pages
 - [Home](https://leadgreen.ai/): what Lead Green is, why it exists, who it is for
-- [Why it matters](https://leadgreen.ai/why/): nine reasons the number belongs in procurement, operations and reporting, with an RFP clause
+- [Why it matters](https://leadgreen.ai/why/): nine reasons the number belongs in procurement, operations and reporting, and what to do on Monday
+- [How to put AI energy efficiency in an RFP](https://leadgreen.ai/rfp/): the clause to paste, the scoring method and the hosted-API variant, in GPU watt-hours per million output tokens at a stated running batch and latency
 - [The index](https://leadgreen.ai/index/): the full tables, method, sources ledger and change record
 - [Models](https://leadgreen.ai/models/): one page per model, with every measured configuration, H100 against B200 and carbon by grid
 - [H100 vs B200](https://leadgreen.ai/h100-vs-b200/): the 14 models measured on both cards, the gap per model and how much of it is the sweep
@@ -159,10 +160,11 @@ Every page has a Markdown copy at its URL followed by index.md, generated from t
 - https://leadgreen.ai/models/qwen-3-8b/index.md
 - https://leadgreen.ai/newsletter/index.md
 - https://leadgreen.ai/per-query/index.md
+- https://leadgreen.ai/rfp/index.md
 - https://leadgreen.ai/why/index.md
 
 ## Full text
-- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 79 pages.
+- https://leadgreen.ai/llms-full.txt: every Markdown copy above in one file, sitemap order, 80 pages.
 
 ## Changes and API description
 - https://leadgreen.ai/changes/: the dated record of every change to the figures, every frozen data release with its hash, and each MCP server version.

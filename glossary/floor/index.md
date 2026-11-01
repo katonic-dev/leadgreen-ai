@@ -25,7 +25,7 @@ Cite this page: Lead Green, a Katonic project. Floor: definition and the figure.
 
 ## How the term is used on the index
 
-The word is chosen so that the rows are read the right way round. A floor is not a typical figure and not a target; it is the best the benchmark found, and it tells a buyer the lowest number a vendor could honestly report for that model on that GPU. An answer below the floor is the one to question: the [RFP scoring box](https://leadgreen.ai/why/#monday) challenges any figure more than 10 percent under it and asks for the raw power and engine logs.
+The word is chosen so that the rows are read the right way round. A floor is not a typical figure and not a target; it is the best the benchmark found, and it tells a buyer the lowest number a vendor could honestly report for that model on that GPU. An answer below the floor is the one to question: the [RFP scoring box](https://leadgreen.ai/rfp/) challenges any figure more than 10 percent under it and asks for the raw power and engine logs.
 
 Floors move with the ceiling that defines them. At 500 ms no measured configuration is excluded; at 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. None of those tighter ceilings is applied to the index. Above the floors sit every other measured configuration, 328 in all, on the [model pages](https://leadgreen.ai/models/); the highest the leaderboard measured is Llama 3.1 405B Instruct on 8 × B200 at 6,073 Wh/M, holding 8 requests.
 
@@ -35,7 +35,7 @@ Floors move with the ceiling that defines them. At 500 ms no measured configurat
 
 - [The index](https://leadgreen.ai/index/)
 - [The index method](https://leadgreen.ai/index/#method)
-- [Scoring RFP answers](https://leadgreen.ai/why/#monday)
+- [Scoring RFP answers](https://leadgreen.ai/rfp/)
 
 Other terms:
 

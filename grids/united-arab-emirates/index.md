@@ -6,7 +6,7 @@
 
 *[Grids](https://leadgreen.ai/grids/) · Asia · a market Katonic sells in or expects to*
 
-An LLM served on United Arab Emirates's grid emits about **30.3 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 6.2 kg and its highest 273.5 kg. The grid ran at **477 gCO2e per kWh** in 2024 on Ember's yearly figures, close to the world average of 473, and 100th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on United Arab Emirates's grid emits about **30.3 kg CO2e per billion output tokens**, 30.3 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 6.2 kg and its highest 273.5 kg. The grid ran at **477 gCO2e per kWh** in 2024 on Ember's yearly figures, close to the world average of 473, and 100th of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** United Arab Emirates (ARE, AE). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 

@@ -1,6 +1,6 @@
 # Nine reasons to know your watt-hours per million tokens
 
-> Why GPU energy per million output tokens belongs in procurement, operations and reporting, with the working, the sources and an RFP clause to paste.
+> Why GPU energy per million output tokens belongs in procurement, operations and reporting, with the working, the sources and what to do on Monday.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/why/ (this file: https://leadgreen.ai/why/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
@@ -122,21 +122,9 @@ Source: [NVIDIA Multi-Instance GPU User Guide, supported MIG profiles](https://d
 
 Source for the workload comparison: ML.ENERGY Leaderboard v3.0, Problem Solving (gpqa) against Text Conversation, energy-optimal rows at or under a 500 ms median inter-token latency, the leaderboard's own default for both tasks; no measured configuration exceeds 326 ms, so the limit changes no row; 11 model and GPU pairs measured on both.
 
-*RFP clause, ready to paste*
+*The clause and the scoring method*
 
-"The bidder shall state the GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state with the proposed serving engine on the proposed hardware, at an average running batch of [N] and with median inter-token latency not exceeding [T] ms and p99 inter-token latency not exceeding [T99] ms, both reported, on the prompt set supplied by the buyer in Annex [X], stating the average prompt and output token counts measured; where the buyer supplies none, on the LM Arena conversation sample used by the ML.ENERGY Leaderboard v3.0, named as such. Steady state, running batch and latency are as defined in the Lead Green measurement protocol v0.2 (leadgreen.ai/contribute/#protocol): a fixed cap of [N] sequences, held at least five minutes after warm-up and for at least 1,000 requests; the bidder shall report both the cap and the average running batch the server actually held, and the median and p99 inter-token latency over the same window. The bidder shall name the measurement method, the sampling tool, the software versions and the date. The figure shall be GPU energy only; host, network and cooling energy, where measured, shall be reported as separate figures and not folded in. The bidder shall attach the GPU power log and serving-engine log from which the figure was computed and shall state time to first token at the same load. The buyer may repeat the measurement on the delivered system at acceptance with the same prompt set; a result more than [X] percent above the stated figure is a non-conformance. Figures for sliced (MIG) configurations shall be measured with every slice on the card serving the proposed workload at the same time, reporting the card's energy per million output tokens, the slice profile, the slice count and the slices loaded. No figure may divide the card's energy by a slice count or come from a run in which any slice sat idle. A figure derived from a whole-card measurement at a different profile is not acceptable. Any carbon figure quoted shall name the grid, the emission factor source and year, whether the factor is combustion-only or lifecycle, and whether any market-based instruments have been applied, with the location-based figure stated in all cases. A bidder that cannot measure GPU energy for the proposed service, for example a hosted API on a closed-weight model, shall state that it cannot, shall attach the model provider's published energy documentation if any (Regulation (EU) 2024/1689, Annex XI, Section 1, point 2(e)), and shall not substitute a per-query or per-request figure that lacks the output token count, the concurrency and the hardware. A figure withheld as confidential is treated as not stated. The bidder may mark the raw logs confidential; the figure, the method, the running batch, the latency and the inclusion statement are not confidential and will be shared across the evaluation panel."
-
-*Scoring the answers*
-
-1. **Gate.** An answer counts only if it carries the figure, the cap and the average running batch held, median and p99 inter-token latency, average output tokens per response, output tokens per second, average GPU power summed across cards, the method, the tool, the versions, the date and the GPU-only statement. An answer missing any of them scores zero on this criterion and is not disqualified.
-2. **Floor.** For the same model and GPU, the floor is the configuration in `models/<slug>.json` with the smallest average running batch at or above [N] whose median inter-token latency is at or under [T] ms; if there is none, the configuration with the highest measured running batch.
-3. **Tolerance.** An answer more than 10 percent below the floor is challenged, and the bidder supplies the raw power and engine logs. The protocol's own repeat threshold is 5 percent.
-4. **Consistency.** Wh/M must equal average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. On the reference row: 1,177.9 W ÷ 5,155.5 tokens per second × 1,000,000 ÷ 3,600 = 63.47 Wh/M. An answer that fails the check beyond rounding is treated as not stated.
-5. **Cannot measure.** An answer that declares it cannot measure, as the clause provides, is scored as not stated, not compared.
-6. **Confidential.** A figure withheld as confidential is scored as not stated. Logs may be confidential; the figure, method, running batch, latency and inclusion statement may not.
-7. **Where Katonic bids.** Lead Green is a Katonic project. In a tender where Katonic may bid, take floor values from the ML.ENERGY rows directly and disclose the compilation, using the wording in [Using the index in a tender](https://leadgreen.ai/about/#tender).
-
-Fill [N] with the running batch you expect in production and [T] and [T99] with the latency your users will accept. The index uses 500 ms, the leaderboard's default, as a benchmark ceiling, not a recommendation, and no measured configuration reaches it. For an interactive assistant set [T] where your users would notice, and use the same [N] and [T] for every bidder. Everything else in the clause is there so that two bidders' numbers can be compared.
+Both have their own page, with a variant for hosted APIs: [How to put AI energy efficiency in an RFP](https://leadgreen.ai/rfp/). Fill [N] with the running batch you expect in production and [T] and [T99] with the latency your users will accept, and use the same values for every bidder.
 
 *Hosted API*
 
@@ -158,11 +146,7 @@ The reporting line differs too. On GPUs you run, the electricity is your own con
 
 Together they give the supplier-specific figure your Scope 3 category 1 line needs, and the index tells you whether the first number is plausible.
 
-*RFP clause, hosted or shared inference service*
-
-"For a hosted or shared inference service, the bidder shall state, for each proposed model and service tier, the fleet-average GPU energy per million output tokens (Wh/M) over the preceding quarter at the fleet's actual utilisation, and shall state whether host, network and cooling energy are included; where they are measured they shall be reported as separate figures and not folded in. The bidder shall name the facilities and grid regions that will serve the buyer's traffic and the grid or contracted supply behind each, shall state their power usage effectiveness and the host-to-GPU power ratio of the serving systems, and shall state the rule by which the energy of a shared fleet is allocated to the buyer. Any carbon figure quoted shall name the grid, the emission factor source and year, whether the factor is combustion-only or lifecycle, and whether any market-based instruments have been applied, with the location-based figure stated in all cases. Any per-prompt or per-request figure offered shall state the output length, the concurrency and the boundary behind it. The bidder shall restate these figures to the buyer every quarter for the term of the contract. A bidder that cannot state the fleet figure shall say so; that answer is scored as not stated, not compared."
-
-Use it as the second lot beside the on-premise clause above, so a tender with both lots scores both. The cannot-measure and confidential rules in "Scoring the answers" apply to it too.
+The clause for a hosted or shared inference service is on [the RFP page](https://leadgreen.ai/rfp/#hosted), as the second lot beside the on-premise clause; the cannot-measure and confidential rules apply to it too.
 
 *Questions*
 
@@ -175,10 +159,6 @@ Not per inference. Regulation (EU) 2024/1689 requires providers of general-purpo
 ### Which line of ESRS E1 does AI inference energy go on?
 
 For GPUs you run, the electricity is energy consumption from own operations under ESRS E1-5 (paragraph 37) and its emissions are Scope 2 under E1-6, location-based and market-based. Tokens bought from a hosted API are the provider's Scope 2 and your Scope 3, category 1, purchased goods and services. In both cases the forecasting unit is energy per million tokens: tokens served next year multiplied by Wh/M gives the MWh.
-
-### How do I put AI energy efficiency in an RFP?
-
-Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with median and p99 inter-token latency reported, on the buyer's prompt set or the ML.ENERGY Leaderboard's conversation sample, GPU energy only, naming the method, the tool, the versions and the date. Score it with a gate on completeness, a floor from the index's rows for the same model and GPU, a challenge at 10 percent below the floor, and the consistency check Wh/M = average GPU power ÷ output tokens per second × 1,000,000 ÷ 3,600. The clause and the scoring box on this page are ready to paste.
 
 ### Why does an idle GPU use more energy per token than a busy one?
 

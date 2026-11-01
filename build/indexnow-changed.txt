@@ -1,5 +1,15 @@
 https://leadgreen.ai/
+https://leadgreen.ai/about/
+https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/
+https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/
+https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/
+https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/
 https://leadgreen.ai/faq/
+https://leadgreen.ai/glossary/
+https://leadgreen.ai/glossary/energy-per-token/
+https://leadgreen.ai/glossary/floor/
+https://leadgreen.ai/glossary/inter-token-latency-ceiling/
+https://leadgreen.ai/glossary/running-batch/
 https://leadgreen.ai/grids/australia/
 https://leadgreen.ai/grids/bulgaria/
 https://leadgreen.ai/grids/france/
@@ -22,4 +32,6 @@ https://leadgreen.ai/grids/the-philippines/
 https://leadgreen.ai/grids/united-arab-emirates/
 https://leadgreen.ai/grids/united-kingdom/
 https://leadgreen.ai/grids/united-states/
-https://leadgreen.ai/h100-vs-b200/
+https://leadgreen.ai/per-query/
+https://leadgreen.ai/rfp/
+https://leadgreen.ai/why/
