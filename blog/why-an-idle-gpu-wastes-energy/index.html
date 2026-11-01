@@ -159,7 +159,7 @@
 <ul>
   <li><b>Measure your running batch before you buy anything.</b> vLLM reports it as <code>num_requests_running</code>; average it over a busy hour. If it is in single figures you are at the top of the ladder, and no change of card on the <a href="../../h100-vs-b200/">comparison page</a> moves the number as far as filling the cards you have.</li>
   <li><b>Consolidate.</b> Fewer, busier cards. Three teams each running their own copy of the same model on their own pair of cards is the usual arrangement I see; one shared deployment carrying all three sits rows further down this table, and it costs nothing in hardware.</li>
-  <li><b>Ask the vendor for Wh per million output tokens at your running batch,</b> not theirs, and put your own [N] into the RFP clause on the <a href="../../why/#monday">why page</a>. A figure measured at 256 in flight tells you nothing about a service that will run at 8.</li>
+  <li><b>Ask the vendor for Wh per million output tokens at your running batch,</b> not theirs, and put your own [N] into the RFP clause on the <a href="../../rfp/">why page</a>. A figure measured at 256 in flight tells you nothing about a service that will run at 8.</li>
   <li><b>Do not chase the bottom of the table.</b> Past the best row the users wait and the energy does not fall. Pick the row on the <a href="../../models/qwen-3-32b/">model page</a> that matches the latency you promised, and hold the vendor to it.</li>
 </ul>
 <p>I think this is the table to take into the capacity meeting, because it is the lever you already hold. The full ladders, with the definitions, are on <a href="../../index/#concurrency">the index</a>.</p>

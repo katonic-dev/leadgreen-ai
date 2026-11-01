@@ -68,7 +68,7 @@ I wish I could tell you the platform we build already measures this for every te
 
 ## What to do with it
 
-Ask your vendor for Wh per million output tokens at your concurrency, not theirs. Measure your own with DCGM; one row is an afternoon's work on a card you control, and a MIG pair is an evening. And put the number in the RFP. The clause is on the [why page](https://leadgreen.ai/why/#monday). If two bidders give you the same figure at the same load, you have learned something. If neither can, you have learned more.
+Ask your vendor for Wh per million output tokens at your concurrency, not theirs. Measure your own with DCGM; one row is an afternoon's work on a card you control, and a MIG pair is an evening. And put the number in the RFP. The clause is on the [why page](https://leadgreen.ai/rfp/). If two bidders give you the same figure at the same load, you have learned something. If neither can, you have learned more.
 
 *References*
 

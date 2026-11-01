@@ -26,7 +26,7 @@ GPU energy divided by the output tokens generated in the same steady-state windo
 
 ### [Running batch](https://leadgreen.ai/glossary/running-batch/)
 
-The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most. Term
+The average number of requests a serving engine was decoding at once over the measurement window, under continuous batching; the variable that moves energy per token most. Term
 
 ### [Floor](https://leadgreen.ai/glossary/floor/)
 
@@ -52,4 +52,4 @@ The latency limit that defines which configurations may be an index row: a media
 
 Total facility energy divided by IT equipment energy, per ISO/IEC 30134-2; the operator's own multiplier that takes a GPU figure to the building's meter.
 
-Each term's page carries its own FAQ and sources, and a Markdown copy at its URL followed by `index.md`. The terms are also the vocabulary of the [measurement protocol](https://leadgreen.ai/contribute/#protocol) and the [RFP clause](https://leadgreen.ai/why/#monday).
+Each term's page carries its own FAQ and sources, and a Markdown copy at its URL followed by `index.md`. The terms are also the vocabulary of the [measurement protocol](https://leadgreen.ai/contribute/#protocol) and the [RFP clause](https://leadgreen.ai/rfp/).

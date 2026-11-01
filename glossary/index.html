@@ -85,7 +85,7 @@
      "@type": "DefinedTerm",
      "@id": "https://leadgreen.ai/glossary/running-batch/#term",
      "name": "Running batch",
-     "description": "The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.",
+     "description": "The average number of requests a serving engine was decoding at once over the measurement window, under continuous batching; the variable that moves energy per token most.",
      "url": "https://leadgreen.ai/glossary/running-batch/"
     },
     {
@@ -191,7 +191,7 @@
   <div class="cards">
 <div class="card"><span class="k">Term</span><h3><a href="../glossary/watt-hours-per-million-output-tokens/">Watt-hours per million output tokens (Wh/M)</a></h3><p>The unit of the index: the GPU energy, in watt-hours, that a serving configuration uses to generate one million output tokens.</p></div>
 <div class="card"><span class="k">Term</span><h3><a href="../glossary/energy-per-token/">Energy per token</a></h3><p>GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.</p></div>
-<div class="card"><span class="k">Term</span><h3><a href="../glossary/running-batch/">Running batch</a></h3><p>The average number of requests a serving engine was decoding at once over the measurement window; the variable that moves energy per token most.</p></div>
+<div class="card"><span class="k">Term</span><h3><a href="../glossary/running-batch/">Running batch</a></h3><p>The average number of requests a serving engine was decoding at once over the measurement window, under continuous batching; the variable that moves energy per token most.</p></div>
 <div class="card"><span class="k">Term</span><h3><a href="../glossary/floor/">Floor</a></h3><p>What every index row is: the lowest GPU energy per token measured for a model and GPU under the latency ceiling, which a real deployment sits above.</p></div>
 <div class="card"><span class="k">Term</span><h3><a href="../glossary/gpu-only-boundary/">GPU-only boundary</a></h3><p>The measurement boundary of every index row: energy read from the GPUs alone, with host, network, cooling, idle time and embodied carbon outside it.</p></div>
 <div class="card"><span class="k">Term</span><h3><a href="../glossary/location-based-intensity/">Location-based grid intensity</a></h3><p>The average carbon intensity of the electricity generated where a GPU runs, in gCO2e per kWh; the factor that turns energy per token into carbon per token.</p></div>
@@ -199,7 +199,7 @@
 <div class="card"><span class="k">Term</span><h3><a href="../glossary/inter-token-latency-ceiling/">Inter-token latency ceiling</a></h3><p>The latency limit that defines which configurations may be an index row: a median inter-token latency at or under 500 ms, the leaderboard&#x27;s own default.</p></div>
 <div class="card"><span class="k">Term</span><h3><a href="../glossary/pue/">Power usage effectiveness (PUE)</a></h3><p>Total facility energy divided by IT equipment energy, per ISO/IEC 30134-2; the operator&#x27;s own multiplier that takes a GPU figure to the building&#x27;s meter.</p></div>
   </div>
-  <p class="note">Each term's page carries its own FAQ and sources, and a Markdown copy at its URL followed by <code>index.md</code>. The terms are also the vocabulary of the <a href="../contribute/#protocol">measurement protocol</a> and the <a href="../why/#monday">RFP clause</a>.</p>
+  <p class="note">Each term's page carries its own FAQ and sources, and a Markdown copy at its URL followed by <code>index.md</code>. The terms are also the vocabulary of the <a href="../contribute/#protocol">measurement protocol</a> and the <a href="../rfp/">RFP clause</a>.</p>
 </section>
   </main>
 

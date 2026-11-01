@@ -1,12 +1,12 @@
 # Serbia: the carbon of AI inference per billion tokens
 
-> About 42.4 kg CO2e per billion LLM output tokens on Serbia's grid (668 gCO2e/kWh, 2024, Ember), every index model priced, trend since 2023.
+> About 42.4 kg CO2e per billion LLM output tokens (42.4 g per million) on Serbia's grid (668 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/serbia/ (this file: https://leadgreen.ai/grids/serbia/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a market Katonic sells in or expects to*
 
-An LLM served on Serbia's grid emits about **42.4 kg CO2e per billion output tokens** at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.7 kg and its highest 382.9 kg. The grid ran at **668 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× the world average of 473, and 172nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Serbia's grid emits about **42.4 kg CO2e per billion output tokens**, 42.4 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 8.7 kg and its highest 382.9 kg. The grid ran at **668 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.4× the world average of 473, and 172nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Serbia (SRB, RS). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 

@@ -27,7 +27,7 @@ Cite this page: Lead Green, a Katonic project. Inter-token latency ceiling: defi
 
 Energy and latency trade against each other through the running batch: more requests in flight means more tokens per joule and a longer wait between each user's tokens. On the reference model's ladder, median inter-token latency rises from 15 ms at a running batch of 8 to 44 ms at 256 while energy per token falls 7.1×. The reference row's p99 is 148 ms.
 
-Tighter ceilings would change rows: at 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. None of these is applied to the index; they are reported under [Method](https://leadgreen.ai/index/#method) so a reader with a stricter requirement can see what moves. In an RFP, fill the ceiling with the latency your users will accept, state it once and use it for every bidder; the [clause](https://leadgreen.ai/why/#monday) asks for median and p99 over the same window as the energy figure.
+Tighter ceilings would change rows: at 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 14.7 Wh/M; at 50 ms, 19 rows change and the lowest becomes Qwen 3 8B on 1 × B200 at 17.2 Wh/M and the highest becomes Llama 3.1 405B Instruct FP8 on 8 × H100 at 674.9 Wh/M. None of these is applied to the index; they are reported under [Method](https://leadgreen.ai/index/#method) so a reader with a stricter requirement can see what moves. In an RFP, fill the ceiling with the latency your users will accept, state it once and use it for every bidder; the [clause](https://leadgreen.ai/rfp/) asks for median and p99 over the same window as the energy figure.
 
 *Where it is used*
 
@@ -35,7 +35,7 @@ Tighter ceilings would change rows: at 250 ms, 1 row changes; at 100 ms, 7 rows 
 
 - [The index method](https://leadgreen.ai/index/#method)
 - [The concurrency ladder](https://leadgreen.ai/index/#concurrency)
-- [The RFP clause](https://leadgreen.ai/why/#monday)
+- [The RFP clause](https://leadgreen.ai/rfp/)
 
 Other terms:
 

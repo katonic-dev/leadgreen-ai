@@ -89,7 +89,7 @@ To see what concurrency, quantisation and GPU generation do to energy per token,
 
 ### Procurement
 
-To ask every bidder for the same figure at the same load, in [a clause](https://leadgreen.ai/why/#monday) that names the unit and the latency limit and tells you what to fill in, with a scoring method beside it.
+To ask every bidder for the same figure at the same load, in [a clause](https://leadgreen.ai/rfp/) that names the unit and the latency limit and tells you what to fill in, with a scoring method beside it.
 
 ### Facility and capacity planner
 

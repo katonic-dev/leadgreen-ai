@@ -1,19 +1,20 @@
 # Every question the site answers
 
-> Every question the site answers, from 62 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
+> Every question the site answers, from 63 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/faq/ (this file: https://leadgreen.ai/faq/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Questions*
 
-324 questions from 62 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
+330 questions from 63 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. FAQ: 324 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. FAQ: 330 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.
 
 - [Lead Green](https://leadgreen.ai/faq/#lead-green)
 - [Why it matters](https://leadgreen.ai/faq/#why-it-matters)
+- [AI energy in an RFP](https://leadgreen.ai/faq/#ai-energy-in-an-rfp)
 - [Per query](https://leadgreen.ai/faq/#per-query)
 - [H100 vs B200](https://leadgreen.ai/faq/#h100-vs-b200)
 - [Llama 3.1 8B Instruct vs Llama 3.3 70B Instruct](https://leadgreen.ai/faq/#llama-3-1-8b-instruct-vs-llama-3-3-70b-instruct)
@@ -24,7 +25,6 @@ Cite this page: Lead Green, a Katonic project. FAQ: 324 questions about GPU ener
 - [Qwen 3 235B A22B Instruct FP8 vs Qwen 3 235B A22B Instruct](https://leadgreen.ai/faq/#qwen-3-235b-a22b-instruct-fp8-vs-qwen-3-235b-a22b-instruct)
 - [Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct](https://leadgreen.ai/faq/#llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct)
 - [Qwen 3 8B vs Llama 3.1 8B Instruct](https://leadgreen.ai/faq/#qwen-3-8b-vs-llama-3-1-8b-instruct)
-- [Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8](https://leadgreen.ai/faq/#llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8)
 - [Models](https://leadgreen.ai/faq/#models)
 - [Grids](https://leadgreen.ai/faq/#grids)
 
@@ -54,7 +54,7 @@ Yes. The compilation and site text are CC BY 4.0 and the sources keep their own 
 
 Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. [Full answer](https://leadgreen.ai/#faq)
 
-*6 questions*
+*5 questions*
 
 ## [Why it matters](https://leadgreen.ai/why/)
 
@@ -65,10 +65,6 @@ Not per inference. Regulation (EU) 2024/1689 requires providers of general-purpo
 ### Which line of ESRS E1 does AI inference energy go on?
 
 For GPUs you run, the electricity is energy consumption from own operations under ESRS E1-5 (paragraph 37) and its emissions are Scope 2 under E1-6, location-based and market-based. [Full answer](https://leadgreen.ai/why/#faq)
-
-### How do I put AI energy efficiency in an RFP?
-
-Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with... [Full answer](https://leadgreen.ai/why/#faq)
 
 ### Why does an idle GPU use more energy per token than a busy one?
 
@@ -84,11 +80,39 @@ No, and that is the point. At the reference row and USD 0.10 per kWh the electri
 
 *6 questions*
 
+## [AI energy in an RFP](https://leadgreen.ai/rfp/)
+
+### How do I put AI energy efficiency in an RFP?
+
+Ask every bidder for the same figure at the same load: GPU energy per million output tokens (Wh/M) for each proposed model and serving configuration, measured at steady state on the proposed hardware at a stated average running batch, with... [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### What unit should an RFP use for AI energy?
+
+GPU watt-hours per million output tokens (Wh/M), GPU energy only, at a stated running batch and latency. [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### What running batch and latency should the RFP specify?
+
+The running batch you expect in production, as a number [N], and the median [T] and p99 [T99] inter-token latency your users will accept, the same for every bidder. [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### How do I score a bidder's energy figure?
+
+Gate first: an answer counts only if it carries the figure, the cap and running batch held, median and p99 latency, output tokens per response, tokens per second, average GPU power, the method, the tool, the versions, the date and the... [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### Can I ask a hosted API provider for energy per token?
+
+Yes, as a fleet-average figure over the preceding quarter at the fleet's actual utilisation, with the boundary stated, the serving regions and their grids named, the sites' PUE and host-to-GPU power ratio given, the rule that allocates a... [Full answer](https://leadgreen.ai/rfp/#faq)
+
+### Is PUE enough to compare AI vendors on energy?
+
+No. Power usage effectiveness is the building's overhead on top of the IT load; it says nothing about how much work the IT load does. [Full answer](https://leadgreen.ai/rfp/#faq)
+
+*6 questions*
+
 ## [Per query](https://leadgreen.ai/per-query/)
 
 ### How much energy does an AI query use?
 
-About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025) and OpenAI (0.34 Wh, June 2025). [Full answer](https://leadgreen.ai/per-query/#faq)
+About 0.24 to 0.34 Wh across the whole serving stack, by the published figures from Google (0.24 Wh, August 2025), Epoch AI (0.3 Wh, February 2025), OpenAI (0.34 Wh, June 2025) and Microsoft Research (0.31 Wh, a modelled median for a... [Full answer](https://leadgreen.ai/per-query/#faq)
 
 ### Why is Google's 0.24 Wh per prompt higher than the index's figure?
 
@@ -394,13 +418,17 @@ Estimates multiply a rated power by an assumed utilisation and divide by an assu
 
 Not on this index. The figures are GPU energy only. A whole-system reading adds the host, memory, network and fans (about 1.79× for a DGX B200, from NVIDIA's rated system and GPU power), and the facility's PUE adds cooling and distribution... [Full answer](https://leadgreen.ai/glossary/energy-per-token/#faq)
 
-*4 questions*
+*5 questions*
 
 ## [Running batch](https://leadgreen.ai/glossary/running-batch/)
 
 ### What is running batch?
 
 The average number of requests a serving engine was decoding at once over the measurement window (vLLM's num_requests_running). [Full answer](https://leadgreen.ai/glossary/running-batch/#faq)
+
+### Is running batch the same as continuous batching?
+
+Continuous batching, also called in-flight batching, is the scheduling: requests join and leave the batch at every decode step instead of waiting for a fixed group to finish. [Full answer](https://leadgreen.ai/glossary/running-batch/#faq)
 
 ### Why does an idle GPU use more energy per token than a busy one?
 

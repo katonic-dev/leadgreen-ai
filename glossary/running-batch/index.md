@@ -6,7 +6,7 @@
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards. **Running batch** is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as `num_requests_running`. It is not the cap the operator set (vLLM's `max_num_seqs`) and it does not count requests waiting in the queue. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from **8 to 256** cuts energy per token from **452 to 63.5 Wh/M**, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).
+Raising the running batch of Qwen 3 32B on 2 × H100 from 8 to 256 cuts GPU energy from 452.0 to 63.5 Wh per million tokens, 7.1× on the same cards. **Running batch** is the average number of requests a serving engine was actually decoding at the same time over the steady-state window, which vLLM reports as `num_requests_running`. It is not the cap the operator set (vLLM's `max_num_seqs`) and it does not count requests waiting in the queue. The scheduling that keeps it high is continuous batching, also called in-flight batching: requests join and leave the batch at every decode step, and the running batch is the average that scheduler actually held over the window. On the index, raising the running batch of Qwen 3 32B on 2 × H100 from **8 to 256** cuts energy per token from **452 to 63.5 Wh/M**, 7.1× on the same hardware (ML.ENERGY Leaderboard v3.0, Text Conversation, data compiled 16 February 2026).
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -27,7 +27,7 @@ Cite this page: Lead Green, a Katonic project. Running batch: definition and the
 
 The mechanism is fixed draw spread over more work. Between those two rows the cards' power rises 39 percent, from 850 W to 1,178 W, while output throughput rises 9.9×, from 522 to 5,155 tokens per second. Energy per token is power over throughput, so it falls by nearly the whole throughput gain. Median inter-token latency rises from 15 ms to 44 ms over the same range, far under the 500 ms ceiling.
 
-Running batch, not cap, is the figure to ask a vendor for, because a cap of 256 with eight users is a running batch of eight. The [RFP clause](https://leadgreen.ai/why/#monday) asks for both, and the index's [protocol](https://leadgreen.ai/contribute/#protocol) reports both. The full ladder, 9 configurations, is on [the index](https://leadgreen.ai/index/#concurrency) and the [model's page](https://leadgreen.ai/models/qwen-3-32b/).
+Running batch, not cap, is the figure to ask a vendor for, because a cap of 256 with eight users is a running batch of eight. The [RFP clause](https://leadgreen.ai/rfp/) asks for both, and the index's [protocol](https://leadgreen.ai/contribute/#protocol) reports both. The full ladder, 9 configurations, is on [the index](https://leadgreen.ai/index/#concurrency) and the [model's page](https://leadgreen.ai/models/qwen-3-32b/).
 
 *Where it is used*
 
@@ -35,7 +35,7 @@ Running batch, not cap, is the figure to ask a vendor for, because a cap of 256 
 
 - [The concurrency ladder](https://leadgreen.ai/index/#concurrency)
 - [Why it matters: utilisation](https://leadgreen.ai/why/#utilisation)
-- [The RFP clause](https://leadgreen.ai/why/#monday)
+- [The RFP clause](https://leadgreen.ai/rfp/)
 
 Other terms:
 
@@ -55,6 +55,10 @@ Other terms:
 ### What is running batch?
 
 The average number of requests a serving engine was decoding at once over the measurement window (vLLM's num_requests_running). It is not the configured cap and it excludes queued requests. The index reports it on every row because it is the variable that moves energy per token most: 7.1× for Qwen 3 32B on 2 × H100 between 8 and 256.
+
+### Is running batch the same as continuous batching?
+
+Continuous batching, also called in-flight batching, is the scheduling: requests join and leave the batch at every decode step instead of waiting for a fixed group to finish. Running batch is the measurement: how many requests that scheduler held at once, averaged over the steady-state window. The index reports the second because it is what sets energy per token; the first is how vLLM, TensorRT-LLM and SGLang reach it.
 
 ### Why does an idle GPU use more energy per token than a busy one?
 
