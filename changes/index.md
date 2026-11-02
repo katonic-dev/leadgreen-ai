@@ -10,8 +10,6 @@ The latest change to the data is dated 19 October 2026: Launch. Three blog posts
 
 **Record** 5 data changes since 26 September 2026 · 4 dated releases (3 published) · 4 MCP server versions. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Changes: every dated update to the Lead Green data, releases and MCP server. https://leadgreen.ai/changes/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [Data changes](https://leadgreen.ai/changes/#data)
 - [Data releases](https://leadgreen.ai/changes/#releases)
 - [MCP server](https://leadgreen.ai/changes/#mcp)
@@ -71,3 +69,5 @@ Install and client configuration are on the [MCP page](https://leadgreen.ai/mcp/
 Quote the release date with the figure, for example "Lead Green, release 2026-10-19", and link the release zip or any file under its dated folder; both stay byte for byte as published. The repository's `CITATION.cff` and the Zenodo record ([doi.org/10.5281/zenodo.23478909](https://doi.org/10.5281/zenodo.23478909)) carry the same version. The feed at [feed.xml](https://leadgreen.ai/feed.xml) announces blog posts, not data changes; watch [changes.json](https://leadgreen.ai/api/v1/changes.json) or this page for those.
 
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+Cite this page: Lead Green, a Katonic project. Changes: every dated update to the Lead Green data, releases and MCP server. https://leadgreen.ai/changes/, release 2026-10-19, retrieved [date]. CC BY 4.0.

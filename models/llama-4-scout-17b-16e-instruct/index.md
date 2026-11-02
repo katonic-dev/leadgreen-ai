@@ -10,8 +10,6 @@ Llama 4 Scout 17B 16E Instruct serves a million output tokens for **93.4 Wh/M** 
 
 **Model** [meta-llama/Llama-4-Scout-17B-16E-Instruct](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct), a mixture-of-experts model (17 B of 109 B parameters active per token), weights in BF16. **Measured** 20 configurations on H100. **Data** [models/llama-4-scout-17b-16e-instruct.json](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Llama 4 Scout 17B 16E Instruct: energy per million output tokens. https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [Every configuration](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#configurations)
 - [Carbon](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#carbon)
 - [Questions](https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/#faq)
@@ -114,3 +112,5 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/llama-4-scout-17b-16e-instruct.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Llama 4 Scout 17B 16E Instruct on your own grid and load.
+
+Cite this page: Lead Green, a Katonic project. Llama 4 Scout 17B 16E Instruct: energy per million output tokens. https://leadgreen.ai/models/llama-4-scout-17b-16e-instruct/, release 2026-10-19, retrieved [date]. CC BY 4.0.

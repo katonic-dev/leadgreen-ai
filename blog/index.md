@@ -10,8 +10,6 @@ Each post takes one question the index raises and answers it with public data, t
 
 **Feed** [RSS](https://leadgreen.ai/feed.xml) · **Editor** Prem Naraindas · **Licence** CC BY 4.0
 
-Cite this page: Lead Green, a Katonic project. Blog. https://leadgreen.ai/blog/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Posts*
 
 ## Published
@@ -53,3 +51,5 @@ What the public measurements say a million output tokens takes in GPU watt-hours
 - then**What the EU AI Act asks, and what it does not.** The training-energy item on model providers, the open-source exemption and the 2027 date, and why none of it reaches a buyer.
 
 Order and timing may change; a post ships when its data does. Volunteers who want to take one of these: see [Contribute](https://leadgreen.ai/contribute/).
+
+Cite this page: Lead Green, a Katonic project. Blog. https://leadgreen.ai/blog/, release 2026-10-19, retrieved [date]. CC BY 4.0.

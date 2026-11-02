@@ -10,8 +10,6 @@ The index is published as static JSON files under `/api/v1/`. No key, no trackin
 
 **Base URL** https://leadgreen.ai/api/v1/ · **Updated** 19 October 2026 · **Licence** CC BY 4.0 for the compilation; sources keep theirs
 
-Cite this page: Lead Green, a Katonic project. Data API. https://leadgreen.ai/api/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Endpoints*
 
 ## 15 files  GET`/api/v1/manifest.json`
@@ -492,3 +490,5 @@ One table for the fields every document carries, then one per document. The buil
 **Releases.** Every dated release is kept unchanged at `https://leadgreen.ai/api/v1/releases/<date>/` with a zip of the whole release; [`releases/index.json`](https://leadgreen.ai/api/v1/releases/index.json) lists them with each zip's SHA-256. Cite a release, not the live files.
 
 **OpenAPI.** A machine-readable description is at [`openapi.json`](https://leadgreen.ai/api/v1/openapi.json), with a copy at the site root ([`/openapi.json`](https://leadgreen.ai/openapi.json)) and an RFC 9727 API catalogue at [`/.well-known/api-catalog`](https://leadgreen.ai/.well-known/api-catalog). Every change to the figures is dated on the [changes page](https://leadgreen.ai/changes/). The [MCP server](https://leadgreen.ai/mcp/) is built on these same files.
+
+Cite this page: Lead Green, a Katonic project. Data API. https://leadgreen.ai/api/, release 2026-10-19, retrieved [date]. CC BY 4.0.

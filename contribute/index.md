@@ -8,8 +8,6 @@
 
 Lead Green is small and it is public. Its value is the number of independent, reproducible measurements on the index and the care with which each one is checked. Both grow faster with volunteers. Here is what is needed, how to do it, and the rules that keep a row defensible.
 
-Cite this page: Lead Green, a Katonic project. Contribute. https://leadgreen.ai/contribute/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Roles*
 
 ## Five ways to help  Measurers
@@ -85,3 +83,5 @@ The protocol measures GPU energy only, like the index. If you also have facility
 ## What you give and what you get
 
 Code (the build script, the API generator, the MCP server) is Apache 2.0. Data and text (the compiled index, derived figures, page text, blog posts) are CC BY 4.0. By contributing you agree your contribution is offered under the same terms: your row and your logs are CC BY 4.0, and prompt sets keep their own licence. Sign commits with a Developer Certificate of Origin line (`Signed-off-by`). Public sources keep their own licences, which are listed per source and never overridden.
+
+Cite this page: Lead Green, a Katonic project. Contribute. https://leadgreen.ai/contribute/, release 2026-10-19, retrieved [date]. CC BY 4.0.

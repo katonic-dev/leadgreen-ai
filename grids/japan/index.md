@@ -10,8 +10,6 @@ An LLM served on Japan's grid emits about **30.7 kg CO2e per billion output toke
 
 **Area** Japan (JPN, JP). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Japan: carbon of AI inference per billion tokens. https://leadgreen.ai/grids/japan/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [Trend](https://leadgreen.ai/grids/japan/#trend)
 - [Every model](https://leadgreen.ai/grids/japan/#models)
 - [Reporting](https://leadgreen.ai/grids/japan/#reporting)
@@ -110,3 +108,5 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshots as [the index](https://leadgreen.ai/index/#carbon); no figure on it is typed by hand. All 193 areas are in [grid.json](https://leadgreen.ai/api/v1/grid.json); the 22 with a page are the markets Katonic sells in or expects to, plus seven reference grids.
+
+Cite this page: Lead Green, a Katonic project. Japan: carbon of AI inference per billion tokens. https://leadgreen.ai/grids/japan/, release 2026-10-19, retrieved [date]. CC BY 4.0.

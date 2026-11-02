@@ -8,8 +8,6 @@
 
 The Green Tokens edition is deliberately short: **one number** from the index, **one note** on what moved it or what it means, and **one pointer** to something worth reading. If the index did not change, the note says so. No round-ups, no sponsors.
 
-Cite this page: Lead Green, a Katonic project. Newsletter. https://leadgreen.ai/newsletter/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Subscribe*
 
 ## Email edition
@@ -31,3 +29,5 @@ The email edition is being set up. Until it opens, the meter runs inside [Own Yo
 **Cadence.** Monthly, on the first working day, or sooner when a measurement lands that changes a tile. **Length.** Under 200 words. **Archive.** Every edition is posted to the [blog](https://leadgreen.ai/blog/) the same day, so the RSS feed carries them too.
 
 **Own Your AI.** Prem Naraindas's fortnightly LinkedIn newsletter on sovereign AI will carry a three-line "meter" block with one reading from this index in every issue, from its next edition. The two do not overlap: Own Your AI is about control, this one is about energy.
+
+Cite this page: Lead Green, a Katonic project. Newsletter. https://leadgreen.ai/newsletter/, release 2026-10-19, retrieved [date]. CC BY 4.0.

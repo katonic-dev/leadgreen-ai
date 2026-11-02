@@ -10,8 +10,6 @@ Every figure on this site depends on a handful of defined terms: the unit, the b
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Glossary: the terms behind GPU energy per token. https://leadgreen.ai/glossary/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Terms*
 
 ## One page each  Term
@@ -53,3 +51,5 @@ The latency limit that defines which configurations may be an index row: a media
 Total facility energy divided by IT equipment energy, per ISO/IEC 30134-2; the operator's own multiplier that takes a GPU figure to the building's meter.
 
 Each term's page carries its own FAQ and sources, and a Markdown copy at its URL followed by `index.md`. The terms are also the vocabulary of the [measurement protocol](https://leadgreen.ai/contribute/#protocol) and the [RFP clause](https://leadgreen.ai/rfp/).
+
+Cite this page: Lead Green, a Katonic project. Glossary: the terms behind GPU energy per token. https://leadgreen.ai/glossary/, release 2026-10-19, retrieved [date]. CC BY 4.0.

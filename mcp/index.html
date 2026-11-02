@@ -83,7 +83,6 @@
   <h1>Ask your assistant, get a sourced number</h1>
   <p class="stand">The Model Context Protocol (MCP) is an open standard that lets an AI assistant call tools a server exposes. Lead Green ships a small MCP server so that Claude, Cursor or any MCP-capable client can answer questions about the index with the row, the source and the caveat attached, instead of guessing.</p>
   <p class="unit"><b>Package</b> leadgreen-mcp 0.3.1 · <b>Transport</b> stdio · <b>Data</b> the live API, with a bundled snapshot as fallback · <b>Licence</b> Apache 2.0 · <b>Wheel SHA-256</b> <code>54a2d0b9efdb1dd0e4cfc4619adbff38824738be2b51efca16aab9dd41faaa8b</code></p>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/mcp/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
 </div>
 
 <section class="first" id="install">
@@ -175,6 +174,7 @@
   </table></div>
   <p class="note">A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in <a href="https://github.com/katonic-dev/leadgreen-ai">the repository</a>.</p>
 </section>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/mcp/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
 
   </main>
 
@@ -195,6 +195,6 @@
   </footer>
 
 </div>
-<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}function paint(){var next=cur()==="dark"?"light":"dark";b.textContent=next==="dark"?"Dark":"Light";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
+<script>(function(){var d=document.documentElement,b=document.querySelector(".theme");if(!b)return;function cur(){return d.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}var ICON={dark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',light:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'};function paint(){var next=cur()==="dark"?"light":"dark";b.innerHTML=ICON[next]+"<span>"+(next==="dark"?"Dark":"Light")+"</span>";b.setAttribute("aria-label","Switch to "+next+" theme")}b.addEventListener("click",function(){var n=cur()==="dark"?"light":"dark";d.setAttribute("data-theme",n);try{localStorage.setItem("lg-theme",n)}catch(e){n=n}paint()});paint()})();</script>
 </body>
 </html>

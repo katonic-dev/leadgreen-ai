@@ -6,9 +6,7 @@
 
 Lead Green is a public index of **LLM inference energy per token**: the GPU watt-hours it takes to serve a million output tokens, by model, GPU and configuration, with the grid carbon to price it anywhere. Every figure is from a named public measurement or a manufacturer's specification, dated and linked. The data is open, there is a JSON API and an MCP server, and anyone with a GPU will be able to add a measurement.
 
-**Unit** watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. Updated 19 October 2026.
-
-Cite this page: Lead Green, a Katonic project. Lead Green: the energy behind the token. https://leadgreen.ai/, release 2026-10-19, retrieved [date]. CC BY 4.0.  [Read the index](https://leadgreen.ai/index/) [Why it matters](https://leadgreen.ai/why/) [Use the data](https://leadgreen.ai/api/)
+**Unit** watt-hours per million output tokens (Wh/M). One Wh/M is 0.0036 joules per token. GPU only, busy server. Every row is a floor. Updated 19 October 2026.  [Read the index](https://leadgreen.ai/index/) [Why it matters](https://leadgreen.ai/why/) [Use the data](https://leadgreen.ai/api/)
 -  **Lowest floor on the index:**  13.0 Wh/M  Llama 3.1 8B Instruct, 1 × B200. Running batch 2,043, median ITL 125 ms.
 -  **Reference floor:**  63.5 Wh/M  Qwen 3 32B, 2 × H100. Running batch 256, median ITL 44 ms. The carbon table is priced on this row.
 -  **Highest floor on the index:**  572.9 Wh/M  Llama 3.1 405B Instruct FP8, 8 × H100. Running batch 255, median ITL 67 ms.
@@ -130,3 +128,5 @@ Yes. The compilation and site text are CC BY 4.0 and the sources keep their own 
 Lead Green is run and paid for by Katonic, which sells a sovereign AI platform and benefits when buyers ask the questions on this site. It takes no money from hardware, cloud or model vendors. The publisher is Katonic AI Technology Ltd, registered in the Dubai International Financial Centre (DIFC), United Arab Emirates; the editor is Prem Naraindas.
 
 Every question on the site, with a link to the page that answers it, is on [the questions page](https://leadgreen.ai/faq/); the terms are defined in [the glossary](https://leadgreen.ai/glossary/).
+
+Cite this page: Lead Green, a Katonic project. Lead Green: the energy behind the token. https://leadgreen.ai/, release 2026-10-19, retrieved [date]. CC BY 4.0.

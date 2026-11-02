@@ -10,8 +10,6 @@ Ask every bidder for the same figure at the same load: GPU energy per million ou
 
 **Unit** watt-hours per million output tokens (Wh/M), GPU only. **Floors** [index.json](https://leadgreen.ai/api/v1/index.json) and [models.json](https://leadgreen.ai/api/v1/models.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. How to put AI energy efficiency in an RFP. https://leadgreen.ai/rfp/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [What to ask for](https://leadgreen.ai/rfp/#ask)
 - [The clause](https://leadgreen.ai/rfp/#clause)
 - [Scoring](https://leadgreen.ai/rfp/#scoring)
@@ -113,3 +111,5 @@ Yes, as a fleet-average figure over the preceding quarter at the fleet's actual 
 No. Power usage effectiveness is the building's overhead on top of the IT load; it says nothing about how much work the IT load does. Two vendors at the same PUE can differ many times in GPU energy per token through model, precision, GPU generation and load. Ask for PUE in the facility section and for Wh/M at a stated load in the clause, and keep the two apart.
 
 Every question on the site, with a link to the page that answers it, is on [the questions page](https://leadgreen.ai/faq/); the terms are defined in [the glossary](https://leadgreen.ai/glossary/).
+
+Cite this page: Lead Green, a Katonic project. How to put AI energy efficiency in an RFP. https://leadgreen.ai/rfp/, release 2026-10-19, retrieved [date]. CC BY 4.0.

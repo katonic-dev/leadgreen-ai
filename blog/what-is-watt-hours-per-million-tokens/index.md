@@ -8,8 +8,6 @@
 
 By Prem Naraindas · 19 October 2026 · Lead Green, a Katonic project
 
-Cite this page: Lead Green, a Katonic project. What is watt-hours per million tokens, and why not joules per token?. https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 Look, every table on this site is in one unit, watt-hours per million output tokens, and I get asked why. The benchmark we build on publishes joules per token. Finance thinks in kilowatt-hours. Facilities thinks in kilowatts. Sustainability wants kilograms of CO2e. So this post is the unit, start to finish: what it counts, what it leaves out, how to move between it and every other number people ask for, and why I picked it over the alternatives.
 
 ## The definition
@@ -54,3 +52,5 @@ It does not tell you what your deployment uses. Every index row is a floor: the 
 2. Ember, Yearly electricity data, September 2026 release, emissions intensity of total generation, 2024, CC BY 4.0. [ember-energy.org](https://ember-energy.org/data/yearly-electricity-data/).
 3. NVIDIA DGX B200 product page, for the system power rating behind the system-to-GPU ratio. The PUE of 1.3 and the electricity price of USD 0.10 per kWh are stated assumptions, not source figures.
 4. Conversions: Wh/M = J per token × 1,000,000 ÷ 3,600; kWh per billion tokens = Wh/M; kg CO2e per billion tokens = Wh/M × gCO2e per kWh ÷ 1,000. Method and every row: [the index](https://leadgreen.ai/index/#method).
+
+Cite this page: Lead Green, a Katonic project. What is watt-hours per million tokens, and why not joules per token?. https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/, release 2026-10-19, retrieved [date]. CC BY 4.0.

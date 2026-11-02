@@ -10,8 +10,6 @@ The Model Context Protocol (MCP) is an open standard that lets an AI assistant c
 
 **Package** leadgreen-mcp 0.3.1 · **Transport** stdio · **Data** the live API, with a bundled snapshot as fallback · **Licence** Apache 2.0 · **Wheel SHA-256** `54a2d0b9efdb1dd0e4cfc4619adbff38824738be2b51efca16aab9dd41faaa8b`
 
-Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/mcp/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Install*
 
 ## One line
@@ -111,3 +109,5 @@ Pass `running_batch` (`requests_in_flight` is still accepted as an alias) and th
 | LEADGREEN_TIMEOUT | Seconds to wait for the site before falling back to the bundled snapshot. Default 10. |
 
 A hosted (HTTP) endpoint, so that clients need no local install, is a later step. The source is in [the repository](https://github.com/katonic-dev/leadgreen-ai).
+
+Cite this page: Lead Green, a Katonic project. MCP server. https://leadgreen.ai/mcp/, release 2026-10-19, retrieved [date]. CC BY 4.0.
