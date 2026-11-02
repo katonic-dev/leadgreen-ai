@@ -10,8 +10,6 @@ An AI chatbot query uses about **0.24 to 0.34 Wh** of electricity across the who
 
 **Units** watt-hours per answer (Wh) and watt-hours per million output tokens (Wh/M). Wh per answer = Wh/M × output tokens ÷ 1,000,000. **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [per-query.json](https://leadgreen.ai/api/v1/per-query.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. How much energy does an AI query use? Per prompt against per million tokens. https://leadgreen.ai/per-query/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [The bridge](https://leadgreen.ai/per-query/#bridge)
 - [What vendors published](https://leadgreen.ai/per-query/#published)
 - [Batch size one](https://leadgreen.ai/per-query/#batch-one)
@@ -118,3 +116,5 @@ Elsworth et al., Measuring the environmental impact of delivering AI at Google S
 [AI Energy Score leaderboard](https://huggingface.co/spaces/AIEnergyScore/Leaderboard) (AI Energy Score (Hugging Face and Salesforce, with Neuralwatt, Cohere, Meta and Carnegie Mellon University)), December 2025 round, retrieved 26 September 2026: GPU energy per 1,000 text-generation queries at batch size 1 on NVIDIA H100 80GB GPUs (one card for class A and B models, several for class C). Grid intensity in the carbon question: Ember, Yearly electricity data, October 2026 release, 2024.
 
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+Cite this page: Lead Green, a Katonic project. How much energy does an AI query use? Per prompt against per million tokens. https://leadgreen.ai/per-query/, release 2026-10-19, retrieved [date]. CC BY 4.0.

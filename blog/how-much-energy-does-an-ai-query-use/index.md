@@ -8,8 +8,6 @@
 
 By Prem Naraindas · 19 October 2026 · Lead Green, a Katonic project
 
-Cite this page: Lead Green, a Katonic project. How much energy does an AI query use?. https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 Look, this is the question I get asked most, usually by someone who has just signed off a token budget. "How much energy does one of these queries actually use?" And the honest first answer is that nobody who quotes a single figure is telling you the whole story, because the number depends on four things: which model, on which GPUs, how busy the server was, and how long the answer ran. So here is the number the public measurements give, with those four things stated, and then the two figures the vendors have published, and why they are different without either being wrong.
 
 ## The number
@@ -50,3 +48,5 @@ If you buy tokens from a hosted API, the concurrency is theirs and you cannot me
 2. Elsworth et al., Measuring the environmental impact of delivering AI at Google Scale, Google, August 2025: 0.24 Wh, 0.03 gCO2e and 0.26 mL per median Gemini Apps text prompt; accelerators 58 percent; narrow boundary 0.10 Wh. [arXiv 2508.15734](https://arxiv.org/abs/2508.15734).
 3. Mistral AI, Our contribution to a global environmental standard for AI, July 2025 (with Carbone 4 and ADEME): 1.14 gCO2e and 45 mL per 400-token reply. [mistral.ai](https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai).
 4. Per-answer figures are Wh per million output tokens multiplied by the row's own average output length; the LED bulb (10 W) is a stated assumption. Every row: [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/).
+
+Cite this page: Lead Green, a Katonic project. How much energy does an AI query use?. https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/, release 2026-10-19, retrieved [date]. CC BY 4.0.

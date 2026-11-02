@@ -10,8 +10,6 @@ Gemma 3 27B serves a million output tokens for **49.1 Wh/M** on 1 × B200 (runni
 
 **Model** [google/gemma-3-27b-it](https://huggingface.co/google/gemma-3-27b-it), a dense transformer, weights in BF16. **Measured** 16 configurations on B200 and H100. **Data** [models/gemma-3-27b.json](https://leadgreen.ai/api/v1/models/gemma-3-27b.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Gemma 3 27B: energy per million output tokens. https://leadgreen.ai/models/gemma-3-27b/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [Every configuration](https://leadgreen.ai/models/gemma-3-27b/#configurations)
 - [Two generations](https://leadgreen.ai/models/gemma-3-27b/#generations)
 - [Carbon](https://leadgreen.ai/models/gemma-3-27b/#carbon)
@@ -127,3 +125,5 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/gemma-3-27b.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Gemma 3 27B on your own grid and load.
+
+Cite this page: Lead Green, a Katonic project. Gemma 3 27B: energy per million output tokens. https://leadgreen.ai/models/gemma-3-27b/, release 2026-10-19, retrieved [date]. CC BY 4.0.

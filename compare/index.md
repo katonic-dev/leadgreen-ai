@@ -10,8 +10,6 @@ The comparisons people ask for, each on one page: a small model against a large 
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Compare: 9 model pairs on GPU energy per million output tokens. https://leadgreen.ai/compare/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Pairs*
 
 ## Pick a comparison  Two sizes · H100 and B200
@@ -53,3 +51,5 @@ Llama 3.1 8B Instruct over Qwen 3 8B, GPU energy per output token; 0.88× on the
 Llama 4 Maverick 17B 128E Instruct FP8 over Llama 4 Scout 17B 16E Instruct, GPU energy per output token.
 
 The ratio on each card is the second model's energy per token over the first's, on the GPU named, at the index rows; under 1 means the second model's row is the lower one. Any other pair can be read off [the model pages](https://leadgreen.ai/models/) or asked of the [MCP server](https://leadgreen.ai/mcp/). Source: ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026), Text Conversation, retrieved 26 September 2026.
+
+Cite this page: Lead Green, a Katonic project. Compare: 9 model pairs on GPU energy per million output tokens. https://leadgreen.ai/compare/, release 2026-10-19, retrieved [date]. CC BY 4.0.

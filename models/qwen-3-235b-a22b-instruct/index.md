@@ -10,8 +10,6 @@ Qwen 3 235B A22B Instruct serves a million output tokens for **66.7 Wh/M** on 4 
 
 **Model** [Qwen/Qwen3-235B-A22B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507), a mixture-of-experts model (22 B of 235 B parameters active per token), weights in BF16. **Measured** 31 configurations on B200 and H100. **Data** [models/qwen-3-235b-a22b-instruct.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct: energy per million output tokens. https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [Every configuration](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#configurations)
 - [Two generations](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#generations)
 - [Carbon](https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/#carbon)
@@ -142,3 +140,5 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
 This page is generated from the same dated snapshot as [the index](https://leadgreen.ai/index/) and [the API](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json); no figure on it is typed by hand. Ask the [MCP server](https://leadgreen.ai/mcp/) for Qwen 3 235B A22B Instruct on your own grid and load.
+
+Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct: energy per million output tokens. https://leadgreen.ai/models/qwen-3-235b-a22b-instruct/, release 2026-10-19, retrieved [date]. CC BY 4.0.

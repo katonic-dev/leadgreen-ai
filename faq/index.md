@@ -10,8 +10,6 @@
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. FAQ: 330 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [Lead Green](https://leadgreen.ai/faq/#lead-green)
 - [Why it matters](https://leadgreen.ai/faq/#why-it-matters)
 - [AI energy in an RFP](https://leadgreen.ai/faq/#ai-energy-in-an-rfp)
@@ -1601,3 +1599,5 @@ As a comparison, not as a filing. Ember's intensity is a lifecycle figure on net
 ### Where do these figures come from?
 
 Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. [Full answer](https://leadgreen.ai/grids/norway/#faq)
+
+Cite this page: Lead Green, a Katonic project. FAQ: 330 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.

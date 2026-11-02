@@ -10,8 +10,6 @@ Every model on the Green Tokens index has its own page: the index row per GPU, e
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Models: GPU energy per million output tokens, by model. https://leadgreen.ai/models/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Lowest index row first*
 
 ## Pick a model  B200 and H100
@@ -91,3 +89,5 @@ Cite this page: Lead Green, a Katonic project. Models: GPU energy per million ou
 Pairs people ask about (small against large, dense against mixture of experts, BF16 against FP8) are set side by side on [the compare pages](https://leadgreen.ai/compare/); the two GPU generations on [H100 vs B200](https://leadgreen.ai/h100-vs-b200/).
 
 The figure on each card is the model's lowest index row across the GPUs it was measured on. Closed-weight models served over an API cannot be measured from outside and are not here. Source: ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026), Text Conversation, 328 stable configurations, retrieved 26 September 2026.
+
+Cite this page: Lead Green, a Katonic project. Models: GPU energy per million output tokens, by model. https://leadgreen.ai/models/, release 2026-10-19, retrieved [date]. CC BY 4.0.

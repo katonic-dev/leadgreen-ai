@@ -8,8 +8,6 @@
 
 Lead Green exists to put one number in front of the people who buy, run and audit AI: the GPU energy it takes to serve a million tokens. It publishes the public measurements in one unit, explains what they mean, exposes them to software, and adds measurements of its own as they are made.
 
-Cite this page: Lead Green, a Katonic project. About. https://leadgreen.ai/about/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 *Who runs it*
 
 ## A Katonic project
@@ -61,3 +59,5 @@ Founder and CEO of Katonic, author of *Own Your AI*, and the person who reads ev
 - [Prem Naraindas on LinkedIn](https://www.linkedin.com/in/premnaraindas/), where the [Own Your AI](https://www.linkedin.com/newsletters/own-your-ai-7508174547041292288/) newsletter also lives.
 - [hello@leadgreen.ai](mailto:hello@leadgreen.ai), for corrections, measurements and data requests, answered within ten working days.
 - [The repository](https://github.com/katonic-dev/leadgreen-ai), for issues, corrections and pull requests.
+
+Cite this page: Lead Green, a Katonic project. About. https://leadgreen.ai/about/, release 2026-10-19, retrieved [date]. CC BY 4.0.

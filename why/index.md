@@ -8,8 +8,6 @@
 
 The number is small, cheap to buy and easy to ignore. It is also the only figure that ties a model, a GPU and a workload to a power feed, a carbon line and a utilisation rate at the same time. Here is why each of those matters, with the working shown.
 
-Cite this page: Lead Green, a Katonic project. Why it matters. https://leadgreen.ai/why/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [1 Utilisation](https://leadgreen.ai/why/#utilisation)
 - [2 Power](https://leadgreen.ai/why/#power)
 - [3 The board](https://leadgreen.ai/why/#board)
@@ -173,3 +171,5 @@ No; it changes the carbon. The same tokens on the same GPUs use the same energy 
 No, and that is the point. At the reference row and USD 0.10 per kWh the electricity costs about 0.6 cents per million tokens at the floor; a lightly loaded server pays several times that. Trivial as a bill, decisive as a signal: energy per token tracks GPU-hours, which is where the real money goes.
 
 Every question on the site, with a link to the page that answers it, is on [the questions page](https://leadgreen.ai/faq/); the terms are defined in [the glossary](https://leadgreen.ai/glossary/).
+
+Cite this page: Lead Green, a Katonic project. Why it matters. https://leadgreen.ai/why/, release 2026-10-19, retrieved [date]. CC BY 4.0.

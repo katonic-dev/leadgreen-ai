@@ -10,8 +10,6 @@ On the index rows, DeepSeek V3.1 uses **2.52×** the GPU energy per output token
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. **Data** [qwen-3-235b-a22b-instruct.json](https://leadgreen.ai/api/v1/models/qwen-3-235b-a22b-instruct.json), [deepseek-v3-1.json](https://leadgreen.ai/api/v1/models/deepseek-v3-1.json). Updated 19 October 2026.
 
-Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct vs DeepSeek V3.1: GPU energy per million output tokens. https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 - [The rows](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#rows)
 - [What explains it](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#why)
 - [Questions](https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/#faq)
@@ -76,3 +74,5 @@ The ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026, retrieved 26 Sep
 Parameters and architecture as the leaderboard records them (total and activated parameters in billions). Carbon: Ember, Yearly electricity data, October 2026 release, world average 2024, CC BY 4.0, retrieved 17 October 2026.
 
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
+
+Cite this page: Lead Green, a Katonic project. Qwen 3 235B A22B Instruct vs DeepSeek V3.1: GPU energy per million output tokens. https://leadgreen.ai/compare/qwen-3-235b-a22b-instruct-vs-deepseek-v3-1/, release 2026-10-19, retrieved [date]. CC BY 4.0.

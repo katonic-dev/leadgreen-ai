@@ -8,8 +8,6 @@
 
 By Prem Naraindas · 19 October 2026 · Lead Green, a Katonic project
 
-Cite this page: Lead Green, a Katonic project. Why an idle GPU wastes energy: the concurrency ladder. https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/, release 2026-10-19, retrieved [date]. CC BY 4.0.
-
 Look, when people want to cut the energy their AI uses, they reach for a smaller model or a newer card. Both work. But on the same model and the same cards there is a lever that moves the number further than a change of GPU generation does, and in the deployments I see it is the one nobody has looked at: how many requests the server is handling at once. So here is the exhibit: Qwen 3 32B on 2 × H100, same weights, same prompts, measured by the ML.ENERGY Leaderboard at nine different loads. At a running batch of 8 it costs 452 Wh of GPU energy per million output tokens. At 256 it costs 63.5 Wh. That is 7.1× on hardware nobody touched.
 
 ## The ladder
@@ -83,3 +81,5 @@ I think this is the table to take into the capacity meeting, because it is the l
 2. The rows: all nine measured configurations of Qwen 3 32B on 2 × H100 and all eleven of Llama 3.1 8B Instruct on 1 × H100, Text Conversation, BF16. Cap is vLLM's `max_num_seqs`; running batch (avg) is the average `num_requests_running` over the steady-state window; queued requests are not counted. Full ladders on [the index](https://leadgreen.ai/index/#concurrency); every model's curve is in [the API](https://leadgreen.ai/api/).
 3. GPU-hours per million output tokens = cards × 1,000,000 ÷ output tokens per second ÷ 3,600. Tokens per megawatt-hour = 1,000,000 ÷ Wh/M, in millions.
 4. The mechanism: Pope et al., Efficiently Scaling Transformer Inference, November 2022, [arXiv 2211.05102](https://arxiv.org/abs/2211.05102), on generation at a small batch being bound by reading the weights; Kwon et al., Efficient Memory Management for Large Language Model Serving with PagedAttention, SOSP 2023, [arXiv 2309.06180](https://arxiv.org/abs/2309.06180), on the memory held for requests in flight limiting the batch a server can hold. The reading of the 384 row as memory running out is mine.
+
+Cite this page: Lead Green, a Katonic project. Why an idle GPU wastes energy: the concurrency ladder. https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/, release 2026-10-19, retrieved [date]. CC BY 4.0.

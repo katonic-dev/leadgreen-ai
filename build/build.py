@@ -1877,12 +1877,9 @@ def cite_line(url: str, title: str) -> str:
 
 
 def with_cite(content: str, url: str, title: str) -> str:
-    cite = cite_line(url, title)
-    for pat in (r'<p class="unit">.*?</p>', r'<p class="byline">.*?</p>', r'<p class="stand">.*?</p>', r'</h1>'):
-        m = re.search(pat, content, re.S)
-        if m:
-            return content[:m.end()] + "\n  " + cite + content[m.end():]
-    return content
+    """The line sits at the foot of the content, after the last section and before the site footer, so the title block
+    goes headline, standfirst, unit, page navigation; the text is unchanged and still on every page for a reader or a crawler."""
+    return content.rstrip() + "\n  " + cite_line(url, title) + "\n"
 
 
 def render(out_rel: str, nav: str, title: str, desc: str, og_type: str, kind: str, body: str, post: dict | None = None):
