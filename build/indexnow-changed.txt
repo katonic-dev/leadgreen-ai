@@ -1,1 +1,5 @@
-https://leadgreen.ai/rfp/
+https://leadgreen.ai/blog/how-much-energy-does-an-ai-query-use/
+https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/
+https://leadgreen.ai/blog/what-a-million-tokens-costs-in-watt-hours/
+https://leadgreen.ai/blog/what-is-watt-hours-per-million-tokens/
+https://leadgreen.ai/blog/why-an-idle-gpu-wastes-energy/

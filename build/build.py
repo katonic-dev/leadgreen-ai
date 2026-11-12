@@ -64,6 +64,8 @@ EMBER_RELEASE = "October 2026 release" # Ember's own label for the file, as show
 INDEX_NAME = "Green Tokens"            # D1: "Green Tokens" or "The Green Token Index"
 EDITOR = "Prem Naraindas"
 LINKEDIN_URL = "https://www.linkedin.com/in/premnaraindas/"
+ORCID_ID = "0009-0009-4435-2132"
+ORCID_URL = "https://orcid.org/" + ORCID_ID
 OWN_YOUR_AI_URL = "https://www.linkedin.com/newsletters/own-your-ai-7508174547041292288/"
 # D6 / G2 / T6: REPO_URL (the public mirror), the Hugging Face and Zenodo identifiers, the canonical description and the funder line
 # live in build/project_text.py, shared with hf_dataset.py. "" for REPO_URL omits the repository links.
@@ -1659,7 +1661,7 @@ def ld(obj) -> str:
 ORG = {"@type": "Organization", "name": "Lead Green", "url": SITE + "/", "logo": SITE + "/assets/logo/leadgreen-icon-512.png",
        "parentOrganization": {"@type": "Organization", "name": "Katonic", "url": "https://www.katonic.ai"},
        **({"sameAs": SAME_AS} if SAME_AS else {})}   # T6: the same project elsewhere (public repository, dataset, DOI, Wikidata)
-PERSON = {"@type": "Person", "name": EDITOR, "url": "https://premnaraindas.com", "sameAs": [LINKEDIN_URL]}
+PERSON = {"@type": "Person", "name": EDITOR, "url": "https://premnaraindas.com", "identifier": ORCID_URL, "sameAs": [LINKEDIN_URL, ORCID_URL]}
 
 
 def jsonld_for(kind: str, title: str, desc: str, url: str, post: dict | None = None) -> str:
@@ -3636,7 +3638,7 @@ _cff = ["cff-version: 1.2.0",
         "type: dataset", f"title: {_yq(_cite_title)}", f"version: {_yq(DATA_VERSION)}", f"date-released: {_yq(DATA_VERSION)}",
         f"url: {_yq(SITE + '/')}", *([f"repository-code: {_yq(REPO_URL)}"] if REPO_URL else []), "license: CC-BY-4.0",
         *([f"doi: {_yq(ZENODO_CONCEPT_DOI)}"] if ZENODO_CONCEPT_DOI else []),
-        "authors:", f"  - family-names: {_yq(_family)}", f"    given-names: {_yq(_given)}", "    affiliation: Katonic",
+        "authors:", f"  - family-names: {_yq(_family)}", f"    given-names: {_yq(_given)}", f"    orcid: {_yq(ORCID_URL)}", "    affiliation: Katonic",
         f"  - name: {_yq(PUBLISHER_ENTITY + ' (Lead Green, a Katonic project)')}",
         f"abstract: {_yq(PROJECT_DESCRIPTION + ' ' + CAVEAT)}",
         "keywords:", *[f"  - {_yq(k)}" for k in _keywords],
@@ -3649,7 +3651,7 @@ _cff = ["cff-version: 1.2.0",
 _zenodo = {
     "upload_type": "dataset", "title": _cite_title, "version": DATA_VERSION, "publication_date": DATA_VERSION, "language": "eng",
     "access_right": "open", "license": "cc-by-4.0",
-    "creators": [{"name": f"{_family}, {_given}", "affiliation": "Katonic"}],
+    "creators": [{"name": f"{_family}, {_given}", "affiliation": "Katonic", "orcid": ORCID_ID}],
     "contributors": [{"name": PUBLISHER_ENTITY, "type": "HostingInstitution"}],
     "description": "<p>" + "</p><p>".join(esc(t) for t in (PROJECT_DESCRIPTION, CAVEAT, FUNDING, LICENCE_TEXT +
                    " The archive deposited from GitHub holds the site source and code (Apache 2.0) together with the data (CC BY 4.0).")) + "</p>",
