@@ -17,7 +17,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from project_text import FUNDING, HF_DATASET_REPO, PROJECT_DESCRIPTION, REPO_URL, WIKIDATA_URL, ZENODO_DOI_URL
+from project_text import EDITOR_ORCID_URL, FUNDING, HF_DATASET_REPO, PROJECT_DESCRIPTION, REPO_URL, WIKIDATA_URL, ZENODO_DOI_URL
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -141,6 +141,8 @@ def card() -> str:
         elsewhere.append(f"- Concept DOI (always resolves to the latest release): {ZENODO_DOI_URL}")
     if WIKIDATA_URL:
         elsewhere.append(f"- Wikidata item: {WIKIDATA_URL}")
+    if EDITOR_ORCID_URL:
+        elsewhere.append(f"- Editor: Prem Naraindas, ORCID {EDITOR_ORCID_URL}")
 
     front = "\n".join([
         "---",

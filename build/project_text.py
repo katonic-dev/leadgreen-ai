@@ -44,3 +44,6 @@ ZENODO_DOI_URL = f"https://doi.org/{ZENODO_CONCEPT_DOI}" if ZENODO_CONCEPT_DOI e
 
 # The same project elsewhere, for schema.org sameAs. Only homes that exist are listed.
 SAME_AS = [u for u in (REPO_URL, HF_DATASET_URL, ZENODO_DOI_URL, WIKIDATA_URL, LINKEDIN_PAGE_URL) if u]
+
+# ORCID iD of the editor, Prem Naraindas. Cited on the dataset card; build.py carries the same iD as ORCID_ID.
+EDITOR_ORCID_URL = "https://orcid.org/0009-0009-4435-2132"
