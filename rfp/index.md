@@ -36,6 +36,8 @@ An energy figure without its load, its latency and its boundary cannot be compar
 
 Power usage effectiveness and renewable share describe the building, not the work. Keep them in the facility section of the RFP; the clause below measures the model, the GPUs and the load.
 
+Energy per token is the half of the sovereignty question that hosting cannot answer for you. The other half, who can access, modify or terminate the system, is [the Sovereignty Test](https://premnaraindas.com/sovereignty-test/), and the [Sovereignty Maturity Index](https://premnaraindas.com/sovereignty-maturity-index/) turns that question into a score out of 100 across six dimensions. A buyer who asks both questions in the same tender gets a number for each.
+
 *The clause*
 
 ## On-premise or dedicated GPUs, ready to paste
