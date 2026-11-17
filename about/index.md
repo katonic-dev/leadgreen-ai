@@ -52,6 +52,8 @@ While Katonic is a bidder in a tender that cites the index, rows change only whe
 
 Founder and CEO of Katonic, author of *Own Your AI*, and the person who reads every row before it goes up. Corrections, measurements and arguments are all welcome.
 
+The book, *Own Your AI: The Sovereign Stack Playbook for Nations and Enterprises*, by Prem Naraindas and Vinod Bijlani, has its own site at [ownaistack.com](https://ownaistack.com/).
+
 *Contact*
 
 ## Three doors
