@@ -1,6 +1,6 @@
 # leadgreen.ai, the Lead Green site
 
-Static, generated, no forms, no tracking. The only script is a short inline light/dark switch in the page shell. Serve the folder as-is (folder-style URLs; see Deploy).
+Static, generated, no forms. Two scripts: a short inline light/dark switch in the page shell, and `assets/analytics.js`, which shows an accept or decline banner and loads Google Analytics 4 only after a visitor accepts (nothing is sent before that, and the JSON API is never tracked). Serve the folder as-is (folder-style URLs; see Deploy).
 
 ```
 index.html                      home
