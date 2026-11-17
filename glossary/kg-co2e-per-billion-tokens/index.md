@@ -1,12 +1,12 @@
-# kg CO2e per billion output tokens
+# CO2 per token: kg CO2e per billion output tokens
 
-> 43.7 kg CO2e per billion output tokens for Qwen 3 32B on 2 × H100 on Saudi Arabia's grid: Wh per million tokens × gCO2e per kWh ÷ 1,000.
+> CO2 per token is energy per token × grid carbon intensity: 43.7 kg CO2e per billion output tokens for Qwen 3 32B on 2 × H100 on Saudi Arabia's grid.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/ (this file: https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-43.7 kg CO2e per billion output tokens for Qwen 3 32B on 2 × H100 on Saudi Arabia's grid: Wh per million tokens × gCO2e per kWh ÷ 1,000. **Kilograms of CO2e per billion output tokens** is the carbon unit of the index. It is watt-hours per million output tokens multiplied by the grid's grams of CO2e per kilowatt-hour, divided by 1,000: Wh/M × gCO2e/kWh ÷ 1,000 = kg CO2e per billion tokens, which is also grams of CO2e per million tokens. On the reference row, Qwen 3 32B on 2 × H100 at 63.5 Wh/M, a billion output tokens carries about **43.7 kg CO2e** on Saudi Arabia's 2024 grid (689 gCO2e/kWh, Ember), **44.9 kg** on India's (707), 30.0 kg on the world average (473) and 1.9 kg on Norway's (30). GPU energy only.
+CO2 per token is energy per token × grid carbon intensity: 43.7 kg CO2e per billion output tokens for Qwen 3 32B on 2 × H100 on Saudi Arabia's grid. **Kilograms of CO2e per billion output tokens** is the carbon unit of the index. It is watt-hours per million output tokens multiplied by the grid's grams of CO2e per kilowatt-hour, divided by 1,000: Wh/M × gCO2e/kWh ÷ 1,000 = kg CO2e per billion tokens, which is also grams of CO2e per million tokens. On the reference row, Qwen 3 32B on 2 × H100 at 63.5 Wh/M, a billion output tokens carries about **43.7 kg CO2e** on Saudi Arabia's 2024 grid (689 gCO2e/kWh, Ember), **44.9 kg** on India's (707), 30.0 kg on the world average (473) and 1.9 kg on Norway's (30). GPU energy only.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -50,6 +50,14 @@ Other terms:
 
 ## Asked about this term
 
+### How do I calculate CO2 per token?
+
+Multiply energy per token by the carbon intensity of the grid the GPU runs on. In the index's units, Wh per million output tokens × gCO2e per kWh ÷ 1,000 gives grams of CO2e per million tokens, which is the same number in micrograms per token and in kilograms per billion tokens. For the reference row, 63.5 Wh/M × 689 gCO2e/kWh ÷ 1,000 = 43.7 g CO2e per million tokens on Saudi Arabia's 2024 grid, so 43.7 micrograms per token. GPU energy only.
+
+### Is carbon per token the same as energy per token?
+
+No. Energy per token belongs to the model, the GPU and the load, and does not change with geography. Carbon per token multiplies it by the grid's intensity, so the same tokens on the same GPUs carry 23× the carbon on Saudi Arabia's grid as on Norway's: 43.7 against 1.9 kg CO2e per billion tokens at the reference row (2024, Ember).
+
 ### How much CO2 does a million AI tokens produce?
 
 On the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh per million output tokens, GPU only), about 43.7 g CO2e per million tokens on Saudi Arabia's 2024 grid, 44.9 g on India's, 30.0 g on the world average and 1.9 g on Norway's. Per billion tokens, the same numbers in kilograms.
@@ -76,4 +84,4 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
-Cite this page: Lead Green, a Katonic project. kg CO2e per billion output tokens: definition and the figure. https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. CO2 per token: how to calculate carbon per token from energy and grid. https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/, release 2026-10-19, retrieved [date]. CC BY 4.0.

@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Compare: 9 model pairs on GPU energy per million output tokens | Lead Green</title>
-<meta name="description" content="Model pairs people ask about, side by side on GPU energy per output token: small against large, dense against MoE, FP8 against BF16, two families.">
+<title>Compare LLMs on energy per token: 9 model pairs, side by side | Lead Green</title>
+<meta name="description" content="Llama 3.1 8B vs Llama 3.3 70B, Qwen 3 32B vs Llama 3.3 70B, FP8 vs BF16, dense vs MoE: nine model pairs on GPU energy per token.">
 <link rel="canonical" href="https://leadgreen.ai/compare/">
 <meta property="og:site_name" content="Lead Green">
-<meta property="og:title" content="Compare: 9 model pairs on GPU energy per million output tokens | Lead Green">
-<meta property="og:description" content="Model pairs people ask about, side by side on GPU energy per output token: small against large, dense against MoE, FP8 against BF16, two families.">
+<meta property="og:title" content="Compare LLMs on energy per token: 9 model pairs, side by side | Lead Green">
+<meta property="og:description" content="Llama 3.1 8B vs Llama 3.3 70B, Qwen 3 32B vs Llama 3.3 70B, FP8 vs BF16, dense vs MoE: nine model pairs on GPU energy per token.">
 <meta property="og:url" content="https://leadgreen.ai/compare/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://leadgreen.ai/assets/social-card.png">
@@ -27,30 +27,64 @@
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
- "@type": "WebPage",
- "name": "Compare: 9 model pairs on GPU energy per million output tokens | Lead Green",
- "description": "Model pairs people ask about, side by side on GPU energy per output token: small against large, dense against MoE, FP8 against BF16, two families.",
- "url": "https://leadgreen.ai/compare/",
- "publisher": {
-  "@type": "Organization",
-  "name": "Lead Green",
-  "url": "https://leadgreen.ai/",
-  "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
-  "parentOrganization": {
-   "@type": "Organization",
-   "name": "Katonic",
-   "url": "https://www.katonic.ai"
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "name": "Compare LLMs on energy per token: 9 model pairs, side by side | Lead Green",
+   "description": "Llama 3.1 8B vs Llama 3.3 70B, Qwen 3 32B vs Llama 3.3 70B, FP8 vs BF16, dense vs MoE: nine model pairs on GPU energy per token.",
+   "url": "https://leadgreen.ai/compare/",
+   "publisher": {
+    "@type": "Organization",
+    "name": "Lead Green",
+    "url": "https://leadgreen.ai/",
+    "logo": "https://leadgreen.ai/assets/logo/leadgreen-icon-512.png",
+    "parentOrganization": {
+     "@type": "Organization",
+     "name": "Katonic",
+     "url": "https://www.katonic.ai"
+    },
+    "sameAs": [
+     "https://github.com/katonic-dev/leadgreen-ai",
+     "https://huggingface.co/datasets/leadgreen/green-token-index",
+     "https://doi.org/10.5281/zenodo.23478909",
+     "https://www.wikidata.org/wiki/Q141778099",
+     "https://www.linkedin.com/showcase/leadgreen-ai/"
+    ]
+   },
+   "inLanguage": "en",
+   "dateModified": "2026-10-19",
+   "@id": "https://leadgreen.ai/compare/"
   },
-  "sameAs": [
-   "https://github.com/katonic-dev/leadgreen-ai",
-   "https://huggingface.co/datasets/leadgreen/green-token-index",
-   "https://doi.org/10.5281/zenodo.23478909",
-   "https://www.wikidata.org/wiki/Q141778099",
-   "https://www.linkedin.com/showcase/leadgreen-ai/"
-  ]
- },
- "inLanguage": "en",
- "dateModified": "2026-10-19"
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Which LLM uses the least energy per token?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "On the index, Llama 3.1 8B Instruct on 1 × B200: 13.0 Wh per million output tokens, GPU only, at the most energy-efficient configuration measured for it. The highest row is Llama 3.1 405B Instruct FP8 on 8 × H100 at 572.9 Wh/M. Both are floors on a busy server, and the ranking covers the 18 models the index holds, not every model that exists."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does a larger model always use more energy per token?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Usually, but size is not the whole story. Llama 3.3 70B Instruct uses 6.03× the GPU energy per output token of Llama 3.1 8B Instruct on the H100 index rows, while the mixture-of-experts Qwen 3 30B A3B Instruct sits below the dense Qwen 3 32B at a similar total size: 24.7 against 63.5 Wh/M on the H100. Card count and running batch differ between the rows of every pair, and each page states both."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I compare two models that are not paired here?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Every model has a page with all of its measured configurations, and the JSON API carries the same rows, so any two can be set side by side on the same GPU; the MCP server answers the same question in plain words. Read the card count and the running batch beside each figure, because load moves energy per token more than most differences between models do."
+     }
+    }
+   ]
+  }
+ ]
 }
 </script>
 <script>(function(){var d=document.documentElement;d.className+=" js";try{var t=localStorage.getItem("lg-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t)}catch(e){d=d}})();</script>
@@ -81,8 +115,8 @@
   <main id="main">
 <div class="title">
   <p class="eyebrow">Compare</p>
-  <h1>9 model pairs, side by side</h1>
-  <p class="stand">The comparisons people ask for, each on one page: a small model against a large one, two families at the same size, dense against mixture of experts, FP8 against BF16, and two expert counts at the same active size. Every page sets the two models' index rows beside each other on each GPU both were measured on, states the card count and running batch behind each row, and says what explains the gap. The GPU generations themselves are compared on <a href="../h100-vs-b200/">H100 vs B200</a>.</p>
+  <h1>Compare models on GPU energy per token: 9 pairs, side by side</h1>
+  <p class="stand">The widest gap among these nine model pairs is <b>6.03×</b>: Llama 3.3 70B Instruct uses 117.5 Wh per million output tokens against 19.5 for Llama 3.1 8B Instruct on the H100 index rows, GPU only. The comparisons people ask for, each on one page: a small model against a large one, two families at the same size, dense against mixture of experts, FP8 against BF16, and two expert counts at the same active size. Every page sets the two models' index rows beside each other on each GPU both were measured on, states the card count and running batch behind each row, and says what explains the gap. The GPU generations themselves are compared on <a href="../h100-vs-b200/">H100 vs B200</a>.</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.</p>
 </div>
 
@@ -100,9 +134,10 @@
 <div class="card"><span class="k">Two families, one size · H100 and B200</span><h3><a href="../compare/qwen-3-8b-vs-llama-3-1-8b-instruct/">Qwen 3 8B vs Llama 3.1 8B Instruct</a></h3><span class="n">0.97×<small>H100 index rows</small></span><p>Llama 3.1 8B Instruct over Qwen 3 8B, GPU energy per output token; 0.88× on the B200.</p></div>
 <div class="card"><span class="k">Two expert counts · H100</span><h3><a href="../compare/llama-4-scout-17b-16e-instruct-vs-llama-4-maverick-17b-128e-instruct-fp8/">Llama 4 Scout 17B 16E Instruct vs Llama 4 Maverick 17B 128E Instruct FP8</a></h3><span class="n">1.44×<small>H100 index rows</small></span><p>Llama 4 Maverick 17B 128E Instruct FP8 over Llama 4 Scout 17B 16E Instruct, GPU energy per output token.</p></div>
   </div>
-  <p class="note">The ratio on each card is the second model's energy per token over the first's, on the GPU named, at the index rows; under 1 means the second model's row is the lower one. Any other pair can be read off <a href="../models/">the model pages</a> or asked of the <a href="../mcp/">MCP server</a>. Source: ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026), Text Conversation, retrieved 26 September 2026.</p>
+  <p class="note">The ratio on each card is the second model's energy per token over the first's, on the GPU named, at the index rows; under 1 means the second model's row is the lower one. Any other pair can be read off <a href="../models/">the model pages</a> or asked of the <a href="../mcp/">MCP server</a>. Source: ML.ENERGY Leaderboard v3.0 (data compiled 16 February 2026), Text Conversation, retrieved 26 September 2026. The terms behind every figure are <a href="../glossary/energy-per-token/">energy per token</a> and <a href="../glossary/running-batch/">running batch</a>.</p>
 </section>
-  <p class="cite">Cite this page: Lead Green, a Katonic project. Compare: 9 model pairs on GPU energy per million output tokens. https://leadgreen.ai/compare/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
+<section id="faq"><p class="eyebrow">Questions</p><h2>Asked about comparing models</h2><div class="prose faq"><h3>Which LLM uses the least energy per token?</h3><p>On the index, Llama 3.1 8B Instruct on 1 × B200: 13.0 Wh per million output tokens, GPU only, at the most energy-efficient configuration measured for it. The highest row is Llama 3.1 405B Instruct FP8 on 8 × H100 at 572.9 Wh/M. Both are floors on a busy server, and the ranking covers the 18 models the index holds, not every model that exists.</p><h3>Does a larger model always use more energy per token?</h3><p>Usually, but size is not the whole story. Llama 3.3 70B Instruct uses 6.03× the GPU energy per output token of Llama 3.1 8B Instruct on the H100 index rows, while the mixture-of-experts Qwen 3 30B A3B Instruct sits below the dense Qwen 3 32B at a similar total size: 24.7 against 63.5 Wh/M on the H100. Card count and running batch differ between the rows of every pair, and each page states both.</p><h3>How do I compare two models that are not paired here?</h3><p>Every model has a page with all of its measured configurations, and the JSON API carries the same rows, so any two can be set side by side on the same GPU; the MCP server answers the same question in plain words. Read the card count and the running batch beside each figure, because load moves energy per token more than most differences between models do.</p></div></section>
+  <p class="cite">Cite this page: Lead Green, a Katonic project. Compare LLMs on energy per token: 9 model pairs, side by side. https://leadgreen.ai/compare/, release 2026-10-19, retrieved [date]. CC BY 4.0.</p>
 
   </main>
 

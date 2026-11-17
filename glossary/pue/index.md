@@ -1,12 +1,12 @@
 # Power usage effectiveness (PUE)
 
-> Total facility energy divided by IT equipment energy, per ISO/IEC 30134-2; the operator's own multiplier that takes a GPU figure to the building's meter.
+> PUE is a data centre's total facility energy ÷ its IT equipment energy (ISO/IEC 30134-2). The index publishes none: its figures stop at the GPU.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/pue/ (this file: https://leadgreen.ai/glossary/pue/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-The index publishes no PUE: its figures stop at the GPU; PUE, facility energy ÷ IT energy per ISO/IEC 30134-2, is the operator's own multiplier to the meter. **Power usage effectiveness (PUE)** is a data centre's total facility energy divided by the energy delivered to its IT equipment, as defined in ISO/IEC 30134-2. A PUE of 1.0 would mean no energy for cooling, power distribution or lighting; real sites sit above it, and the figure is the operator's own, measured at the building. The index publishes no PUE. It names it because PUE is the second of two multipliers that take a GPU-only figure to the meter: with a system-to-GPU power ratio of 1.79 (DGX B200) and an illustrative PUE of **1.3**, the reference row's 63.5 Wh/M at the GPU becomes about **148 Wh/M** at the facility meter.
+PUE is a data centre's total facility energy ÷ its IT equipment energy (ISO/IEC 30134-2). The index publishes none: its figures stop at the GPU. **Power usage effectiveness (PUE)** sets everything a building draws against what reaches its IT equipment. A PUE of 1.0 would mean no energy for cooling, power distribution or lighting; real sites sit above it, and the figure is the operator's own, measured at the building. The index publishes no PUE. It names it because PUE is the second of two multipliers that take a GPU-only figure to the meter: with a system-to-GPU power ratio of 1.79 (DGX B200) and an illustrative PUE of **1.3**, the reference row's 63.5 Wh/M at the GPU becomes about **148 Wh/M** at the facility meter.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
@@ -54,6 +54,14 @@ Other terms:
 
 Power usage effectiveness: a data centre's total facility energy divided by the energy delivered to its IT equipment, per ISO/IEC 30134-2. It is measured by the operator at the building and the index publishes none; it is one of the two multipliers that take a GPU-only energy figure to the meter.
 
+### Why is PUE outside the index boundary?
+
+Because PUE belongs to a building, not to a model on a GPU. The index draws its boundary at the GPU, the part a buyer can measure, compare across vendors and hold a vendor to; cooling and power distribution differ with every site and are measured by the operator. So the index publishes no PUE and names it as a multiplier instead: the GPU figure × the system-to-GPU power ratio × the site's own PUE.
+
+### What is the PUE of a particular data centre?
+
+The index cannot say: it holds no PUE for any site. PUE is measured and reported by the operator; in the EU, data centres with an installed IT power demand of at least 500 kW report it to the European database. Ask the operator for the measured figure and the standard it was measured to.
+
 ### How do I use PUE with watt-hours per million tokens?
 
 Multiply the GPU figure by the system-to-GPU power ratio and by the PUE. Illustration: 63.5 Wh/M × 1.79 (DGX B200) × 1.3 = about 148 Wh/M at the facility meter. Use your own site's PUE and your own server's ratio.
@@ -76,4 +84,4 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
-Cite this page: Lead Green, a Katonic project. Power usage effectiveness (PUE): definition and the figure. https://leadgreen.ai/glossary/pue/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. PUE (power usage effectiveness): what it is and why the index leaves it out. https://leadgreen.ai/glossary/pue/, release 2026-10-19, retrieved [date]. CC BY 4.0.

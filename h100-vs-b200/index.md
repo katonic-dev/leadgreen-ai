@@ -1,6 +1,6 @@
 # H100 vs B200: GPU energy per million output tokens
 
-> B200 vs H100: the B200 uses a median 39 percent less GPU energy per output token across 14 open-weight models (1.05× to 4.55×). ML.ENERGY v3.0.
+> B200 vs H100: the B200 uses a median 39 percent less GPU energy per output token across 14 open-weight models (1.05× to 4.55×). No H200 rows yet.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/h100-vs-b200/ (this file: https://leadgreen.ai/h100-vs-b200/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
@@ -13,6 +13,7 @@ On the index the B200 uses a median **39 percent less** GPU energy per output to
 - [The 14 pairs](https://leadgreen.ai/h100-vs-b200/#pairs)
 - [The sweep](https://leadgreen.ai/h100-vs-b200/#sweep)
 - [Power against energy](https://leadgreen.ai/h100-vs-b200/#power)
+- [The H200](https://leadgreen.ai/h100-vs-b200/#h200)
 - [Questions](https://leadgreen.ai/h100-vs-b200/#faq)
 - [Sources](https://leadgreen.ai/h100-vs-b200/#sources)
 
@@ -75,6 +76,14 @@ A B200 card draws more power than an H100: NVIDIA rates the H100 SXM at up to 70
 | H200 | NVL | up to 600 W | 141 GB HBM3e |
 | B200 | HGX, SXM6 | configurable up to 1,000 W | 180 GB HBM3e |
 
+*The H200*
+
+## H100 vs H200 vs B200: what the index can and cannot say
+
+The index has no H200 row. The ML.ENERGY Leaderboard v3.0 measured the H100 and the B200, so a three-way comparison on energy per token cannot be made from the public measurements here, and this page does not estimate one. What is published is the specification: NVIDIA rates the H200 SXM at up to 700 W with 141 GB HBM3e, against up to 700 W and 80 GB HBM3 for the H100 SXM and configurable up to 1,000 W and 180 GB HBM3e for the B200. More memory can let a model fit on fewer cards, which is one of the things that moves the pairs above, but a specification gives power and memory, not energy per token; that needs a measurement.
+
+An H200 measurement made to the [protocol](https://leadgreen.ai/contribute/#protocol) is one of the rows the index is asking for. Until one lands, the nearest readings are the 14 H100 and B200 pairs above, the same question in prose in [Is the B200 more energy-efficient than the H100?](https://leadgreen.ai/blog/is-the-b200-more-energy-efficient-than-the-h100/), model against model on [the compare pages](https://leadgreen.ai/compare/), and the quantity itself under [energy per token](https://leadgreen.ai/glossary/energy-per-token/).
+
 *Questions*
 
 ## Asked about H100 against B200
@@ -90,6 +99,10 @@ It depends on the model: for the reference model, Qwen 3 32B, the index rows are
 ### Does the B200 draw more power than the H100?
 
 A B200 card draws more power than an H100: NVIDIA rates the H100 SXM at up to 700 W and the B200 configurable up to 1,000 W, and on these index rows the cards averaged 612 W per H100 and 868 W per B200. It uses less energy per token because it finishes more tokens in each second of that draw. Power tells you the size of the feed; energy per token tells you what the feed produced.
+
+### H100 vs H200 vs B200: which uses the least GPU energy per token?
+
+Between the H100 and the B200, the B200: a median 39 percent less GPU energy per output token across the 14 models measured on both. The H200 cannot be placed, because the index has no H200 measurement; the ML.ENERGY Leaderboard v3.0 measured the H100 and the B200. Only the specification is published: NVIDIA rates the H200 SXM at up to 700 W with 141 GB HBM3e, against up to 700 W and 80 GB HBM3 for the H100 SXM and configurable up to 1,000 W and 180 GB HBM3e for the B200. A specification gives power and memory, not energy per token, so this page does not estimate an H200 figure.
 
 ### Should I buy B200s to cut the energy of AI inference?
 
@@ -115,4 +128,4 @@ TDP and memory: NVIDIA product specifications for [H100](https://www.nvidia.com/
 
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
-Cite this page: Lead Green, a Katonic project. H100 vs B200: which uses less GPU energy per token? 14 models. https://leadgreen.ai/h100-vs-b200/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. B200 vs H100 (and H200): GPU energy per token, 14 models. https://leadgreen.ai/h100-vs-b200/, release 2026-10-19, retrieved [date]. CC BY 4.0.

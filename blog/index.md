@@ -52,4 +52,4 @@ What the public measurements say a million output tokens takes in GPU watt-hours
 
 Order and timing may change; a post ships when its data does. Volunteers who want to take one of these: see [Contribute](https://leadgreen.ai/contribute/).
 
-Cite this page: Lead Green, a Katonic project. Blog. https://leadgreen.ai/blog/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Blog: GPU energy per token, explained with sources. https://leadgreen.ai/blog/, release 2026-10-19, retrieved [date]. CC BY 4.0.

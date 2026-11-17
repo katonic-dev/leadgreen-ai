@@ -1,12 +1,12 @@
 # Every question the site answers
 
-> Every question the site answers, from 63 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
+> Every question the site answers, from 64 pages: energy per AI query, Wh per million tokens, carbon by grid, H100 against B200, the regulator.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/faq/ (this file: https://leadgreen.ai/faq/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *Questions*
 
-330 questions from 63 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
+341 questions from 64 pages, each with the first sentence of its answer and a link to the page that holds the full answer, the figure and the source. The questions are the ones people type: how much energy an AI query uses, what a million tokens costs in watt-hours, which grid is cleaner, what the regulator asks.
 
 **Unit** watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated 19 October 2026.
 
@@ -132,7 +132,7 @@ More than anything else. Qwen 3 32B on 2 × H100 goes from 63.5 Wh/M at a runnin
 
 Google puts the median Gemini Apps text prompt at 0.03 g CO2e and 0.26 mL of water (August 2025); Mistral puts a 400-token reply from its large model at 1.14 g CO2e and 45 mL (July 2025), without a watt-hour figure. [Full answer](https://leadgreen.ai/per-query/#faq)
 
-*6 questions*
+*7 questions*
 
 ## [H100 vs B200](https://leadgreen.ai/h100-vs-b200/)
 
@@ -147,6 +147,10 @@ It depends on the model: for the reference model, Qwen 3 32B, the index rows are
 ### Does the B200 draw more power than the H100?
 
 A B200 card draws more power than an H100: NVIDIA rates the H100 SXM at up to 700 W and the B200 configurable up to 1,000 W, and on these index rows the cards averaged 612 W per H100 and 868 W per B200. [Full answer](https://leadgreen.ai/h100-vs-b200/#faq)
+
+### H100 vs H200 vs B200: which uses the least GPU energy per token?
+
+Between the H100 and the B200, the B200: a median 39 percent less GPU energy per output token across the 14 models measured on both. [Full answer](https://leadgreen.ai/h100-vs-b200/#faq)
 
 ### Should I buy B200s to cut the energy of AI inference?
 
@@ -396,13 +400,25 @@ Yes, and the same as MWh per trillion tokens; the three scale together. [Full an
 
 The energy includes prompt processing, because the benchmark divides steady-state GPU energy by the output tokens generated in the window; the denominator counts output tokens only. [Full answer](https://leadgreen.ai/glossary/watt-hours-per-million-output-tokens/#faq)
 
-*4 questions*
+*7 questions*
 
 ## [Energy per token](https://leadgreen.ai/glossary/energy-per-token/)
 
 ### What is energy per token?
 
 GPU energy divided by the output tokens generated in the same steady-state window, in joules per output token. [Full answer](https://leadgreen.ai/glossary/energy-per-token/#faq)
+
+### What is a typical energy per token for an LLM?
+
+There is no single typical figure, because it moves with the model, the GPU and above all the load. [Full answer](https://leadgreen.ai/glossary/energy-per-token/#faq)
+
+### What are the methods for measuring GPU energy consumption, and how do they compare?
+
+Three are in use. A device reading takes the GPU's own energy counter (NVML or DCGM; the leaderboard uses Zeus) over a steady-state window and covers the GPUs alone; every index row is one. [Full answer](https://leadgreen.ai/glossary/energy-per-token/#faq)
+
+### Does the index measure the energy of AI training?
+
+No. Every figure on the index is inference: GPU energy while a model serves output tokens at steady state. [Full answer](https://leadgreen.ai/glossary/energy-per-token/#faq)
 
 ### How is energy per token measured?
 
@@ -500,9 +516,17 @@ On the reference row, 23× between Saudi Arabia (43.7 kg CO2e per billion tokens
 
 Use it for comparison, not as the filed factor. It is a lifecycle, production-based figure on net generation, not a Scope 2 combustion factor, and it is an annual average that a round-the-clock GPU load does not follow hour by hour. [Full answer](https://leadgreen.ai/glossary/location-based-intensity/#faq)
 
-*4 questions*
+*6 questions*
 
 ## [kg CO2e per billion output tokens](https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/)
+
+### How do I calculate CO2 per token?
+
+Multiply energy per token by the carbon intensity of the grid the GPU runs on. [Full answer](https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/#faq)
+
+### Is carbon per token the same as energy per token?
+
+No. Energy per token belongs to the model, the GPU and the load, and does not change with geography. [Full answer](https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/#faq)
 
 ### How much CO2 does a million AI tokens produce?
 
@@ -540,13 +564,21 @@ Yes. At 250 ms, 1 row changes; at 100 ms, 7 rows change and the lowest becomes Q
 
 Because energy per token falls as the running batch rises and latency rises with it; a figure without its latency can be made arbitrarily good by loading the server until users wait. [Full answer](https://leadgreen.ai/glossary/inter-token-latency-ceiling/#faq)
 
-*4 questions*
+*6 questions*
 
 ## [Power usage effectiveness (PUE)](https://leadgreen.ai/glossary/pue/)
 
 ### What is PUE?
 
 Power usage effectiveness: a data centre's total facility energy divided by the energy delivered to its IT equipment, per ISO/IEC 30134-2. [Full answer](https://leadgreen.ai/glossary/pue/#faq)
+
+### Why is PUE outside the index boundary?
+
+Because PUE belongs to a building, not to a model on a GPU. The index draws its boundary at the GPU, the part a buyer can measure, compare across vendors and hold a vendor to; cooling and power distribution differ with every site and are... [Full answer](https://leadgreen.ai/glossary/pue/#faq)
+
+### What is the PUE of a particular data centre?
+
+The index cannot say: it holds no PUE for any site. PUE is measured and reported by the operator; in the EU, data centres with an installed IT power demand of at least 500 kW report it to the European database. [Full answer](https://leadgreen.ai/glossary/pue/#faq)
 
 ### How do I use PUE with watt-hours per million tokens?
 
@@ -1600,4 +1632,20 @@ As a comparison, not as a filing. Ember's intensity is a lifecycle figure on net
 
 Grid intensity: Ember, Yearly electricity data, October 2026 release (2024; 2023, 2024, 2025 shown), CC BY 4.0, retrieved 17 October 2026. [Full answer](https://leadgreen.ai/grids/norway/#faq)
 
-Cite this page: Lead Green, a Katonic project. FAQ: 330 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+*3 questions*
+
+## [Compare models](https://leadgreen.ai/compare/)
+
+### Which LLM uses the least energy per token?
+
+On the index, Llama 3.1 8B Instruct on 1 × B200: 13.0 Wh per million output tokens, GPU only, at the most energy-efficient configuration measured for it. [Full answer](https://leadgreen.ai/compare/#faq)
+
+### Does a larger model always use more energy per token?
+
+Usually, but size is not the whole story. Llama 3.3 70B Instruct uses 6.03× the GPU energy per output token of Llama 3.1 8B Instruct on the H100 index rows, while the mixture-of-experts Qwen 3 30B A3B Instruct sits below the dense Qwen 3... [Full answer](https://leadgreen.ai/compare/#faq)
+
+### How do I compare two models that are not paired here?
+
+Every model has a page with all of its measured configurations, and the JSON API carries the same rows, so any two can be set side by side on the same GPU; the MCP server answers the same question in plain words. [Full answer](https://leadgreen.ai/compare/#faq)
+
+Cite this page: Lead Green, a Katonic project. FAQ: 341 questions about GPU energy per token, answered with sources. https://leadgreen.ai/faq/, release 2026-10-19, retrieved [date]. CC BY 4.0.

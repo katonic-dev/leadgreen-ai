@@ -93,6 +93,17 @@ To ask every bidder for the same figure at the same load, in [a clause](https://
 
 You own the feed, the power envelope and the capacity meeting. The index gives you GPU energy per unit of work and the two multipliers that take it to the meter, so a contracted feed becomes tokens per hour at a stated PUE and server overhead. It does not give you PUE, water, waste heat or anything else in facility units.
 
+*Straight to an answer*
+
+## Six questions, one page each
+
+- [B200 vs H100: which GPU uses less energy per token?](https://leadgreen.ai/h100-vs-b200/) The H100 row uses a median 1.63× the B200 row's GPU energy per token; the index has no H200 row yet.
+- [What is energy per token, and how is it measured?](https://leadgreen.ai/glossary/energy-per-token/) The definition, the measured range and three measurement methods compared.
+- [How do I calculate CO2 per token?](https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/) Energy per token multiplied by the grid's carbon intensity, with the working.
+- [What is PUE, and why is it outside the index?](https://leadgreen.ai/glossary/pue/) The building's multiplier, which the operator measures and the index does not publish.
+- [Which of two models uses less energy per token?](https://leadgreen.ai/compare/) Model pairs side by side, such as Llama 3.1 8B against Llama 3.3 70B.
+- [How much energy does an AI query use?](https://leadgreen.ai/per-query/) Per prompt against per million tokens.
+
 *How to use it*
 
 ## Three ways in
