@@ -2392,6 +2392,10 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
         f"<td class=\"num key\">{r:.2f}×</td></tr>" for m, h, b, r in pairs)
     tdp = {(t["gpu"], t["form"]): t for t in hw["tdp"]}
     h_sxm = tdp.get(("H100", "SXM")); b_row = next(t for t in hw["tdp"] if t["gpu"] == "B200")
+    h200 = tdp[("H200", "SXM")]
+    assert not any(c["gpu_model"] == "H200" for c in cfgs), "the H200 section says the index has no H200 row"
+    h200_spec = (f"NVIDIA rates the H200 SXM at {h200['tdp_label']} with {h200['memory']}, against {h_sxm['tdp_label']} and {h_sxm['memory']} for the H100 SXM "
+                 f"and {b_row['tdp_label']} and {b_row['memory']} for the B200")
     power_para = (f"A B200 card draws more power than an H100: NVIDIA rates the H100 SXM at {h_sxm['tdp_label']} and the B200 {b_row['tdp_label']}, and on these index rows the cards averaged "
                   f"{fmt(sum(h100_w) / len(h100_w), 0)} W per H100 and {fmt(sum(b200_w) / len(b200_w), 0)} W per B200. It uses less energy per token because it finishes more tokens in each second of that draw. "
                   f"Power tells you the size of the feed; energy per token tells you what the feed produced.")
@@ -2403,6 +2407,10 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
         ("How much energy does a B200 save over an H100 per million tokens?",
          f"It depends on the model: for the reference model, {ref['model']}, the index rows are {fmt(raw_wh(ref))} Wh/M on {ref['num_gpus']} × H100 against {fmt(raw_wh(next(b for m, h, b, r in pairs if m == ref['model'])))} Wh/M on {next(b for m, h, b, r in pairs if m == ref['model'])['num_gpus']} × B200. The table on this page gives all {len(pairs)} pairs."),
         ("Does the B200 draw more power than the H100?", power_para),
+        ("H100 vs H200 vs B200: which uses the least GPU energy per token?",
+         f"Between the H100 and the B200, the B200: a median {pct_less:.0f} percent less GPU energy per output token across the {len(pairs)} models measured on both. "
+         f"The H200 cannot be placed, because the index has no H200 measurement; the ML.ENERGY Leaderboard v3.0 measured the H100 and the B200. Only the specification is published: {h200_spec}. "
+         "A specification gives power and memory, not energy per token, so this page does not estimate an H200 figure."),
         ("Should I buy B200s to cut the energy of AI inference?",
          f"Not first. The same model on the same H100 cards moves {subs['L32_RATIO']}× in energy per token between a running batch of {subs['L32_FIRST_BATCH']} and {subs['L32_BEST_BATCH']}, which is more than the widest generation gap here ({pr:.2f}×). Consolidating traffic onto fewer, busier cards costs nothing in hardware; the generation change comes after."),
         ("Why do the two rows of a pair have different card counts?",
@@ -2416,7 +2424,7 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
   <h1>H100 vs B200: GPU energy per million output tokens</h1>
   <p class="stand">{answer}</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. <b>Data</b> <a href="{{{{ROOT}}}}api/v1/index.json">index.json</a>. Updated {{{{UPDATED_LONG}}}}.</p>
-  <ul class="toc" aria-label="On this page"><li><a href="#pairs">The {len(pairs)} pairs</a></li><li><a href="#sweep">The sweep</a></li><li><a href="#power">Power against energy</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+  <ul class="toc" aria-label="On this page"><li><a href="#pairs">The {len(pairs)} pairs</a></li><li><a href="#sweep">The sweep</a></li><li><a href="#power">Power against energy</a></li><li><a href="#h200">The H200</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 {tiles}
 <p class="after-tiles">Each pair compares a model's index row on the H100 with its index row on the B200: the lowest-energy configuration the leaderboard measured on each card, at or under {{{{ITL}}}} ms median inter-token latency. The ratio is the H100 row's energy per token over the B200 row's.</p>
@@ -2448,6 +2456,13 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
 {{{{TDP_ROWS}}}}
   </tbody></table></div>
 </section>
+
+<section id="h200">
+  <p class="eyebrow">The H200</p>
+  <h2>H100 vs H200 vs B200: what the index can and cannot say</h2>
+  <div class="prose"><p>The index has no H200 row. The ML.ENERGY Leaderboard v3.0 measured the H100 and the B200, so a three-way comparison on energy per token cannot be made from the public measurements here, and this page does not estimate one. What is published is the specification: {h200_spec}. More memory can let a model fit on fewer cards, which is one of the things that moves the pairs above, but a specification gives power and memory, not energy per token; that needs a measurement.</p>
+  <p>An H200 measurement made to the <a href="{{{{ROOT}}}}contribute/#protocol">protocol</a> is one of the rows the index is asking for. Until one lands, the nearest readings are the {len(pairs)} H100 and B200 pairs above, the same question in prose in <a href="{{{{ROOT}}}}blog/is-the-b200-more-energy-efficient-than-the-h100/">Is the B200 more energy-efficient than the H100?</a>, model against model on <a href="{{{{ROOT}}}}compare/">the compare pages</a>, and the quantity itself under <a href="{{{{ROOT}}}}glossary/energy-per-token/">energy per token</a>.</p></div>
+</section>
 {faq_html}
 <section id="sources">
   <p class="eyebrow">Sources</p>
@@ -2457,9 +2472,10 @@ def compare_page() -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="note">TDP and memory: NVIDIA product specifications for <a href="https://www.nvidia.com/en-us/data-center/h100/">H100</a> and <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a>, and the <a href="https://images.nvidia.com/aem-dam/Solutions/documents/HGX-B200-PCF-Summary.pdf">HGX B200 product carbon footprint summary</a> (July 2025), retrieved {{{{RETRIEVED_LONG}}}}.</p>
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
 </section>"""
-    title = f"H100 vs B200: which uses less GPU energy per token? {len(pairs)} models | Lead Green"
+    title = f"B200 vs H100 (and H200): GPU energy per token, {len(pairs)} models | Lead Green"
     desc = (f"B200 vs H100: the B200 uses a median {pct_less:.0f} percent less GPU energy per output token across {len(pairs)} open-weight models "
-            f"({lr:.2f}× to {pr:.2f}×). ML.ENERGY v3.0.")
+            f"({lr:.2f}× to {pr:.2f}×). No H200 rows yet.")
+    assert len(desc) <= 155, len(desc)
     return title, desc, body, faq
 
 
@@ -2637,11 +2653,14 @@ GLOSSARY = [
            ("Highest on the index", fmt(raw_wh(high)), "Wh/M", f"{esc(high['model'])}, {high['num_gpus']} × {high['gpu']}")]),
     _term("energy-per-token", "Energy per token",
           "GPU energy divided by the output tokens generated in the same steady-state window, in joules per token; the quantity the index converts to Wh/M.",
-          f"<b>Energy per token</b> is the GPU energy a serving system uses divided by the output tokens it generated in the same window, in joules per output token. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled {long_date(SRC_MLE['compiled'])}). On the index it runs from <b>{low['_cfg']['energy_per_token_joules']:.3f} J per token</b> ({esc(low['model'])}, {low['num_gpus']} × {low['gpu']}) to <b>{high['_cfg']['energy_per_token_joules']:.2f} J</b> ({esc(high['model'])}, {high['num_gpus']} × {high['gpu']}); the index shows it as watt-hours per million output tokens.",
+          f"<b>Energy per token</b> is stated in joules per output token, and both halves of the division are taken over the same window. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled {long_date(SRC_MLE['compiled'])}). On the index it runs from <b>{low['_cfg']['energy_per_token_joules']:.3f} J per token</b> ({esc(low['model'])}, {low['num_gpus']} × {low['gpu']}) to <b>{high['_cfg']['energy_per_token_joules']:.2f} J</b> ({esc(high['model'])}, {high['num_gpus']} × {high['gpu']}); the index shows it as watt-hours per million output tokens.",
           f"<p>Energy per token is average power divided by token throughput: on the reference row, {{{{CONS_W}}}} W summed across {ref['num_gpus']} cards ÷ {{{{CONS_TPS}}}} output tokens per second = {ref['_cfg']['energy_per_token_joules']:.4f} J per token, which is {{{{CONS_WH}}}} Wh/M. The identity is also the consistency check the <a href=\"{{{{ROOT}}}}rfp/\">RFP scoring box</a> applies to a bidder's figure.</p>"
           f"<p>Three ways of getting the number are not equal. A measured figure reads the GPU's energy counter (NVIDIA NVML or DCGM, which Zeus uses) over a window of steady load and divides by the tokens served. A whole-system figure reads the server's power supplies and includes host, memory, network and fans, which on a {esc(_sys_row['system'])} adds about {{{{SYS_RATIO}}}}× to the GPU figure. An estimate multiplies a rated power (TDP) by an assumed utilisation and divides by an assumed throughput; it is the kind most often quoted and the kind the index does not publish. Energy per token falls as the running batch rises because the cards' fixed draw is spread over more tokens: see <a href=\"{{{{ROOT}}}}glossary/running-batch/\">running batch</a>.</p>",
           [("The index method", "index/#method"), ("Why it matters: utilisation", "why/#utilisation"), ("The measurement protocol", "contribute/#protocol")],
           [("What is energy per token?", f"GPU energy divided by the output tokens generated in the same steady-state window, in joules per output token. The index measures it from the ML.ENERGY Leaderboard v3.0 and shows it as watt-hours per million output tokens; it runs from {low['_cfg']['energy_per_token_joules']:.3f} to {high['_cfg']['energy_per_token_joules']:.2f} J per token across the index rows."),
+           ("What is a typical energy per token for an LLM?", f"There is no single typical figure, because it moves with the model, the GPU and above all the load. Measured on a busy server, GPU only, the index rows run from {low['_cfg']['energy_per_token_joules']:.3f} J per output token ({low['model']}, {low['num_gpus']} × {low['gpu']}) to {high['_cfg']['energy_per_token_joules']:.2f} J ({high['model']}, {high['num_gpus']} × {high['gpu']}), which is {fmt(raw_wh(low))} to {fmt(raw_wh(high))} Wh per million output tokens. The reference row, {ref['model']} on {ref['num_gpus']} × {ref['gpu']}, is {ref['_cfg']['energy_per_token_joules']:.4f} J, or {fmt(raw_wh(ref))} Wh/M. Each is a floor: the same reference model on the same cards measured {fmt(l32['first'], 0)} Wh/M at a running batch of {fmt(l32['first_batch'], 0)}."),
+           ("What are the methods for measuring GPU energy consumption, and how do they compare?", f"Three are in use. A device reading takes the GPU's own energy counter (NVML or DCGM; the leaderboard uses Zeus) over a steady-state window and covers the GPUs alone; every index row is one. A whole-system reading takes the server's power supplies and adds the host, memory, network and fans, about {sys_ratio:.2f}× the GPU figure for a {_sys_row['system']} by NVIDIA's rated power. An estimate multiplies a rated power by an assumed utilisation and divides by an assumed throughput; it measures nothing, and the index does not publish it."),
+           ("Does the index measure the energy of AI training?", "No. Every figure on the index is inference: GPU energy while a model serves output tokens at steady state. It holds no training-energy measurement. The nearest things it has are the comparison of measurement methods on this page and the measurement protocol, both written for serving."),
            ("How is energy per token measured?", f"By reading the GPU's energy counter (through NVML or DCGM; the leaderboard uses Zeus) at the start and end of a steady-state window under a fixed load, and dividing the difference by the output tokens generated in that window. The index's protocol asks for a window of at least {PROTO_MIN_MINUTES} minutes after warm-up and at least {PROTO_MIN_REQUESTS:,} requests. Average power divided by tokens per second gives the same number."),
            ("Why do estimates of energy per token differ so much from measurements?", f"Estimates multiply a rated power by an assumed utilisation and divide by an assumed throughput, usually a single request at a time. A busy server serves hundreds of requests at once on nearly the same power: {ref['model']} on {ref['num_gpus']} × {ref['gpu']} moves {l32['ratio']:.1f}× in energy per token between a running batch of {fmt(l32['first_batch'], 0)} and {fmt(l32['best_batch'], 0)}. An estimate at one request per card lands far above every measured busy-server row."),
            ("Does energy per token include the host, the network and cooling?", f"Not on this index. The figures are GPU energy only. A whole-system reading adds the host, memory, network and fans (about {sys_ratio:.2f}× for a {_sys_row['system']}, from NVIDIA's rated system and GPU power), and the facility's PUE adds cooling and distribution on top.")]),
@@ -2704,7 +2723,9 @@ GLOSSARY = [
           f"<p>The arithmetic as printed: {fmt(raw_wh(ref))} × {fmt(intensity['SAU'], 0)} ÷ 1,000 = {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))}. Across the index the range on Saudi Arabia's grid is {fmt(kg_per_billion(raw_wh(low), intensity['SAU']))} kg ({esc(low['model'])}, {low['num_gpus']} × {low['gpu']}) to {fmt(kg_per_billion(raw_wh(high), intensity['SAU']))} kg ({esc(high['model'])}, {high['num_gpus']} × {high['gpu']}) per billion tokens. Per million tokens, read the same numbers in grams: about {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} g for the reference row in Saudi Arabia.</p>"
           f"<p>The unit is a floor on two counts: the energy is a busy-server GPU-only figure and the grid factor is a location-based annual average. A lightly loaded server multiplies the first factor by several times ({l32['ratio']:.1f}× on the reference model's own ladder), and host, network and cooling add to it. Figures per billion are chosen because enterprise token volumes are counted in billions a month; the <a href=\"{{{{ROOT}}}}grids/\">grid pages</a> price every index row on each listed grid, and the <a href=\"{{{{ROOT}}}}mcp/\">MCP server</a> prices any configuration on any grid for a token count.</p>",
           [("The carbon table", "index/#carbon"), ("Grids", "grids/"), ("Why it matters: the SCI", "why/#sci")],
-          [("How much CO2 does a million AI tokens produce?", f"On the index's reference row ({ref['model']}, {ref['num_gpus']} × {ref['gpu']}, {fmt(raw_wh(ref))} Wh per million output tokens, GPU only), about {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} g CO2e per million tokens on Saudi Arabia's {EMBER_YEAR} grid, {fmt(kg_per_billion(raw_wh(ref), intensity['IND']))} g on India's, {fmt(kg_per_billion(raw_wh(ref), world))} g on the world average and {fmt(kg_per_billion(raw_wh(ref), intensity['NOR']))} g on Norway's. Per billion tokens, the same numbers in kilograms."),
+          [("How do I calculate CO2 per token?", f"Multiply energy per token by the carbon intensity of the grid the GPU runs on. In the index's units, Wh per million output tokens × gCO2e per kWh ÷ 1,000 gives grams of CO2e per million tokens, which is the same number in micrograms per token and in kilograms per billion tokens. For the reference row, {fmt(raw_wh(ref))} Wh/M × {fmt(intensity['SAU'], 0)} gCO2e/kWh ÷ 1,000 = {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} g CO2e per million tokens on Saudi Arabia's {EMBER_YEAR} grid, so {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} micrograms per token. GPU energy only."),
+           ("Is carbon per token the same as energy per token?", f"No. Energy per token belongs to the model, the GPU and the load, and does not change with geography. Carbon per token multiplies it by the grid's intensity, so the same tokens on the same GPUs carry {sau_nor_ratio:.0f}× the carbon on Saudi Arabia's grid as on Norway's: {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} against {fmt(kg_per_billion(raw_wh(ref), intensity['NOR']))} kg CO2e per billion tokens at the reference row ({EMBER_YEAR}, Ember)."),
+           ("How much CO2 does a million AI tokens produce?", f"On the index's reference row ({ref['model']}, {ref['num_gpus']} × {ref['gpu']}, {fmt(raw_wh(ref))} Wh per million output tokens, GPU only), about {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} g CO2e per million tokens on Saudi Arabia's {EMBER_YEAR} grid, {fmt(kg_per_billion(raw_wh(ref), intensity['IND']))} g on India's, {fmt(kg_per_billion(raw_wh(ref), world))} g on the world average and {fmt(kg_per_billion(raw_wh(ref), intensity['NOR']))} g on Norway's. Per billion tokens, the same numbers in kilograms."),
            ("How do I calculate kg CO2e per billion tokens?", f"Multiply watt-hours per million output tokens by the grid's gCO2e per kWh and divide by 1,000. Example: {fmt(raw_wh(ref))} Wh/M × {fmt(intensity['SAU'], 0)} gCO2e/kWh ÷ 1,000 = {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} kg CO2e per billion tokens."),
            ("Why are some published figures thousands of times higher?", "Usually because they start from an estimate of energy per token for a single request at a time, or from a whole-stack figure, and then multiply by a grid factor. The index's energy figures are measured on a busy server, GPU only; at the same grid factor they land far lower. State the boundary and the load before comparing two carbon figures."),
            ("Is this a Scope 2 figure?", "It is a location-based GPU-side figure for comparison. GPUs you run put their electricity in your own Scope 2 (ESRS E1-6, location-based matches this method; market-based needs your contracts). Tokens bought from a hosted API are the provider's Scope 2 and your Scope 3, category 1.")],
@@ -2726,11 +2747,13 @@ GLOSSARY = [
            ("Reference row", fmt(ref["_cfg"]["median_itl_ms"], 0), "ms median", f"p99 {fmt(ref['_cfg']['p99_itl_ms'], 0)} ms at a running batch of {fmt(ref['_cfg']['avg_batch_size'], 0)}")]),
     _term("pue", "Power usage effectiveness (PUE)",
           "Total facility energy divided by IT equipment energy, per ISO/IEC 30134-2; the operator's own multiplier that takes a GPU figure to the building's meter.",
-          f"<b>Power usage effectiveness (PUE)</b> is a data centre's total facility energy divided by the energy delivered to its IT equipment, as defined in ISO/IEC 30134-2. A PUE of 1.0 would mean no energy for cooling, power distribution or lighting; real sites sit above it, and the figure is the operator's own, measured at the building. The index publishes no PUE. It names it because PUE is the second of two multipliers that take a GPU-only figure to the meter: with a system-to-GPU power ratio of {sys_ratio:.2f} ({esc(_sys_row['system'])}) and an illustrative PUE of <b>{PUE_EXAMPLE:g}</b>, the reference row's {fmt(raw_wh(ref))} Wh/M at the GPU becomes about <b>{fmt(meter_wh, 0)} Wh/M</b> at the facility meter.",
+          f"<b>Power usage effectiveness (PUE)</b> sets everything a building draws against what reaches its IT equipment. A PUE of 1.0 would mean no energy for cooling, power distribution or lighting; real sites sit above it, and the figure is the operator's own, measured at the building. The index publishes no PUE. It names it because PUE is the second of two multipliers that take a GPU-only figure to the meter: with a system-to-GPU power ratio of {sys_ratio:.2f} ({esc(_sys_row['system'])}) and an illustrative PUE of <b>{PUE_EXAMPLE:g}</b>, the reference row's {fmt(raw_wh(ref))} Wh/M at the GPU becomes about <b>{fmt(meter_wh, 0)} Wh/M</b> at the facility meter.",
           f"<p>The arithmetic as printed: {fmt(raw_wh(ref))} × {sys_ratio:.2f} × {PUE_EXAMPLE:g} = {fmt(meter_wh, 0)}. The order of the two multipliers does not matter; what matters is that both are stated. A contracted feed then becomes a token capacity: at that figure a gigawatt-hour at the meter serves about {fmt(meter_tokens_b, 1)} billion output tokens of the reference row, against {{{{TOKENS_PER_MWH_REF_B}}}} billion per megawatt-hour of GPU energy.</p>"
           f"<p>PUE is a facility metric and says nothing about how much useful work the IT equipment did; a site with a PUE of 1.1 serving eight requests per GPU wastes more energy per token than a site at 1.4 serving two hundred and fifty. Under the Energy Efficiency Directive (EU) 2023/1791 and Delegated Regulation (EU) 2024/1364, data centres with an installed IT power demand of at least {fmt(EED_MIN_KW, 0)} kW report PUE and other facility indicators to the European database; none of those indicators is energy per unit of work, which is what the <a href=\"{{{{ROOT}}}}index/\">index</a> adds. The <a href=\"{{{{ROOT}}}}glossary/gpu-only-boundary/\">GPU-only boundary</a> entry draws the line the multipliers cross.</p>",
           [("The index method: to the meter", "index/#method"), ("Why it matters: power", "why/#power"), ("Why it matters: the regulator", "why/#regulator")],
           [("What is PUE?", "Power usage effectiveness: a data centre's total facility energy divided by the energy delivered to its IT equipment, per ISO/IEC 30134-2. It is measured by the operator at the building and the index publishes none; it is one of the two multipliers that take a GPU-only energy figure to the meter."),
+           ("Why is PUE outside the index boundary?", "Because PUE belongs to a building, not to a model on a GPU. The index draws its boundary at the GPU, the part a buyer can measure, compare across vendors and hold a vendor to; cooling and power distribution differ with every site and are measured by the operator. So the index publishes no PUE and names it as a multiplier instead: the GPU figure × the system-to-GPU power ratio × the site's own PUE."),
+           ("What is the PUE of a particular data centre?", f"The index cannot say: it holds no PUE for any site. PUE is measured and reported by the operator; in the EU, data centres with an installed IT power demand of at least {fmt(EED_MIN_KW, 0)} kW report it to the European database. Ask the operator for the measured figure and the standard it was measured to."),
            ("How do I use PUE with watt-hours per million tokens?", f"Multiply the GPU figure by the system-to-GPU power ratio and by the PUE. Illustration: {fmt(raw_wh(ref))} Wh/M × {sys_ratio:.2f} ({_sys_row['system']}) × {PUE_EXAMPLE:g} = about {fmt(meter_wh, 0)} Wh/M at the facility meter. Use your own site's PUE and your own server's ratio."),
            ("Does a low PUE mean efficient AI inference?", "No. PUE measures the building's overhead, not the work the GPUs did. A site with a low PUE serving few requests per GPU uses more energy per token than a site with a higher PUE whose GPUs are busy. Energy per token measures the work; PUE measures the building."),
            ("Which regulation asks for PUE?", f"In the EU, the Energy Efficiency Directive (EU) 2023/1791, Article 12, with Commission Delegated Regulation (EU) 2024/1364: data centres with an installed IT power demand of at least {fmt(EED_MIN_KW, 0)} kW report facility indicators including PUE. No regulation asks for energy per token.")],
@@ -2746,8 +2769,8 @@ assert len({t["slug"] for t in GLOSSARY}) == 9
 GLOSSARY_ANSWERS = {
     "watt-hours-per-million-output-tokens": (f"{fmt(raw_wh(low))} to {fmt(raw_wh(high))} Wh per million output tokens is the index's range, from {esc(low['model'])} on "
                                              f"{low['num_gpus']} × {low['gpu']} to {esc(high['model'])} on {high['num_gpus']} × {high['gpu']}, GPU only."),
-    "energy-per-token": (f"{low['_cfg']['energy_per_token_joules']:.3f} to {high['_cfg']['energy_per_token_joules']:.2f} joules per output token is the index's range "
-                         "of GPU energy per token; 1 Wh per million tokens equals 0.0036 J per token."),
+    "energy-per-token": (f"Energy per token is GPU energy divided by the output tokens generated: {low['_cfg']['energy_per_token_joules']:.3f} to "
+                         f"{high['_cfg']['energy_per_token_joules']:.2f} joules per output token on the index, {fmt(raw_wh(low))} to {fmt(raw_wh(high))} Wh per million."),
     "running-batch": (f"Raising the running batch of {esc(l32['model'])} on {l32['gpus']} from {fmt(l32['first_batch'], 0)} to {fmt(l32['best_batch'], 0)} cuts GPU energy "
                       f"from {fmt(l32['first'])} to {fmt(l32['best'])} Wh per million tokens, {l32['ratio']:.1f}× on the same cards."),
     "floor": (f"Every index row is a floor: {esc(ref['model'])} on {ref['num_gpus']} × {ref['gpu']} is {fmt(raw_wh(ref))} Wh per million tokens at a running batch of "
@@ -2756,13 +2779,36 @@ GLOSSARY_ANSWERS = {
                           f"{GOOGLE_2025['accelerator_share'] * 100:.0f} percent of a prompt's energy, and the rest sits outside this boundary."),
     "location-based-intensity": (f"{fmt(intensity['SAU'], 0)} gCO2e per kWh for Saudi Arabia, {fmt(intensity['IND'], 0)} for India, {fmt(intensity['NOR'], 0)} for Norway and "
                                  f"{fmt(world, 0)} for the world ({EMBER_YEAR}, Ember): the grid factor that turns energy per token into carbon."),
-    "kg-co2e-per-billion-tokens": (f"{fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} kg CO2e per billion output tokens for {esc(ref['model'])} on {ref['num_gpus']} × "
-                                   f"{ref['gpu']} on Saudi Arabia's grid: Wh per million tokens × gCO2e per kWh ÷ 1,000."),
+    "kg-co2e-per-billion-tokens": (f"CO2 per token is energy per token × grid carbon intensity: {fmt(kg_per_billion(raw_wh(ref), intensity['SAU']))} kg CO2e per billion output "
+                                   f"tokens for {esc(ref['model'])} on {ref['num_gpus']} × {ref['gpu']} on Saudi Arabia's grid."),
     "inter-token-latency-ceiling": (f"{ITL_DEADLINE_MS} ms median inter-token latency is the ceiling an index row must meet; the slowest measured row is "
                                     f"{fmt(max_chat_itl, 0)} ms, so today it excludes nothing."),
-    "pue": ("The index publishes no PUE: its figures stop at the GPU; PUE, facility energy ÷ IT energy per ISO/IEC 30134-2, is the operator's own multiplier "
-            "to the meter."),
+    "pue": ("PUE is a data centre's total facility energy ÷ its IT equipment energy (ISO/IEC 30134-2). The index publishes none: its figures stop at the GPU."),
 }
+# The queries these three entries are shown for (Search Console, 19 October to 15 November 2026) use other words than the term's name,
+# so the title, and for the carbon unit the heading, carry the words people type. The term's own name stays in the DefinedTerm data.
+GLOSSARY_TITLES = {
+    "energy-per-token": "Energy per token: what it is, measured values and how to measure it | Lead Green",
+    "kg-co2e-per-billion-tokens": "CO2 per token: how to calculate carbon per token from energy and grid | Lead Green",
+    "pue": "PUE (power usage effectiveness): what it is and why the index leaves it out | Lead Green",
+}
+GLOSSARY_H1 = {"kg-co2e-per-billion-tokens": "CO2 per token: kg CO2e per billion output tokens"}
+GLOSSARY_EXTRA = {
+    "energy-per-token": ("Methods", f"""<section id="methods">
+  <p class="eyebrow">Methods</p>
+  <h2>Three methods for measuring GPU energy, compared</h2>
+  <div class="table-scroll"><table><caption>Ways of arriving at an energy per token figure, and what the index does with each</caption>
+  <thead><tr><th scope="col">Method</th><th scope="col">What is read</th><th scope="col">What it covers</th><th scope="col">On the index</th></tr></thead><tbody>
+  <tr><th scope="row">Device counter</th><td>The GPU's energy counter (NVIDIA NVML or DCGM; the leaderboard uses Zeus) at the start and end of a steady-state window, divided by the output tokens generated in it</td><td>The GPUs alone</td><td>Every row. The protocol asks for a window of at least {PROTO_MIN_MINUTES} minutes after warm-up and at least {PROTO_MIN_REQUESTS:,} requests</td></tr>
+  <tr><th scope="row">Whole system</th><td>The server's power supplies over the same window</td><td>The GPUs plus host, memory, network and fans: about {{{{SYS_RATIO}}}}× the GPU figure on a {esc(_sys_row['system'])}, from NVIDIA's rated power</td><td>Never folded in. A contributed row may state host power beside its GPU figure</td></tr>
+  <tr><th scope="row">Estimate</th><td>Nothing: a rated power (TDP) × an assumed utilisation ÷ an assumed throughput</td><td>Whatever the assumptions say</td><td>Not published</td></tr>
+  </tbody></table></div>
+  <p class="note">All three are described here for serving. The index measures inference only and holds no training-energy figure. The full procedure is the <a href="{{{{ROOT}}}}contribute/#protocol">measurement protocol</a>; how a GPU figure reaches the facility meter is under <a href="{{{{ROOT}}}}glossary/gpu-only-boundary/">GPU-only boundary</a> and <a href="{{{{ROOT}}}}glossary/pue/">PUE</a>; what it becomes in carbon is under <a href="{{{{ROOT}}}}glossary/kg-co2e-per-billion-tokens/">CO2 per token</a>.</p>
+</section>
+"""),
+}
+for _slug in ("energy-per-token", "kg-co2e-per-billion-tokens", "pue"):
+    assert len(GLOSSARY_ANSWERS[_slug]) <= 155, (_slug, len(GLOSSARY_ANSWERS[_slug]))
 for _t in GLOSSARY:
     _t["answer"] = GLOSSARY_ANSWERS[_t["slug"]]
     assert "\u2013" not in _t["answer"] and "\u2014" not in _t["answer"]
@@ -2776,13 +2822,15 @@ def glossary_page(t: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
                            for i, (l, v, u, s) in enumerate(t["tiles"])) + "</div>")
     used = "".join(f"<li><a href=\"{{{{ROOT}}}}{href}\">{esc(label)}</a></li>" for label, href in t["used"])
     others = "".join(f"<li><a href=\"{{{{ROOT}}}}glossary/{o['slug']}/\">{esc(o['name'])}</a></li>" for o in GLOSSARY if o is not t)
+    extra_label, extra_html = GLOSSARY_EXTRA.get(t["slug"], ("", ""))
+    extra_toc = f"<li><a href=\"#methods\">{extra_label}</a></li>" if extra_html else ""
     faq_html = "<section id=\"faq\"><p class=\"eyebrow\">Questions</p><h2>Asked about this term</h2><div class=\"prose faq\">" + "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in t["faq"]) + "</div></section>"
     body = f"""<div class="title">
   <p class="eyebrow"><a href="{{{{ROOT}}}}glossary/">Glossary</a></p>
-  <h1>{esc(t['name'])}</h1>
+  <h1>{esc(GLOSSARY_H1.get(t['slug'], t['name']))}</h1>
   <p class="stand">{esc(t['answer'])} {t['definition']}</p>
   <p class="unit"><b>Data</b> <a href="{{{{ROOT}}}}api/v1/index.json">index.json</a>, <a href="{{{{ROOT}}}}api/v1/grid.json">grid.json</a>, <a href="{{{{ROOT}}}}api/v1/hardware.json">hardware.json</a>. Updated {{{{UPDATED_LONG}}}}.</p>
-  <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li><li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
+  <ul class="toc" aria-label="On this page"><li><a href="#working">The working</a></li>{extra_toc}<li><a href="#used">Where it is used</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
 </div>
 {tiles}
 <section id="working" class="first">
@@ -2790,7 +2838,7 @@ def glossary_page(t: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
   <h2>How the term is used on the index</h2>
   <div class="prose">{t['working']}</div>
 </section>
-
+{extra_html}
 <section id="used">
   <p class="eyebrow">Where it is used</p>
   <h2>Pages that rely on this term</h2>
@@ -2805,7 +2853,7 @@ def glossary_page(t: dict) -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="note">Grid intensity: <a href="{SRC_EMBER['url']}">Ember, Yearly electricity data</a>, {EMBER_RELEASE}, {EMBER_YEAR}, CC BY 4.0, retrieved {{{{EMBER_RETRIEVED_LONG}}}}. Hardware: NVIDIA product specifications and the HGX B200 product carbon footprint summary (July 2025), retrieved {{{{RETRIEVED_LONG}}}}. Per-prompt figures: Google, <a href="{GOOGLE_2025['url']}">arXiv 2508.15734</a> ({GOOGLE_2025['date']}); Mistral AI, July 2025.</p>
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
 </section>"""
-    title = f"{t['name']}: definition and the figure | Lead Green glossary"
+    title = GLOSSARY_TITLES.get(t["slug"], f"{t['name']}: definition and the figure | Lead Green glossary")
     desc = t["answer"] if 0 < len(t["answer"]) <= 155 else t["short"]
     if len(desc) > 155:
         desc = desc[:152].rsplit(" ", 1)[0] + "..."
@@ -2864,6 +2912,11 @@ COMPARE_PAIRS = [  # (first model, second model, angle)
 ]
 for _a, _b, _ in COMPARE_PAIRS:
     assert slug(_a) in models and slug(_b) in models, f"compare pair names a model that is not on the index: {_a} / {_b}"
+
+
+def _short(name: str) -> str:
+    """The model name as people type it in a search: without the 'Instruct' suffix."""
+    return name.replace(" Instruct", "")
 
 
 def _cmp_slug(a: str, b: str) -> str:
@@ -3033,9 +3086,11 @@ def compare_pair_page(a_name: str, b_name: str, angle: str) -> tuple[str, str, s
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
 </section>"""
     assert l32["ratio"] > max(ratios.values()), f"the load sentence claims the ladder is wider than the gap; not true for {a_name} vs {b_name}"
-    title = f"{a_name} vs {b_name}: GPU energy per million output tokens | Lead Green"
+    sa, sb = _short(a_name), _short(b_name)
+    title = f"{sa} vs {sb}: GPU energy per token, {fmt(cfg_wh(lead_a))} vs {fmt(cfg_wh(lead_b))} Wh/M on {lead_g} | Lead Green"
     desc_parts = and_list([f"{ratios[g]:.2f}× on the {g}" for g in gpus])
-    for desc in (f"{b_name} uses {desc_parts} the GPU energy per output token of {a_name}, from the ML.ENERGY index rows: the figures, the sweep caveat and what explains the gap.",
+    for desc in (f"{sa} vs {sb}: the second uses {desc_parts} the GPU energy per output token of the first, from the index rows.",
+                 f"{b_name} uses {desc_parts} the GPU energy per output token of {a_name}, from the ML.ENERGY index rows: the figures, the sweep caveat and what explains the gap.",
                  f"{b_name} uses {desc_parts} the GPU energy per output token of {a_name}: the index rows, the sweep caveat and what explains the gap.",
                  f"{b_name} against {a_name} on GPU energy per output token: {desc_parts}, from the index rows.",
                  f"{b_name} vs {a_name}: {desc_parts} on GPU energy per output token, from the index rows.",
@@ -3043,6 +3098,7 @@ def compare_pair_page(a_name: str, b_name: str, angle: str) -> tuple[str, str, s
         if len(desc) <= 155:
             break
     card = {"a": a_name, "b": b_name, "angle": angle_label, "gpus": gpus, "ratios": ratios, "slug": _cmp_slug(a_name, b_name)}
+    assert len(desc) <= 155, (a_name, b_name, len(desc))
     return title, desc, body, faq, card
 
 
@@ -3061,10 +3117,34 @@ for _a, _b, _angle in COMPARE_PAIRS:
         f"<span class=\"n\">{card_['ratios'][_lead_g]:.2f}×<small>{_lead_g} index rows</small></span>"
         f"<p>{esc(_b)} over {esc(_a)}, GPU energy per output token" + (f"; {card_['ratios'][card_['gpus'][1]]:.2f}× on the {card_['gpus'][1]}" if len(card_['gpus']) > 1 else "") + ".</p></div>")
 
+_gaps = [(cfg_wh(best[(b, g)]) / cfg_wh(best[(a, g)]), a, b, g) for a, b, _ in COMPARE_PAIRS for g in ("H100", "B200") if (a, g) in best and (b, g) in best]
+_wr, _wa, _wb, _wg = max(_gaps)
+_size_a, _size_b = COMPARE_PAIRS[0][0], COMPARE_PAIRS[0][1]
+_moe_a, _moe_b = next((a, b) for a, b, ang in COMPARE_PAIRS if ang == "dense-vs-moe")
+_moe_g = next(g for g in ("H100", "B200") if (_moe_a, g) in best and (_moe_b, g) in best)
+assert cfg_wh(best[(_moe_a, _moe_g)]) < cfg_wh(best[(_moe_b, _moe_g)]), "the hub says the mixture-of-experts row is the lower one"
+assert ("Llama 3.1 8B Instruct", "H100") in best and ("Llama 3.3 70B Instruct", "H100") in best
+_cmp_faq = [
+    ("Which LLM uses the least energy per token?",
+     f"On the index, {low['model']} on {low['num_gpus']} × {low['gpu']}: {fmt(raw_wh(low))} Wh per million output tokens, GPU only, at the most energy-efficient configuration measured for it. "
+     f"The highest row is {high['model']} on {high['num_gpus']} × {high['gpu']} at {fmt(raw_wh(high))} Wh/M. Both are floors on a busy server, and the ranking covers the {len({r['model'] for r in index_rows})} models the index holds, not every model that exists."),
+    ("Does a larger model always use more energy per token?",
+     f"Usually, but size is not the whole story. {_size_b} uses {cfg_wh(best[(_size_b, 'H100')]) / cfg_wh(best[(_size_a, 'H100')]):.2f}× the GPU energy per output token of {_size_a} on the H100 index rows, "
+     f"while the mixture-of-experts {_moe_a} sits below the dense {_moe_b} at a similar total size: {fmt(cfg_wh(best[(_moe_a, _moe_g)]))} against {fmt(cfg_wh(best[(_moe_b, _moe_g)]))} Wh/M on the {_moe_g}. "
+     "Card count and running batch differ between the rows of every pair, and each page states both."),
+    ("How do I compare two models that are not paired here?",
+     "Every model has a page with all of its measured configurations, and the JSON API carries the same rows, so any two can be set side by side on the same GPU; the MCP server answers the same question in plain words. "
+     "Read the card count and the running batch beside each figure, because load moves energy per token more than most differences between models do."),
+]
+_cmp_faq_html = ("<section id=\"faq\"><p class=\"eyebrow\">Questions</p><h2>Asked about comparing models</h2><div class=\"prose faq\">"
+                 + "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in _cmp_faq) + "</div></section>")
+_cmp_desc = (f"{_short(COMPARE_PAIRS[0][0])} vs {_short(COMPARE_PAIRS[0][1])}, {_short(COMPARE_PAIRS[2][0])} vs {_short(COMPARE_PAIRS[2][1])}, FP8 vs BF16, dense vs MoE: "
+             f"{word(len(COMPARE_PAIRS))} model pairs on GPU energy per token.")
+assert len(_cmp_desc) <= 155, len(_cmp_desc)
 _cmp_body = f"""<div class="title">
   <p class="eyebrow">Compare</p>
-  <h1>{len(COMPARE_PAIRS)} model pairs, side by side</h1>
-  <p class="stand">The comparisons people ask for, each on one page: a small model against a large one, two families at the same size, dense against mixture of experts, FP8 against BF16, and two expert counts at the same active size. Every page sets the two models' index rows beside each other on each GPU both were measured on, states the card count and running batch behind each row, and says what explains the gap. The GPU generations themselves are compared on <a href="{{{{ROOT}}}}h100-vs-b200/">H100 vs B200</a>.</p>
+  <h1>Compare models on GPU energy per token: {len(COMPARE_PAIRS)} pairs, side by side</h1>
+  <p class="stand">The widest gap among these {word(len(COMPARE_PAIRS))} model pairs is <b>{_wr:.2f}×</b>: {esc(_wb)} uses {fmt(cfg_wh(best[(_wb, _wg)]))} Wh per million output tokens against {fmt(cfg_wh(best[(_wa, _wg)]))} for {esc(_wa)} on the {_wg} index rows, GPU only. The comparisons people ask for, each on one page: a small model against a large one, two families at the same size, dense against mixture of experts, FP8 against BF16, and two expert counts at the same active size. Every page sets the two models' index rows beside each other on each GPU both were measured on, states the card count and running batch behind each row, and says what explains the gap. The GPU generations themselves are compared on <a href="{{{{ROOT}}}}h100-vs-b200/">H100 vs B200</a>.</p>
   <p class="unit"><b>Unit</b> watt-hours per million output tokens (Wh/M). GPU only, busy server. Every row is a floor. Updated {{{{UPDATED_LONG}}}}.</p>
 </div>
 
@@ -3074,11 +3154,11 @@ _cmp_body = f"""<div class="title">
   <div class="cards">
 {chr(10).join(compare_cards)}
   </div>
-  <p class="note">The ratio on each card is the second model's energy per token over the first's, on the GPU named, at the index rows; under 1 means the second model's row is the lower one. Any other pair can be read off <a href="{{{{ROOT}}}}models/">the model pages</a> or asked of the <a href="{{{{ROOT}}}}mcp/">MCP server</a>. Source: {{{{MLE_SHORT}}}}, Text Conversation, retrieved {{{{RETRIEVED_LONG}}}}.</p>
-</section>"""
-render("compare/index.html", "models", f"Compare: {len(COMPARE_PAIRS)} model pairs on GPU energy per million output tokens | Lead Green",
-       "Model pairs people ask about, side by side on GPU energy per output token: small against large, dense against MoE, FP8 against BF16, two families.",
-       "website", "page", _cmp_body)
+  <p class="note">The ratio on each card is the second model's energy per token over the first's, on the GPU named, at the index rows; under 1 means the second model's row is the lower one. Any other pair can be read off <a href="{{{{ROOT}}}}models/">the model pages</a> or asked of the <a href="{{{{ROOT}}}}mcp/">MCP server</a>. Source: {{{{MLE_SHORT}}}}, Text Conversation, retrieved {{{{RETRIEVED_LONG}}}}. The terms behind every figure are <a href="{{{{ROOT}}}}glossary/energy-per-token/">energy per token</a> and <a href="{{{{ROOT}}}}glossary/running-batch/">running batch</a>.</p>
+</section>
+{_cmp_faq_html}"""
+render("compare/index.html", "models", f"Compare LLMs on energy per token: {len(COMPARE_PAIRS)} model pairs, side by side | Lead Green",
+       _cmp_desc, "website", "page", _cmp_body, {"date": UPDATED, "faq": _cmp_faq, "name": "Compare models"})
 
 
 # ---- FAQ hub: every FAQPage question on the site, each linking its canonical page (the per-page FAQPage stays the structured data)

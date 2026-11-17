@@ -1,6 +1,6 @@
 # Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct: GPU energy per million output tokens
 
-> Llama 3.1 405B Instruct against Llama 3.1 405B Instruct FP8 on GPU energy per output token: 0.89× on the B200, from the index rows.
+> Llama 3.1 405B FP8 vs Llama 3.1 405B: the second uses 0.89× on the B200 the GPU energy per output token of the first, from the index rows.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/ (this file: https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
@@ -75,4 +75,4 @@ Parameters and architecture as the leaderboard records them (total and activated
 
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
-Cite this page: Lead Green, a Katonic project. Llama 3.1 405B Instruct FP8 vs Llama 3.1 405B Instruct: GPU energy per million output tokens. https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Llama 3.1 405B FP8 vs Llama 3.1 405B: GPU energy per token, 318.5 vs 282.0 Wh/M on B200. https://leadgreen.ai/compare/llama-3-1-405b-instruct-fp8-vs-llama-3-1-405b-instruct/, release 2026-10-19, retrieved [date]. CC BY 4.0.

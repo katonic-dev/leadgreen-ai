@@ -1,16 +1,17 @@
 # Energy per token
 
-> 0.047 to 2.06 joules per output token is the index's range of GPU energy per token; 1 Wh per million tokens equals 0.0036 J per token.
+> Energy per token is GPU energy divided by the output tokens generated: 0.047 to 2.06 joules per output token on the index, 13.0 to 572.9 Wh per million.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/glossary/energy-per-token/ (this file: https://leadgreen.ai/glossary/energy-per-token/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Glossary](https://leadgreen.ai/glossary/)*
 
-0.047 to 2.06 joules per output token is the index's range of GPU energy per token; 1 Wh per million tokens equals 0.0036 J per token. **Energy per token** is the GPU energy a serving system uses divided by the output tokens it generated in the same window, in joules per output token. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled 16 February 2026). On the index it runs from **0.047 J per token** (Llama 3.1 8B Instruct, 1 × B200) to **2.06 J** (Llama 3.1 405B Instruct FP8, 8 × H100); the index shows it as watt-hours per million output tokens.
+Energy per token is GPU energy divided by the output tokens generated: 0.047 to 2.06 joules per output token on the index, 13.0 to 572.9 Wh per million. **Energy per token** is stated in joules per output token, and both halves of the division are taken over the same window. The ML.ENERGY Leaderboard v3.0 measures it as steady-state GPU energy divided by the output tokens generated in the steady-state window, read from the device with Zeus under vLLM on H100 and B200 servers (data compiled 16 February 2026). On the index it runs from **0.047 J per token** (Llama 3.1 8B Instruct, 1 × B200) to **2.06 J** (Llama 3.1 405B Instruct FP8, 8 × H100); the index shows it as watt-hours per million output tokens.
 
 **Data** [index.json](https://leadgreen.ai/api/v1/index.json), [grid.json](https://leadgreen.ai/api/v1/grid.json), [hardware.json](https://leadgreen.ai/api/v1/hardware.json). Updated 19 October 2026.
 
 - [The working](https://leadgreen.ai/glossary/energy-per-token/#working)
+- [Methods](https://leadgreen.ai/glossary/energy-per-token/#methods)
 - [Where it is used](https://leadgreen.ai/glossary/energy-per-token/#used)
 - [Questions](https://leadgreen.ai/glossary/energy-per-token/#faq)
 - [Sources](https://leadgreen.ai/glossary/energy-per-token/#sources)
@@ -22,6 +23,20 @@
 Energy per token is average power divided by token throughput: on the reference row, 1,177.9 W summed across 2 cards ÷ 5,155.5 output tokens per second = 0.2285 J per token, which is 63.47 Wh/M. The identity is also the consistency check the [RFP scoring box](https://leadgreen.ai/rfp/) applies to a bidder's figure.
 
 Three ways of getting the number are not equal. A measured figure reads the GPU's energy counter (NVIDIA NVML or DCGM, which Zeus uses) over a window of steady load and divides by the tokens served. A whole-system figure reads the server's power supplies and includes host, memory, network and fans, which on a DGX B200 adds about 1.79× to the GPU figure. An estimate multiplies a rated power (TDP) by an assumed utilisation and divides by an assumed throughput; it is the kind most often quoted and the kind the index does not publish. Energy per token falls as the running batch rises because the cards' fixed draw is spread over more tokens: see [running batch](https://leadgreen.ai/glossary/running-batch/).
+
+*Methods*
+
+## Three methods for measuring GPU energy, compared
+
+*Ways of arriving at an energy per token figure, and what the index does with each*
+
+| Method | What is read | What it covers | On the index |
+|---|---|---|---|
+| Device counter | The GPU's energy counter (NVIDIA NVML or DCGM; the leaderboard uses Zeus) at the start and end of a steady-state window, divided by the output tokens generated in it | The GPUs alone | Every row. The protocol asks for a window of at least 5 minutes after warm-up and at least 1,000 requests |
+| Whole system | The server's power supplies over the same window | The GPUs plus host, memory, network and fans: about 1.79× the GPU figure on a DGX B200, from NVIDIA's rated power | Never folded in. A contributed row may state host power beside its GPU figure |
+| Estimate | Nothing: a rated power (TDP) × an assumed utilisation ÷ an assumed throughput | Whatever the assumptions say | Not published |
+
+All three are described here for serving. The index measures inference only and holds no training-energy figure. The full procedure is the [measurement protocol](https://leadgreen.ai/contribute/#protocol); how a GPU figure reaches the facility meter is under [GPU-only boundary](https://leadgreen.ai/glossary/gpu-only-boundary/) and [PUE](https://leadgreen.ai/glossary/pue/); what it becomes in carbon is under [CO2 per token](https://leadgreen.ai/glossary/kg-co2e-per-billion-tokens/).
 
 *Where it is used*
 
@@ -50,6 +65,18 @@ Other terms:
 
 GPU energy divided by the output tokens generated in the same steady-state window, in joules per output token. The index measures it from the ML.ENERGY Leaderboard v3.0 and shows it as watt-hours per million output tokens; it runs from 0.047 to 2.06 J per token across the index rows.
 
+### What is a typical energy per token for an LLM?
+
+There is no single typical figure, because it moves with the model, the GPU and above all the load. Measured on a busy server, GPU only, the index rows run from 0.047 J per output token (Llama 3.1 8B Instruct, 1 × B200) to 2.06 J (Llama 3.1 405B Instruct FP8, 8 × H100), which is 13.0 to 572.9 Wh per million output tokens. The reference row, Qwen 3 32B on 2 × H100, is 0.2285 J, or 63.5 Wh/M. Each is a floor: the same reference model on the same cards measured 452 Wh/M at a running batch of 8.
+
+### What are the methods for measuring GPU energy consumption, and how do they compare?
+
+Three are in use. A device reading takes the GPU's own energy counter (NVML or DCGM; the leaderboard uses Zeus) over a steady-state window and covers the GPUs alone; every index row is one. A whole-system reading takes the server's power supplies and adds the host, memory, network and fans, about 1.79× the GPU figure for a DGX B200 by NVIDIA's rated power. An estimate multiplies a rated power by an assumed utilisation and divides by an assumed throughput; it measures nothing, and the index does not publish it.
+
+### Does the index measure the energy of AI training?
+
+No. Every figure on the index is inference: GPU energy while a model serves output tokens at steady state. It holds no training-energy measurement. The nearest things it has are the comparison of measurement methods on this page and the measurement protocol, both written for serving.
+
 ### How is energy per token measured?
 
 By reading the GPU's energy counter (through NVML or DCGM; the leaderboard uses Zeus) at the start and end of a steady-state window under a fixed load, and dividing the difference by the output tokens generated in that window. The index's protocol asks for a window of at least 5 minutes after warm-up and at least 1,000 requests. Average power divided by tokens per second gives the same number.
@@ -72,4 +99,4 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 **Cite as.** Lead Green, a Katonic project. Green Tokens: GPU energy per million output tokens. https://leadgreen.ai/index/, release 2026-10-19, retrieved [date]. © 2026 Katonic AI Technology Ltd. Licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), offered as-is and without warranty; state whether you changed any rows or columns. Underlying data: ML.ENERGY Leaderboard v3.0 (The ML.ENERGY Initiative; Apache 2.0 per the ml-energy/benchmark-v3 dataset card; cite Chung et al., The ML.ENERGY Benchmark, NeurIPS 2025 Datasets and Benchmarks, arXiv 2505.06371); Ember, Yearly electricity data, October 2026 release (CC BY 4.0); AI Energy Score (Apache-2.0 as tagged on its Space; results reproduced as facts with attribution); NVIDIA figures reproduced as facts from the documents named in the sources ledger.
 
-Cite this page: Lead Green, a Katonic project. Energy per token: definition and the figure. https://leadgreen.ai/glossary/energy-per-token/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Energy per token: what it is, measured values and how to measure it. https://leadgreen.ai/glossary/energy-per-token/, release 2026-10-19, retrieved [date]. CC BY 4.0.
