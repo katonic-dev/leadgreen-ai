@@ -1,12 +1,12 @@
-# Bulgaria: the carbon of AI inference per billion tokens
+# Bulgaria: the CO2 of a million AI tokens
 
-> About 17.7 kg CO2e per billion LLM output tokens (17.7 g per million) on Bulgaria's grid (279 gCO2e/kWh, 2024, Ember), every index model priced.
+> About 17.7 g CO2e per million LLM output tokens (17.7 kg per billion) on Bulgaria's grid (279 gCO2e/kWh, 2024, Ember), every index model priced.
 >
 > Lead Green, a Katonic project. Canonical page: https://leadgreen.ai/grids/bulgaria/ (this file: https://leadgreen.ai/grids/bulgaria/index.md). Updated 19 October 2026, data version 2026-10-19. Licence: CC BY 4.0 for the compilation and text; sources keep their own licences. GPU energy only, measured at steady state on a busy server (the most energy-efficient configuration under a latency limit). Host, network, cooling and idle time are not counted. Every figure is a floor; a lightly used server sits well above it. Machine-readable data: https://leadgreen.ai/api/v1/ (see llms.txt).
 
 *[Grids](https://leadgreen.ai/grids/) · Europe · a market Katonic sells in or expects to*
 
-An LLM served on Bulgaria's grid emits about **17.7 kg CO2e per billion output tokens**, 17.7 g per million, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 3.6 kg and its highest 159.9 kg. The grid ran at **279 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.7× cleaner than the world average of 473, and 62nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
+An LLM served on Bulgaria's grid emits about **17.7 g CO2e per million output tokens**, 17.7 kg per billion, at the index's reference row (Qwen 3 32B, 2 × H100, 63.5 Wh/M), GPU energy only; the index's lowest row emits 3.6 g per million and its highest 159.9 g. The grid ran at **279 gCO2e per kWh** in 2024 on Ember's yearly figures, 1.7× cleaner than the world average of 473, and 62nd of the 193 countries Ember covers, counting from the cleanest. Energy per token does not change with geography; carbon per token does.
 
 **Area** Bulgaria (BGR, BG). **Basis** lifecycle, location-based, annual average. **Data** [grid.json](https://leadgreen.ai/api/v1/grid.json). Updated 19 October 2026.
 
@@ -17,7 +17,7 @@ An LLM served on Bulgaria's grid emits about **17.7 kg CO2e per billion output t
 - [Sources](https://leadgreen.ai/grids/bulgaria/#sources)
 
 - **Grid intensity, 2024:** 279 gCO2e/kWh Ember yearly data, lifecycle, location-based. World: 473.
-- **Reference row, per billion tokens:** 17.7 kg CO2e Qwen 3 32B, 2 × H100, 63.5 Wh/M, GPU only, a floor.
+- **Reference row, per million tokens:** 17.7 g CO2e 17.7 kg per billion. Qwen 3 32B, 2 × H100, 63.5 Wh/M, GPU only, a floor.
 - **Rank:** 62 of 193 1 is the cleanest grid Ember covers (Ethiopia, 23); 193 the highest (Turkmenistan, 1,306).
 
 Carbon per token is energy per token times the grid. The energy figures here are GPU-only floors from a busy server; a lightly loaded deployment sits above them, and so does anything that includes the host, the network and the cooling. Wh/M × gCO2e per kWh ÷ 1,000 gives kg CO2e per billion output tokens.
@@ -109,4 +109,4 @@ Grid intensity: [Ember, Yearly electricity data](https://ember-energy.org/data/y
 
 This page is generated from the same dated snapshots as [the index](https://leadgreen.ai/index/#carbon); no figure on it is typed by hand. All 193 areas are in [grid.json](https://leadgreen.ai/api/v1/grid.json); the 22 with a page are the markets Katonic sells in or expects to, plus seven reference grids.
 
-Cite this page: Lead Green, a Katonic project. Bulgaria: carbon of AI inference per billion tokens. https://leadgreen.ai/grids/bulgaria/, release 2026-10-19, retrieved [date]. CC BY 4.0.
+Cite this page: Lead Green, a Katonic project. Bulgaria: CO2 per million AI tokens. https://leadgreen.ai/grids/bulgaria/, release 2026-10-19, retrieved [date]. CC BY 4.0.

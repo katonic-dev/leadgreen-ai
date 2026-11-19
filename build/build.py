@@ -2250,8 +2250,8 @@ def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
     vs_world = g / world
     where = f"{vs_world:.1f}× the world average of {fmt(world, 0)}" if vs_world >= 1.05 else (f"{1 / vs_world:.1f}× cleaner than the world average of {fmt(world, 0)}" if vs_world <= 0.95 else f"close to the world average of {fmt(world, 0)}")
     kg_ref, kg_low, kg_high = (kg_per_billion(w, g) for w in (ref_wh_raw, low_wh_raw, high_wh_raw))
-    answer = (f"An LLM served on {esc(name)}'s grid emits about <b>{fmt(kg_ref)} kg CO2e per billion output tokens</b>, {fmt(kg_ref)} g per million, at the index's reference row ({esc(REF_MODEL_NAME)}, {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh/M), GPU energy only; "
-              f"the index's lowest row emits {fmt(kg_low)} kg and its highest {fmt(kg_high)} kg. "
+    answer = (f"An LLM served on {esc(name)}'s grid emits about <b>{fmt(kg_ref)} g CO2e per million output tokens</b>, {fmt(kg_ref)} kg per billion, at the index's reference row ({esc(REF_MODEL_NAME)}, {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh/M), GPU energy only; "
+              f"the index's lowest row emits {fmt(kg_low)} g per million and its highest {fmt(kg_high)} g. "
               f"The grid ran at <b>{fmt(g, 0)} gCO2e per kWh</b> in {EMBER_YEAR} on Ember's yearly figures, {where}, and {ordinal(rank)} of the {grid_count} countries Ember covers, counting from the cleanest. "
               f"Energy per token does not change with geography; carbon per token does.")
     # trend
@@ -2266,7 +2266,7 @@ def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
     years_rows = "\n".join(f"<tr><th scope=\"row\">{y}</th><td class=\"num key\">{fmt(v)}</td><td class=\"num\">{fmt(kg_per_billion(ref_wh_raw, v))}</td></tr>" for y, v in sorted(yrs.items()))
     tiles = (f"<div class=\"tiles auto n3\" role=\"group\" aria-label=\"Headline readings\">"
              f"<div class=\"tile\"><span class=\"lbl\">Grid intensity, {EMBER_YEAR}</span><span class=\"val\">{fmt(g, 0)}<small>gCO2e/kWh</small></span><span class=\"sub\">Ember yearly data, lifecycle, location-based. World: {fmt(world, 0)}.</span></div>"
-             f"<div class=\"tile ref\"><span class=\"lbl\">Reference row, per billion tokens</span><span class=\"val\">{fmt(kg_ref)}<small>kg CO2e</small></span><span class=\"sub\">{esc(REF_MODEL_NAME)}, {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh/M, GPU only, a floor.</span></div>"
+             f"<div class=\"tile ref\"><span class=\"lbl\">Reference row, per million tokens</span><span class=\"val\">{fmt(kg_ref)}<small>g CO2e</small></span><span class=\"sub\">{fmt(kg_ref)} kg per billion. {esc(REF_MODEL_NAME)}, {ref['num_gpus']} × {ref['gpu']}, {fmt(ref_wh_raw)} Wh/M, GPU only, a floor.</span></div>"
              f"<div class=\"tile\"><span class=\"lbl\">Rank</span><span class=\"val\">{rank}<small>of {grid_count}</small></span><span class=\"sub\">1 is the cleanest grid Ember covers ({esc(grid_min['display_name'])}, {fmt(intensity[grid_min['iso3']], 0)}); {grid_count} the highest ({esc(grid_max['display_name'])}, {fmt(intensity[grid_max['iso3']], 0)}).</span></div></div>")
     # every model on this grid
     model_rows = "\n".join(
@@ -2291,7 +2291,7 @@ def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
     faq_html = "<section id=\"faq\"><p class=\"eyebrow\">Questions</p><h2>Asked about AI carbon in " + esc(name) + "</h2><div class=\"prose faq\">" + "".join(f"<h3>{esc(q)}</h3><p>{esc(a)}</p>" for q, a in faq) + "</div></section>"
     body = f"""<div class="title">
   <p class="eyebrow"><a href="{{{{ROOT}}}}grids/">Grids</a> · {esc(a['continent'])} · {role}</p>
-  <h1>{esc(name)}: the carbon of AI inference per billion tokens</h1>
+  <h1>{esc(name)}: the CO2 of a million AI tokens</h1>
   <p class="stand">{answer}</p>
   <p class="unit"><b>Area</b> {esc(a['name'])} ({iso}{', ' + a['iso2'] if a['iso2'] else ''}). <b>Basis</b> lifecycle, location-based, annual average. <b>Data</b> <a href="{{{{ROOT}}}}api/v1/grid.json">grid.json</a>. Updated {{{{UPDATED_LONG}}}}.</p>
   <ul class="toc" aria-label="On this page"><li><a href="#trend">Trend</a></li><li><a href="#models">Every model</a></li><li><a href="#reporting">Reporting</a></li><li><a href="#faq">Questions</a></li><li><a href="#sources">Sources</a></li></ul>
@@ -2336,9 +2336,9 @@ def grid_page(iso: str) -> tuple[str, str, str, list[tuple[str, str]]]:
   <p class="note"><b>Cite as.</b> {{{{CITE_AS}}}}</p>
   <p class="note">This page is generated from the same dated snapshots as <a href="{{{{ROOT}}}}index/#carbon">the index</a>; no figure on it is typed by hand. All {{{{GRID_COUNT}}}} areas are in <a href="{{{{ROOT}}}}api/v1/grid.json">grid.json</a>; the {{{{LISTED_GRID_COUNT}}}} with a page are the markets Katonic sells in or expects to, plus seven reference grids.</p>
 </section>"""
-    title = f"{name}: carbon of AI inference per billion tokens | Lead Green"
-    for desc in (f"About {fmt(kg_ref)} kg CO2e per billion LLM output tokens ({fmt(kg_ref)} g per million) on {name}'s grid ({fmt(g, 0)} gCO2e/kWh, {EMBER_YEAR}, Ember), every index model priced.",
-                 f"About {fmt(kg_ref)} kg CO2e per billion LLM output tokens on {name}'s grid ({fmt(g, 0)} gCO2e/kWh, {EMBER_YEAR}, Ember), every index model priced, trend since {min(yrs)}.",
+    title = f"{name}: CO2 per million AI tokens | Lead Green"
+    for desc in (f"About {fmt(kg_ref)} g CO2e per million LLM output tokens ({fmt(kg_ref)} kg per billion) on {name}'s grid ({fmt(g, 0)} gCO2e/kWh, {EMBER_YEAR}, Ember), every index model priced.",
+                 f"About {fmt(kg_ref)} g CO2e per million LLM output tokens on {name}'s grid ({fmt(g, 0)} gCO2e/kWh, {EMBER_YEAR}, Ember), every index model priced, trend since {min(yrs)}.",
                  f"{name}'s grid at {fmt(g, 0)} gCO2e/kWh ({EMBER_YEAR}, Ember): what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend since {min(yrs)}.",
                  f"{name}'s grid at {fmt(g, 0)} gCO2e/kWh: what a billion AI output tokens cost in CO2e there, every model on the index priced on it, and the trend.",
                  f"{name}: grid carbon intensity and the CO2e of AI inference per billion output tokens, every index model priced on it."):
